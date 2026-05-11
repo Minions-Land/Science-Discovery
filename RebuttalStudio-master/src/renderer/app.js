@@ -1,0 +1,6636 @@
+/* ────────────────────────────────────────────────────────────
+   ASCII art title is embedded directly in index.html
+   ──────────────────────────────────────────────────────────── */
+
+/* ────────────────────────────────────────────────────────────
+   Conference Templates
+   ──────────────────────────────────────────────────────────── */
+const CONFERENCE_TEMPLATES = {
+  ICLR: {
+    scores: [
+      { key: 'rating', label: 'Rating', default: 'A' },
+      { key: 'confidence', label: 'Confidence', default: 'B' },
+    ],
+    metrics: [
+      { key: 'soundness', label: 'Soundness', default: 'C' },
+      { key: 'presentation', label: 'Presentation', default: 'D' },
+      { key: 'contribution', label: 'Contribution', default: 'E' },
+    ],
+    sections: [
+      { key: 'summary', label: 'Summary', placeholder: 'This is the summary.' },
+      { key: 'strength', label: 'Strength', placeholder: 'This is the strength.' },
+      { key: 'weakness', label: 'Weakness', placeholder: 'This is the weakness.' },
+      { key: 'questions', label: 'Questions', placeholder: 'This is the questions.' },
+    ],
+    // Group sections into blocks: [ [summary, strength], [weakness, questions] ]
+    blocks: [[0, 1], [2, 3]],
+    // Tooltips with ICLR scale definitions
+    tooltips: {
+      rating: `<strong>Rating (0–10 Scale)</strong><br>
+10 = Strong Accept: Outstanding contribution and quality, top paper.<br>
+8 = Accept: Good paper with solid contribution and execution.<br>
+6 = Borderline Accept: Marginally above acceptance threshold.<br>
+4 = Borderline Reject: Marginally below acceptance threshold.<br>
+2 = Reject: Significant weaknesses outweigh strengths.<br>
+0 = Clear Reject: Very serious issues or no contribution.`,
+      confidence: `<strong>Confidence (1–5 Scale)</strong><br>
+5 = Absolutely certain. Very familiar with related work and checked technical details carefully.<br>
+4 = Confident but not absolutely certain. Unlikely but possible you missed or misunderstood something.<br>
+3 = Fairly confident. Possible you didn't understand some parts or are unfamiliar with some related work.<br>
+2 = Willing to defend your assessment, but quite likely you missed central parts or are unfamiliar with related work.<br>
+1 = Not confident. You might have misunderstood significant parts or lack background in this area.`,
+      soundness: `<strong>Soundness (1–4 Scale)</strong><br>
+4 = Excellent: Very strong on this dimension; clear, sound, and well-executed.<br>
+3 = Good: Solid on this dimension with only minor or moderate issues.<br>
+2 = Fair: Mixed, notable weaknesses; partially convincing but important issues remain.<br>
+1 = Poor: Serious problems; methodology, writing, or contribution has major flaws.`,
+      presentation: `<strong>Presentation (1–4 Scale)</strong><br>
+4 = Excellent: Very clearly written, well organized, easy to follow for the target audience.<br>
+3 = Good: Generally clear and well structured, only minor presentation problems.<br>
+2 = Fair: Understandable overall but with notable issues in exposition, organization, or notation.<br>
+1 = Poor: Hard to follow, unclear writing or structure; important parts are confusing or missing.`,
+      contribution: `<strong>Contribution (1–4 Scale)</strong><br>
+4 = Excellent: Strong, well-justified contribution; clearly advances the state of knowledge or practice.<br>
+3 = Good: Clear, solid contribution with reasonable significance for the community.<br>
+2 = Fair: Some contribution but limited novelty, scope, or impact; important caveats remain.<br>
+1 = Poor: Little or no clear contribution; incremental or unconvincing impact.`,
+    },
+  },
+  ICML: {
+    scores: [
+      { key: 'rating', label: 'Rating', default: 'A' },
+      { key: 'confidence', label: 'Confidence', default: 'B' },
+    ],
+    metrics: [
+      { key: 'soundness', label: 'Soundness', default: 'C' },
+      { key: 'presentation', label: 'Presentation', default: 'D' },
+      { key: 'significance', label: 'Significance', default: 'E' },
+      { key: 'originality', label: 'Originality', default: 'F' },
+    ],
+    sections: [
+      { key: 'summary', label: 'Summary', placeholder: 'Paper summary.' },
+      { key: 'strength', label: 'Strengths And Weaknesses', placeholder: 'Strengths and weaknesses of the paper.' },
+      { key: 'weakness', label: 'Key Questions For Authors', placeholder: 'Key questions or suggestions for authors.' },
+      { key: 'questions', label: 'Limitations', placeholder: 'Limitations of the work.' },
+    ],
+    // Group sections into blocks: [ [summary, strengths/weaknesses], [questions, limitations] ]
+    blocks: [[0, 1], [2, 3]],
+    // Tooltips with ICML scale definitions
+    tooltips: {
+      rating: `<strong>Overall Recommendation</strong><br>
+6 = Strong Accept: Technically flawless paper with exceptional impact, strong evaluation, reproducibility, and no unaddressed ethical considerations.<br>
+5 = Accept: Technically solid paper with high impact on at least one sub-area or moderate-to-high impact on multiple areas.<br>
+4 = Weak Accept: Technically solid paper that advances at least one sub-area, but with some weaknesses that limit impact (limited evaluation, etc.).<br>
+3 = Weak Reject: Paper with clear merits but weaknesses that outweigh them. Requires revisions before others can build on it.<br>
+2 = Reject: Technical flaws, weak evaluation, inadequate reproducibility, incompletely addressed ethics, or poor writing.<br>
+1 = Strong Reject: Well-known results, unaddressed ethics, or poorly written paper where contributions are unclear.`,
+      confidence: `<strong>Confidence</strong><br>
+5 = Absolutely certain. Very familiar with related work and carefully checked math/details.<br>
+4 = Confident but not absolutely certain. It's unlikely but possible you missed some parts or related work.<br>
+3 = Fairly confident. Possible you missed some parts or related work. Math/details not carefully checked.<br>
+2 = Willing to defend assessment, but quite likely you missed central parts or related work. Details not carefully checked.<br>
+1 = Educated guess. Not in your area or submission difficult to understand. Math/details not carefully checked.`,
+      soundness: `<strong>Soundness</strong><br>
+Rate the paper on technical claims, experimental/research methodology, and whether central claims are adequately supported.<br>
+4 = Excellent: Technically sound with strong evidence<br>
+3 = Good: Mostly sound with adequate support<br>
+2 = Fair: Some weaknesses in methodology or support<br>
+1 = Poor: Significant technical flaws or inadequate support`,
+      presentation: `<strong>Presentation</strong><br>
+Rate the paper on writing quality, clarity, and contextualization relative to prior work.<br>
+4 = Excellent: Clear writing, well-organized, good context<br>
+3 = Good: Generally clear with good structure<br>
+2 = Fair: Some clarity issues or unclear organization<br>
+1 = Poor: Unclear writing or poor organization`,
+      significance: `<strong>Significance</strong><br>
+Rate the significance of the overall contribution to the research area being studied.<br>
+4 = Excellent: Significant contribution with high impact<br>
+3 = Good: Solid contribution to the area<br>
+2 = Fair: Limited impact or incremental contribution<br>
+1 = Poor: Minimal or no significance to the area`,
+      originality: `<strong>Originality</strong><br>
+Rate the originality of the paper.<br>
+4 = Excellent: Highly novel and original approach<br>
+3 = Good: Original contribution with some novelty<br>
+2 = Fair: Limited novelty, mostly incremental<br>
+1 = Poor: Little to no originality`,
+    },
+  },
+  NeurIPS: {
+    scores: [
+      { key: 'rating', label: 'Rating', default: 'A' },
+      { key: 'confidence', label: 'Confidence', default: 'B' },
+    ],
+    metrics: [
+      { key: 'quality', label: 'Quality', default: 'C' },
+      { key: 'clarity', label: 'Clarity', default: 'D' },
+      { key: 'significance', label: 'Significance', default: 'E' },
+      { key: 'originality', label: 'Originality', default: 'F' },
+    ],
+    sections: [
+      { key: 'summary', label: 'Summary', placeholder: 'Paper summary.' },
+      { key: 'strength', label: 'Strengths And Weaknesses', placeholder: 'Strengths and weaknesses of the paper.' },
+      { key: 'weakness', label: 'Questions', placeholder: 'Questions for the authors.' },
+      { key: 'questions', label: 'Limitations', placeholder: 'Limitations of the work.' },
+    ],
+    // Group sections into blocks: [ [summary, strengths/weaknesses], [questions, limitations] ]
+    blocks: [[0, 1], [2, 3]],
+    // Tooltips with NeurIPS scale definitions
+    tooltips: {
+      rating: `<strong>Overall Score (1–6 Scale)</strong><br>
+6 = Strong Accept: Technically flawless paper with groundbreaking impact; exceptionally strong evaluation, reproducibility, and no unaddressed ethical considerations.<br>
+5 = Accept: Technically solid paper with high impact on at least one sub-area or moderate-to-high impact on multiple areas; good-to-excellent evaluation.<br>
+4 = Borderline Accept: Technically solid paper where reasons to accept outweigh reasons to reject (e.g., limited evaluation).<br>
+3 = Borderline Reject: Technically solid paper where reasons to reject outweigh reasons to accept. Please use sparingly.<br>
+2 = Reject: Technical flaws, weak evaluation, inadequate reproducibility, or incompletely addressed ethical considerations.<br>
+1 = Strong Reject: Well-known results, unaddressed ethical considerations, or paper where contributions are unclear.`,
+      confidence: `<strong>Confidence (1–5 Scale)</strong><br>
+5 = Absolutely certain. Very familiar with related work and checked math/details carefully.<br>
+4 = Confident but not absolutely certain. Unlikely but not impossible you missed some parts or related work.<br>
+3 = Fairly confident. Possible you didn't understand some parts or are unfamiliar with some related work. Details not carefully checked.<br>
+2 = Willing to defend your assessment, but quite likely you missed central parts or are unfamiliar with related work.<br>
+1 = Educated guess. Submission not in your area or difficult to understand. Math/details not carefully checked.`,
+      quality: `<strong>Quality (1–4 Scale)</strong><br>
+Rate the overall quality of the work based on your discussion in Strengths and Weaknesses.<br>
+4 = Excellent: Outstanding quality across methodology, experiments, and conclusions.<br>
+3 = Good: Solid quality with only minor or moderate issues.<br>
+2 = Fair: Notable weaknesses; partially convincing but important issues remain.<br>
+1 = Poor: Major flaws in methodology, experimental design, or central claims.`,
+      clarity: `<strong>Clarity (1–4 Scale)</strong><br>
+Rate the clarity of the paper's writing and presentation.<br>
+4 = Excellent: Very clearly written, well organized, and easy to follow.<br>
+3 = Good: Generally clear with only minor presentation issues.<br>
+2 = Fair: Understandable overall but notable issues in exposition or organization.<br>
+1 = Poor: Hard to follow; important parts are confusing, unclear, or missing.`,
+      significance: `<strong>Significance (1–4 Scale)</strong><br>
+Rate the significance of the paper's contribution to the field.<br>
+4 = Excellent: Groundbreaking or highly impactful contribution to the community.<br>
+3 = Good: Solid contribution with clear significance to the area.<br>
+2 = Fair: Limited impact; contribution is incremental or has important caveats.<br>
+1 = Poor: Little or no significance; results are well-known or of very limited scope.`,
+      originality: `<strong>Originality (1–4 Scale)</strong><br>
+Rate the originality of the paper's ideas and approach.<br>
+4 = Excellent: Highly novel ideas, methodology, or perspective; clearly advances the frontier.<br>
+3 = Good: Original contribution with meaningful novelty beyond prior work.<br>
+2 = Fair: Limited novelty; mostly incremental over existing methods or ideas.<br>
+1 = Poor: Little to no originality; closely reproduces or barely extends prior work.`,
+    },
+  },
+  ARR: {
+    scores: [
+      { key: 'assessment', label: 'Assessment', default: 'A' },
+      { key: 'confidence', label: 'Confidence', default: 'B' },
+    ],
+    metrics: [
+      { key: 'soundness', label: 'Soundness', default: 'C' },
+      { key: 'excitement', label: 'Excitement', default: 'D' },
+      { key: 'reproducibility', label: 'Reproducibility', default: 'E' },
+    ],
+    sections: [
+      { key: 'summary', label: 'Paper Summary', placeholder: 'Paper summary.' },
+      { key: 'strength', label: 'Strengths', placeholder: 'Summary of strengths.' },
+      { key: 'weakness', label: 'Weaknesses', placeholder: 'Summary of weaknesses.' },
+      { key: 'suggestion', label: 'Comments & Suggestions', placeholder: 'Comments, suggestions, and typos.' },
+    ],
+    // Group sections into blocks: [ [summary, strength], [weakness, suggestion] ]
+    blocks: [[0, 1], [2, 3]],
+    // Tooltips with ARR scale definitions
+    tooltips: {
+      confidence: `<strong>Reviewer Confidence</strong><br>
+5 = Positive that my evaluation is correct. I read the paper very carefully and am familiar with related work.<br>
+4 = Quite sure. I tried to check the important points carefully. It's unlikely that I missed something.<br>
+3 = Pretty sure, but there's a chance I missed something. I did not carefully check all details.<br>
+2 = Willing to defend my evaluation, but fairly likely that I missed some details.<br>
+1 = Not my area, or paper is very hard to understand. My evaluation is an educated guess.`,
+      soundness: `<strong>Soundness</strong><br>
+5 = Excellent: One of the most thorough studies I have seen.<br>
+4 = Strong: Provides sufficient support for all claims. Some extra experiments could be nice.<br>
+3 = Acceptable: Provides sufficient support for main claims. Some minor points may need extra support.<br>
+2 = Poor: Some main claims are not sufficiently supported. Major technical/methodological problems.<br>
+1 = Major Issues: Not sufficiently thorough to warrant publication or not relevant to ACL.`,
+      excitement: `<strong>Excitement</strong><br>
+5 = Highly Exciting: I would recommend to others and/or attend its presentation.<br>
+4 = Exciting: I would mention this paper to others and/or make effort to attend.<br>
+3 = Interesting: I might mention some points and/or attend if there's time.<br>
+2 = Potentially Interesting: Does not resonate with me, but might with others.<br>
+1 = Not Exciting: Does not resonate with me, and I don't think it would with the ACL community.`,
+      assessment: `<strong>Overall Assessment</strong><br>
+5 = Award: Could be considered for an outstanding paper award (top 2.5%).<br>
+4.5 = Borderline Award<br>
+4 = Conference: Could be accepted to an ACL conference.<br>
+3.5 = Borderline Conference<br>
+3 = Findings: Could be accepted to Findings of the ACL.<br>
+2.5 = Borderline Findings<br>
+2 = Resubmit: Needs substantial revisions for next cycle.<br>
+1.5 = Resubmit after next cycle: Needs substantial revisions beyond next cycle.<br>
+1 = Do not resubmit: Must be fully redone or not relevant to ACL.`,
+      reproducibility: `<strong>Reproducibility</strong><br>
+5 = They could easily reproduce the results.<br>
+4 = Could mostly reproduce, but minor variations possible due to sample variance or interpretation.<br>
+3 = Could reproduce with some difficulty. Parameters underspecified or data not widely available.<br>
+2 = Hard to reproduce: Data not available or insufficient details provided.<br>
+1 = Cannot reproduce: Results not reproducible no matter how hard they tried.`,
+    },
+  },
+};
+
+
+/* ────────────────────────────────────────────────────────────
+   Stages
+   ──────────────────────────────────────────────────────────── */
+const STAGES = [
+  { key: 'stage1', label: 'Breakdown', desc: 'Break down reviewer feedback into structured points' },
+  { key: 'stage2', label: 'Reply', desc: 'Draft point-by-point replies to each concern' },
+  { key: 'stage3', label: 'First Round', desc: 'Compile the first round rebuttal document' },
+  { key: 'stage4', label: 'Multi Rounds', desc: 'Handle follow-up rounds of discussion' },
+  { key: 'stage5', label: 'Final Remarks', desc: 'Finalize and summarize the rebuttal outcome' },
+];
+
+
+/* Global tooltip storage for score definitions */
+let TOOLTIP_STORAGE = {};
+
+/* TEMPLATE_LIBRARY is loaded asynchronously from templates/templates.json */
+let TEMPLATE_LIBRARY = {};
+let STAGE3_STYLE_LIBRARY = {};
+let STAGE5_STYLE_LIBRARY = {};
+let STAGE5_SAMPLE_TEMPLATE = '';
+
+async function loadTemplateLibrary() {
+  try {
+    const resp = await fetch('../../templates/templates.json');
+    if (resp.ok) {
+      TEMPLATE_LIBRARY = await resp.json();
+    } else {
+      console.error('Failed to load templates.json:', resp.status);
+    }
+  } catch (err) {
+    console.error('Error loading templates.json:', err);
+  }
+}
+
+
+async function loadStage3StyleLibrary() {
+  try {
+    const resp = await fetch('../../templates/stage3_styles.json');
+    if (resp.ok) {
+      STAGE3_STYLE_LIBRARY = await resp.json();
+    } else {
+      console.error('Failed to load stage3_styles.json:', resp.status);
+    }
+  } catch (err) {
+    console.error('Error loading stage3_styles.json:', err);
+  }
+}
+
+async function loadStage5StyleLibrary() {
+  try {
+    const resp = await fetch('../../templates/stage5_styles.json');
+    if (resp.ok) {
+      STAGE5_STYLE_LIBRARY = await resp.json();
+    } else {
+      console.error('Failed to load stage5_styles.json:', resp.status);
+    }
+  } catch (err) {
+    console.error('Error loading stage5_styles.json:', err);
+  }
+}
+
+async function loadStage5SampleTemplate() {
+  try {
+    const resp = await fetch('../../templates/final_remarks_tokenseek.md');
+    if (resp.ok) {
+      STAGE5_SAMPLE_TEMPLATE = await resp.text();
+    } else {
+      console.error('Failed to load final_remarks_tokenseek.md:', resp.status);
+      STAGE5_SAMPLE_TEMPLATE = '';
+    }
+  } catch (err) {
+    console.error('Error loading final_remarks_tokenseek.md:', err);
+    STAGE5_SAMPLE_TEMPLATE = '';
+  }
+}
+
+/* ── Docs panel state ── */
+const DOCS_ITEMS = [
+  {
+    id: 'readme',
+    labels: { en: 'README', ch: '总览' },
+    paths: { en: '../../documents/en/README.md', ch: '../../documents/ch/README.md' },
+  },
+  {
+    id: 'stage1',
+    labels: { en: 'Stage 1', ch: '阶段 1' },
+    paths: { en: '../../documents/en/stage1-breakdown.md', ch: '../../documents/ch/stage1-breakdown.md' },
+  },
+  {
+    id: 'stage2',
+    labels: { en: 'Stage 2', ch: '阶段 2' },
+    paths: { en: '../../documents/en/stage2-reply.md', ch: '../../documents/ch/stage2-reply.md' },
+  },
+  {
+    id: 'stage3',
+    labels: { en: 'Stage 3', ch: '阶段 3' },
+    paths: { en: '../../documents/en/stage3-first-round.md', ch: '../../documents/ch/stage3-first-round.md' },
+  },
+  {
+    id: 'stage4',
+    labels: { en: 'Stage 4', ch: '阶段 4' },
+    paths: { en: '../../documents/en/stage4-multi-rounds.md', ch: '../../documents/ch/stage4-multi-rounds.md' },
+  },
+  {
+    id: 'stage5',
+    labels: { en: 'Stage 5', ch: '阶段 5' },
+    paths: { en: '../../documents/en/stage5-final-remarks.md', ch: '../../documents/ch/stage5-final-remarks.md' },
+  },
+];
+const DOCS_STAGE_DOC_IDS = DOCS_ITEMS.map((item) => item.id);
+let docsCurrentLanguage = 'en';
+let docsCurrentDocId = DOCS_ITEMS[0].id;
+
+/* ── Skills catalog ── */
+const SKILLS_CATALOG = [
+  {
+    stage: 'Stage 1 — Breakdown',
+    skills: [
+      { label: 'ICLR', icon: '🔬', path: '../../skills/stage1/iclr/SKILL.md' },
+      { label: 'ICML', icon: '🔬', path: '../../skills/stage1/icml/SKILL.md' },
+    ],
+  },
+  {
+    stage: 'Stage 2 — Reply',
+    skills: [
+      { label: 'ICLR', icon: '✍️', path: '../../skills/stage2/iclr/SKILL.md' },
+      { label: 'ICML', icon: '✍️', path: '../../skills/stage2/icml/SKILL.md' },
+    ],
+  },
+  {
+    stage: 'Stage 4 — Multi Rounds',
+    skills: [
+      { label: 'Condense', icon: '≡', path: '../../skills/stage4/condense/SKILL.md' },
+      { label: 'Refine', icon: '🪄', path: '../../skills/stage4/refine/SKILL.md' },
+    ],
+  },
+  {
+    stage: 'Stage 5 — Final Remarks',
+    skills: [
+      { label: 'Final Remarks', icon: '🎯', path: '../../skills/stage5/final-remarks/SKILL.md' },
+    ],
+  },
+  {
+    stage: 'Utility',
+    skills: [
+      { label: 'Polish', icon: '✨', path: '../../skills/polish/SKILL.md' },
+      { label: 'Writing Anti-AI', icon: '✦', path: '../../skills/utility/stage/writing-anti-ai/SKILL.md' },
+      { label: 'Condense', icon: '≡', path: '../../skills/utility/stage/text-condense/SKILL.md' },
+    ],
+  },
+];
+
+const CONDENSE_SYMBOL = '≡';
+
+const TEXT_ACTIONS = Object.freeze({
+  antiAI: {
+    icon: '✦',
+    label: 'Writing Anti-AI',
+    loadingLabel: 'Removing AI patterns...',
+    successLabel: 'Writing Anti-AI applied',
+    emptyResponseLabel: 'Empty response from Writing Anti-AI.',
+    errorLabel: 'Writing Anti-AI failed.',
+    run: (payload) => window.studioApi.runWritingAntiAI(payload),
+  },
+  condense: {
+    icon: CONDENSE_SYMBOL,
+    label: 'Condense',
+    loadingLabel: 'Condensing text...',
+    successLabel: 'Condense applied',
+    emptyResponseLabel: 'Empty response from Condense.',
+    errorLabel: 'Condense failed.',
+    run: (payload) => window.studioApi.runTextCondense(payload),
+  },
+});
+
+const GITHUB_PR_URL = 'https://github.com/runtsang/RebuttalStudio/pulls';
+const GITHUB_ISSUES_NEW_URL = 'https://github.com/runtsang/RebuttalStudio/issues/new';
+const GITHUB_ISSUE_BODY_LIMIT = 7000;
+
+/* ────────────────────────────────────────────────────────────
+   State
+   ──────────────────────────────────────────────────────────── */
+const state = {
+  appSettings: { defaultAutosaveIntervalSeconds: 60 },
+  projects: [],
+  projectSortMode: 'date-desc', // 'date-desc' | 'date-asc' | 'az' | 'za'
+  currentFolderName: null,
+  currentDoc: null,
+  apiSettings: { activeApiProvider: 'openai', apiProfiles: {} },
+  pendingCreate: false,
+  selectedConference: 'ICLR',
+  theme: 'dark',
+  // Reviewer tabs
+  reviewers: [{ id: 0, name: '', content: '' }],
+  activeReviewerIdx: 0,
+  drawerOpen: false,
+  // Breakdown data per reviewer
+  breakdownData: {},
+  stage2Replies: {},
+  stage3Settings: { style: 'standard', color: '#f26921' },
+  stage3Drafts: {},
+  stage3Selection: {},
+  stage4Data: {},
+  stage5Data: {},
+  stage5Settings: { style: 'run' },
+  templateUi: {
+    audienceKey: 'reviewer',
+    typeKey: 'nudge_reply',
+    values: { reviewerId: 'X', submissionId: 'X' },
+  },
+  pendingDocumentMemoryFile: null,
+  documentMemoryPanelOpen: false,
+};
+
+let stage2RefineProgress = null;
+let stage4RefineRuntime = { running: false, reviewerIdx: -1 };
+let stage5AutoFillRuntime = { running: false };
+let documentMemoryRuntime = { importing: false, saving: false };
+let stage2OutlineContext = { responseId: null, x: 0, y: 0 };
+let stage3SourceContext = { responseId: null, x: 0, y: 0, start: 0, end: 0 };
+let apiErrorModalState = { expanded: false, issueUrl: '', report: '' };
+
+// Selected-text action context menu state
+const textActionState = {
+  element: null,
+  type: null,          // 'textarea' | 'contenteditable'
+  selectedText: '',
+  selStart: 0,         // textarea only
+  selEnd: 0,           // textarea only
+  savedRange: null,    // contenteditable only (cloned Range)
+  originalValue: '',   // full content before replacement (for undo)
+  undoTimerId: null,
+};
+let exportTargetFolder = null;
+let pendingProjectRenameResolver = null;
+let projectSnapshotsFolderName = null;
+let stage2ModalTargetResponseId = null;
+let stage2TableRows = 3;
+let stage2TableCols = 3;
+let stage3BreakdownPartsCache = [];
+const STAGE3_PRESET_COLORS = ['#ff0000', '#ff7f00', '#ffff00', '#00aa00', '#0077ff', '#4b0082', '#8b00ff'];
+const PROJECT_HISTORY_LIMIT = 120;
+const PROJECT_HISTORY_SETTLE_MS = 700;
+const STAGE3_ALL_TAB_ID = '__all__';
+const STAGE3_ALL_OPENING_PARAGRAPH = 'Thank you for acknowledging the A, B, and C of our method. We sincerely appreciate your time and effort in reviewing our paper and providing valuable comments. We provide explanations to your questions point-by-point in the following.';
+const STAGE3_ALL_CLOSING_PARAGRAPH = '**We appreciate your thoughtful comments. We hope our response addresses your concerns. Please let us know if there are any additional questions, and we will be happy to discuss further.**';
+const REBUTTAL_TYPOS = ['Rrbuttal', 'Rebuttle', 'Rebttal', 'Rebutall', 'Rebuttal'];
+const homeIntroRuntime = {
+  timeouts: [],
+};
+const projectHistoryState = {
+  folderName: null,
+  past: [],
+  present: null,
+  future: [],
+  typing: null,
+};
+
+const STAGE_I18N_KEYS = {
+  stage1: 'breakdown',
+  stage2: 'reply',
+  stage3: 'firstRound',
+  stage4: 'multiRounds',
+  stage5: 'finalRemarks',
+};
+
+function t(key, vars = null, fallback = '') {
+  if (typeof I18n !== 'undefined' && typeof I18n.t === 'function') {
+    const translated = I18n.t(key, vars || undefined);
+    if (translated !== key) return translated;
+  }
+  return fallback || key;
+}
+
+function normalizePositiveInt(value, fallback, min = 1, max = 20) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return fallback;
+  return Math.min(max, Math.max(min, Math.floor(n)));
+}
+
+function updateDrawerToggleUi() {
+  if (!drawerToggleEl) return;
+  const iconEl = drawerToggleEl.querySelector('.drawer-toggle-icon');
+  const isOpen = Boolean(state.drawerOpen);
+  if (iconEl) iconEl.textContent = isOpen ? '◂' : '▸';
+  const label = isOpen
+    ? t('drawer.closeProjectList', null, 'Close project list')
+    : t('drawer.openProjectList', null, 'Open project list');
+  drawerToggleEl.setAttribute('aria-label', label);
+  drawerToggleEl.title = label;
+}
+
+/* ────────────────────────────────────────────────────────────
+   DOM refs
+   ──────────────────────────────────────────────────────────── */
+const projectListEl = document.getElementById('projectList');
+const drawerProjectListEl = document.getElementById('drawerProjectList');
+const emptyStateEl = document.getElementById('emptyState');
+const workspaceEl = document.getElementById('workspace');
+const namingPanelEl = document.getElementById('namingPanel');
+const projectNameInput = document.getElementById('projectNameInput');
+const projectNameError = document.getElementById('projectNameError');
+const conferenceSelect = document.getElementById('conferenceSelect');
+const projectDocumentPickBtnEl = document.getElementById('projectDocumentPickBtn');
+const projectDocumentClearBtnEl = document.getElementById('projectDocumentClearBtn');
+const projectDocumentSelectedEl = document.getElementById('projectDocumentSelected');
+const reviewerInput = document.getElementById('reviewerInput');
+const autosaveInput = document.getElementById('autosaveInput');
+const settingsError = document.getElementById('settingsError');
+const docsTabListEl = document.getElementById('docsTabList');
+const docsLangEnBtnEl = document.getElementById('docsLangEnBtn');
+const docsLangZhBtnEl = document.getElementById('docsLangZhBtn');
+const documentMemoryPanelEl = document.getElementById('documentMemoryPanel');
+const documentMemoryContentEl = document.getElementById('documentMemoryContent');
+const documentMemoryCloseBtnEl = document.getElementById('documentMemoryCloseBtn');
+const projectSearchEl = document.getElementById('projectSearch');
+const searchProjectsToggleBtn = document.getElementById('searchProjectsToggleBtn');
+const projectSearchContainer = document.getElementById('projectSearchContainer');
+const exportProjectPopup = document.getElementById('exportProjectPopup');
+const projectContextMenuEl = document.getElementById('projectContextMenu');
+const projectRenameModalEl = document.getElementById('projectRenameModal');
+const projectRenameInputEl = document.getElementById('projectRenameInput');
+const projectRenameErrorEl = document.getElementById('projectRenameError');
+const confirmProjectRenameBtnEl = document.getElementById('confirmProjectRenameBtn');
+const cancelProjectRenameBtnEl = document.getElementById('cancelProjectRenameBtn');
+const projectSnapshotsModalEl = document.getElementById('projectSnapshotsModal');
+const projectSnapshotsHintEl = document.getElementById('projectSnapshotsHint');
+const projectSnapshotsListEl = document.getElementById('projectSnapshotsList');
+const projectSnapshotsErrorEl = document.getElementById('projectSnapshotsError');
+const closeProjectSnapshotsBtnEl = document.getElementById('closeProjectSnapshotsBtn');
+
+const sidebarEl = document.getElementById('sidebar');
+const sidebarProjectsEl = document.getElementById('sidebarProjects');
+const sidebarStagesEl = document.getElementById('sidebarStages');
+const sidebarStageListEl = document.getElementById('sidebarStageList');
+
+const projectDrawerEl = document.getElementById('projectDrawer');
+const drawerToggleEl = document.getElementById('drawerToggle');
+
+const reviewerTabsEl = document.getElementById('reviewerTabs');
+const addReviewerBtnEl = document.getElementById('addReviewerBtn');
+const reviewerTabsRowEl = document.querySelector('.reviewer-tabs-row');
+
+const convertBtnEl = document.getElementById('convertBtn');
+const stage3AdjustStyleBtn = document.getElementById('stage3AdjustStyleBtn');
+const stage2AutoFitBtn = document.getElementById('stage2AutoFitBtn');
+const stage2DirectTransferBtn = document.getElementById('stage2DirectTransferBtn');
+const stage3ThemeNoticeEl = document.getElementById('stage3ThemeNotice');
+const breakdownContentEl = document.getElementById('breakdownContent');
+
+const appEl = document.querySelector('.app');
+const undoBtnEl = document.getElementById('undoBtn');
+const redoBtnEl = document.getElementById('redoBtn');
+const templateModalEl = document.getElementById('templateModal');
+const templateAudienceTabsEl = document.getElementById('templateAudienceTabs');
+const templateTypeListEl = document.getElementById('templateTypeList');
+const templatePreviewTitleEl = document.getElementById('templatePreviewTitle');
+const templateFieldsEl = document.getElementById('templateFields');
+const templateRenderedOutputEl = document.getElementById('templateRenderedOutput');
+const templateErrorEl = document.getElementById('templateError');
+const stage4CopyPopupEl = document.getElementById('stage4CopyPopup');
+const stage4CopyPopupCopyBtnEl = document.getElementById('stage4CopyPopupCopyBtn');
+const stage4CopyPopupCloseBtnEl = document.getElementById('stage4CopyPopupCloseBtn');
+const convertColumnEl = document.querySelector('.convert-column');
+const pixelLandingEl = document.getElementById('pixelLanding');
+const homeWordRebuttalEl = document.getElementById('homeWordRebuttal');
+const homeFeedbackInputEl = document.getElementById('homeFeedbackInput');
+const homeSendBtnEl = document.getElementById('homeSendBtn');
+
+
+const API_PROVIDER_KEYS = ['openai', 'anthropic', 'gemini', 'deepseek', 'azureOpenai', 'qwen', 'openrouter', 'groq', 'grok', 'together', 'kimi', 'minimax', 'huggingface', 'portkey', 'bedrock', 'custom'];
+const DOCUMENT_MEMORY_PROMPT_LIMIT = 12000;
+
+
+const API_PROVIDER_GUIDE = {
+  openai: {
+    baseUrl: 'https://api.openai.com/v1',
+    model: 'gpt-4o-mini',
+    baseUrlHelp: 'Use the official OpenAI endpoint unless you are using a proxy.',
+  },
+  anthropic: {
+    baseUrl: 'https://api.anthropic.com/v1',
+    model: 'claude-3-5-sonnet-latest',
+    baseUrlHelp: 'Use the official Anthropic endpoint. Model list is prefilled with common IDs.',
+  },
+  gemini: {
+    baseUrl: 'https://generativelanguage.googleapis.com/v1beta',
+    model: 'gemini-3-flash-preview',
+    baseUrlHelp: 'Google AI Studio key usually works with this default URL. You can keep this value as-is.',
+  },
+  deepseek: {
+    baseUrl: 'https://api.deepseek.com/v1',
+    model: 'deepseek-chat',
+    baseUrlHelp: 'Use the official DeepSeek endpoint unless your provider gave a custom URL. If you see a 402 error, your DeepSeek billing/credit is unavailable.',
+  },
+  azureOpenai: {
+    baseUrl: '',
+    model: 'your-deployment-name',
+    baseUrlHelp: 'Fill your Azure resource endpoint, e.g. https://YOUR-RESOURCE.openai.azure.com/openai',
+  },
+  qwen: {
+    baseUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+    model: 'qwen-plus',
+    baseUrlHelp: 'Alibaba DashScope compatible-mode endpoint. Get your API key from console.aliyun.com. Common models: qwen-turbo, qwen-plus, qwen-max.',
+  },
+  openrouter: {
+    baseUrl: 'https://openrouter.ai/api/v1',
+    model: 'openai/gpt-4o-mini',
+    baseUrlHelp: 'OpenRouter unified gateway — access 200+ models with one API key. Get your key at openrouter.ai/keys.',
+  },
+  groq: {
+    baseUrl: 'https://api.groq.com/openai/v1',
+    model: 'llama-3.3-70b-versatile',
+    baseUrlHelp: 'Groq fast inference. Get your API key at console.groq.com. Common models: llama-3.3-70b-versatile, mixtral-8x7b-32768, gemma2-9b-it.',
+  },
+  grok: {
+    baseUrl: 'https://api.x.ai/v1',
+    model: 'grok-3',
+    baseUrlHelp: 'xAI Grok endpoint. Get your API key at console.x.ai. Common models: grok-3, grok-2, grok-beta.',
+  },
+  together: {
+    baseUrl: 'https://api.together.xyz/v1',
+    model: 'meta-llama/Llama-3.3-70B-Instruct-Turbo',
+    baseUrlHelp: 'Together AI — 200+ open-source models. Get your API key at api.together.ai. Use "Detect models" to browse available models.',
+  },
+  kimi: {
+    baseUrl: 'https://api.moonshot.cn/v1',
+    model: 'moonshot-v1-8k',
+    baseUrlHelp: 'Kimi (Moonshot AI) endpoint. Get your API key at platform.moonshot.cn. Common models: moonshot-v1-8k, moonshot-v1-32k, moonshot-v1-128k.',
+  },
+  minimax: {
+    baseUrl: 'https://api.minimax.chat/v1',
+    model: 'MiniMax-Text-01',
+    baseUrlHelp: 'MiniMax API endpoint. Get your API key at platform.minimax.chat. Common models: MiniMax-Text-01, abab6.5s-chat.',
+  },
+  huggingface: {
+    baseUrl: 'https://router.huggingface.co/v1',
+    model: 'Qwen/Qwen2.5-72B-Instruct',
+    baseUrlHelp: 'HuggingFace Inference Router. Use your HF access token from huggingface.co/settings/tokens. Use "Detect models" to browse supported models.',
+  },
+  portkey: {
+    baseUrl: 'https://api.portkey.ai/v1',
+    model: 'gpt-4o-mini',
+    baseUrlHelp: 'Portkey AI gateway — routes to 200+ providers. Get your API key at app.portkey.ai. Configure a virtual key or default route in your Portkey dashboard first.',
+  },
+  bedrock: {
+    baseUrl: 'https://bedrock-runtime.us-east-1.amazonaws.com/openai/v1',
+    model: 'anthropic.claude-3-5-sonnet-20241022-v2:0',
+    baseUrlHelp: 'AWS Bedrock OpenAI-compatible endpoint. Replace the region in the URL (e.g. us-west-2). Use a Bedrock API key from the AWS console.',
+  },
+  custom: {
+    baseUrl: '',
+    model: '',
+    baseUrlHelp: 'Enter any OpenAI-compatible base URL (e.g. https://api.moonshot.cn/v1, http://localhost:11434/v1 for Ollama). Use "Detect models" to list available models.',
+  },
+};
+
+const apiProviderSelectEl = document.getElementById('apiProviderSelect');
+const apiBaseUrlInputEl = document.getElementById('apiBaseUrlInput');
+const apiModelInputEl = document.getElementById('apiModelInput');
+const apiInputEl = document.getElementById('apiInput');
+const apiToggleVisibilityBtnEl = document.getElementById('apiToggleVisibilityBtn');
+const apiSettingsErrorEl = document.getElementById('apiSettingsError');
+const apiBaseUrlHelpEl = document.getElementById('apiBaseUrlHelp');
+const apiModelHintEl = document.getElementById('apiModelHint');
+const apiModelSelectEl = document.getElementById('apiModelSelect');
+const detectModelsBtnEl = document.getElementById('detectModelsBtn');
+const activeModelBadgeEl = document.getElementById('activeModelBadge');
+const tokenUsageBadgeEl = document.getElementById('tokenUsageBadge');
+const apiErrorModalEl = document.getElementById('apiErrorModal');
+const apiErrorSummaryEl = document.getElementById('apiErrorSummary');
+const apiErrorReportWrapEl = document.getElementById('apiErrorReportWrap');
+const apiErrorReportEl = document.getElementById('apiErrorReport');
+const apiErrorViewBtnEl = document.getElementById('apiErrorViewBtn');
+const apiErrorReportBtnEl = document.getElementById('apiErrorReportBtn');
+const apiErrorOkBtnEl = document.getElementById('apiErrorOkBtn');
+
+// Stage advance modal
+const stageAdvanceModalEl = document.getElementById('stageAdvanceModal');
+const stageAdvanceMsgEl = document.getElementById('stageAdvanceMsg');
+const confirmAdvanceBtnEl = document.getElementById('confirmAdvanceBtn');
+const cancelAdvanceBtnEl = document.getElementById('cancelAdvanceBtn');
+const nextStageBtnEl = document.getElementById('nextStageBtn');
+const stage2TableModalEl = document.getElementById('stage2TableModal');
+const stage2TableRowsInputEl = document.getElementById('stage2TableRowsInput');
+const stage2TableColsInputEl = document.getElementById('stage2TableColsInput');
+const stage2TableBuildBtnEl = document.getElementById('stage2TableBuildBtn');
+const stage2TableGridEl = document.getElementById('stage2TableGrid');
+const stage2TableErrorEl = document.getElementById('stage2TableError');
+const stage2TableCancelBtnEl = document.getElementById('stage2TableCancelBtn');
+const stage2TableConfirmBtnEl = document.getElementById('stage2TableConfirmBtn');
+
+const stage2CodeModalEl = document.getElementById('stage2CodeModal');
+const stage2CodeLanguageInputEl = document.getElementById('stage2CodeLanguageInput');
+const stage2CodeContentInputEl = document.getElementById('stage2CodeContentInput');
+const stage2CodeErrorEl = document.getElementById('stage2CodeError');
+const stage2CodeCancelBtnEl = document.getElementById('stage2CodeCancelBtn');
+const stage2CodeConfirmBtnEl = document.getElementById('stage2CodeConfirmBtn');
+const stage3StyleModalEl = document.getElementById('stage3StyleModal');
+const stage3StyleSelectEl = document.getElementById('stage3StyleSelect');
+const stage3ColorSectionEl = document.getElementById('stage3ColorSection');
+const stage3PresetColorsEl = document.getElementById('stage3PresetColors');
+const stage3CustomHexInputEl = document.getElementById('stage3CustomHexInput');
+const stage3StyleErrorEl = document.getElementById('stage3StyleError');
+const stage3StyleConfirmBtnEl = document.getElementById('stage3StyleConfirmBtn');
+const stage5TemplateModalEl = document.getElementById('stage5TemplateModal');
+const stage5TemplateSelectEl = document.getElementById('stage5TemplateSelect');
+const stage5TemplateErrorEl = document.getElementById('stage5TemplateError');
+const stage5TemplateApplyBtnEl = document.getElementById('stage5TemplateApplyBtn');
+const stage5TemplateCancelBtnEl = document.getElementById('stage5TemplateCancelBtn');
+const stage3BreakdownModalEl = document.getElementById('stage3BreakdownModal');
+const stage3BreakdownLengthInputEl = document.getElementById('stage3BreakdownLengthInput');
+const stage3BreakdownErrorEl = document.getElementById('stage3BreakdownError');
+const stage3BreakdownCancelBtnEl = document.getElementById('stage3BreakdownCancelBtn');
+const stage3BreakdownConfirmBtnEl = document.getElementById('stage3BreakdownConfirmBtn');
+const stage3BreakdownResultModalEl = document.getElementById('stage3BreakdownResultModal');
+const stage3BreakdownResultBodyEl = document.getElementById('stage3BreakdownResultBody');
+const stage3BreakdownResultCloseBtnEl = document.getElementById('stage3BreakdownResultCloseBtn');
+
+
+/* ────────────────────────────────────────────────────────────
+   Theme
+   ──────────────────────────────────────────────────────────── */
+function applyTheme(theme) {
+  state.theme = theme;
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('rebuttal-studio-theme', theme);
+  document.querySelectorAll('.theme-toggle-btn').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.themeValue === theme);
+  });
+  document.querySelectorAll('.sidebar-theme-btn').forEach((btn) => {
+    const active = btn.dataset.themeValue === theme;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', String(active));
+  });
+}
+
+function loadTheme() {
+  const saved = localStorage.getItem('rebuttal-studio-theme');
+  applyTheme(saved || 'dark');
+}
+
+document.getElementById('themeDarkBtn').addEventListener('click', () => applyTheme('dark'));
+document.getElementById('themeLightBtn').addEventListener('click', () => applyTheme('light'));
+document.querySelectorAll('.sidebar-theme-btn').forEach((btn) => {
+  btn.addEventListener('click', (event) => {
+    event.stopPropagation();
+    applyTheme(btn.dataset.themeValue);
+  });
+});
+
+/* ────────────────────────────────────────────────────────────
+   Helpers
+   ──────────────────────────────────────────────────────────── */
+function fmtDate(value) {
+  if (!value) return 'Unknown';
+  return new Date(value).toLocaleString();
+}
+
+function createEmptyDocumentMemoryState() {
+  return {
+    status: 'empty',
+    sourceName: '',
+    sourceType: '',
+    sourcePath: '',
+    extractedText: '',
+    extractedTextPath: '',
+    markdown: '',
+    markdownPath: '',
+    summaryMode: 'manual',
+    error: '',
+    uploadedAt: null,
+    updatedAt: null,
+  };
+}
+
+function normalizeDocumentMemoryState(raw = {}) {
+  const base = createEmptyDocumentMemoryState();
+  if (!raw || typeof raw !== 'object') return base;
+  const next = {
+    ...base,
+    ...raw,
+  };
+  if (!['empty', 'processing', 'ready', 'error'].includes(next.status)) next.status = base.status;
+  if (!['auto', 'manual'].includes(next.summaryMode)) next.summaryMode = base.summaryMode;
+  return next;
+}
+
+function getDocumentMemoryState() {
+  if (!state.currentDoc) return createEmptyDocumentMemoryState();
+  state.currentDoc.documentMemory = normalizeDocumentMemoryState(state.currentDoc.documentMemory);
+  return state.currentDoc.documentMemory;
+}
+
+function renderPendingDocumentMemorySelection() {
+  if (!projectDocumentSelectedEl || !projectDocumentClearBtnEl) return;
+  const selected = state.pendingDocumentMemoryFile;
+  if (selected?.fileName) {
+    const typeLabel = (selected.sourceType || '').toUpperCase() || 'FILE';
+    projectDocumentSelectedEl.textContent = `${selected.fileName} · ${typeLabel}`;
+    projectDocumentClearBtnEl.classList.remove('hidden');
+  } else {
+    projectDocumentSelectedEl.textContent = 'No document selected.';
+    projectDocumentClearBtnEl.classList.add('hidden');
+  }
+}
+
+function getTrimmedDocumentMemoryMarkdownForStage() {
+  const documentMemory = getDocumentMemoryState();
+  const markdown = `${documentMemory.markdown || ''}`.trim();
+  if (!markdown || documentMemory.status !== 'ready') {
+    return '';
+  }
+  if (markdown.length <= DOCUMENT_MEMORY_PROMPT_LIMIT) {
+    return markdown;
+  }
+  alert(`Document Memory is longer than ${DOCUMENT_MEMORY_PROMPT_LIMIT} characters. Only the first ${DOCUMENT_MEMORY_PROMPT_LIMIT} characters will be sent to the API.`);
+  return markdown.slice(0, DOCUMENT_MEMORY_PROMPT_LIMIT).trim();
+}
+
+function stageIndexFromCurrent() {
+  if (!state.currentDoc?.currentStage) return 0;
+  const normalized = state.currentDoc.currentStage.toLowerCase().replace(/\s+/g, '');
+  return Math.max(0, STAGES.findIndex((s) => s.label.toLowerCase().replace(/\s+/g, '') === normalized));
+}
+
+function hasAnyStage1Responses() {
+  return state.reviewers.some((_, reviewerIdx) => {
+    const bData = state.breakdownData[reviewerIdx] || {};
+    return Array.isArray(bData.responses) && bData.responses.length > 0;
+  });
+}
+
+function isStage2FullyRefined() {
+  for (let reviewerIdx = 0; reviewerIdx < state.reviewers.length; reviewerIdx += 1) {
+    const bData = state.breakdownData[reviewerIdx] || {};
+    const responses = Array.isArray(bData.responses) ? bData.responses : [];
+    if (!responses.length) continue;
+    const stage2Map = state.stage2Replies[reviewerIdx] || {};
+    const missing = responses.some((resp) => !`${stage2Map[resp.id]?.draft || ''}`.trim());
+    if (missing) return false;
+  }
+  return true;
+}
+
+function syncStage2CompletionState() {
+  if (!state.currentDoc?.stage2) return;
+  const completed = isStage2FullyRefined();
+  state.currentDoc.stage2.content = completed ? 'completed' : '';
+  state.currentDoc.stage2.lastEditedAt = new Date().toISOString();
+}
+
+function isStageComplete(stageKey) {
+  if (!state.currentDoc) return false;
+
+  const stageIdx = STAGES.findIndex((s) => s.key === stageKey);
+  const curIdx = stageIndexFromCurrent();
+  if (stageIdx >= 0 && stageIdx < curIdx) return true;
+
+  if (stageKey === 'stage1') {
+    return `${state.currentDoc?.stage1?.content || ''}`.trim().length > 0 || hasAnyStage1Responses();
+  }
+  if (stageKey === 'stage2') {
+    return isStage2FullyRefined();
+  }
+  return `${state.currentDoc?.[stageKey]?.content || ''}`.trim().length > 0;
+}
+
+function deepCloneJson(value) {
+  if (value === null || value === undefined) return value;
+  return JSON.parse(JSON.stringify(value));
+}
+
+function clampReviewerIndex(idx, reviewerCount = state.reviewers.length || 1) {
+  const count = Math.max(1, Number(reviewerCount) || 1);
+  const parsed = Number(idx);
+  if (!Number.isFinite(parsed)) return 0;
+  return Math.max(0, Math.min(count - 1, Math.floor(parsed)));
+}
+
+function buildProjectDocFromState() {
+  if (!state.currentDoc) return null;
+  state.currentDoc.documentMemory = normalizeDocumentMemoryState(state.currentDoc.documentMemory);
+  return deepCloneJson({
+    ...state.currentDoc,
+    reviewers: state.reviewers,
+    activeReviewerIdx: state.activeReviewerIdx,
+    breakdownData: state.breakdownData,
+    stage2Replies: state.stage2Replies,
+    stage3Settings: state.stage3Settings,
+    stage3Drafts: state.stage3Drafts,
+    stage3Selection: state.stage3Selection,
+    stage4Data: state.stage4Data,
+    stage5Data: state.stage5Data,
+    stage5Settings: state.stage5Settings,
+  });
+}
+
+function buildProjectHistoryComparableDoc(doc) {
+  const comparable = deepCloneJson(doc || {});
+
+  Object.values(comparable.stage3Drafts || {}).forEach((draftMap) => {
+    Object.values(draftMap || {}).forEach((draft) => {
+      if (!draft || typeof draft !== 'object') return;
+      delete draft.renderedHtml;
+      delete draft.renderedThemeColor;
+    });
+  });
+
+  if (comparable.stage5Data && typeof comparable.stage5Data === 'object') {
+    delete comparable.stage5Data.renderedHtml;
+    delete comparable.stage5Data.previewMode;
+  }
+
+  return comparable;
+}
+
+function makeProjectHistoryEntry(doc = buildProjectDocFromState()) {
+  if (!doc) return null;
+  const snapshot = deepCloneJson(doc);
+  return {
+    snapshot,
+    signature: JSON.stringify(buildProjectHistoryComparableDoc(snapshot)),
+  };
+}
+
+function clearProjectHistoryTypingTimer() {
+  if (!projectHistoryState.typing?.timerId) return;
+  clearTimeout(projectHistoryState.typing.timerId);
+  projectHistoryState.typing.timerId = null;
+}
+
+function isProjectHistoryBusy() {
+  return Boolean(stage2RefineProgress || stage4RefineRuntime.running || stage5AutoFillRuntime.running || documentMemoryRuntime.importing || documentMemoryRuntime.saving);
+}
+
+function updateHistoryButtons() {
+  const hasProject = Boolean(state.currentDoc && state.currentFolderName);
+  const isBusy = hasProject && isProjectHistoryBusy();
+  const hasUndo = hasProject && (projectHistoryState.past.length > 0 || Boolean(projectHistoryState.typing));
+  const hasRedo = hasProject && projectHistoryState.future.length > 0;
+  if (undoBtnEl) undoBtnEl.disabled = !hasUndo || isBusy;
+  if (redoBtnEl) redoBtnEl.disabled = !hasRedo || isBusy;
+}
+
+function clearProjectHistory() {
+  clearProjectHistoryTypingTimer();
+  projectHistoryState.folderName = null;
+  projectHistoryState.past = [];
+  projectHistoryState.present = null;
+  projectHistoryState.future = [];
+  projectHistoryState.typing = null;
+  updateHistoryButtons();
+}
+
+function initializeProjectHistory() {
+  if (!state.currentDoc || !state.currentFolderName) {
+    clearProjectHistory();
+    return;
+  }
+  clearProjectHistoryTypingTimer();
+  projectHistoryState.folderName = state.currentFolderName;
+  projectHistoryState.past = [];
+  projectHistoryState.present = makeProjectHistoryEntry();
+  projectHistoryState.future = [];
+  projectHistoryState.typing = null;
+  updateHistoryButtons();
+}
+
+function pushProjectHistoryPastEntry(entry) {
+  if (!entry) return;
+  projectHistoryState.past.push(entry);
+  if (projectHistoryState.past.length > PROJECT_HISTORY_LIMIT) {
+    projectHistoryState.past.shift();
+  }
+}
+
+function beginProjectHistoryTyping() {
+  if (!state.currentDoc || !state.currentFolderName) return;
+  if (projectHistoryState.folderName !== state.currentFolderName || !projectHistoryState.present) {
+    initializeProjectHistory();
+  }
+  if (!projectHistoryState.typing) {
+    projectHistoryState.typing = { latest: null, timerId: null };
+  }
+  clearProjectHistoryTypingTimer();
+  projectHistoryState.typing.timerId = setTimeout(() => {
+    finalizeProjectHistoryTyping();
+  }, PROJECT_HISTORY_SETTLE_MS);
+  updateHistoryButtons();
+}
+
+function finalizeProjectHistoryTyping() {
+  if (!projectHistoryState.typing) return;
+  clearProjectHistoryTypingTimer();
+  const latestEntry = projectHistoryState.typing.latest || makeProjectHistoryEntry();
+  if (latestEntry && projectHistoryState.present && latestEntry.signature !== projectHistoryState.present.signature) {
+    pushProjectHistoryPastEntry(projectHistoryState.present);
+    projectHistoryState.present = latestEntry;
+    projectHistoryState.future = [];
+  }
+  projectHistoryState.typing = null;
+  updateHistoryButtons();
+}
+
+function commitProjectHistorySnapshot() {
+  if (!state.currentDoc || !state.currentFolderName) {
+    clearProjectHistory();
+    return;
+  }
+  if (projectHistoryState.folderName !== state.currentFolderName || !projectHistoryState.present) {
+    initializeProjectHistory();
+  }
+
+  const nextEntry = makeProjectHistoryEntry();
+  if (!nextEntry) return;
+  if (!projectHistoryState.present) {
+    projectHistoryState.present = nextEntry;
+    updateHistoryButtons();
+    return;
+  }
+  if (nextEntry.signature === projectHistoryState.present.signature) {
+    projectHistoryState.present = nextEntry;
+    if (projectHistoryState.typing) {
+      projectHistoryState.typing.latest = nextEntry;
+      clearProjectHistoryTypingTimer();
+      projectHistoryState.typing.timerId = setTimeout(() => {
+        finalizeProjectHistoryTyping();
+      }, PROJECT_HISTORY_SETTLE_MS);
+    }
+    updateHistoryButtons();
+    return;
+  }
+  if (projectHistoryState.typing) {
+    projectHistoryState.typing.latest = nextEntry;
+    clearProjectHistoryTypingTimer();
+    projectHistoryState.typing.timerId = setTimeout(() => {
+      finalizeProjectHistoryTyping();
+    }, PROJECT_HISTORY_SETTLE_MS);
+    updateHistoryButtons();
+    return;
+  }
+
+  pushProjectHistoryPastEntry(projectHistoryState.present);
+  projectHistoryState.present = nextEntry;
+  projectHistoryState.future = [];
+  updateHistoryButtons();
+}
+
+function syncStage4DraftStorageFromState() {
+  Object.keys(state.stage4Data || {}).forEach((reviewerIdx) => {
+    const reviewerId = getReviewerId(Number(reviewerIdx));
+    const draft = state.stage4Data?.[reviewerIdx]?.draft || '';
+    persistStage4DraftToStorage(reviewerId, draft);
+  });
+}
+
+function restoreProjectHistoryEntry(entry) {
+  if (!entry?.snapshot || !state.currentFolderName) return;
+  state.currentDoc = deepCloneJson(entry.snapshot);
+  state.pendingCreate = false;
+  loadProjectStateFromDoc(state.currentDoc);
+  state.activeReviewerIdx = clampReviewerIndex(state.currentDoc?.activeReviewerIdx, state.reviewers.length);
+  persistActiveReviewerSelection();
+  syncStage4DraftStorageFromState();
+
+  document.getElementById('docsPanel')?.classList.add('hidden');
+  document.getElementById('skillsPanel')?.classList.add('hidden');
+  workspaceEl.classList.remove('hidden');
+  emptyStateEl.classList.add('hidden');
+  namingPanelEl.classList.add('hidden');
+  clearHomeIntroTimers();
+  hideCopyPopup();
+  hideStage2ContextMenu();
+  hideStage3SourceMenu();
+  hideTextActionsMenu();
+  hideTextActionToast();
+  closeStage5TemplateModal();
+  stage4RefineRuntime = { running: false, reviewerIdx: -1 };
+  stage5AutoFillRuntime = { running: false };
+
+  renderReviewerTabs();
+  renderBreakdownPanel();
+  syncStageUi();
+  enterProjectMode();
+  queueStateSync({ skipHistory: true });
+  updateHistoryButtons();
+}
+
+function undoProjectHistory() {
+  if (!state.currentDoc || !state.currentFolderName) return;
+  if (isProjectHistoryBusy()) {
+    alert('Please wait for the current generation pipeline to finish before using Undo.');
+    return;
+  }
+  finalizeProjectHistoryTyping();
+  if (!projectHistoryState.past.length || !projectHistoryState.present) {
+    updateHistoryButtons();
+    return;
+  }
+  const previous = projectHistoryState.past.pop();
+  projectHistoryState.future.unshift(projectHistoryState.present);
+  projectHistoryState.present = previous;
+  restoreProjectHistoryEntry(previous);
+}
+
+function redoProjectHistory() {
+  if (!state.currentDoc || !state.currentFolderName) return;
+  if (isProjectHistoryBusy()) {
+    alert('Please wait for the current generation pipeline to finish before using Redo.');
+    return;
+  }
+  finalizeProjectHistoryTyping();
+  if (!projectHistoryState.future.length || !projectHistoryState.present) {
+    updateHistoryButtons();
+    return;
+  }
+  const next = projectHistoryState.future.shift();
+  pushProjectHistoryPastEntry(projectHistoryState.present);
+  projectHistoryState.present = next;
+  restoreProjectHistoryEntry(next);
+}
+
+/* All stages are now accessible (no locking) */
+function highestUnlockedStageIndex() {
+  return STAGES.length - 1;
+}
+
+/* ────────────────────────────────────────────────────────────
+   Sidebar Stage List
+   ──────────────────────────────────────────────────────────── */
+function renderSidebarStages() {
+  const hasProject = Boolean(state.currentDoc);
+  if (!hasProject) return;
+
+  const cur = stageIndexFromCurrent();
+
+  sidebarStageListEl.innerHTML = STAGES.map((stage, idx) => {
+    const completed = isStageComplete(stage.key);
+    const isCurrent = idx === cur;
+    const stageNameKey = STAGE_I18N_KEYS[stage.key] || '';
+    const cls = ['sidebar-stage-item'];
+    if (completed) cls.push('completed');
+    if (isCurrent) cls.push('current');
+
+    const dotContent = completed ? '✓' : idx + 1;
+
+    return `<button class="${cls.join(' ')}" data-stage="${stage.label}" data-stage-key="${stage.key}">
+      <span class="sidebar-stage-dot">${dotContent}</span>
+      <span class="sidebar-stage-info">
+        <span class="sidebar-stage-title">${escapeHTML(t(`stage.${stageNameKey}`, null, stage.label))}</span>
+        <span class="sidebar-stage-desc">${escapeHTML(t(`stage.${stageNameKey}Desc`, null, stage.desc))}</span>
+      </span>
+    </button>`;
+  }).join('');
+
+  const docsPanelEl = document.getElementById('docsPanel');
+  const isDocsActive = docsPanelEl && !docsPanelEl.classList.contains('hidden');
+  const docsActiveCls = isDocsActive ? ' active' : '';
+  const documentMemory = getDocumentMemoryState();
+  const isDocumentMemoryActive = Boolean(documentMemoryPanelEl && !documentMemoryPanelEl.classList.contains('hidden'));
+  const memoryActiveCls = isDocumentMemoryActive ? ' active' : '';
+  const memoryReadyCls = documentMemory.status === 'ready' ? ' sidebar-memory-trigger--ready' : '';
+
+  sidebarStageListEl.innerHTML = `
+    <button class="sidebar-memory-trigger${memoryReadyCls}${memoryActiveCls}" type="button" data-document-memory-open="1" aria-label="${escapeHTML(t('docMemory.title', null, 'Document Memory'))}">
+      <span class="sidebar-memory-icon">≣</span>
+      <span class="sidebar-memory-text">${escapeHTML(t('docMemory.sidebarLabel', null, 'Document Memory'))}</span>
+    </button>
+  ` + sidebarStageListEl.innerHTML;
+
+  sidebarStageListEl.insertAdjacentHTML('beforeend', `
+    <button class="sidebar-template-trigger${docsActiveCls}" type="button" data-docs-open="${cur + 1}" aria-label="${escapeHTML(t('docMemory.sidebarDocuments', null, 'Documents'))}" style="margin-bottom: 8px;">
+      <span class="sidebar-template-icon" style="display:flex; align-items:center; justify-content:center;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <line x1="10" y1="9" x2="8" y2="9"></line>
+        </svg>
+      </span>
+      <span class="sidebar-template-text">${escapeHTML(t('docMemory.sidebarDocuments', null, 'Documents'))}</span>
+    </button>
+    <button class="sidebar-template-trigger" type="button" data-template-open="1" aria-label="${escapeHTML(t('template.title', null, 'Template Center'))}">
+      <span class="sidebar-template-icon">✦</span>
+      <span class="sidebar-template-text">${escapeHTML(t('docMemory.sidebarTemplate', null, 'Template'))}</span>
+    </button>
+  `);
+}
+
+function getTemplateAudienceEntries() {
+  return Object.entries(TEMPLATE_LIBRARY);
+}
+
+function getTemplateSelection() {
+  const audience = TEMPLATE_LIBRARY[state.templateUi.audienceKey] || TEMPLATE_LIBRARY.reviewer;
+  const types = audience.types || [];
+  let selected = types.find((t) => t.key === state.templateUi.typeKey);
+  if (!selected && types.length) {
+    selected = types[0];
+    state.templateUi.typeKey = selected.key;
+  }
+  return { audience, selected };
+}
+
+function extractTemplateVars(body = '') {
+  const vars = new Set();
+  const matches = body.matchAll(/{{\s*([a-zA-Z0-9_]+)\s*}}/g);
+  for (const m of matches) vars.add(m[1]);
+  return Array.from(vars);
+}
+
+function renderTemplateModal() {
+  const entries = getTemplateAudienceEntries();
+  templateAudienceTabsEl.innerHTML = entries.map(([key, item]) => {
+    const active = key === state.templateUi.audienceKey ? ' active' : '';
+    return `<button class="template-audience-tab${active}" data-template-audience="${key}">${escapeHTML(item.label)}</button>`;
+  }).join('');
+
+  const { audience, selected } = getTemplateSelection();
+  templateTypeListEl.innerHTML = (audience.types || []).map((t) => {
+    const active = t.key === state.templateUi.typeKey ? ' active' : '';
+    return `<button class="template-type-item${active}" data-template-type="${t.key}">${escapeHTML(t.label)}</button>`;
+  }).join('');
+
+  if (!selected) {
+    templatePreviewTitleEl.textContent = t('template.previewTitle', null, 'Template');
+    templateFieldsEl.innerHTML = `<p class="muted">${escapeHTML(t('misc.noTemplateFound', null, 'No template found.'))}</p>`;
+    return;
+  }
+
+  templatePreviewTitleEl.textContent = selected.title || selected.label;
+  const vars = extractTemplateVars(selected.body || '');
+  templateFieldsEl.innerHTML = vars.map((v) => {
+    const val = state.templateUi.values[v] ?? '';
+    return `<label class="template-field">${escapeHTML(v)}<input class="text-input" data-template-var="${v}" value="${escapeHTML(val)}" /></label>`;
+  }).join('');
+}
+
+function renderTemplateText({ useAi = false } = {}) {
+  const { selected } = getTemplateSelection();
+  if (!selected) return '';
+  let text = `${selected.body || ''}`;
+  const vars = extractTemplateVars(text);
+  for (const v of vars) {
+    const raw = `${state.templateUi.values[v] ?? ''}`.trim();
+    const val = raw || 'X';
+    text = text.replaceAll(new RegExp(`{{\\s*${v}\\s*}}`, 'g'), val);
+  }
+  if (useAi) return text;
+  return text.trim();
+}
+
+async function copyText(text) {
+  if (!text) return;
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (_e) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+  }
+}
+
+async function runTemplatePolish() {
+  templateErrorEl.textContent = '';
+  const providerKey = state.apiSettings.activeApiProvider;
+  const profile = getActiveApiProfile(providerKey);
+  if (!profile || !profile.apiKey) {
+    templateErrorEl.textContent = t('alert.configureApi', null, 'Please configure API Settings first.');
+    return;
+  }
+  const raw = renderTemplateText();
+  if (!raw) return;
+
+  const polishBtn = document.getElementById('templateAiPolishBtn');
+  polishBtn.disabled = true;
+  polishBtn.classList.add('loading');
+
+  try {
+    const result = await window.studioApi.runTemplateRephrase({ providerKey, profile, content: raw });
+    fetchAndRenderTokenUsage();
+    const polished = `${result?.text || ''}`.trim();
+    templateRenderedOutputEl.value = polished || raw;
+    await copyText(templateRenderedOutputEl.value);
+  } catch (error) {
+    templateErrorEl.textContent = error.message || t('alert.polishFailed', null, 'AI polish failed.');
+  } finally {
+    polishBtn.disabled = false;
+    polishBtn.classList.remove('loading');
+  }
+}
+
+function openTemplateModal() {
+  templateErrorEl.textContent = '';
+  renderTemplateModal();
+  templateRenderedOutputEl.value = renderTemplateText();
+  openModal('templateModal');
+}
+
+/* ────────────────────────────────────────────────────────────
+   Project List
+   ──────────────────────────────────────────────────────────── */
+function renderProjectList() {
+  const search = projectSearchEl.value.trim().toLowerCase();
+  let list = state.projects.filter((p) => (p.projectName || '').toLowerCase().includes(search));
+
+  // Sort
+  const mode = state.projectSortMode || 'date-desc';
+  list = [...list].sort((a, b) => {
+    if (mode === 'az') return (a.projectName || '').localeCompare(b.projectName || '');
+    if (mode === 'za') return (b.projectName || '').localeCompare(a.projectName || '');
+    const ta = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+    const tb = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+    return mode === 'date-asc' ? ta - tb : tb - ta;
+  });
+
+  const html = list
+    .map((p) => {
+      if (p.unavailable) {
+        return `<button class="project-item unavailable" disabled>Unavailable (${p.projectName})<span class="project-meta">${p.error}</span></button>`;
+      }
+      return `<button class="project-item" data-folder="${p.folderName}">
+        <div class="project-item-info">
+          <div class="project-item-name">${escapeHTML(p.projectName)}</div>
+          <span class="project-meta">${escapeHTML(p.conference || 'ICLR')} · ${fmtDate(p.updatedAt)}</span>
+        </div>
+        <div class="project-export-btn" data-export-folder="${p.folderName}" title="${escapeHTML(t('export.title', null, 'Export First Round'))}">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          </svg>
+        </div>
+      </button>`;
+    })
+    .join('');
+
+  projectListEl.innerHTML = html;
+  drawerProjectListEl.innerHTML = html;
+
+  // Update the active state in the popup menu
+  document.querySelectorAll('.sort-popup-item').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.sort === mode);
+  });
+}
+
+function getProjectByFolder(folderName) {
+  return state.projects.find((project) => project.folderName === folderName) || null;
+}
+
+async function renameProjectFromContext(folderName) {
+  const project = getProjectByFolder(folderName);
+  const currentName = project?.projectName || folderName;
+  const nextName = await promptProjectRename(currentName);
+  if (nextName === null) return;
+  const trimmed = nextName.trim();
+
+  const renamed = await window.studioApi.renameProject({
+    folderName,
+    nextProjectName: trimmed,
+  });
+  if (state.currentFolderName === folderName) {
+    state.currentFolderName = renamed.folderName;
+    state.currentDoc = renamed.doc;
+  }
+  await loadProjects();
+  renderWorkspace();
+}
+
+async function copyProjectFromContext(folderName) {
+  const result = await window.studioApi.copyProject(folderName);
+  await loadProjects();
+  renderWorkspace();
+  return result;
+}
+
+function renderProjectSnapshotsList(snapshots = []) {
+  if (!projectSnapshotsListEl) return;
+  if (!snapshots.length) {
+    projectSnapshotsListEl.innerHTML = '<p class="muted">No snapshots yet. Use "Add Snapshot" first.</p>';
+    return;
+  }
+  projectSnapshotsListEl.innerHTML = snapshots.map((snapshot) => {
+    const stageText = snapshot.currentStage ? ` · ${escapeHTML(snapshot.currentStage)}` : '';
+    return `<div class="project-snapshot-item">
+      <div class="project-snapshot-meta">
+        <div class="project-snapshot-title">${escapeHTML(snapshot.label || 'Snapshot')}</div>
+        <div class="project-snapshot-subtitle">${escapeHTML(fmtDate(snapshot.createdAt))}${stageText}</div>
+      </div>
+      <button class="btn project-snapshot-restore-btn" data-snapshot-restore="${escapeHTML(snapshot.id)}">Restore</button>
+    </div>`;
+  }).join('');
+}
+
+function closeProjectSnapshotsModal() {
+  projectSnapshotsFolderName = null;
+  if (projectSnapshotsHintEl) projectSnapshotsHintEl.textContent = 'Select a saved snapshot to restore.';
+  if (projectSnapshotsErrorEl) projectSnapshotsErrorEl.textContent = '';
+  if (projectSnapshotsListEl) projectSnapshotsListEl.innerHTML = '<p class="muted">Loading snapshots...</p>';
+  closeModal('projectSnapshotsModal');
+}
+
+async function openProjectSnapshotsModal(folderName) {
+  projectSnapshotsFolderName = folderName;
+  const project = getProjectByFolder(folderName);
+  if (projectSnapshotsHintEl) {
+    const displayName = project?.projectName || folderName;
+    projectSnapshotsHintEl.textContent = `Select a saved snapshot for "${displayName}" to restore.`;
+  }
+  if (projectSnapshotsErrorEl) projectSnapshotsErrorEl.textContent = '';
+  if (projectSnapshotsListEl) projectSnapshotsListEl.innerHTML = '<p class="muted">Loading snapshots...</p>';
+  openModal('projectSnapshotsModal');
+
+  try {
+    const snapshots = await window.studioApi.listProjectSnapshots(folderName);
+    if (projectSnapshotsFolderName !== folderName) return;
+    renderProjectSnapshotsList(snapshots);
+  } catch (error) {
+    if (projectSnapshotsFolderName !== folderName) return;
+    if (projectSnapshotsErrorEl) projectSnapshotsErrorEl.textContent = error.message || 'Failed to load snapshots.';
+    renderProjectSnapshotsList([]);
+  }
+}
+
+async function createProjectSnapshotFromContext(folderName) {
+  const result = await window.studioApi.createProjectSnapshot(folderName);
+  if (state.currentFolderName === folderName) {
+    state.currentDoc = result.doc;
+  }
+  await loadProjects();
+  renderWorkspace();
+  if (result?.snapshot?.label) {
+    alert(`Snapshot saved: ${result.snapshot.label}`);
+  }
+  return result;
+}
+
+async function restoreProjectSnapshotFromModal(snapshotId) {
+  if (!projectSnapshotsFolderName || !snapshotId) return;
+  const confirmRestore = window.confirm('如果进行恢复，当前所有编辑的数据都会丢失，最好先 copy 一份再进行操作。\n\nIf you restore this snapshot, all current edits will be lost. It is best to copy the project first before continuing.\n\n是否继续恢复？');
+  if (!confirmRestore) return;
+
+  const result = await window.studioApi.restoreProjectSnapshot({
+    folderName: projectSnapshotsFolderName,
+    snapshotId,
+  });
+  closeProjectSnapshotsModal();
+
+  if (state.currentFolderName === result.folderName) {
+    clearProjectHistory();
+    state.currentDoc = result.doc;
+  }
+
+  await loadProjects();
+  renderWorkspace();
+  return result;
+}
+
+function promptProjectRename(defaultName = '') {
+  return new Promise((resolve) => {
+    pendingProjectRenameResolver = resolve;
+    projectRenameInputEl.value = defaultName;
+    projectRenameErrorEl.textContent = '';
+    projectRenameModalEl.classList.remove('hidden');
+    setTimeout(() => {
+      projectRenameInputEl.focus();
+      projectRenameInputEl.select();
+    }, 50);
+  });
+}
+
+function resolveProjectRename(value) {
+  if (!pendingProjectRenameResolver) return;
+  pendingProjectRenameResolver(value);
+  pendingProjectRenameResolver = null;
+}
+
+function confirmProjectRenameModal() {
+  const value = projectRenameInputEl.value.trim();
+  if (!value) {
+    projectRenameErrorEl.textContent = 'Project name cannot be empty.';
+    return;
+  }
+  projectRenameModalEl.classList.add('hidden');
+  resolveProjectRename(value);
+}
+
+function cancelProjectRenameModal() {
+  projectRenameModalEl.classList.add('hidden');
+  resolveProjectRename(null);
+}
+
+async function deleteProjectFromContext(folderName) {
+  const project = getProjectByFolder(folderName);
+  const displayName = project?.projectName || folderName;
+  const firstConfirm = window.confirm(`Delete project "${displayName}"?`);
+  if (!firstConfirm) return;
+  const secondConfirm = window.confirm(`This action cannot be undone. Confirm delete "${displayName}" again?`);
+  if (!secondConfirm) return;
+
+  await window.studioApi.deleteProject(folderName);
+  if (state.currentFolderName === folderName) {
+    clearProjectHistory();
+    state.currentDoc = null;
+    state.currentFolderName = null;
+    projectDrawerEl.classList.remove('open');
+    state.drawerOpen = false;
+    updateDrawerToggleUi();
+    renderWorkspace();
+    syncStageUi();
+  }
+  await loadProjects();
+}
+
+/* ────────────────────────────────────────────────────────────
+   Docs Panel
+   ──────────────────────────────────────────────────────────── */
+function getDocsItemById(docId = docsCurrentDocId) {
+  return DOCS_ITEMS.find((item) => item.id === docId) || DOCS_ITEMS[0];
+}
+
+function getDocsPath(docId = docsCurrentDocId, language = docsCurrentLanguage) {
+  const item = getDocsItemById(docId);
+  return item?.paths?.[language] || item?.paths?.en || DOCS_ITEMS[0].paths.en;
+}
+
+function renderDocsTabs() {
+  if (!docsTabListEl) return;
+  docsTabListEl.innerHTML = DOCS_ITEMS.map((item) => {
+    const label = item.labels?.[docsCurrentLanguage] || item.labels?.en || item.id;
+    const active = item.id === docsCurrentDocId ? ' active' : '';
+    return `<button class="docs-tab-btn${active}" type="button" data-doc-id="${item.id}" aria-pressed="${item.id === docsCurrentDocId ? 'true' : 'false'}">${escapeHTML(label)}</button>`;
+  }).join('');
+}
+
+function renderDocsLanguageSwitch() {
+  [
+    { el: docsLangEnBtnEl, lang: 'en' },
+    { el: docsLangZhBtnEl, lang: 'ch' },
+  ].forEach(({ el, lang }) => {
+    if (!el) return;
+    const active = docsCurrentLanguage === lang;
+    el.classList.toggle('active', active);
+    el.setAttribute('aria-pressed', String(active));
+  });
+}
+
+function applyDocsLanguage(language) {
+  const next = language === 'ch' ? 'ch' : 'en';
+  docsCurrentLanguage = next;
+  try {
+    localStorage.setItem('rebuttal-studio-docs-language', next);
+  } catch (_error) {
+    // ignore storage failures
+  }
+  renderDocsLanguageSwitch();
+  renderDocsTabs();
+}
+
+function loadDocsLanguage() {
+  try {
+    const saved = localStorage.getItem('rebuttal-studio-docs-language');
+    docsCurrentLanguage = saved === 'ch' ? 'ch' : 'en';
+  } catch (_error) {
+    docsCurrentLanguage = 'en';
+  }
+}
+
+async function renderDocsPanel(docId = docsCurrentDocId) {
+  clearHomeIntroTimers();
+  const docsPanelEl = document.getElementById('docsPanel');
+  const docsContentEl = document.getElementById('docsContent');
+  docsCurrentDocId = getDocsItemById(docId).id;
+  renderDocsLanguageSwitch();
+  renderDocsTabs();
+
+  // Show panel, hide others
+  document.getElementById('emptyState').classList.add('hidden');
+  document.getElementById('workspace').classList.add('hidden');
+  document.getElementById('namingPanel').classList.add('hidden');
+  const skillsPanelEl = document.getElementById('skillsPanel');
+  if (skillsPanelEl) skillsPanelEl.classList.add('hidden');
+  documentMemoryPanelEl?.classList.add('hidden');
+  state.documentMemoryPanelOpen = false;
+  docsPanelEl.classList.remove('hidden');
+
+  try {
+    const resp = await fetch(getDocsPath(docsCurrentDocId, docsCurrentLanguage));
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const raw = await resp.text();
+    docsContentEl.innerHTML = DOMPurify.sanitize(marked.parse(raw));
+  } catch (err) {
+    docsContentEl.textContent = `Failed to load: ${err.message}`;
+  }
+
+  // Ensure sidebar reflects active state
+  if (state.currentDoc) {
+    renderSidebarStages();
+  }
+}
+
+function documentMemoryStatusLabel(status = '') {
+  if (status === 'ready') return 'Ready';
+  if (status === 'processing') return 'Processing';
+  if (status === 'error') return 'Needs Review';
+  return 'Not Ready';
+}
+
+function hideProjectContentPanels() {
+  document.getElementById('workspace')?.classList.add('hidden');
+  document.getElementById('docsPanel')?.classList.add('hidden');
+  document.getElementById('skillsPanel')?.classList.add('hidden');
+  documentMemoryPanelEl?.classList.add('hidden');
+}
+
+function renderDocumentMemoryPanel() {
+  if (!documentMemoryContentEl) return;
+  const documentMemory = getDocumentMemoryState();
+  const hasSource = Boolean(documentMemory.sourcePath);
+  const isBusy = documentMemoryRuntime.importing || documentMemoryRuntime.saving;
+  const badgeStatus = documentMemoryRuntime.importing ? 'processing' : documentMemory.status;
+  const sourceMeta = hasSource
+    ? `${documentMemory.sourceName || 'Document'} · ${(documentMemory.sourceType || 'file').toUpperCase()}`
+    : 'No document uploaded yet.';
+  const sourcePathLine = documentMemory.sourcePath
+    ? `<p class="document-memory-meta">Source file: ${escapeHTML(documentMemory.sourcePath)}</p>`
+    : '';
+  const extractedPathLine = documentMemory.extractedTextPath
+    ? `<p class="document-memory-meta">Extracted text: ${escapeHTML(documentMemory.extractedTextPath)}</p>`
+    : '';
+  const summaryPathLine = documentMemory.markdownPath
+    ? `<p class="document-memory-meta">Markdown file: ${escapeHTML(documentMemory.markdownPath)}</p>`
+    : '';
+  const errorLine = documentMemory.error
+    ? `<p class="document-memory-error">${escapeHTML(documentMemory.error)}</p>`
+    : '';
+  const uploadButtonLabel = hasSource ? 'Replace Document' : 'Upload Document';
+
+  documentMemoryContentEl.innerHTML = `
+    <div class="document-memory-shell">
+      <div class="document-memory-card">
+        <div class="document-memory-status-row">
+          <span class="document-memory-status-badge" data-status="${escapeHTML(badgeStatus)}">${escapeHTML(documentMemoryStatusLabel(badgeStatus))}</span>
+          <span class="document-memory-meta">${escapeHTML(sourceMeta)}</span>
+        </div>
+        <div class="document-memory-helper">
+          <p class="document-memory-helper-intro">This feature always converts your input into text before calling the API. It does not rely on native file-upload support from the model provider.</p>
+          <ul class="document-memory-helper-list">
+            <li>Most APIs do not accept document files directly. We recommend uploading plain text, Markdown, or LaTeX whenever possible.</li>
+            <li>PDF text extraction can be imperfect. If you already have clean text, Markdown, or LaTeX, use that instead of PDF.</li>
+            <li>We recommend uploading only the main paper. Skip references and appendices unless they are essential.</li>
+            <li>Document memory can significantly increase token usage and cost.</li>
+          </ul>
+          <p class="document-memory-helper-footnote">Some platforms also offer native document workflows, such as OpenAI, Gemini, and Anthropic. Support depends on the exact model and endpoint.</p>
+        </div>
+        ${!hasSource ? `
+          <button class="document-memory-empty-button" type="button" data-document-memory-upload="1" ${isBusy ? 'disabled' : ''}>
+            <span class="document-memory-empty-title">Upload a document source</span>
+            <span class="document-memory-empty-copy">Choose a .txt, .md, .tex, or .pdf file. Text, Markdown, and LaTeX are recommended because they avoid PDF extraction errors.</span>
+          </button>
+        ` : ''}
+        <div class="document-memory-actions">
+          <button class="btn" type="button" data-document-memory-upload="1" ${isBusy ? 'disabled' : ''}>${uploadButtonLabel}</button>
+          <button class="btn" type="button" data-document-memory-rebuild="1" ${(!hasSource || isBusy) ? 'disabled' : ''}>Rebuild Summary</button>
+          <button class="btn primary" type="button" data-document-memory-save="1" ${(!hasSource || isBusy) ? 'disabled' : ''}>Save</button>
+        </div>
+        ${sourcePathLine}
+        ${extractedPathLine}
+        ${summaryPathLine}
+        <p class="document-memory-meta">Uploaded: ${escapeHTML(fmtDate(documentMemory.uploadedAt))} · Updated: ${escapeHTML(fmtDate(documentMemory.updatedAt))}</p>
+        ${errorLine}
+      </div>
+      <div class="document-memory-card">
+        <div class="document-memory-banner">If the API summary is inaccurate, you can edit and save it here, or paste in a summary produced by another model.</div>
+        <textarea id="documentMemoryEditor" class="document-memory-editor" spellcheck="false" ${isBusy ? 'disabled' : ''} placeholder="Markdown summary will appear here after import. You can also paste a manual summary.">${escapeHTML(documentMemory.markdown || '')}</textarea>
+        <p class="document-memory-meta">Current Markdown length: ${escapeHTML(String((documentMemory.markdown || '').length))} characters.</p>
+      </div>
+    </div>`;
+}
+
+function openDocumentMemoryPanel() {
+  if (!state.currentDoc || !documentMemoryPanelEl) return;
+  clearHomeIntroTimers();
+  state.documentMemoryPanelOpen = true;
+  hideProjectContentPanels();
+  emptyStateEl.classList.add('hidden');
+  namingPanelEl.classList.add('hidden');
+  documentMemoryPanelEl.classList.remove('hidden');
+  renderDocumentMemoryPanel();
+  renderSidebarStages();
+}
+
+function closeDocumentMemoryPanel() {
+  state.documentMemoryPanelOpen = false;
+  documentMemoryPanelEl?.classList.add('hidden');
+  if (state.currentDoc) {
+    renderWorkspace();
+  } else {
+    emptyStateEl.classList.remove('hidden');
+  }
+}
+
+async function pickDocumentMemoryFile() {
+  const result = await window.studioApi.pickDocumentMemoryFile();
+  if (!result || result.canceled) return null;
+  return {
+    filePath: result.filePath,
+    fileName: result.fileName,
+    sourceType: result.sourceType,
+  };
+}
+
+async function importDocumentMemorySelection(fileInfo, options = {}) {
+  if (!state.currentFolderName || !fileInfo?.filePath) return null;
+  const providerKey = state.apiSettings.activeApiProvider;
+  const profile = getActiveApiProfile(providerKey) || {};
+
+  documentMemoryRuntime = { importing: true, saving: false };
+  if (state.currentDoc) {
+    state.currentDoc.documentMemory = normalizeDocumentMemoryState({
+      ...getDocumentMemoryState(),
+      status: 'processing',
+      sourceName: fileInfo.fileName || '',
+      sourceType: fileInfo.sourceType || '',
+      error: '',
+    });
+  }
+  if (options.openPanel !== false) {
+    openDocumentMemoryPanel();
+  } else {
+    renderSidebarStages();
+  }
+
+  try {
+    const result = await window.studioApi.importDocumentMemory({
+      folderName: state.currentFolderName,
+      filePath: fileInfo.filePath,
+      providerKey,
+      profile,
+    });
+    state.currentDoc = result?.doc || state.currentDoc;
+    state.currentDoc.documentMemory = normalizeDocumentMemoryState(state.currentDoc.documentMemory);
+    commitProjectHistorySnapshot();
+    renderReviewerTabs();
+    renderDocumentMemoryPanel();
+    renderSidebarStages();
+    return state.currentDoc;
+  } catch (error) {
+    alert(error.message || 'Failed to import Document Memory.');
+    return null;
+  } finally {
+    documentMemoryRuntime = { importing: false, saving: false };
+    if (state.documentMemoryPanelOpen) {
+      renderDocumentMemoryPanel();
+      renderSidebarStages();
+    }
+  }
+}
+
+async function rebuildDocumentMemorySummary() {
+  if (!state.currentFolderName) return;
+  const providerKey = state.apiSettings.activeApiProvider;
+  const profile = getActiveApiProfile(providerKey) || {};
+  documentMemoryRuntime = { importing: true, saving: false };
+  if (state.currentDoc) {
+    state.currentDoc.documentMemory = normalizeDocumentMemoryState({
+      ...getDocumentMemoryState(),
+      status: 'processing',
+      error: '',
+    });
+  }
+  openDocumentMemoryPanel();
+  try {
+    const result = await window.studioApi.rebuildDocumentMemory({
+      folderName: state.currentFolderName,
+      providerKey,
+      profile,
+    });
+    state.currentDoc = result?.doc || state.currentDoc;
+    state.currentDoc.documentMemory = normalizeDocumentMemoryState(state.currentDoc.documentMemory);
+    commitProjectHistorySnapshot();
+  } catch (error) {
+    alert(error.message || 'Failed to rebuild Document Memory.');
+  } finally {
+    documentMemoryRuntime = { importing: false, saving: false };
+    renderDocumentMemoryPanel();
+    renderSidebarStages();
+  }
+}
+
+async function saveDocumentMemoryMarkdownFromPanel() {
+  if (!state.currentFolderName) return;
+  const editor = document.getElementById('documentMemoryEditor');
+  if (!editor) return;
+  documentMemoryRuntime = { importing: false, saving: true };
+  renderDocumentMemoryPanel();
+  try {
+    const result = await window.studioApi.saveDocumentMemoryMarkdown({
+      folderName: state.currentFolderName,
+      markdown: editor.value || '',
+    });
+    state.currentDoc = result?.doc || state.currentDoc;
+    state.currentDoc.documentMemory = normalizeDocumentMemoryState(state.currentDoc.documentMemory);
+    commitProjectHistorySnapshot();
+  } catch (error) {
+    alert(error.message || 'Failed to save Document Memory Markdown.');
+  } finally {
+    documentMemoryRuntime = { importing: false, saving: false };
+    renderDocumentMemoryPanel();
+    renderSidebarStages();
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   Skills Panel
+   ──────────────────────────────────────────────────────────── */
+function renderSkillsPanel() {
+  clearHomeIntroTimers();
+  const skillsPanelEl = document.getElementById('skillsPanel');
+  const skillsGridEl = document.getElementById('skillsGrid');
+
+  // Show panel, hide others
+  document.getElementById('emptyState').classList.add('hidden');
+  document.getElementById('workspace').classList.add('hidden');
+  document.getElementById('namingPanel').classList.add('hidden');
+  document.getElementById('docsPanel').classList.add('hidden');
+  documentMemoryPanelEl?.classList.add('hidden');
+  state.documentMemoryPanelOpen = false;
+  skillsPanelEl.classList.remove('hidden');
+
+  skillsGridEl.innerHTML = SKILLS_CATALOG.map((group) => `
+    <div class="skills-stage-group">
+      <p class="skills-stage-label">${group.stage}</p>
+      <div class="skills-cards-row">
+        ${group.skills.map((s) => `
+          <button class="skill-card" data-skill-path="${s.path}" data-skill-label="${group.stage} / ${s.label}">
+            <span class="skill-card-icon">${s.icon}</span>
+            <span>${s.label}</span>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `).join('') + `
+    <div style="margin-top: var(--space-4);">
+      <button class="skills-propose-btn" data-propose>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Propose a Skill
+      </button>
+    </div>
+  `;
+}
+
+async function openSkillModal(path, label) {
+  const modalEl = document.getElementById('skillModal');
+  const titleEl = document.getElementById('skillModalTitle');
+  const contentEl = document.getElementById('skillModalContent');
+
+  titleEl.textContent = label;
+  contentEl.innerHTML = `<p style="color:var(--text-muted)">${escapeHTML(t('misc.loading', null, 'Loading…'))}</p>`;
+  modalEl.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+
+  try {
+    const resp = await fetch(path);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const raw = await resp.text();
+    contentEl.innerHTML = DOMPurify.sanitize(marked.parse(raw));
+  } catch (err) {
+    contentEl.textContent = t('skill.loadFailed', { message: err.message || '' }, `Failed to load skill: ${err.message}`);
+  }
+}
+
+function closeSkillModal() {
+  document.getElementById('skillModal').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+/* ────────────────────────────────────────────────────────────
+   Home Intro Animation (one-shot)
+   ──────────────────────────────────────────────────────────── */
+function clearHomeIntroTimers() {
+  homeIntroRuntime.timeouts.forEach((id) => clearTimeout(id));
+  homeIntroRuntime.timeouts = [];
+}
+
+function queueHomeIntro(fn, delayMs) {
+  const id = setTimeout(() => {
+    homeIntroRuntime.timeouts = homeIntroRuntime.timeouts.filter((t) => t !== id);
+    fn();
+  }, delayMs);
+  homeIntroRuntime.timeouts.push(id);
+}
+
+function setRebuttalWord(word) {
+  if (!homeWordRebuttalEl) return;
+  homeWordRebuttalEl.textContent = word;
+}
+
+function typeDelayForChar(stepIdx, ch, isLast) {
+  const pattern = [72, 126, 84, 146, 90, 116];
+  let delay = pattern[stepIdx % pattern.length] + Math.floor(Math.random() * 40) - 10;
+  if (stepIdx === 0) delay += 70;
+  if (stepIdx % 3 === 2) delay += 24;
+  if ('aeiouAEIOU'.includes(ch)) delay += 18;
+  if (isLast) delay += 30;
+  return Math.max(56, delay);
+}
+
+function deleteDelayForChar(stepIdx, ch) {
+  const pattern = [168, 120, 214, 146, 188, 134];
+  let delay = pattern[stepIdx % pattern.length] + Math.floor(Math.random() * 52) - 12;
+  if (stepIdx % 2 === 0) delay += 16;
+  if ('aeiouAEIOU'.includes(ch)) delay += 22;
+  return Math.max(106, delay);
+}
+
+function autoResizeHomeFeedbackInput() {
+  if (!homeFeedbackInputEl) return;
+  const style = window.getComputedStyle(homeFeedbackInputEl);
+  const lineHeight = parseFloat(style.lineHeight) || 22;
+  const paddingTop = parseFloat(style.paddingTop) || 0;
+  const paddingBottom = parseFloat(style.paddingBottom) || 0;
+  const maxHeight = lineHeight * 4 + paddingTop + paddingBottom;
+  homeFeedbackInputEl.style.height = 'auto';
+  const nextHeight = Math.min(homeFeedbackInputEl.scrollHeight, maxHeight);
+  homeFeedbackInputEl.style.height = `${Math.max(lineHeight + paddingTop + paddingBottom, nextHeight)}px`;
+  homeFeedbackInputEl.style.overflowY = homeFeedbackInputEl.scrollHeight > maxHeight ? 'auto' : 'hidden';
+}
+
+function animateTypeWord(word, done) {
+  let cursor = 0;
+  setRebuttalWord('');
+  const step = () => {
+    cursor += 1;
+    const current = word.slice(0, cursor);
+    setRebuttalWord(current);
+    if (cursor < word.length) {
+      const nextChar = word[cursor] || '';
+      const delay = typeDelayForChar(cursor - 1, nextChar, cursor + 1 >= word.length);
+      queueHomeIntro(step, delay);
+      return;
+    }
+    if (done) done();
+  };
+  queueHomeIntro(step, 110);
+}
+
+function animateDeleteWord(word, done) {
+  let cursor = word.length;
+  let stepIdx = 0;
+  const step = () => {
+    const removingChar = word[cursor - 1] || '';
+    cursor -= 1;
+    stepIdx += 1;
+    setRebuttalWord(word.slice(0, cursor));
+    if (cursor > 0) {
+      const delay = deleteDelayForChar(stepIdx, removingChar);
+      queueHomeIntro(step, delay);
+      return;
+    }
+    if (done) done();
+  };
+  queueHomeIntro(step, 140);
+}
+
+function runRebuttalTypoLoop(attemptIdx = 0) {
+  if (!homeWordRebuttalEl) return;
+  const current = REBUTTAL_TYPOS[attemptIdx] || 'Rebuttal';
+  const isFinal = attemptIdx === REBUTTAL_TYPOS.length - 1;
+  animateTypeWord(current, () => {
+    const holdMs = isFinal ? 2600 : 360;
+    queueHomeIntro(() => {
+      animateDeleteWord(current, () => {
+        runRebuttalTypoLoop(isFinal ? 0 : attemptIdx + 1);
+      });
+    }, holdMs);
+  });
+}
+
+function getPlatformLabel() {
+  const platformMap = { darwin: 'macOS', win32: 'Windows', linux: 'Linux' };
+  const rawPlatform = window.studioApi?.getPlatform?.() ?? 'unknown';
+  return platformMap[rawPlatform] ?? rawPlatform;
+}
+
+function buildGitHubIssueUrl(title, body) {
+  const issueUrl = new URL(GITHUB_ISSUES_NEW_URL);
+  issueUrl.searchParams.set('title', title);
+  issueUrl.searchParams.set('body', body);
+  return issueUrl.toString();
+}
+
+function truncateGitHubIssueText(text = '', limit = GITHUB_ISSUE_BODY_LIMIT) {
+  if (`${text}`.length <= limit) return `${text}`;
+  return `${`${text}`.slice(0, limit)}\n\n[Truncated before opening GitHub to keep the issue URL within a safe length. Please paste any extra details manually if needed.]`;
+}
+
+function normalizeRemoteErrorMessage(message = '') {
+  const raw = `${message || ''}`.trim();
+  const cleaned = raw
+    .replace(/^Error invoking remote method '[^']+':\s*/i, '')
+    .replace(/^Error:\s*/i, '')
+    .trim();
+  return cleaned || raw || 'Unknown error.';
+}
+
+function extractErrorMessage(error) {
+  if (typeof error === 'string') return normalizeRemoteErrorMessage(error);
+  return normalizeRemoteErrorMessage(error?.message || '');
+}
+
+function extractErrorReportText(error) {
+  if (typeof error === 'string') return `${error}`;
+  if (error?.stack) return `${error.stack}`;
+  if (error?.message) return `${error.message}`;
+  try {
+    return JSON.stringify(error, null, 2);
+  } catch {
+    return `${error || 'Unknown error.'}`;
+  }
+}
+
+function getStageDisplayName(stageKey = '') {
+  const wanted = `${stageKey || ''}`.trim();
+  if (!wanted) return 'Unknown';
+  const match = STAGES.find((item) => item.key === wanted);
+  return match?.label || wanted;
+}
+
+function buildFeedbackIssueUrl(rawFeedback = '') {
+  const cleaned = `${rawFeedback}`.trim();
+  const compact = cleaned.replace(/\s+/g, ' ');
+  const titleCore = compact ? compact.slice(0, 72) : 'Feedback about Rebuttal Studio';
+  const title = `[Feedback] ${titleCore}`;
+  const description = cleaned || '(No additional description provided.)';
+  const os = getPlatformLabel();
+  const body = `## DESCRIPTION\n${description}\n\n## ENVIRONMENT\nOS: ${os}\n\n## SOURCE\nSubmitted from Rebuttal Studio home feedback box.`;
+  return buildGitHubIssueUrl(title, body);
+}
+
+function buildApiErrorReport(error, context = {}) {
+  const providerKey = `${context.providerKey || state.apiSettings.activeApiProvider || ''}`.trim();
+  const profile = context.profile || getActiveApiProfile(providerKey) || {};
+  const stageKey = `${context.stageKey || currentStageKey() || ''}`.trim();
+  const stageLabel = context.stageLabel || getStageDisplayName(stageKey);
+  const actionLabel = context.actionLabel || stageLabel || 'API request';
+  const reviewer = state.reviewers[state.activeReviewerIdx];
+  const reviewerLabel = reviewer?.name ? `${reviewer.name}` : (state.reviewers.length ? `Reviewer ${state.activeReviewerIdx + 1}` : 'Unknown');
+  const timestamp = new Date().toISOString();
+  const message = extractErrorMessage(error);
+  const fullError = `${extractErrorReportText(error) || message}`.trim();
+  const os = getPlatformLabel();
+  const report = [
+    `Timestamp: ${timestamp}`,
+    `Action: ${actionLabel}`,
+    `Stage: ${stageLabel}`,
+    `Conference: ${state.currentDoc?.conference || '(Unknown)'}`,
+    `Provider: ${providerKey || '(Unknown)'}`,
+    `Model: ${profile?.model || '(Unknown)'}`,
+    `Base URL: ${`${profile?.baseUrl || ''}`.trim() || '(Default)'}`,
+    `OS: ${os}`,
+    '',
+    'Error Message:',
+    message,
+    '',
+    'Full Error:',
+    fullError,
+  ].join('\n');
+  const compactMessage = message.replace(/\s+/g, ' ').trim();
+  const titleCore = compactMessage || `${actionLabel} failed`;
+  const issueTitle = `[Bug] ${actionLabel}: ${titleCore.slice(0, 84)}`;
+  const issueBody = [
+    '## Summary',
+    `Action: ${actionLabel}`,
+    `Stage: ${stageLabel}`,
+    `Conference: ${state.currentDoc?.conference || '(Unknown)'}`,
+    `Provider: ${providerKey || '(Unknown)'}`,
+    `Model: ${profile?.model || '(Unknown)'}`,
+    `Base URL: ${`${profile?.baseUrl || ''}`.trim() || '(Default)'}`,
+    `OS: ${os}`,
+    `Time: ${timestamp}`,
+    '',
+    '## Error Message',
+    message,
+    '',
+    '## Full Error Report',
+    '```text',
+    truncateGitHubIssueText(report),
+    '```',
+  ].join('\n');
+
+  return {
+    summary: `${actionLabel} failed.\n${message}`,
+    report,
+    issueUrl: buildGitHubIssueUrl(issueTitle, issueBody),
+  };
+}
+
+function setApiErrorDetailsVisible(visible) {
+  apiErrorModalState.expanded = Boolean(visible);
+  apiErrorReportWrapEl?.classList.toggle('hidden', !apiErrorModalState.expanded);
+  if (apiErrorViewBtnEl) {
+    apiErrorViewBtnEl.textContent = apiErrorModalState.expanded ? 'Hide Full Error' : 'View Full Error';
+  }
+}
+
+function closeApiErrorModal() {
+  apiErrorModalState = { expanded: false, issueUrl: '', report: '' };
+  if (apiErrorSummaryEl) apiErrorSummaryEl.textContent = '';
+  if (apiErrorReportEl) apiErrorReportEl.value = '';
+  setApiErrorDetailsVisible(false);
+  closeModal('apiErrorModal');
+}
+
+async function reportApiError() {
+  if (!apiErrorModalState.issueUrl) return;
+  await window.studioApi.openExternal(apiErrorModalState.issueUrl);
+}
+
+function showApiErrorModal(error, context = {}) {
+  const message = extractErrorMessage(error);
+  if (!apiErrorModalEl || !apiErrorSummaryEl || !apiErrorReportEl) {
+    alert(message);
+    return;
+  }
+
+  const payload = buildApiErrorReport(error, context);
+  apiErrorSummaryEl.textContent = payload.summary;
+  apiErrorReportEl.value = payload.report;
+  apiErrorReportBtnEl.disabled = !payload.issueUrl;
+  apiErrorModalState.issueUrl = payload.issueUrl;
+  apiErrorModalState.report = payload.report;
+  setApiErrorDetailsVisible(false);
+  openModal('apiErrorModal');
+}
+
+function renderHomeLanding() {
+  if (!pixelLandingEl || !homeWordRebuttalEl) return;
+  clearHomeIntroTimers();
+  setRebuttalWord('');
+  autoResizeHomeFeedbackInput();
+  queueHomeIntro(() => runRebuttalTypoLoop(0), 120);
+}
+
+/* ────────────────────────────────────────────────────────────
+   Reviewer Tabs
+   ──────────────────────────────────────────────────────────── */
+function renderReviewerTabs() {
+  reviewerTabsEl.innerHTML = state.reviewers.map((r, idx) => {
+    const active = idx === state.activeReviewerIdx ? ' active' : '';
+    const label = r.name || String(idx + 1);
+    return `<button class="reviewer-tab${active}" data-reviewer="${idx}">${escapeHTML(label)}</button>`;
+  }).join('');
+
+  // Load active reviewer content
+  const activeReviewer = state.reviewers[state.activeReviewerIdx];
+  if (activeReviewer) {
+    reviewerInput.innerHTML = activeReviewer.content || '';
+  }
+}
+
+function reviewerSelectionStorageKey() {
+  return `rebuttal-studio-active-reviewer:${state.currentFolderName || 'default'}`;
+}
+
+function persistActiveReviewerSelection() {
+  const idx = Math.max(0, Number(state.activeReviewerIdx) || 0);
+  if (state.currentDoc) state.currentDoc.activeReviewerIdx = idx;
+  try {
+    localStorage.setItem(reviewerSelectionStorageKey(), String(idx));
+  } catch (_err) {
+    // ignore storage failures
+  }
+}
+
+function restoreActiveReviewerSelection() {
+  const reviewerCount = state.reviewers.length || 1;
+  const fromDoc = Number(state.currentDoc?.activeReviewerIdx);
+  let idx = Number.isFinite(fromDoc) ? fromDoc : NaN;
+  if (!Number.isFinite(idx)) {
+    try {
+      const raw = localStorage.getItem(reviewerSelectionStorageKey());
+      const fromLs = Number(raw);
+      idx = Number.isFinite(fromLs) ? fromLs : 0;
+    } catch (_err) {
+      idx = 0;
+    }
+  }
+  state.activeReviewerIdx = clampReviewerIndex(idx, reviewerCount);
+}
+
+function loadProjectStateFromDoc(doc = state.currentDoc) {
+  if (!doc) return;
+  doc.documentMemory = normalizeDocumentMemoryState(doc.documentMemory);
+  if (doc.reviewers && doc.reviewers.length > 0) {
+    state.reviewers = doc.reviewers;
+  } else {
+    state.reviewers = [{ id: 0, name: '', content: doc.stage1?.content || '' }];
+  }
+
+  state.breakdownData = doc.breakdownData || {};
+  state.stage2Replies = doc.stage2Replies || {};
+  state.stage3Settings = doc.stage3Settings || { style: 'standard', color: '#f26921' };
+  state.stage3Drafts = doc.stage3Drafts || {};
+  state.stage3Selection = doc.stage3Selection || {};
+  state.stage4Data = doc.stage4Data || {};
+  state.stage5Data = doc.stage5Data || {};
+  state.stage5Settings = doc.stage5Settings || { style: 'run' };
+}
+
+function maybePromptInitialReviewerName() {
+  if (state.reviewers[0]?.name) return;
+  promptReviewerName((suffix) => {
+    state.reviewers[0].name = suffix;
+    persistActiveReviewerSelection();
+    renderReviewerTabs();
+    queueStateSync();
+  }, () => {
+    state.reviewers[0].name = 'R001';
+    persistActiveReviewerSelection();
+    renderReviewerTabs();
+    queueStateSync();
+  });
+}
+
+function switchReviewer(idx) {
+  if (stage4RefineRuntime.running) {
+    alert('Stage4 refine is running. Please wait until it finishes before switching reviewers.');
+    return;
+  }
+  // Save current content
+  if (state.reviewers[state.activeReviewerIdx]) {
+    state.reviewers[state.activeReviewerIdx].content = reviewerInput.innerHTML;
+  }
+  hideCopyPopup();
+  state.activeReviewerIdx = idx;
+  persistActiveReviewerSelection();
+  renderReviewerTabs();
+  renderBreakdownPanel();
+  queueStateSync();
+}
+
+/* ── Reviewer Name Modal ── */
+const reviewerNameModalEl = document.getElementById('reviewerNameModal');
+const reviewerNameInputEl = document.getElementById('reviewerNameInput');
+const reviewerNameErrorEl = document.getElementById('reviewerNameError');
+const confirmReviewerNameBtnEl = document.getElementById('confirmReviewerNameBtn');
+const cancelReviewerNameBtnEl = document.getElementById('cancelReviewerNameBtn');
+
+let pendingReviewerCallback = null;
+
+function promptReviewerName(onConfirm, onCancel, prefill = '') {
+  reviewerNameInputEl.value = prefill;
+  reviewerNameErrorEl.textContent = '';
+  pendingReviewerCallback = { onConfirm, onCancel };
+  reviewerNameModalEl.classList.remove('hidden');
+  setTimeout(() => {
+    reviewerNameInputEl.focus();
+    reviewerNameInputEl.select();
+  }, 60);
+}
+
+function confirmReviewerName() {
+  const suffix = reviewerNameInputEl.value.trim();
+  if (!suffix) {
+    reviewerNameErrorEl.textContent = t('alert.reviewerIdRequired', null, 'Reviewer identifier is required.');
+    return;
+  }
+  if (suffix.length !== 4) {
+    reviewerNameErrorEl.textContent = t('alert.reviewerIdLength', null, 'Please enter exactly 4 characters.');
+    return;
+  }
+  reviewerNameModalEl.classList.add('hidden');
+  if (pendingReviewerCallback?.onConfirm) {
+    pendingReviewerCallback.onConfirm(suffix);
+  }
+  pendingReviewerCallback = null;
+}
+
+function cancelReviewerName() {
+  reviewerNameModalEl.classList.add('hidden');
+  if (pendingReviewerCallback?.onCancel) {
+    pendingReviewerCallback.onCancel();
+  }
+  pendingReviewerCallback = null;
+}
+
+confirmReviewerNameBtnEl.addEventListener('click', confirmReviewerName);
+cancelReviewerNameBtnEl.addEventListener('click', cancelReviewerName);
+reviewerNameInputEl.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') confirmReviewerName();
+  if (e.key === 'Escape') cancelReviewerName();
+});
+confirmProjectRenameBtnEl.addEventListener('click', confirmProjectRenameModal);
+cancelProjectRenameBtnEl.addEventListener('click', cancelProjectRenameModal);
+projectRenameInputEl.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') confirmProjectRenameModal();
+  if (e.key === 'Escape') cancelProjectRenameModal();
+});
+projectRenameModalEl.addEventListener('click', (e) => {
+  if (e.target === projectRenameModalEl) cancelProjectRenameModal();
+});
+closeProjectSnapshotsBtnEl?.addEventListener('click', closeProjectSnapshotsModal);
+projectSnapshotsModalEl?.addEventListener('click', (e) => {
+  if (e.target === projectSnapshotsModalEl) closeProjectSnapshotsModal();
+});
+projectSnapshotsListEl?.addEventListener('click', async (e) => {
+  const btn = e.target.closest('[data-snapshot-restore]');
+  if (!btn) return;
+  try {
+    await restoreProjectSnapshotFromModal(btn.dataset.snapshotRestore);
+  } catch (error) {
+    if (projectSnapshotsErrorEl) {
+      projectSnapshotsErrorEl.textContent = error.message || 'Snapshot restore failed.';
+    }
+  }
+});
+
+/* ── Reviewer Right-click Context Menu ── */
+const reviewerContextMenuEl = document.getElementById('reviewerContextMenu');
+let contextMenuReviewerIdx = null;
+let contextMenuProjectFolder = null;
+
+function showReviewerContextMenu(e, idx) {
+  e.preventDefault();
+  contextMenuReviewerIdx = idx;
+  reviewerContextMenuEl.style.left = `${e.clientX}px`;
+  reviewerContextMenuEl.style.top = `${e.clientY}px`;
+  reviewerContextMenuEl.classList.remove('hidden');
+}
+
+function hideReviewerContextMenu() {
+  reviewerContextMenuEl.classList.add('hidden');
+  contextMenuReviewerIdx = null;
+}
+
+function showProjectContextMenu(e, folderName) {
+  e.preventDefault();
+  contextMenuProjectFolder = folderName;
+  projectContextMenuEl.style.left = `${e.clientX}px`;
+  projectContextMenuEl.style.top = `${e.clientY}px`;
+  projectContextMenuEl.classList.remove('hidden');
+  const rect = projectContextMenuEl.getBoundingClientRect();
+  const maxLeft = Math.max(0, window.innerWidth - rect.width - 6);
+  const maxTop = Math.max(0, window.innerHeight - rect.height - 6);
+  projectContextMenuEl.style.left = `${Math.min(e.clientX, maxLeft)}px`;
+  projectContextMenuEl.style.top = `${Math.min(e.clientY, maxTop)}px`;
+}
+
+function hideProjectContextMenu() {
+  if (!projectContextMenuEl) return;
+  projectContextMenuEl.classList.add('hidden');
+  contextMenuProjectFolder = null;
+}
+
+// Dismiss context menu on any click outside
+document.addEventListener('click', () => {
+  hideReviewerContextMenu();
+  hideProjectContextMenu();
+});
+document.addEventListener('contextmenu', (e) => {
+  // Only keep open if right-clicking on a reviewer tab (handled separately)
+  if (!e.target.closest('.reviewer-tab')) {
+    hideReviewerContextMenu();
+  }
+  if (!e.target.closest('.project-item[data-folder]')) {
+    hideProjectContextMenu();
+  }
+});
+
+// Handle context menu actions
+reviewerContextMenuEl.addEventListener('click', (e) => {
+  const action = e.target.closest('[data-action]')?.dataset.action;
+  if (!action) return;
+  const idx = contextMenuReviewerIdx;
+  hideReviewerContextMenu();
+
+  if (action === 'rename' && idx !== null && state.reviewers[idx]) {
+    const currentSuffix = state.reviewers[idx].name || '';
+    promptReviewerName((newSuffix) => {
+      state.reviewers[idx].name = newSuffix;
+      renderReviewerTabs();
+      queueStateSync();
+    }, null, currentSuffix);
+  }
+});
+
+projectContextMenuEl.addEventListener('click', async (e) => {
+  const action = e.target.closest('[data-action]')?.dataset.action;
+  if (!action || !contextMenuProjectFolder) return;
+  const folderName = contextMenuProjectFolder;
+  hideProjectContextMenu();
+  try {
+    if (action === 'rename') {
+      await renameProjectFromContext(folderName);
+    } else if (action === 'copy') {
+      await copyProjectFromContext(folderName);
+    } else if (action === 'snapshot-create') {
+      await createProjectSnapshotFromContext(folderName);
+    } else if (action === 'snapshot-restore') {
+      await openProjectSnapshotsModal(folderName);
+    } else if (action === 'delete') {
+      await deleteProjectFromContext(folderName);
+    }
+  } catch (error) {
+    alert(error.message || 'Project action failed.');
+  }
+});
+
+// Right-click on reviewer tabs
+reviewerTabsEl.addEventListener('contextmenu', (e) => {
+  const tab = e.target.closest('[data-reviewer]');
+  if (!tab) return;
+  showReviewerContextMenu(e, Number(tab.dataset.reviewer));
+});
+
+function handleProjectListContextMenu(e) {
+  if (e.target.closest('.project-export-btn')) return;
+  const item = e.target.closest('.project-item[data-folder]');
+  if (!item || item.disabled || item.classList.contains('unavailable')) return;
+  showProjectContextMenu(e, item.dataset.folder);
+}
+
+projectListEl.addEventListener('contextmenu', handleProjectListContextMenu);
+drawerProjectListEl.addEventListener('contextmenu', handleProjectListContextMenu);
+
+function addReviewer() {
+  // Save current content first
+  if (state.reviewers[state.activeReviewerIdx]) {
+    state.reviewers[state.activeReviewerIdx].content = reviewerInput.innerHTML;
+  }
+  promptReviewerName((suffix) => {
+    const newIdx = state.reviewers.length;
+    state.reviewers.push({ id: newIdx, name: suffix, content: '' });
+    state.activeReviewerIdx = newIdx;
+    persistActiveReviewerSelection();
+    renderReviewerTabs();
+    renderBreakdownPanel();
+    reviewerInput.focus();
+    queueStateSync();
+  });
+}
+
+/* ────────────────────────────────────────────────────────────
+   Structured Breakdown Panel (ICLR template)
+   ──────────────────────────────────────────────────────────── */
+function getConferenceTemplate() {
+  const conf = state.currentDoc?.conference || state.selectedConference || 'ICLR';
+  return CONFERENCE_TEMPLATES[conf] || CONFERENCE_TEMPLATES.ICLR;
+}
+
+function getBreakdownDataForReviewer(reviewerIdx) {
+  if (!state.breakdownData[reviewerIdx]) {
+    const tpl = getConferenceTemplate();
+    state.breakdownData[reviewerIdx] = {
+      scores: {},
+      sections: {},
+    };
+    // Init scores
+    tpl.scores.forEach(s => {
+      state.breakdownData[reviewerIdx].scores[s.key] = s.default;
+    });
+    tpl.metrics.forEach(s => {
+      state.breakdownData[reviewerIdx].scores[s.key] = s.default;
+    });
+    // Init sections
+    tpl.sections.forEach(s => {
+      state.breakdownData[reviewerIdx].sections[s.key] = '';
+    });
+  }
+  return state.breakdownData[reviewerIdx];
+}
+
+function getStage2ResponsesForReviewer(reviewerIdx) {
+  const breakdown = getBreakdownDataForReviewer(reviewerIdx);
+  if (!state.stage2Replies[reviewerIdx]) {
+    state.stage2Replies[reviewerIdx] = {};
+  }
+  const container = state.stage2Replies[reviewerIdx];
+  const responses = Array.isArray(breakdown.responses) ? breakdown.responses : [];
+
+  responses.forEach((resp) => {
+    if (!container[resp.id]) {
+      container[resp.id] = {
+        outline: '',
+        draft: '',
+        assets: [],
+      };
+    }
+  });
+
+  return container;
+}
+
+function currentStageKey() {
+  const idx = stageIndexFromCurrent();
+  return STAGES[idx]?.key || 'stage1';
+}
+
+function renderBreakdownPanel() {
+  updateHistoryButtons();
+  const stageKey = currentStageKey();
+  const data = getBreakdownDataForReviewer(state.activeReviewerIdx);
+
+  if (stageKey === 'stage2') {
+    renderStage2Panels(data);
+    return;
+  }
+
+  if (stageKey === 'stage3') {
+    renderStage3Panels();
+    return;
+  }
+
+  if (stageKey === 'stage4') {
+    renderStage4Panels();
+    return;
+  }
+
+  if (stageKey === 'stage5') {
+    renderStage5Panels();
+    return;
+  }
+
+  const tpl = getConferenceTemplate();
+  let scoresHTML = '<div class="scores-header">';
+
+  scoresHTML += '<div class="scores-row">';
+  tpl.scores.forEach((s, i) => {
+    if (i > 0) scoresHTML += '<span class="score-divider">|</span>';
+    const val = data.scores[s.key] || s.default;
+    let tooltipAttr = '';
+    const badgeHTML = tpl.tooltips && tpl.tooltips[s.key] ? '<span class="tooltip-badge">?</span>' : '';
+    if (tpl.tooltips && tpl.tooltips[s.key]) {
+      const tooltipKey = `tooltip_${Math.random().toString(36).substr(2, 9)}`;
+      TOOLTIP_STORAGE[tooltipKey] = tpl.tooltips[s.key];
+      tooltipAttr = `data-tooltip-key="${tooltipKey}" class="has-tooltip"`;
+    }
+    scoresHTML += `<div class="score-item" data-score-key="${s.key}">
+      <span class="score-label" ${tooltipAttr}>${s.label}${badgeHTML}</span>
+      <span class="score-value" contenteditable="true" data-score-edit="${s.key}">${escapeHTML(val)}</span>
+    </div>`;
+  });
+  scoresHTML += '</div>';
+
+  scoresHTML += '<div class="scores-row">';
+  tpl.metrics.forEach((s, i) => {
+    if (i > 0) scoresHTML += '<span class="score-divider">|</span>';
+    const val = data.scores[s.key] || s.default;
+    let tooltipAttr = '';
+    const badgeHTML = tpl.tooltips && tpl.tooltips[s.key] ? '<span class="tooltip-badge">?</span>' : '';
+    if (tpl.tooltips && tpl.tooltips[s.key]) {
+      const tooltipKey = `tooltip_${Math.random().toString(36).substr(2, 9)}`;
+      TOOLTIP_STORAGE[tooltipKey] = tpl.tooltips[s.key];
+      tooltipAttr = `data-tooltip-key="${tooltipKey}" class="has-tooltip"`;
+    }
+    scoresHTML += `<div class="score-item" data-score-key="${s.key}">
+      <span class="score-label blue-label" ${tooltipAttr}>${s.label}${badgeHTML}</span>
+      <span class="score-value" contenteditable="true" data-score-edit="${s.key}">${escapeHTML(val)}</span>
+    </div>`;
+  });
+  scoresHTML += '</div>';
+  scoresHTML += '</div>';
+
+  // Block color classes: first block (summary+strength) = red, second (weakness+questions) = blue
+  const blockColors = ['block-red', 'block-blue'];
+  let blocksHTML = '';
+  tpl.blocks.forEach((blockIdxs, blockIdx) => {
+    const colorClass = blockColors[blockIdx] || '';
+    blocksHTML += `<div class="breakdown-block ${colorClass}">`;
+    blockIdxs.forEach(sIdx => {
+      const sec = tpl.sections[sIdx];
+      const content = data.sections[sec.key];
+      const body = content
+        ? `<div class="section-editable" contenteditable="true" data-section-edit="${sec.key}">${escapeHTML(content)}</div>`
+        : `<div class="section-editable breakdown-placeholder" contenteditable="true" data-section-edit="${sec.key}" data-placeholder="${escapeHTML(sec.placeholder)}"></div>`;
+      blocksHTML += `<div class="breakdown-section">
+        <h4 class="breakdown-section-title">${sec.label}</h4>
+        <div class="breakdown-section-body" id="section_${sec.key}">${body}</div>
+      </div>`;
+    });
+    blocksHTML += '</div>';
+  });
+
+  const issues = Array.isArray(data.atomicIssues) ? data.atomicIssues : [];
+  const responses = Array.isArray(data.responses) ? data.responses : [];
+  if (issues.length || responses.length) {
+    blocksHTML += renderAtomicIssuesAndResponses(issues, responses);
+  }
+
+  breakdownContentEl.innerHTML = scoresHTML + blocksHTML;
+
+  // Auto-resize textareas to fit content
+  setTimeout(() => {
+    document.querySelectorAll('.response-quoted-issue, .response-textarea').forEach(el => {
+      el.style.height = 'auto';
+      if (el.scrollHeight > 0) el.style.height = el.scrollHeight + 'px';
+    });
+  }, 10);
+}
+
+/* ── Stage 2: Split into left (Outline) and right (Refined Draft) panels ── */
+function renderStage2Panels(data) {
+  const responses = Array.isArray(data.responses) ? data.responses : [];
+  const stage2Map = getStage2ResponsesForReviewer(state.activeReviewerIdx);
+  const stage2LeftEl = document.getElementById('stage2LeftPanel');
+
+  if (!responses.length) {
+    const emptyText = escapeHTML(t('stage2.noResponses', null, 'No responses found. Please run Breakdown in Stage 1 first.'));
+    stage2LeftEl.innerHTML = `<div class="breakdown-block"><div class="breakdown-section"><h4 class="breakdown-section-title">${escapeHTML(t('stage2.outline', null, 'Outline'))}</h4><p class="breakdown-placeholder">${emptyText}</p></div></div>`;
+    breakdownContentEl.innerHTML = `<div class="breakdown-block"><div class="breakdown-section"><h4 class="breakdown-section-title">${escapeHTML(t('workspace.refinedDraft', null, 'Refined Draft'))}</h4><p class="breakdown-placeholder">${emptyText}</p></div></div>`;
+    return;
+  }
+
+  // ── Left panel: Outline cards ──
+  const outlineCards = responses.map((resp, idx) => {
+    const item = stage2Map[resp.id] || { outline: '', draft: '', assets: [] };
+    const sourceIdx = Number((`${resp.source_id || ''}`.match(/(\d+)$/) || [])[1] || idx + 1);
+    const sourceLabel = resp.source === 'question'
+      ? t('stage2.sourceQuestion', null, 'Question')
+      : t('stage2.sourceWeakness', null, 'Weakness');
+    const headerTitle = `${sourceLabel} ${sourceIdx}: ${resp.title || t('stage2.untitled', null, 'Untitled')}`;
+    return `<div class="response-card stage2-outline-card" data-response-id="${escapeHTML(resp.id)}">
+      <div class="response-header response-header-red">Response ${idx + 1}</div>
+      <div class="fixed-issue-meta">
+        <h5 class="stage2-issue-title">${escapeHTML(headerTitle)}</h5>
+        <div class="fixed-issue-quote">&gt; ${escapeHTML(resp.quoted_issue || '')}</div>
+      </div>
+      <textarea class="response-textarea outline-textarea" data-stage2-field="outline" data-response-id="${escapeHTML(resp.id)}" placeholder="${escapeHTML(t('stage2.outlinePlaceholder', null, 'Input a response outline for this issue (key points, evidence, and writing strategy).'))}">${escapeHTML(item.outline || '')}</textarea>
+      <div class="stage2-outline-tip">${escapeHTML(t('stage2.outlineTip', null, 'Right click in outline box: Insert Table / Code'))}</div>
+    </div>`;
+  }).join('');
+
+  stage2LeftEl.innerHTML = `<h3 class="breakdown-heading">${escapeHTML(t('stage2.myReply', null, 'My Reply'))}</h3><div class="responses-grid">${outlineCards}</div>`;
+
+  // ── Right panel: Refined Draft cards ──
+  const progressTotal = stage2RefineProgress?.total || 0;
+  const progressCurrent = stage2RefineProgress?.current || 0;
+  const progressPercent = progressTotal > 0 ? Math.min(100, Math.round((progressCurrent / progressTotal) * 100)) : 0;
+  const progressHtml = progressTotal > 0
+    ? `<div class="stage2-progress-wrap">
+      <div class="stage2-progress-title">${escapeHTML(t('stage2.refineProgress', { current: `${progressCurrent}`, total: `${progressTotal}` }, `Refine progress: ${progressCurrent}/${progressTotal}`))}${stage2RefineProgress?.responseId ? ` · ${escapeHTML(stage2RefineProgress.responseId)}` : ''}</div>
+      <div class="stage2-progress-track"><div class="stage2-progress-fill" style="width:${progressPercent}%"></div></div>
+    </div>`
+    : '';
+
+  const draftCards = responses.map((resp, idx) => {
+    const item = stage2Map[resp.id] || { outline: '', draft: '', assets: [] };
+    const hasDraft = (item.draft || '').trim().length > 0;
+    const sourceIdx = Number((`${resp.source_id || ''}`.match(/(\d+)$/) || [])[1] || idx + 1);
+    const sourceLabel = resp.source === 'question'
+      ? t('stage2.sourceQuestion', null, 'Question')
+      : t('stage2.sourceWeakness', null, 'Weakness');
+    const headerTitle = `${sourceLabel} ${sourceIdx}: ${resp.title || t('stage2.untitled', null, 'Untitled')}`;
+    const isRefining = stage2RefineProgress?.responseId === resp.id;
+    return `<div class="response-card stage2-draft-card" data-response-id="${escapeHTML(resp.id)}">
+      <div class="response-header response-header-blue">Response ${idx + 1}</div>
+      <div class="stage2-draft-head-row">
+        <h5 class="stage2-issue-title">${escapeHTML(headerTitle)}</h5>
+        <button class="stage2-refine-one-btn ${isRefining ? 'loading' : ''}" data-stage2-refine-one="${escapeHTML(resp.id)}" title="${escapeHTML(t('stage2.refineOnly', null, 'Refine this response only'))}" aria-label="${escapeHTML(t('stage2.refineOnly', null, 'Refine this response only'))}">${isRefining ? '…' : '↗'}</button>
+      </div>
+      ${hasDraft
+        ? `<textarea class="response-textarea draft-textarea" data-stage2-field="draft" data-response-id="${escapeHTML(resp.id)}" placeholder="${escapeHTML(t('stage2.refinedPlaceholder', null, 'Refined academic reply will appear here.'))}">${escapeHTML(item.draft)}</textarea>`
+        : `<div class="stage2-draft-placeholder">${escapeHTML(t('stage2.refinedHint', null, 'Click Refine to generate academic reply for this response.'))}</div>`
+      }
+    </div>`;
+  }).join('');
+
+  breakdownContentEl.innerHTML = `${progressHtml}<div class="responses-grid">${draftCards}</div>`;
+}
+
+function ensureStage2ContextMenu() {
+  let menu = document.getElementById('stage2OutlineMenu');
+  if (menu) return menu;
+  menu = document.createElement('div');
+  menu.id = 'stage2OutlineMenu';
+  menu.className = 'stage2-outline-menu hidden';
+  menu.innerHTML = `
+    <button class="stage2-outline-menu-item" data-outline-insert="table">${escapeHTML(t('insertTable.title', null, 'Insert Table'))}</button>
+        <button class="stage2-outline-menu-item" data-outline-insert="code">${escapeHTML(t('insertCode.title', null, 'Insert Code'))}</button>
+  `;
+  document.body.appendChild(menu);
+  return menu;
+}
+
+function hideStage2ContextMenu() {
+  const menu = document.getElementById('stage2OutlineMenu');
+  if (!menu) return;
+  menu.classList.add('hidden');
+}
+
+function ensureStage3SourceMenu() {
+  let menu = document.getElementById('stage3SourceMenu');
+  if (menu) return menu;
+  menu = document.createElement('div');
+  menu.id = 'stage3SourceMenu';
+  menu.className = 'stage2-outline-menu hidden';
+  menu.innerHTML = `
+    <button class="stage2-outline-menu-item" data-stage3-format="bold">Bold</button>
+    <button class="stage2-outline-menu-item" data-stage3-format="italic">Italic</button>
+    <button class="stage2-outline-menu-item" data-stage3-format="underline">Underline</button>
+    <button class="stage2-outline-menu-item" data-stage3-format="color">Color</button>
+    <button class="stage2-outline-menu-item" data-stage3-format="h1">Large Heading</button>
+    <button class="stage2-outline-menu-item" data-stage3-format="h2">Small Heading</button>
+    <div class="stage2-outline-menu-divider"></div>
+    <button class="stage2-outline-menu-item" data-stage3-format="anti-ai">✦ Anti-AI</button>
+    <button class="stage2-outline-menu-item" data-stage3-format="condense">${CONDENSE_SYMBOL} Condense</button>
+  `;
+  document.body.appendChild(menu);
+  return menu;
+}
+
+function hideStage3SourceMenu() {
+  const menu = document.getElementById('stage3SourceMenu');
+  if (!menu) return;
+  menu.classList.add('hidden');
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Selected text actions — context menu, toast, and replacement logic
+   ────────────────────────────────────────────────────────────── */
+
+function getTextActionMeta(actionKey) {
+  return TEXT_ACTIONS[actionKey] || TEXT_ACTIONS.antiAI;
+}
+
+function resetTextActionState() {
+  textActionState.element = null;
+  textActionState.type = null;
+  textActionState.selectedText = '';
+  textActionState.selStart = 0;
+  textActionState.selEnd = 0;
+  textActionState.savedRange = null;
+  textActionState.originalValue = '';
+}
+
+function ensureTextActionsMenu() {
+  let menu = document.getElementById('textActionsMenu');
+  if (menu) return menu;
+  menu = document.createElement('div');
+  menu.id = 'textActionsMenu';
+  menu.className = 'text-actions-menu hidden';
+  menu.innerHTML = `
+    <button class="text-actions-menu-item" id="textActionAntiAIBtn">
+      <span>✦ Writing Anti-AI</span>
+    </button>
+    <button class="text-actions-menu-item" id="textActionCondenseBtn">
+      <span>${CONDENSE_SYMBOL} Condense</span>
+    </button>
+  `;
+  document.body.appendChild(menu);
+  menu.querySelector('#textActionAntiAIBtn').addEventListener('click', () => {
+    hideTextActionsMenu();
+    runSelectedTextAction('antiAI');
+  });
+  menu.querySelector('#textActionCondenseBtn').addEventListener('click', () => {
+    hideTextActionsMenu();
+    runSelectedTextAction('condense');
+  });
+  return menu;
+}
+
+function hideTextActionsMenu() {
+  const menu = document.getElementById('textActionsMenu');
+  if (menu) menu.classList.add('hidden');
+}
+
+function showTextActionsMenu(e, editableEl) {
+  if (editableEl.tagName === 'TEXTAREA') {
+    if (editableEl.selectionStart === editableEl.selectionEnd) return;
+    textActionState.element = editableEl;
+    textActionState.type = 'textarea';
+    textActionState.selectedText = editableEl.value.substring(editableEl.selectionStart, editableEl.selectionEnd);
+    textActionState.selStart = editableEl.selectionStart;
+    textActionState.selEnd = editableEl.selectionEnd;
+    textActionState.originalValue = editableEl.value;
+    textActionState.savedRange = null;
+  } else {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed) return;
+    textActionState.element = editableEl;
+    textActionState.type = 'contenteditable';
+    textActionState.selectedText = sel.toString();
+    textActionState.selStart = 0;
+    textActionState.selEnd = 0;
+    textActionState.savedRange = sel.rangeCount > 0 ? sel.getRangeAt(0).cloneRange() : null;
+    textActionState.originalValue = editableEl.innerHTML;
+  }
+  if (!textActionState.selectedText.trim()) return;
+
+  e.preventDefault();
+  const menu = ensureTextActionsMenu();
+  menu.classList.remove('hidden');
+  menu.style.visibility = 'hidden';
+  menu.style.left = '0px';
+  menu.style.top = '0px';
+  const bounds = menu.getBoundingClientRect();
+  const x = Math.max(8, Math.min(e.clientX, window.innerWidth - bounds.width - 8));
+  const y = Math.max(8, Math.min(e.clientY, window.innerHeight - bounds.height - 8));
+  menu.style.left = `${x}px`;
+  menu.style.top = `${y}px`;
+  menu.style.visibility = '';
+  hideStage2ContextMenu();
+  hideStage3SourceMenu();
+}
+
+// ── Toast helpers ──
+
+function _getOrCreateTextActionToast() {
+  let toast = document.getElementById('textActionToast');
+  if (toast) return toast;
+  toast = document.createElement('div');
+  toast.id = 'textActionToast';
+  toast.className = 'text-action-toast hidden';
+  document.body.appendChild(toast);
+  return toast;
+}
+
+function _clearTextActionTimer() {
+  if (textActionState.undoTimerId) {
+    clearTimeout(textActionState.undoTimerId);
+    textActionState.undoTimerId = null;
+  }
+}
+
+function showTextActionLoadingToast(actionKey) {
+  const meta = getTextActionMeta(actionKey);
+  const toast = _getOrCreateTextActionToast();
+  toast.className = 'text-action-toast';
+  toast.innerHTML = `<span class="text-action-toast-msg">${escapeHTML(meta.icon || '✦')} ${escapeHTML(meta.loadingLabel)}</span>`;
+  _clearTextActionTimer();
+}
+
+function showTextActionUndoToast(actionKey, element, type, originalValue, selStart, selEnd) {
+  const meta = getTextActionMeta(actionKey);
+  const toast = _getOrCreateTextActionToast();
+  toast.className = 'text-action-toast';
+  toast.innerHTML = `
+    <span class="text-action-toast-msg">${escapeHTML(meta.icon || '✦')} ${escapeHTML(meta.successLabel)}</span>
+    <button class="text-action-toast-undo-btn" id="textActionUndoBtn">Undo</button>
+  `;
+  _clearTextActionTimer();
+
+  document.getElementById('textActionUndoBtn').addEventListener('click', () => {
+    if (type === 'textarea') {
+      element.value = originalValue;
+      element.selectionStart = selStart;
+      element.selectionEnd = selEnd;
+      element.dispatchEvent(new Event('input', { bubbles: true }));
+    } else {
+      element.innerHTML = originalValue;
+      element.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+    hideTextActionToast();
+  });
+
+  textActionState.undoTimerId = setTimeout(hideTextActionToast, 10000);
+}
+
+function showTextActionErrorToast(msg) {
+  const toast = _getOrCreateTextActionToast();
+  toast.className = 'text-action-toast text-action-toast--error';
+  toast.innerHTML = `<span class="text-action-toast-msg">${escapeHTML(String(msg))}</span>`;
+  _clearTextActionTimer();
+  textActionState.undoTimerId = setTimeout(hideTextActionToast, 5000);
+}
+
+function hideTextActionToast() {
+  const toast = document.getElementById('textActionToast');
+  if (toast) toast.classList.add('hidden');
+  _clearTextActionTimer();
+}
+
+// ── Core replacement ──
+
+async function runSelectedTextAction(actionKey) {
+  const meta = getTextActionMeta(actionKey);
+  const { element, type, selectedText, selStart, selEnd, savedRange, originalValue } = textActionState;
+  if (!element || !selectedText.trim()) return;
+
+  const providerKey = state.apiSettings.activeApiProvider;
+  const profile = getActiveApiProfile(providerKey);
+  if (!profile || !profile.apiKey) {
+    showTextActionErrorToast(t('alert.configureApi', null, 'Please configure API Settings first.'));
+    return;
+  }
+
+  showTextActionLoadingToast(actionKey);
+
+  try {
+    const result = await meta.run({ providerKey, profile, content: selectedText });
+    fetchAndRenderTokenUsage();
+    const newText = `${result?.text || ''}`.trim();
+    if (!newText) throw new Error(meta.emptyResponseLabel);
+
+    if (type === 'textarea') {
+      const before = originalValue.substring(0, selStart);
+      const after = originalValue.substring(selEnd);
+      element.value = before + newText + after;
+      element.selectionStart = selStart;
+      element.selectionEnd = selStart + newText.length;
+      element.dispatchEvent(new Event('input', { bubbles: true }));
+    } else {
+      // contenteditable: restore saved selection and replace
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      if (savedRange) sel.addRange(savedRange);
+      if (sel.rangeCount === 0) {
+        // savedRange was null; append at end as fallback.
+        element.append(document.createTextNode(newText));
+        element.dispatchEvent(new Event('input', { bubbles: true }));
+        showTextActionUndoToast(actionKey, element, type, originalValue, selStart, selEnd);
+        return;
+      }
+      const range = sel.getRangeAt(0);
+      range.deleteContents();
+      range.insertNode(document.createTextNode(newText));
+      sel.collapseToEnd();
+      element.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+
+    showTextActionUndoToast(actionKey, element, type, originalValue, selStart, selEnd);
+  } catch (err) {
+    showTextActionErrorToast(err.message || meta.errorLabel);
+  }
+}
+
+function stage3SelectionTouchesStrictLines(text, start, end) {
+  const source = `${text || ''}`;
+  const safeStart = Math.max(0, Math.min(start, end));
+  const safeEnd = Math.min(source.length, Math.max(start, end));
+  const lines = source.split('\n');
+  let acc = 0;
+  for (const line of lines) {
+    const lineStart = acc;
+    const lineEnd = acc + line.length;
+    acc = lineEnd + 1;
+    if (safeEnd < lineStart || safeStart > lineEnd) continue;
+    const trimmed = line.trim();
+    if (
+      STAGE3_STRICT_RE.titleLine.test(trimmed)
+      || STAGE3_STRICT_RE.quoteLabelLine.test(trimmed)
+      || STAGE3_STRICT_RE.responseLabelLine.test(trimmed)
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function isSelectionAlreadyInStage3ColorToken(source, start, end, colorHex) {
+  const text = `${source || ''}`;
+  const prefix = `\${\\color{${colorHex}}\\text{`;
+  const suffix = '}}$';
+  const leftIdx = text.lastIndexOf(prefix, start);
+  if (leftIdx < 0) return false;
+  const bodyStart = leftIdx + prefix.length;
+  const rightIdx = text.indexOf(suffix, bodyStart);
+  if (rightIdx < 0) return false;
+  return start >= bodyStart && end <= rightIdx;
+}
+
+function applyStage3HeadingPrefix(text, prefix) {
+  return text.split('\n').map((line) => {
+    if (!line.trim()) return line;
+    return `${prefix} ${line.replace(/^#{1,6}\s+/, '')}`;
+  }).join('\n');
+}
+
+function splitSelectionOuterWhitespace(text = '') {
+  const source = `${text || ''}`;
+  const leading = source.match(/^\s+/)?.[0] || '';
+  const trailing = source.match(/\s+$/)?.[0] || '';
+  const core = source.slice(leading.length, source.length - trailing.length);
+  return { leading, core, trailing };
+}
+
+function applyInlineStage3Format(selected, formatter) {
+  const { leading, core, trailing } = splitSelectionOuterWhitespace(selected);
+  if (!core) return selected;
+  return `${leading}${formatter(core)}${trailing}`;
+}
+
+function applyStage3SourceFormat(formatType) {
+  const editor = document.querySelector('textarea.stage3-source-editor');
+  if (!editor) return;
+
+  const source = editor.value || '';
+  let start = editor.selectionStart;
+  let end = editor.selectionEnd;
+  if (start === end && typeof stage3SourceContext.start === 'number' && typeof stage3SourceContext.end === 'number') {
+    start = stage3SourceContext.start;
+    end = stage3SourceContext.end;
+  }
+  if (start === end) {
+    showStage3ThemeNotice('Select text first.');
+    return;
+  }
+
+  if (stage3SelectionTouchesStrictLines(source, start, end)) {
+    alert('Formatting on strict Stage 3 title/label lines is blocked to preserve immutable syntax.');
+    return;
+  }
+
+  const selected = source.slice(start, end);
+  let replacement = selected;
+  if (formatType === 'bold') replacement = applyInlineStage3Format(selected, (text) => `**${text}**`);
+  if (formatType === 'italic') replacement = applyInlineStage3Format(selected, (text) => `*${text}*`);
+  if (formatType === 'underline') replacement = applyInlineStage3Format(selected, (text) => `<u>${text}</u>`);
+  if (formatType === 'color') {
+    const hex = normalizeHexColor(state.stage3Settings.color || '#ff0000') || '#ff0000';
+    if (isSelectionAlreadyInStage3ColorToken(source, start, end, hex)) return;
+    replacement = applyInlineStage3Format(selected, (text) => `\${\\color{${hex}}\\text{${text}}}$`);
+  }
+  if (formatType === 'h1') replacement = applyStage3HeadingPrefix(selected, '#');
+  if (formatType === 'h2') replacement = applyStage3HeadingPrefix(selected, '##');
+
+  editor.setRangeText(replacement, start, end, 'select');
+  editor.dispatchEvent(new Event('input', { bubbles: true }));
+  editor.focus();
+}
+
+function insertStage2Asset(responseId, type, content) {
+  if (!responseId || !content) return;
+  const map = getStage2ResponsesForReviewer(state.activeReviewerIdx);
+  if (!map[responseId]) {
+    map[responseId] = { outline: '', draft: '', assets: [] };
+  }
+  const cur = map[responseId].outline || '';
+  map[responseId].outline = `${cur}${cur ? '\n\n' : ''}${content}`;
+  map[responseId].assets.push({ type, content });
+  state.stage2Replies[state.activeReviewerIdx] = map;
+  queueStateSync();
+  renderBreakdownPanel();
+}
+function stage3ResponsesForActiveReviewer() {
+  const data = getBreakdownDataForReviewer(state.activeReviewerIdx);
+  return Array.isArray(data.responses) ? data.responses : [];
+}
+
+function getStage3DraftForResponse(responseId) {
+  return getOrCreateStage3DraftForReviewer(state.activeReviewerIdx, responseId);
+}
+
+function ensureStage3Selection() {
+  const responses = stage3ResponsesForActiveReviewer();
+  if (!responses.length) return null;
+  const selected = state.stage3Selection[state.activeReviewerIdx];
+  if (selected === STAGE3_ALL_TAB_ID) return selected;
+  if (selected && responses.some((r) => r.id === selected)) return selected;
+  state.stage3Selection[state.activeReviewerIdx] = responses[0].id;
+  return responses[0].id;
+}
+
+function countChars(text) {
+  return `${text || ''}`.length;
+}
+
+function getCurrentReviewerIdentifier() {
+  return state.reviewers[state.activeReviewerIdx]?.name || `${state.activeReviewerIdx + 1}`;
+}
+
+function getReviewerId(reviewerIdx = state.activeReviewerIdx) {
+  const idx = Number.isFinite(Number(reviewerIdx)) ? Number(reviewerIdx) : state.activeReviewerIdx;
+  const safeIdx = Math.max(0, Math.min(state.reviewers.length - 1, idx));
+  const reviewerName = `${state.reviewers[safeIdx]?.name || ''}`.trim();
+  return reviewerName || `R${String(safeIdx + 1).padStart(3, '0')}`;
+}
+
+function reviewerIdxFromId(reviewerId) {
+  if (Number.isFinite(Number(reviewerId))) {
+    const idx = Number(reviewerId);
+    if (idx >= 0 && idx < state.reviewers.length) return idx;
+  }
+  const key = `${reviewerId || ''}`.trim();
+  const byName = state.reviewers.findIndex((_, idx) => getReviewerId(idx) === key);
+  return byName >= 0 ? byName : state.activeReviewerIdx;
+}
+
+function extractTextFromHtml(html = '') {
+  const div = document.createElement('div');
+  div.innerHTML = `${html || ''}`;
+  return (div.textContent || div.innerText || '').trim();
+}
+
+function createStage4ProgressState() {
+  return {
+    step1: { status: 'idle', text: '' },
+    step2: { status: 'idle', text: '' },
+  };
+}
+
+function stage4DraftStorageKey(reviewerId) {
+  const safeReviewer = `${reviewerId || ''}`.replace(/[^a-zA-Z0-9_-]/g, '_') || 'reviewer';
+  return `rebuttal-studio-stage4-draft:${state.currentFolderName || 'default'}:${safeReviewer}`;
+}
+
+function loadStage4DraftFromStorage(reviewerId) {
+  try {
+    return localStorage.getItem(stage4DraftStorageKey(reviewerId)) || '';
+  } catch (_error) {
+    return '';
+  }
+}
+
+function persistStage4DraftToStorage(reviewerId, draft) {
+  try {
+    localStorage.setItem(stage4DraftStorageKey(reviewerId), `${draft || ''}`);
+  } catch (_error) {
+    // ignore storage failures
+  }
+}
+
+function getStage4StateForReviewer(reviewerIdx = state.activeReviewerIdx) {
+  const reviewerId = getReviewerId(reviewerIdx);
+  if (!state.stage4Data[reviewerIdx]) {
+    state.stage4Data[reviewerIdx] = {
+      followupQuestion: '',
+      draft: loadStage4DraftFromStorage(reviewerId),
+      condensedMarkdown: '',
+      condensedPath: '',
+      refinedText: '',
+      progress: createStage4ProgressState(),
+    };
+  }
+  const cell = state.stage4Data[reviewerIdx];
+  if (typeof cell.followupQuestion !== 'string') cell.followupQuestion = '';
+  if (typeof cell.draft !== 'string') cell.draft = loadStage4DraftFromStorage(reviewerId);
+  if (typeof cell.condensedMarkdown !== 'string') cell.condensedMarkdown = '';
+  if (typeof cell.condensedPath !== 'string') cell.condensedPath = '';
+  if (typeof cell.refinedText !== 'string') cell.refinedText = '';
+  if (!cell.progress || typeof cell.progress !== 'object') cell.progress = createStage4ProgressState();
+  if (!cell.progress.step1 || !cell.progress.step2) cell.progress = createStage4ProgressState();
+  return cell;
+}
+
+function getStage3AllSource(reviewerId) {
+  const reviewerIdx = reviewerIdxFromId(reviewerId);
+  return buildAllDocument(reviewerIdx);
+}
+
+async function skill1_condense(allSource) {
+  const providerKey = state.apiSettings.activeApiProvider;
+  const profile = getActiveApiProfile(providerKey);
+  if (!profile || !profile.apiKey) {
+    throw new Error(t('alert.configureApi', null, 'Please configure API Settings first.'));
+  }
+  const result = await window.studioApi.runStage4Condense({
+    providerKey,
+    profile,
+    allSource,
+  });
+  fetchAndRenderTokenUsage();
+  return `${result?.condensedMarkdown || ''}`.trim();
+}
+
+async function saveCondensedMarkdown(reviewerId, condensedMarkdown) {
+  const result = await window.studioApi.saveStage4CondensedMarkdown({
+    reviewerId,
+    condensedMarkdown,
+    folderName: state.currentFolderName || '',
+  });
+  return `${result?.path || ''}`.trim();
+}
+
+async function skill2_refine(condensedMarkdown, followupQuestion, draft, documentMemoryMarkdown = '') {
+  const providerKey = state.apiSettings.activeApiProvider;
+  const profile = getActiveApiProfile(providerKey);
+  if (!profile || !profile.apiKey) {
+    throw new Error(t('alert.configureApi', null, 'Please configure API Settings first.'));
+  }
+  const result = await window.studioApi.runStage4Refine({
+    providerKey,
+    profile,
+    condensedMarkdown,
+    followupQuestion,
+    draft,
+    documentMemoryMarkdown,
+  });
+  fetchAndRenderTokenUsage();
+  return `${result?.refinedText || ''}`.trim();
+}
+
+function setProgress(step, status) {
+  const stage4 = getStage4StateForReviewer(state.activeReviewerIdx);
+  const targets = {
+    step1: {
+      running: 'Condensing prior discussion…',
+      saved: 'Saved condensed context to local Markdown.',
+      error: 'Step 1 failed.',
+      idle: '',
+    },
+    step2: {
+      running: 'Refining follow-up response with condensed context…',
+      done: 'Done.',
+      error: 'Step 2 failed.',
+      idle: '',
+    },
+  };
+  if (!targets[step]) return;
+  stage4.progress[step] = {
+    status,
+    text: targets[step][status] || '',
+  };
+}
+
+function showCopyPopup(refinedText) {
+  if (!stage4CopyPopupEl) return;
+  stage4CopyPopupEl.dataset.copyText = `${refinedText || ''}`;
+  stage4CopyPopupEl.classList.remove('hidden');
+}
+
+function hideCopyPopup() {
+  if (!stage4CopyPopupEl) return;
+  stage4CopyPopupEl.classList.add('hidden');
+  stage4CopyPopupEl.dataset.copyText = '';
+}
+
+function renderStage4ProgressLine(label, step) {
+  const status = step?.status || 'idle';
+  const text = step?.text || '';
+  return `<div class="stage4-progress-line" data-status="${escapeHTML(status)}">
+    <span class="stage4-progress-dot"></span>
+    <span class="stage4-progress-label">${escapeHTML(label)}</span>
+    <span class="stage4-progress-text">${escapeHTML(text || t('stage4.waiting', null, 'Waiting...'))}</span>
+  </div>`;
+}
+
+function renderStage4Panels() {
+  updateHistoryButtons();
+  const stage2LeftEl = document.getElementById('stage2LeftPanel');
+  const reviewerName = state.reviewers[state.activeReviewerIdx]?.name || `${state.activeReviewerIdx + 1}`;
+  const stage4 = getStage4StateForReviewer(state.activeReviewerIdx);
+  const isRunning = stage4RefineRuntime.running && stage4RefineRuntime.reviewerIdx === state.activeReviewerIdx;
+
+  stage2LeftEl.innerHTML = `
+    <div class="stage4-left-wrap">
+      <div class="stage3-reviewer-label">${escapeHTML(t('stage3.reviewerLabel', { name: reviewerName }, `Reviewer ${reviewerName}`))}</div>
+      <div class="breakdown-block stage4-left-block">
+        <div class="breakdown-section">
+          <h4 class="breakdown-section-title">${escapeHTML(t('stage4.reviewerFollowupRaw', null, 'Reviewer Follow-up (Raw)'))}</h4>
+          <textarea class="response-textarea stage4-followup-editor" data-stage4-field="followupQuestion" placeholder="${escapeHTML(t('stage4.followupPlaceholder', null, 'Paste the complete reviewer follow-up question or concern here.'))}">${escapeHTML(stage4.followupQuestion || '')}</textarea>
+        </div>
+      </div>
+      <div class="breakdown-block stage4-left-block">
+        <div class="breakdown-section">
+          <h4 class="breakdown-section-title">${escapeHTML(t('stage4.draftEditor', null, 'Draft Editor'))}</h4>
+          <textarea class="response-textarea stage4-draft-editor" data-stage4-field="draft" placeholder="${escapeHTML(t('stage4.draftPlaceholder', null, 'Draft your follow-up response for this reviewer...'))}">${escapeHTML(stage4.draft || '')}</textarea>
+        </div>
+      </div>
+    </div>`;
+
+  const refinedText = stage4.refinedText || '';
+  const previewBody = refinedText
+    ? `<div class="stage5-preview-host stage4-preview-host">${renderStage5PreviewHtml(refinedText)}</div>`
+    : `<p class="breakdown-placeholder">${escapeHTML(t('stage4.nothingToPreview', null, 'Nothing to preview yet. Click Refine to generate the follow-up response.'))}</p>`;
+  const progress = stage4.progress || createStage4ProgressState();
+  const hasProgress = Boolean(progress.step1?.text || progress.step2?.text || isRunning);
+  breakdownContentEl.innerHTML = `
+    <div class="stage4-right-wrap">
+      <div class="stage4-progress-wrap ${hasProgress ? '' : 'stage4-progress-muted'}">
+        ${renderStage4ProgressLine(t('stage4.step1', null, 'Step 1'), progress.step1)}
+        ${renderStage4ProgressLine(t('stage4.step2', null, 'Step 2'), progress.step2)}
+      </div>
+      <div class="breakdown-block">
+        <div class="breakdown-section">
+          <div class="stage4-section-head">
+            <h4 class="breakdown-section-title">${escapeHTML(t('stage4.finalOutputPreview', null, 'Final Refined Output (Preview)'))}</h4>
+            <button class="btn" data-stage4-copy-refined="1">${escapeHTML(t('stage4Popup.copy', null, 'Copy'))}</button>
+          </div>
+          ${previewBody}
+          ${stage4.condensedPath ? `<p class="muted stage4-condensed-path">${escapeHTML(t('stage4.condensedContext', { path: stage4.condensedPath }, `Condensed context: ${stage4.condensedPath}`))}</p>` : ''}
+        </div>
+      </div>
+    </div>`;
+}
+
+async function runStage4RefinePipeline() {
+  if (stage4RefineRuntime.running) return;
+  const reviewerIdx = state.activeReviewerIdx;
+  const reviewerId = getReviewerId(reviewerIdx);
+  const stage4 = getStage4StateForReviewer(reviewerIdx);
+  const allSource = getStage3AllSource(reviewerIdx);
+  if (!`${allSource || ''}`.trim()) {
+    alert('Stage3 All source is empty for this reviewer.');
+    return;
+  }
+
+  stage4RefineRuntime = { running: true, reviewerIdx };
+  convertBtnEl.disabled = true;
+  convertBtnEl.classList.add('loading');
+  setProgress('step1', 'running');
+  setProgress('step2', 'idle');
+  renderStage4Panels();
+
+  try {
+    const condensedMarkdown = await skill1_condense(allSource);
+    const pathSaved = await saveCondensedMarkdown(reviewerId, condensedMarkdown);
+    stage4.condensedMarkdown = condensedMarkdown;
+    stage4.condensedPath = pathSaved;
+    setProgress('step1', 'saved');
+    queueStateSync();
+    renderStage4Panels();
+  } catch (error) {
+    setProgress('step1', 'error');
+    queueStateSync();
+    renderStage4Panels();
+    stage4RefineRuntime = { running: false, reviewerIdx: -1 };
+    showApiErrorModal(error, { actionLabel: 'Stage4 Step 1 Condense', stageKey: 'stage4' });
+    return;
+  }
+
+  try {
+    setProgress('step2', 'running');
+    renderStage4Panels();
+    const documentMemoryMarkdown = getTrimmedDocumentMemoryMarkdownForStage();
+    const refinedText = await skill2_refine(stage4.condensedMarkdown, stage4.followupQuestion, stage4.draft, documentMemoryMarkdown);
+    stage4.refinedText = refinedText;
+    setProgress('step2', 'done');
+    queueStateSync();
+    renderStage4Panels();
+    showCopyPopup(refinedText);
+  } catch (error) {
+    setProgress('step2', 'error');
+    queueStateSync();
+    renderStage4Panels();
+    showApiErrorModal(error, { actionLabel: 'Stage4 Step 2 Refine', stageKey: 'stage4' });
+  } finally {
+    stage4RefineRuntime = { running: false, reviewerIdx: -1 };
+    convertBtnEl.disabled = false;
+    convertBtnEl.classList.remove('loading');
+    renderStage4Panels();
+  }
+}
+
+function createStage5ProgressState() {
+  return {
+    step1: { status: 'idle', text: '' },
+    step2: { status: 'idle', text: '' },
+  };
+}
+
+function getStage5TemplateEntry(styleKey = state.stage5Settings.style) {
+  const styles = STAGE5_STYLE_LIBRARY?.styles || {};
+  const wanted = `${styleKey || ''}`.trim();
+  if (wanted && styles[wanted]) return { key: wanted, entry: styles[wanted] };
+  const fallbackKey = STAGE5_STYLE_LIBRARY?.defaultStyle || Object.keys(styles)[0] || '';
+  return fallbackKey && styles[fallbackKey] ? { key: fallbackKey, entry: styles[fallbackKey] } : null;
+}
+
+function buildStage5TemplateSource(styleKey = state.stage5Settings.style) {
+  const selected = getStage5TemplateEntry(styleKey);
+  return `${selected?.entry?.template?.body || ''}`.trim();
+}
+
+function getStage5State() {
+  if (!state.stage5Data || typeof state.stage5Data !== 'object') {
+    state.stage5Data = {};
+  }
+  const cell = state.stage5Data;
+  if (typeof cell.styleKey !== 'string' || !cell.styleKey) {
+    cell.styleKey = state.stage5Settings.style || getStage5TemplateEntry()?.key || '';
+  }
+  if (typeof cell.source !== 'string') cell.source = '';
+  if (typeof cell.renderedHtml !== 'string') cell.renderedHtml = '';
+  if (typeof cell.templateConfirmed !== 'boolean') cell.templateConfirmed = false;
+  if (!cell.templateConfirmed && `${cell.source || ''}`.trim()) cell.templateConfirmed = true;
+  if (typeof cell.previewMode !== 'string') cell.previewMode = 'project';
+  if (!cell.progress || typeof cell.progress !== 'object') cell.progress = createStage5ProgressState();
+  if (!cell.progress.step1 || !cell.progress.step2) cell.progress = createStage5ProgressState();
+  if (!cell.finalRatings || typeof cell.finalRatings !== 'object') cell.finalRatings = {};
+  if (!cell.condensedMap || typeof cell.condensedMap !== 'object') cell.condensedMap = {};
+  if (!cell.condensedPaths || typeof cell.condensedPaths !== 'object') cell.condensedPaths = {};
+
+  state.reviewers.forEach((_, idx) => {
+    const reviewerId = getReviewerId(idx);
+    if (typeof cell.finalRatings[reviewerId] !== 'string') {
+      cell.finalRatings[reviewerId] = '';
+    }
+  });
+
+  if (cell.templateConfirmed && !cell.source && cell.styleKey) {
+    cell.source = buildStage5TemplateSource(cell.styleKey);
+  }
+
+  return cell;
+}
+
+function renderStage5TemplateOptions() {
+  if (!stage5TemplateSelectEl) return;
+  const styles = STAGE5_STYLE_LIBRARY?.styles || {};
+  const keys = Object.keys(styles);
+  stage5TemplateSelectEl.innerHTML = keys.map((key) => {
+    const label = styles[key]?.label || key;
+    return `<option value="${escapeHTML(key)}">${escapeHTML(label)}</option>`;
+  }).join('');
+}
+
+function openStage5TemplateModal() {
+  if (!stage5TemplateModalEl) return;
+  renderStage5TemplateOptions();
+  const stage5 = getStage5State();
+  const selected = getStage5TemplateEntry(stage5.styleKey);
+  if (selected?.key) {
+    stage5TemplateSelectEl.value = selected.key;
+  }
+  stage5TemplateErrorEl.textContent = '';
+  stage5TemplateModalEl.classList.remove('hidden');
+}
+
+function closeStage5TemplateModal() {
+  if (!stage5TemplateModalEl) return;
+  stage5TemplateErrorEl.textContent = '';
+  stage5TemplateModalEl.classList.add('hidden');
+}
+
+function applyStage5TemplateSelection() {
+  const picked = `${stage5TemplateSelectEl?.value || ''}`.trim();
+  if (!picked) {
+    stage5TemplateErrorEl.textContent = t('stage5.selectTemplate', null, 'Please select a template.');
+    return;
+  }
+  const selected = getStage5TemplateEntry(picked);
+  if (!selected?.entry) {
+    stage5TemplateErrorEl.textContent = t('stage5.selectedTemplateUnavailable', null, 'Selected template is unavailable.');
+    return;
+  }
+  const stage5 = getStage5State();
+  stage5.styleKey = selected.key;
+  stage5.templateConfirmed = true;
+  stage5.source = buildStage5TemplateSource(selected.key);
+  stage5.renderedHtml = '';
+  stage5.previewMode = 'project';
+  stage5.progress = createStage5ProgressState();
+  state.stage5Settings.style = selected.key;
+  queueStateSync();
+  closeStage5TemplateModal();
+  if (currentStageKey() === 'stage5') {
+    renderStage5Panels();
+  }
+}
+
+function renderStage5PreviewHtml(markdownSource = '') {
+  const rawHtml = renderStage3Markdown(markdownSource || '');
+  const safeHtml = sanitizeStage3Html(rawHtml);
+  return `<div class="stage5-openreview-preview">${safeHtml || `<p class="breakdown-placeholder">${escapeHTML(t('stage3.nothingToPreview', null, 'Nothing to preview yet.'))}</p>`}</div>`;
+}
+
+function fitStage5SourceEditorHeight() {
+  if (currentStageKey() !== 'stage5') return;
+  const editor = document.querySelector('textarea.stage5-source-editor');
+  const leftPanel = document.getElementById('stage2LeftPanel');
+  if (!editor || !leftPanel) return;
+
+  const editorTop = editor.getBoundingClientRect().top;
+  const panelBottom = leftPanel.getBoundingClientRect().bottom;
+  const minTarget = Math.max(300, Math.floor(panelBottom - editorTop - 12));
+  editor.style.height = 'auto';
+  editor.style.minHeight = `${minTarget}px`;
+  editor.style.height = `${Math.max(minTarget, editor.scrollHeight)}px`;
+}
+
+function setStage5Progress(step, status, customText = '') {
+  const stage5 = getStage5State();
+  const targets = {
+    step1: {
+      running: 'Condensing all reviewers from Stage3 All source…',
+      saved: 'Saved all condensed reviewer markdown files.',
+      error: 'Step 1 failed.',
+      idle: '',
+    },
+    step2: {
+      running: 'Filling Stage5 template placeholders from reviewer summaries…',
+      done: 'Done.',
+      error: 'Step 2 failed.',
+      idle: '',
+    },
+  };
+  if (!targets[step]) return;
+  stage5.progress[step] = {
+    status,
+    text: customText || targets[step][status] || '',
+  };
+}
+
+function renderStage5ProgressLine(label, step) {
+  const status = step?.status || 'idle';
+  const text = step?.text || '';
+  return `<div class="stage4-progress-line" data-status="${escapeHTML(status)}">
+    <span class="stage4-progress-dot"></span>
+    <span class="stage4-progress-label">${escapeHTML(label)}</span>
+    <span class="stage4-progress-text">${escapeHTML(text || t('stage4.waiting', null, 'Waiting...'))}</span>
+  </div>`;
+}
+
+function renderStage5Panels() {
+  updateHistoryButtons();
+  const stage2LeftEl = document.getElementById('stage2LeftPanel');
+  const stage5 = getStage5State();
+  const selectedTemplate = getStage5TemplateEntry(stage5.styleKey);
+
+  if (!stage5.templateConfirmed || !selectedTemplate?.entry) {
+    stage2LeftEl.innerHTML = `<div class="breakdown-block"><div class="breakdown-section"><h4 class="breakdown-section-title">${escapeHTML(t('stage5.finalRemarksTemplate', null, 'Final Remarks Template'))}</h4><p class="breakdown-placeholder">${escapeHTML(t('stage5.selectTemplateFirst', null, 'Please select a Stage5 template first.'))}</p></div></div>`;
+    breakdownContentEl.innerHTML = `<div class="breakdown-block"><div class="breakdown-section"><h4 class="breakdown-section-title">${escapeHTML(t('stage5.renderedPreview', null, 'Rendered Preview'))}</h4><p class="breakdown-placeholder">${escapeHTML(t('stage3.nothingToPreview', null, 'Nothing to preview yet.'))}</p></div></div>`;
+    if (stage5TemplateModalEl?.classList.contains('hidden')) {
+      openStage5TemplateModal();
+    }
+    return;
+  }
+
+  if (!stage5.source) {
+    stage5.source = buildStage5TemplateSource(stage5.styleKey);
+  }
+
+  const reviewerRows = state.reviewers.map((reviewer, idx) => {
+    const reviewerId = getReviewerId(idx);
+    const reviewerLabel = t('stage3.reviewerLabel', { name: reviewer.name || `${idx + 1}` }, `Reviewer ${reviewer.name || idx + 1}`);
+    const original = `${state.breakdownData?.[idx]?.scores?.rating || ''}`.trim() || 'N/A';
+    const finalRating = `${stage5.finalRatings[reviewerId] || ''}`;
+    return `<label class="stage5-score-row">
+      <span class="stage5-score-row-label">${escapeHTML(reviewerLabel)}: ${escapeHTML(original)}</span>
+      <span class="stage5-score-row-arrow">→</span>
+      <input class="text-input stage5-rating-input" data-stage5-rating="${escapeHTML(reviewerId)}" value="${escapeHTML(finalRating)}" placeholder="${escapeHTML(t('stage5.finalRating', null, 'final rating'))}" />
+    </label>`;
+  }).join('');
+
+  const progress = stage5.progress || createStage5ProgressState();
+  const hasProgress = Boolean(progress.step1?.text || progress.step2?.text || stage5AutoFillRuntime.running);
+
+  stage2LeftEl.innerHTML = `
+    <div class="stage5-left-wrap">
+      <div class="stage5-score-board">
+        ${reviewerRows || `<p class="muted">${escapeHTML(t('stage5.noReviewers', null, 'No reviewers found.'))}</p>`}
+      </div>
+      <div class="breakdown-block stage4-left-block">
+        <div class="breakdown-section">
+          <h4 class="breakdown-section-title">${escapeHTML(t('stage5.rawSourceEditable', null, 'Raw Source (Editable)'))}</h4>
+          <textarea class="response-textarea stage5-source-editor" data-stage5-field="source" placeholder="${escapeHTML(t('stage5.sourcePlaceholder', null, 'Stage5 template source...'))}">${escapeHTML(stage5.source || '')}</textarea>
+        </div>
+      </div>
+    </div>`;
+
+  const sampleMode = stage5.previewMode === 'sample';
+  const toggleLabel = sampleMode ? t('stage5.return', null, 'Return') : t('stage5.finalTemplateBtn', null, 'Final Template');
+  const previewHtml = sampleMode
+    ? renderStage5PreviewHtml(STAGE5_SAMPLE_TEMPLATE || '')
+    : (stage5.renderedHtml || '');
+  const previewBody = previewHtml
+    ? `<div class="stage5-preview-host">${previewHtml}</div>`
+    : `<p class="breakdown-placeholder">${escapeHTML(sampleMode ? t('stage5.sampleUnavailable', null, 'Sample template is unavailable.') : t('stage5.clickPreview', null, 'Click Preview to render the current Stage5 source.'))}</p>`;
+
+  breakdownContentEl.innerHTML = `
+    <div class="stage5-right-wrap">
+      <div class="stage4-progress-wrap ${hasProgress ? '' : 'stage4-progress-muted'}">
+        ${renderStage5ProgressLine(t('stage4.step1', null, 'Step 1'), progress.step1)}
+        ${renderStage5ProgressLine(t('stage4.step2', null, 'Step 2'), progress.step2)}
+      </div>
+      <div class="breakdown-block">
+        <div class="breakdown-section">
+          <div class="stage4-section-head">
+            <h4 class="breakdown-section-title">${escapeHTML(sampleMode ? t('stage5.finalTemplateSampleReadonly', null, 'Final Template Sample (Read-only)') : t('stage3.renderedPreviewReadonly', null, 'Rendered Preview (Read-only)'))}</h4>
+            <button class="btn" data-stage5-toggle-sample="1">${toggleLabel}</button>
+          </div>
+          ${previewBody}
+        </div>
+      </div>
+    </div>`;
+  setTimeout(() => fitStage5SourceEditorHeight(), 0);
+}
+
+async function saveStage5CondensedMarkdownFile(reviewerId, condensedMarkdown) {
+  const result = await window.studioApi.saveStage5CondensedMarkdown({
+    reviewerId,
+    condensedMarkdown,
+    folderName: state.currentFolderName || '',
+  });
+  return `${result?.path || ''}`.trim();
+}
+
+async function skill5_finalize(templateSource, reviewerSummaries) {
+  const providerKey = state.apiSettings.activeApiProvider;
+  const profile = getActiveApiProfile(providerKey);
+  if (!profile || !profile.apiKey) {
+    throw new Error(t('alert.configureApi', null, 'Please configure API Settings first.'));
+  }
+  const result = await window.studioApi.runStage5FinalRemarks({
+    providerKey,
+    profile,
+    templateSource,
+    reviewerSummaries,
+  });
+  fetchAndRenderTokenUsage();
+  return `${result?.filledMarkdown || ''}`.trim();
+}
+
+async function runStage5AutoFillPipeline() {
+  if (stage5AutoFillRuntime.running) return;
+  const stage5 = getStage5State();
+  if (!`${stage5.source || ''}`.trim()) {
+    alert(t('alert.stage5Empty', null, 'Stage5 template source is empty. Please select a template first.'));
+    return;
+  }
+  if (!state.reviewers.length) {
+    alert(t('stage5.noReviewers', null, 'No reviewers found.'));
+    return;
+  }
+
+  stage5AutoFillRuntime = { running: true };
+  stage2AutoFitBtn.disabled = true;
+  stage2AutoFitBtn.classList.add('loading');
+  setStage5Progress('step1', 'running');
+  setStage5Progress('step2', 'idle');
+  renderStage5Panels();
+
+  const reviewerSummaries = [];
+  const condensedMap = {};
+  const condensedPaths = {};
+
+  try {
+    for (let idx = 0; idx < state.reviewers.length; idx += 1) {
+      const reviewerId = getReviewerId(idx);
+      const reviewerLabel = state.reviewers[idx]?.name || `${idx + 1}`;
+      const allSource = getStage3AllSource(idx);
+      if (!`${allSource || ''}`.trim()) {
+        throw new Error(t('stage5.stage3AllEmpty', { reviewer: reviewerLabel }, `Stage3 All source is empty for Reviewer ${reviewerLabel}.`));
+      }
+      setStage5Progress('step1', 'running', t('stage5.condensingReviewer', { reviewer: reviewerLabel }, `Condensing Reviewer ${reviewerLabel}...`));
+      renderStage5Panels();
+      const condensedMarkdown = await skill1_condense(allSource);
+      const pathSaved = await saveStage5CondensedMarkdownFile(reviewerId, condensedMarkdown);
+      condensedMap[reviewerId] = condensedMarkdown;
+      condensedPaths[reviewerId] = pathSaved;
+      reviewerSummaries.push({
+        reviewerId,
+        originalRating: `${state.breakdownData?.[idx]?.scores?.rating || ''}`.trim(),
+        finalRating: `${stage5.finalRatings?.[reviewerId] || ''}`.trim(),
+        condensedMarkdown,
+      });
+    }
+    stage5.condensedMap = condensedMap;
+    stage5.condensedPaths = condensedPaths;
+    setStage5Progress('step1', 'saved');
+    queueStateSync();
+    renderStage5Panels();
+  } catch (error) {
+    setStage5Progress('step1', 'error', error.message || 'Stage5 step1 failed.');
+    queueStateSync();
+    renderStage5Panels();
+    stage5AutoFillRuntime = { running: false };
+    stage2AutoFitBtn.disabled = false;
+    stage2AutoFitBtn.classList.remove('loading');
+    showApiErrorModal(error, { actionLabel: 'Stage5 Step 1 Condense', stageKey: 'stage5' });
+    return;
+  }
+
+  try {
+    setStage5Progress('step2', 'running');
+    renderStage5Panels();
+    const filled = await skill5_finalize(stage5.source, reviewerSummaries);
+    stage5.source = filled;
+    stage5.renderedHtml = '';
+    stage5.previewMode = 'project';
+    setStage5Progress('step2', 'done');
+    queueStateSync();
+    renderStage5Panels();
+  } catch (error) {
+    setStage5Progress('step2', 'error', error.message || 'Stage5 step2 failed.');
+    queueStateSync();
+    renderStage5Panels();
+    showApiErrorModal(error, { actionLabel: 'Stage5 Step 2 Final Remarks', stageKey: 'stage5' });
+  } finally {
+    stage5AutoFillRuntime = { running: false };
+    stage2AutoFitBtn.disabled = false;
+    stage2AutoFitBtn.classList.remove('loading');
+    renderStage5Panels();
+  }
+}
+
+function renderStage5Preview() {
+  const stage5 = getStage5State();
+  const liveEditor = document.querySelector('textarea.stage5-source-editor');
+  if (liveEditor && typeof liveEditor.value === 'string') {
+    stage5.source = liveEditor.value;
+  }
+  stage5.previewMode = 'project';
+  stage5.renderedHtml = renderStage5PreviewHtml(stage5.source || '');
+  queueStateSync();
+  renderStage5Panels();
+}
+
+function getOrCreateStage3DraftForReviewer(reviewerIdx, responseId) {
+  if (!state.stage3Drafts[reviewerIdx]) state.stage3Drafts[reviewerIdx] = {};
+  if (!state.stage3Drafts[reviewerIdx][responseId]) {
+    state.stage3Drafts[reviewerIdx][responseId] = { markdownSource: '', planTask: '', renderedHtml: '', renderedThemeColor: '' };
+  }
+  const draft = state.stage3Drafts[reviewerIdx][responseId];
+  if (typeof draft.markdownSource !== 'string') draft.markdownSource = '';
+  if (typeof draft.renderedHtml !== 'string') draft.renderedHtml = '';
+  if (typeof draft.renderedThemeColor !== 'string') draft.renderedThemeColor = '';
+  if (typeof draft.planTask !== 'string') draft.planTask = '';
+  return draft;
+}
+
+function buildStage3UnitsForReviewer(reviewerIdx) {
+  const data = getBreakdownDataForReviewer(reviewerIdx);
+  const responses = Array.isArray(data.responses) ? data.responses : [];
+  const stage2Map = getStage2ResponsesForReviewer(reviewerIdx);
+  const color = state.stage3Settings.color || '#f26921';
+  const units = [{ key: 'opening', text: STAGE3_ALL_OPENING_PARAGRAPH, atomic: true }];
+
+  responses.forEach((resp) => {
+    const draft = getOrCreateStage3DraftForReviewer(reviewerIdx, resp.id);
+    const refined = stage2Map[resp.id]?.draft || '';
+    const strictSource = enforceStrictStage3Source(draft.markdownSource, resp, responses, refined, color);
+    units.push({ key: resp.id, text: strictSource, atomic: true });
+  });
+
+  units.push({ key: 'closing', text: STAGE3_ALL_CLOSING_PARAGRAPH, atomic: true });
+  return units;
+}
+
+function buildAllDocument(reviewerId) {
+  const reviewerIdx = Number(reviewerId);
+  const safeReviewerIdx = Number.isFinite(reviewerIdx) ? reviewerIdx : state.activeReviewerIdx;
+  const units = buildStage3UnitsForReviewer(safeReviewerIdx);
+  return units.map((unit) => unit.text).join('\n\n');
+}
+
+function compileFirstRoundForExport(doc) {
+  const reviewers = doc.reviewers || [];
+  const breakdownData = doc.breakdownData || {};
+  const stage2Replies = doc.stage2Replies || {};
+  const stage3Settings = doc.stage3Settings || { style: 'standard', color: '#f26921' };
+  const stage3Drafts = doc.stage3Drafts || {};
+  const color = stage3Settings.color || '#f26921';
+
+  const segments = [];
+
+  reviewers.forEach((r, rIdx) => {
+    const rName = r.name || `Reviewer ${rIdx + 1}`;
+    const rData = breakdownData[rIdx] || {};
+    const responses = Array.isArray(rData.responses) ? rData.responses : [];
+    const rStage2 = stage2Replies[rIdx] || {};
+    const rStage3 = stage3Drafts[rIdx] || {};
+
+    segments.push(`# Response to Reviewer ${rName}`);
+
+    // Opening
+    segments.push(STAGE3_ALL_OPENING_PARAGRAPH);
+
+    responses.forEach(resp => {
+      const draft = rStage3[resp.id] || { markdownSource: '' };
+      const refined = rStage2[resp.id]?.draft || '';
+      const text = enforceStrictStage3Source(draft.markdownSource, resp, responses, refined, color);
+      segments.push(text);
+    });
+
+    segments.push(STAGE3_ALL_CLOSING_PARAGRAPH);
+    if (rIdx < reviewers.length - 1) {
+      segments.push('\n---\n');
+    }
+  });
+
+  const markdown = segments.join('\n\n');
+  const html = renderStage3Markdown(markdown);
+
+  return { markdown, html };
+}
+
+function splitByUnits(units, L) {
+  const maxLen = Number(L);
+  if (!Number.isFinite(maxLen) || maxLen <= 0) return [];
+  const parts = [];
+  let currentUnits = [];
+  let currentLength = 0;
+
+  const finalizeCurrent = () => {
+    if (!currentUnits.length) return;
+    const text = currentUnits.map((u) => u.text).join('\n\n');
+    parts.push({
+      units: currentUnits,
+      text,
+      length: countChars(text),
+      hasOversizedUnit: currentUnits.some((u) => countChars(u.text) > maxLen),
+    });
+    currentUnits = [];
+    currentLength = 0;
+  };
+
+  units.forEach((unit) => {
+    const unitLength = countChars(unit.text);
+    if (unitLength > maxLen) {
+      finalizeCurrent();
+      parts.push({
+        units: [unit],
+        text: unit.text,
+        length: unitLength,
+        hasOversizedUnit: true,
+      });
+      return;
+    }
+
+    if (!currentUnits.length) {
+      currentUnits.push(unit);
+      currentLength = unitLength;
+      return;
+    }
+
+    const separatorLen = 2; // \n\n between units
+    if (currentLength + separatorLen + unitLength <= maxLen) {
+      currentUnits.push(unit);
+      currentLength += separatorLen + unitLength;
+      return;
+    }
+
+    finalizeCurrent();
+    currentUnits.push(unit);
+    currentLength = unitLength;
+  });
+
+  finalizeCurrent();
+  return parts;
+}
+
+function renderPreview(text) {
+  const color = state.stage3Settings.color || '#f26921';
+  return parseAndSanitizeStage3Markdown(text, color);
+}
+
+function updateStage3CharCounter(text) {
+  const label = document.querySelector('[data-stage3-char-counter]');
+  if (!label) return;
+  label.textContent = t('stage3.totalChars', { count: `${countChars(text)}` }, `Total chars: ${countChars(text)}`);
+}
+
+function openStage3BreakdownModal() {
+  if (!stage3BreakdownModalEl) return;
+  stage3BreakdownErrorEl.textContent = '';
+  stage3BreakdownLengthInputEl.value = '';
+  stage3BreakdownModalEl.classList.remove('hidden');
+  setTimeout(() => stage3BreakdownLengthInputEl.focus(), 50);
+}
+
+function closeStage3BreakdownModal() {
+  if (!stage3BreakdownModalEl) return;
+  stage3BreakdownModalEl.classList.add('hidden');
+}
+
+function closeStage3BreakdownResultModal() {
+  if (!stage3BreakdownResultModalEl) return;
+  stage3BreakdownResultModalEl.classList.add('hidden');
+  stage3BreakdownPartsCache = [];
+}
+
+function renderStage3BreakdownResult(parts) {
+  if (!stage3BreakdownResultModalEl || !stage3BreakdownResultBodyEl) return;
+  stage3BreakdownPartsCache = Array.isArray(parts) ? parts : [];
+  const reviewerId = getCurrentReviewerIdentifier();
+  const total = parts.length;
+  stage3BreakdownResultBodyEl.innerHTML = parts.map((part, idx) => {
+    const subject = `Author Response to Reviewer ${reviewerId} (Part ${idx + 1}/${total})`;
+    const warning = part.hasOversizedUnit
+      ? '<p class="muted">Warning: This part contains at least one atomic unit longer than the max length and was kept intact.</p>'
+      : '';
+    return `
+      <div class="stage3-breakdown-part">
+        <div class="stage3-breakdown-subject"><strong>Subject:</strong> ${escapeHTML(subject)}</div>
+        ${warning}
+        <div class="stage3-breakdown-content-label"><strong>Content:</strong></div>
+        <textarea class="text-input stage3-breakdown-content" readonly>${escapeHTML(part.text)}</textarea>
+        <div class="stage3-breakdown-actions">
+          <button class="btn" data-stage3-copy-part="${idx}" data-stage3-copy-subject="${escapeHTML(subject)}">Copy</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+  stage3BreakdownResultModalEl.classList.remove('hidden');
+}
+
+function confirmStage3Breakdown() {
+  const raw = `${stage3BreakdownLengthInputEl?.value || ''}`.trim();
+  const limit = Number(raw);
+  if (!Number.isInteger(limit) || limit <= 0) {
+    stage3BreakdownErrorEl.textContent = 'Please input a positive integer.';
+    return;
+  }
+  const units = buildStage3UnitsForReviewer(state.activeReviewerIdx);
+  const parts = splitByUnits(units, limit);
+  if (!parts.length) {
+    stage3BreakdownErrorEl.textContent = 'Unable to split content. Please check the max length.';
+    return;
+  }
+  closeStage3BreakdownModal();
+  renderStage3BreakdownResult(parts);
+}
+
+function stage3IssueCode(resp) {
+  return resp.source === 'question' ? `Q${(resp.source_id || '').replace(/\D/g, '') || '1'}` : `W${(resp.source_id || '').replace(/\D/g, '') || '1'}`;
+}
+
+function renderStage3Palette(tempColor) {
+  if (!stage3PresetColorsEl) return;
+  const activeColor = (tempColor && tempColor !== 'custom') ? tempColor : (state.stage3Settings.color || '#f26921');
+  let isCustom = true;
+  const buttons = STAGE3_PRESET_COLORS.map((color) => {
+    const isActive = tempColor !== 'custom' && color.toLowerCase() === activeColor.toLowerCase();
+    if (isActive) isCustom = false;
+    return `<button class="stage3-color-dot ${isActive ? 'active' : ''}" data-stage3-color="${color}" style="--dot:${color}" title="${color}"></button>`;
+  }).join('');
+
+  if (tempColor === 'custom') isCustom = true;
+
+  stage3PresetColorsEl.innerHTML = `${buttons}<button class="stage3-color-custom ${isCustom ? 'active' : ''}" data-stage3-color="custom">Custom</button>`;
+
+  if (tempColor !== 'custom') {
+    stage3CustomHexInputEl.value = activeColor;
+  }
+}
+
+function renderStage3StyleOptions() {
+  const styles = STAGE3_STYLE_LIBRARY?.styles || {};
+  const keys = Object.keys(styles);
+  if (!keys.length) return;
+  stage3StyleSelectEl.innerHTML = keys.map((key) => `<option value="${key}">${escapeHTML(styles[key].label || key)}</option>`).join('');
+}
+
+function openStage3StyleModal() {
+  if (!stage3StyleModalEl) return;
+  renderStage3StyleOptions();
+  stage3StyleSelectEl.value = state.stage3Settings.style || (STAGE3_STYLE_LIBRARY.defaultStyle || 'standard');
+  stage3StyleErrorEl.textContent = '';
+  stage3ColorSectionEl.classList.toggle('hidden', stage3StyleSelectEl.value !== 'standard');
+  renderStage3Palette();
+  stage3StyleModalEl.classList.remove('hidden');
+}
+
+function normalizeHexColor(value) {
+  const text = `${value || ''}`.trim();
+  if (!/^#[0-9a-fA-F]{6}$/.test(text)) return '';
+  return text.toLowerCase();
+}
+
+function showStage3ThemeNotice(message) {
+  if (!stage3ThemeNoticeEl) return;
+  if (!message) {
+    stage3ThemeNoticeEl.textContent = '';
+    stage3ThemeNoticeEl.classList.add('hidden');
+    return;
+  }
+  stage3ThemeNoticeEl.textContent = message;
+  stage3ThemeNoticeEl.classList.remove('hidden');
+}
+
+const STAGE3_STRICT_RE = {
+  titleLine: /^### \*\*\$\{\\color\{#[0-9a-fA-F]{6}\}\\text\{([^{}]+)\}\}\$\*\*$/,
+  quoteLabelLine: /^> \$\{\\color\{#[0-9a-fA-F]{6}\}\\text\{([^{}]+)\}\}\$$/,
+  responseLabelLine: /^\$\{\\color\{#[0-9a-fA-F]{6}\}\\text\{([^{}]+)\}\}\$$/,
+  latexColorToken: /\$\{\\color\{(#[0-9a-fA-F]{6})\}\\text\{([^{}]+)\}\}\$/g,
+  legacyTitleSpan: /^###\s*<span[^>]*color\s*:\s*(#[0-9a-fA-F]{6})[^>]*>(.*?)<\/span>\s*$/gim,
+  legacyQuoteSpan: /^>\s*<span[^>]*color\s*:\s*(#[0-9a-fA-F]{6})[^>]*>(.*?)<\/span>\s*(.*)$/gim,
+  legacyResponseSpan: /^<span[^>]*color\s*:\s*(#[0-9a-fA-F]{6})[^>]*>(.*?)<\/span>\s*$/gim,
+};
+
+function sanitizeStage3LabelText(text, fallback) {
+  const cleaned = `${text || ''}`
+    .replace(/\r?\n/g, ' ')
+    .replace(/[{}]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return cleaned || fallback;
+}
+
+function stage3LatexColorToken(color, text, fallbackText = '') {
+  const safeColor = normalizeHexColor(color) || '#f26921';
+  const safeText = sanitizeStage3LabelText(text, fallbackText);
+  return `\${\\color{${safeColor}}\\text{${safeText}}}$`;
+}
+
+function stage3DefaultTitleLabel(selectedResp, responses) {
+  const idx = responses.findIndex((r) => r.id === selectedResp.id) + 1;
+  if (idx === 1) return 'R1: Regarding the Novelty Clarification.';
+  const raw = sanitizeStage3LabelText(selectedResp.title || `Response ${idx}`, `Response ${idx}`);
+  return `R${idx}: ${raw}`;
+}
+
+function stage3DefaultQuoteLabel(selectedResp) {
+  const issueLabel = selectedResp.source === 'question' ? 'Question' : 'Weakness';
+  const issueIndex = (selectedResp.source_id || '').replace(/\D/g, '') || '1';
+  return `${issueLabel}-${issueIndex}:`;
+}
+
+function stage3DefaultResponseLabel(selectedResp) {
+  return `Response ${stage3IssueCode(selectedResp)}:`;
+}
+
+function stripTags(value) {
+  return `${value || ''}`.replace(/<[^>]*>/g, '').trim();
+}
+
+function migrateLegacyStage3Source(markdownSource, fallbackColor) {
+  const safeColor = normalizeHexColor(fallbackColor) || '#f26921';
+  let src = `${markdownSource || ''}`;
+
+  src = src.replace(STAGE3_STRICT_RE.legacyTitleSpan, (_m, hex, text) => {
+    const color = normalizeHexColor(hex) || safeColor;
+    return `### **${stage3LatexColorToken(color, stripTags(text), 'R1: Regarding the Novelty Clarification.')}**`;
+  });
+
+  src = src.replace(STAGE3_STRICT_RE.legacyQuoteSpan, (_m, hex, text, rest) => {
+    const color = normalizeHexColor(hex) || safeColor;
+    const label = `> ${stage3LatexColorToken(color, stripTags(text), 'Weakness-1:')}`;
+    const trailing = `${rest || ''}`.trim();
+    if (!trailing) return label;
+    return `${label}\n> ${trailing}`;
+  });
+
+  src = src.replace(STAGE3_STRICT_RE.legacyResponseSpan, (_m, hex, text) => {
+    const color = normalizeHexColor(hex) || safeColor;
+    return stage3LatexColorToken(color, stripTags(text), 'Response W1:');
+  });
+
+  return src;
+}
+
+function extractStage3LineText(markdownSource, re, fallback) {
+  const lines = `${markdownSource || ''}`.split('\n');
+  for (const line of lines) {
+    const m = line.trim().match(re);
+    if (m?.[1]) return sanitizeStage3LabelText(m[1], fallback);
+  }
+  return fallback;
+}
+
+function extractStage3QuoteContent(lines, quoteIdx, responseIdx, fallback) {
+  if (quoteIdx < 0) return fallback || '';
+  const end = responseIdx >= 0 ? responseIdx : lines.length;
+  const quoteLines = [];
+  for (let i = quoteIdx + 1; i < end; i += 1) {
+    const line = lines[i];
+    const trimmed = line.trim();
+    if (!trimmed) {
+      if (quoteLines.length) break;
+      continue;
+    }
+    if (!trimmed.startsWith('>')) break;
+    quoteLines.push(line.replace(/^>\s?/, ''));
+  }
+  if (quoteLines.length) return quoteLines.join('\n').trim();
+  return `${fallback || ''}`.trim();
+}
+
+function extractStage3ResponseBody(lines, responseIdx, fallback) {
+  if (responseIdx < 0) return `${fallback || ''}`.trim();
+  const tail = lines.slice(responseIdx + 1);
+  while (tail.length && !tail[0].trim()) tail.shift();
+  return tail.join('\n').trim() || `${fallback || ''}`.trim();
+}
+
+function enforceStrictStage3Source(markdownSource, selectedResp, responses, refined, color) {
+  const safeColor = normalizeHexColor(color) || '#f26921';
+  const migrated = migrateLegacyStage3Source(markdownSource, safeColor);
+  const lines = migrated.split('\n');
+  const responseOrdinal = responses.findIndex((r) => r.id === selectedResp.id) + 1;
+
+  const defaultTitle = stage3DefaultTitleLabel(selectedResp, responses);
+  const defaultQuoteLabel = stage3DefaultQuoteLabel(selectedResp);
+  const defaultResponseLabel = stage3DefaultResponseLabel(selectedResp);
+
+  let titleLabel = extractStage3LineText(migrated, STAGE3_STRICT_RE.titleLine, defaultTitle);
+  if (responseOrdinal === 1) {
+    titleLabel = 'R1: Regarding the Novelty Clarification.';
+  }
+  const quoteLabel = extractStage3LineText(migrated, STAGE3_STRICT_RE.quoteLabelLine, defaultQuoteLabel);
+  const responseLabel = extractStage3LineText(migrated, STAGE3_STRICT_RE.responseLabelLine, defaultResponseLabel);
+
+  const quoteIdx = lines.findIndex((line) => STAGE3_STRICT_RE.quoteLabelLine.test(line.trim()));
+  const responseIdx = lines.findIndex((line) => STAGE3_STRICT_RE.responseLabelLine.test(line.trim()));
+
+  const quoteContent = extractStage3QuoteContent(lines, quoteIdx, responseIdx, selectedResp.quoted_issue || '');
+  const responseBody = extractStage3ResponseBody(lines, responseIdx, refined || '(No refined answer yet)');
+
+  const strictLines = [
+    `### **${stage3LatexColorToken(safeColor, titleLabel, defaultTitle)}**`,
+    '',
+    `> ${stage3LatexColorToken(safeColor, quoteLabel, defaultQuoteLabel)}`,
+  ];
+
+  if (quoteContent) {
+    quoteContent.split('\n').forEach((line) => {
+      strictLines.push(`> ${line}`);
+    });
+  }
+
+  strictLines.push('');
+  strictLines.push(stage3LatexColorToken(safeColor, responseLabel, defaultResponseLabel));
+  strictLines.push('');
+  strictLines.push(responseBody || '(No refined answer yet)');
+  return strictLines.join('\n');
+}
+
+function buildStage3DefaultMarkdown(selectedResp, responses, refined, color) {
+  return enforceStrictStage3Source('', selectedResp, responses, refined, color);
+}
+
+function tokenizeStage3LatexColor(markdownSource) {
+  const tokens = [];
+  const text = `${markdownSource || ''}`;
+  const markedSource = text.replace(STAGE3_STRICT_RE.latexColorToken, (_m, hex, labelText) => {
+    const idx = tokens.length;
+    const safeColor = normalizeHexColor(hex) || '#f26921';
+    tokens.push({ color: safeColor, text: labelText });
+    return `@@STAGE3_LATEX_COLOR_${idx}@@`;
+  });
+  return { markedSource, tokens };
+}
+
+function renderStage3InlineFallback(text) {
+  const escaped = escapeHTML(text || '');
+  return escaped.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+}
+
+function renderStage3MarkdownFallback(markdownSource) {
+  const lines = `${markdownSource || ''}`.replace(/\r\n/g, '\n').split('\n');
+  const html = [];
+  let i = 0;
+
+  while (i < lines.length) {
+    const line = lines[i];
+    if (!line.trim()) {
+      i += 1;
+      continue;
+    }
+
+    const h3 = line.match(/^###\s+(.+)$/);
+    if (h3) {
+      html.push(`<h3>${renderStage3InlineFallback(h3[1])}</h3>`);
+      i += 1;
+      continue;
+    }
+
+    if (/^>\s?/.test(line)) {
+      const parts = [];
+      while (i < lines.length && /^>\s?/.test(lines[i])) {
+        parts.push(lines[i].replace(/^>\s?/, ''));
+        i += 1;
+      }
+      html.push(`<blockquote><p>${parts.map((p) => renderStage3InlineFallback(p)).join('<br>')}</p></blockquote>`);
+      continue;
+    }
+
+    const para = [];
+    while (i < lines.length && lines[i].trim() && !/^###\s+/.test(lines[i]) && !/^>\s?/.test(lines[i])) {
+      para.push(lines[i]);
+      i += 1;
+    }
+    html.push(`<p>${para.map((p) => renderStage3InlineFallback(p)).join('<br>')}</p>`);
+  }
+
+  return html.join('');
+}
+
+function markedParseApi() {
+  if (!window.marked) return null;
+  if (typeof window.marked.parse === 'function') return window.marked.parse.bind(window.marked);
+  if (typeof window.marked === 'function') return window.marked.bind(window);
+  return null;
+}
+
+function renderStage3Markdown(markdownSource) {
+  const parse = markedParseApi();
+  if (!parse) return renderStage3MarkdownFallback(markdownSource);
+  try {
+    return parse(markdownSource || '', {
+      gfm: true,
+      breaks: true,
+      headerIds: false,
+      mangle: false,
+    });
+  } catch (err) {
+    console.error('Stage3 markdown parse failed, fallback renderer used:', err);
+    return renderStage3MarkdownFallback(markdownSource);
+  }
+}
+
+function injectStage3LatexTokens(htmlSource, tokens) {
+  let out = `${htmlSource || ''}`;
+  tokens.forEach((token, idx) => {
+    const marker = `@@STAGE3_LATEX_COLOR_${idx}@@`;
+    const replacement = `<span class="stage3-latex-token" style="color:${token.color};">${escapeHTML(token.text)}</span>`;
+    out = out.split(marker).join(replacement);
+  });
+  return out;
+}
+
+function sanitizeStage3Html(htmlSource) {
+  if (window.DOMPurify?.sanitize) {
+    return window.DOMPurify.sanitize(htmlSource || '', {
+      USE_PROFILES: { html: true },
+      ADD_ATTR: ['style', 'class'],
+    });
+  }
+  return htmlSource || '';
+}
+
+function parseAndSanitizeStage3Markdown(markdownSource, themeColor) {
+  const normalized = `${markdownSource || ''}`.replace(/\r\n/g, '\n');
+  const { markedSource, tokens } = tokenizeStage3LatexColor(normalized);
+  const rawHtml = renderStage3Markdown(markedSource);
+  const htmlWithColorTokens = injectStage3LatexTokens(rawHtml, tokens);
+  const safeHtml = sanitizeStage3Html(htmlWithColorTokens);
+  return `<div class="stage3-openreview-preview" style="--stage3-theme-color:${themeColor};">${safeHtml || `<p class="breakdown-placeholder">${escapeHTML(t('stage3.nothingToPreview', null, 'Nothing to preview yet.'))}</p>`}</div>`;
+}
+
+function renderStage3Panels() {
+  const stage2LeftEl = document.getElementById('stage2LeftPanel');
+  const responses = stage3ResponsesForActiveReviewer();
+  const selectedId = ensureStage3Selection();
+
+  if (!responses.length) {
+    stage2LeftEl.innerHTML = `<div class="breakdown-block"><div class="breakdown-section"><h4 class="breakdown-section-title">${escapeHTML(t('stage3.rawSourceEditable', null, 'Editable Raw Source (Markdown)'))}</h4><p class="breakdown-placeholder">${escapeHTML(t('stage3.noResponses', null, 'No responses found. Please complete Stage 1 and Stage 2 first.'))}</p></div></div>`;
+    breakdownContentEl.innerHTML = `<div class="breakdown-block"><div class="breakdown-section"><h4 class="breakdown-section-title">${escapeHTML(t('stage3.renderedPreview', null, 'Rendered Preview'))}</h4><p class="breakdown-placeholder">${escapeHTML(t('stage3.nothingToPreview', null, 'Nothing to preview yet.'))}</p></div></div>`;
+    return;
+  }
+
+  const reviewerName = state.reviewers[state.activeReviewerIdx]?.name || `${state.activeReviewerIdx + 1}`;
+  const chips = [
+    `<button class="stage3-issue-pill ${selectedId === STAGE3_ALL_TAB_ID ? 'active' : ''}" data-stage3-response="${STAGE3_ALL_TAB_ID}">All</button>`,
+    ...responses.map((resp, idx) => `<button class="stage3-issue-pill ${resp.id === selectedId ? 'active' : ''}" data-stage3-response="${escapeHTML(resp.id)}">${idx + 1}</button>`),
+  ].join('');
+
+  if (selectedId === STAGE3_ALL_TAB_ID) {
+    const allDoc = buildAllDocument(state.activeReviewerIdx);
+    stage2LeftEl.innerHTML = `
+      <div class="stage3-left-wrap">
+        <div class="stage3-head-row">
+          <div class="stage3-reviewer-label">${escapeHTML(t('stage3.reviewerLabel', { name: reviewerName }, `Reviewer ${reviewerName}`))}</div>
+          <div class="stage3-head-actions">
+            <div class="stage3-counter-label" data-stage3-char-counter>${escapeHTML(t('stage3.totalChars', { count: `${countChars(allDoc)}` }, `Total chars: ${countChars(allDoc)}`))}</div>
+            <button class="btn primary stage3-breakdown-float-btn" type="button" data-stage3-breakdown-open="1">${escapeHTML(t('stage3Breakdown.title', null, 'To break down'))}</button>
+          </div>
+        </div>
+        <div class="stage3-issues-row">${chips}</div>
+        <div class="stage3-plan-head">${escapeHTML(t('stage3.rawSourceCombinedReadonly', null, 'Combined Raw Source (Read-only)'))}</div>
+        <textarea class="response-textarea outline-textarea stage3-source-editor stage3-source-editor-readonly" readonly>${escapeHTML(allDoc)}</textarea>
+      </div>`;
+    const allPreviewHtml = renderPreview(allDoc);
+    breakdownContentEl.innerHTML = `<div class="breakdown-block"><div class="breakdown-section"><h4 class="breakdown-section-title">${escapeHTML(t('stage3.renderedPreviewReadonly', null, 'Rendered Preview (Read-only)'))}</h4><div class="stage3-preview-host">${allPreviewHtml}</div></div></div>`;
+    autoExpandStage3Editor();
+    updateStage3CharCounter(allDoc);
+    return;
+  }
+
+  const selectedResp = responses.find((r) => r.id === selectedId) || responses[0];
+  const draft = getStage3DraftForResponse(selectedResp.id);
+  const stage2Map = getStage2ResponsesForReviewer(state.activeReviewerIdx);
+  const refined = stage2Map[selectedResp.id]?.draft || '';
+  const color = state.stage3Settings.color || '#f26921';
+
+  if (!draft.markdownSource) {
+    draft.markdownSource = buildStage3DefaultMarkdown(selectedResp, responses, refined, color);
+    queueStateSync();
+  }
+
+  stage2LeftEl.innerHTML = `
+    <div class="stage3-left-wrap">
+      <div class="stage3-head-row">
+        <div class="stage3-reviewer-label">${escapeHTML(t('stage3.reviewerLabel', { name: reviewerName }, `Reviewer ${reviewerName}`))}</div>
+        <div class="stage3-counter-label" data-stage3-char-counter>${escapeHTML(t('stage3.totalChars', { count: `${countChars(draft.markdownSource)}` }, `Total chars: ${countChars(draft.markdownSource)}`))}</div>
+      </div>
+      <div class="stage3-issues-row">${chips}</div>
+      <div class="stage3-plan-head">${escapeHTML(t('stage3.rawSourceEditable', null, 'Editable Raw Source (Markdown)'))}</div>
+      <textarea class="response-textarea outline-textarea stage3-source-editor" data-stage3-field="markdownSource" data-response-id="${escapeHTML(selectedResp.id)}" placeholder="${escapeHTML(t('stage3.writeRawSource', null, 'Write raw markdown source here...'))}">${escapeHTML(draft.markdownSource)}</textarea>
+    </div>`;
+
+  const previewBody = draft.renderedHtml
+    ? `<div class="stage3-preview-host">${draft.renderedHtml}</div>`
+    : `<p class="breakdown-placeholder">${escapeHTML(t('stage3.nothingToPreview', null, 'Nothing to preview yet.'))}</p>`;
+
+  breakdownContentEl.innerHTML = `<div class="breakdown-block"><div class="breakdown-section"><h4 class="breakdown-section-title">${escapeHTML(t('stage3.renderedPreviewReadonly', null, 'Rendered Preview (Read-only)'))}</h4>${previewBody}</div></div>`;
+  autoExpandStage3Editor();
+  updateStage3CharCounter(draft.markdownSource);
+}
+
+function autoExpandStage3Editor() {
+  if (currentStageKey() !== 'stage3') return;
+  const editor = document.querySelector('textarea.stage3-source-editor');
+  if (!editor) return;
+  stage2LeftPanelEl.style.overflowY = 'visible';
+  editor.style.height = 'auto';
+  editor.style.height = `${editor.scrollHeight}px`;
+}
+
+function renderStage3Preview() {
+  const responses = stage3ResponsesForActiveReviewer();
+  const selectedId = ensureStage3Selection();
+  if (selectedId === STAGE3_ALL_TAB_ID) {
+    renderStage3Panels();
+    return;
+  }
+  const selectedResp = responses.find((r) => r.id === selectedId);
+  if (!selectedResp) {
+    renderStage3Panels();
+    return;
+  }
+
+  const draft = getStage3DraftForResponse(selectedResp.id);
+  const liveEditor = document.querySelector('textarea.stage3-source-editor');
+  if (liveEditor && typeof liveEditor.value === 'string') {
+    draft.markdownSource = liveEditor.value;
+  }
+  const stage2Map = getStage2ResponsesForReviewer(state.activeReviewerIdx);
+  const refined = stage2Map[selectedResp.id]?.draft || '';
+  const color = state.stage3Settings.color || '#f26921';
+  draft.markdownSource = enforceStrictStage3Source(draft.markdownSource, selectedResp, responses, refined, color);
+  draft.renderedHtml = renderPreview(draft.markdownSource);
+  draft.renderedThemeColor = color;
+  queueStateSync();
+  showStage3ThemeNotice('');
+  renderStage3Panels();
+}
+
+function applyStage3StyleSettings() {
+  const style = stage3StyleSelectEl.value || 'standard';
+  let color = state.stage3Settings.color || '#f26921';
+  if (style === 'standard') {
+    const maybeHex = normalizeHexColor(stage3CustomHexInputEl.value);
+    if (!maybeHex) {
+      stage3StyleErrorEl.textContent = 'Please input a valid hex color like #f26921.';
+      return;
+    }
+    color = maybeHex;
+  }
+
+  state.stage3Settings = { style, color };
+
+  const latexColorRe = /(\\color\{)#[0-9a-fA-F]{6}(\})/g;
+  const legacySpanColorRe = /(style\s*=\s*["'][^"']*color\s*:\s*)#[0-9a-fA-F]{6}/gi;
+  for (const rIdx in state.stage3Drafts) {
+    const drafts = state.stage3Drafts[rIdx];
+    if (!drafts) continue;
+    for (const rId in drafts) {
+      const source = drafts[rId]?.markdownSource;
+      if (typeof source !== 'string') continue;
+      drafts[rId].markdownSource = source
+        .replace(latexColorRe, `$1${color}$2`)
+        .replace(legacySpanColorRe, `$1${color}`);
+    }
+  }
+
+  stage3StyleModalEl.classList.add('hidden');
+  queueStateSync();
+  showStage3ThemeNotice('Theme updated successfully. Please re-preview.');
+  if (currentStageKey() === 'stage3') renderStage3Panels();
+}
+
+function escapeHTML(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+
+function renderAtomicIssuesAndResponses(issues, responses) {
+  if (!responses.length && !issues.length) return '';
+
+  // Centered dashed divider with title
+  let html = '<div class="atomic-divider"><span class="atomic-divider-text">Atomic Issues</span></div>';
+
+  html += `<div class="insert-response-wrapper"><button class="insert-response-btn" data-insert-index="0" title="Add issue">＋</button></div>`;
+
+  // Render each Response card
+  responses.forEach((resp, idx) => {
+    const sourceId = resp.source_id || '';
+    const isQuestion = resp.source === 'question';
+    const sourceClass = isQuestion ? 'question-source' : '';
+    const title = resp.title || '';
+
+    html += `<div class="response-item">
+      <div class="response-item-label">
+        Response ${idx + 1}
+        <div class="response-action-btns">
+          <button class="split-response-btn" data-split-index="${idx}" title="Split issue">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+            Split
+          </button>
+          <button class="delete-response-btn" data-delete-index="${idx}" title="Delete issue">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4h6v2"></path></svg>
+            Delete
+          </button>
+        </div>
+      </div>
+      <div class="response-source-badge">
+        <span class="source-id ${sourceClass}">${escapeHTML(sourceId)}</span>${title ? `<span class="source-title">: ${escapeHTML(title)}</span>` : ''}
+      </div>
+      <div class="response-field-label">Quoted Issue</div>
+      <textarea class="response-quoted-issue" data-response-id="${escapeHTML(resp.id)}" data-response-field="quoted_issue">${escapeHTML(resp.quoted_issue || '')}</textarea>
+    </div>`;
+
+    const hasMerge = idx + 1 < responses.length;
+    html += `<div class="insert-response-wrapper">
+      <button class="insert-response-btn" data-insert-index="${idx + 1}" title="Add issue">＋</button>
+      ${hasMerge ? `<button class="merge-response-btn" data-merge-index="${idx + 1}" title="Merge with next">Merge</button>` : ''}
+    </div>`;
+  });
+
+  return html;
+}
+
+/* ── Add Response Modal ── */
+const addResponseModalEl = document.getElementById('addResponseModal');
+const addResponseTypeInput = document.getElementById('addResponseTypeInput');
+const addResponseTitleInput = document.getElementById('addResponseTitleInput');
+const addResponseContentInput = document.getElementById('addResponseContentInput');
+const addResponseError = document.getElementById('addResponseError');
+const confirmAddResponseBtn = document.getElementById('confirmAddResponseBtn');
+const cancelAddResponseBtn = document.getElementById('cancelAddResponseBtn');
+
+let pendingInsertIndex = null;
+
+function promptAddResponse(idx) {
+  pendingInsertIndex = idx;
+  addResponseTitleInput.value = '';
+  addResponseContentInput.value = '';
+  addResponseError.textContent = '';
+  addResponseModalEl.classList.remove('hidden');
+  setTimeout(() => addResponseTitleInput.focus(), 60);
+}
+
+function confirmAddResponse() {
+  const title = addResponseTitleInput.value.trim();
+  const content = addResponseContentInput.value.trim();
+  const type = addResponseTypeInput.value;
+
+  if (!content) {
+    addResponseError.textContent = 'Content is required.';
+    return;
+  }
+
+  if (pendingInsertIndex === null) return;
+
+  const data = getBreakdownDataForReviewer(state.activeReviewerIdx);
+  if (!data.responses) data.responses = [];
+
+  data.responses.splice(pendingInsertIndex, 0, {
+    title: title,
+    source: type,
+    quoted_issue: content
+  });
+
+  syncAndResequenceResponses(data);
+  state.breakdownData[state.activeReviewerIdx] = data;
+  queueStateSync();
+  renderBreakdownPanel();
+
+  addResponseModalEl.classList.add('hidden');
+  pendingInsertIndex = null;
+}
+
+function cancelAddResponse() {
+  addResponseModalEl.classList.add('hidden');
+  pendingInsertIndex = null;
+}
+
+/* ── Split Response Modal ── */
+const splitResponseModalEl = document.getElementById('splitResponseModal');
+const splitResponseContentInput = document.getElementById('splitResponseContentInput');
+const splitResponseError = document.getElementById('splitResponseError');
+const confirmSplitResponseBtn = document.getElementById('confirmSplitResponseBtn');
+const cancelSplitResponseBtn = document.getElementById('cancelSplitResponseBtn');
+
+let pendingSplitIndex = null;
+
+function promptSplitResponse(idx) {
+  const data = getBreakdownDataForReviewer(state.activeReviewerIdx);
+  const resp = data.responses && data.responses[idx];
+  if (!resp) return;
+  pendingSplitIndex = idx;
+  splitResponseContentInput.value = resp.quoted_issue || '';
+  splitResponseError.textContent = '';
+  splitResponseModalEl.classList.remove('hidden');
+  setTimeout(() => {
+    splitResponseContentInput.focus();
+    splitResponseContentInput.setSelectionRange(0, 0);
+  }, 60);
+}
+
+function confirmSplitResponse() {
+  const content = splitResponseContentInput.value;
+  const cursorPosition = splitResponseContentInput.selectionStart;
+
+  if (cursorPosition === 0 || cursorPosition === content.length) {
+    splitResponseError.textContent = 'Please place the cursor in the middle of the text to split.';
+    return;
+  }
+
+  const part1 = content.slice(0, cursorPosition).trim();
+  const part2 = content.slice(cursorPosition).trim();
+
+  if (!part1 || !part2) {
+    splitResponseError.textContent = 'Both split parts must contain text.';
+    return;
+  }
+
+  if (pendingSplitIndex === null) return;
+
+  const data = getBreakdownDataForReviewer(state.activeReviewerIdx);
+  const originalResp = data.responses[pendingSplitIndex];
+
+  // Update original to part1
+  originalResp.quoted_issue = part1;
+
+  // Insert part2 as a new issue right after
+  data.responses.splice(pendingSplitIndex + 1, 0, {
+    title: originalResp.title ? `${originalResp.title} (Part 2)` : '',
+    source: originalResp.source,
+    quoted_issue: part2
+  });
+
+  syncAndResequenceResponses(data);
+  state.breakdownData[state.activeReviewerIdx] = data;
+  queueStateSync();
+  renderBreakdownPanel();
+
+  splitResponseModalEl.classList.add('hidden');
+  pendingSplitIndex = null;
+}
+
+function cancelSplitResponse() {
+  splitResponseModalEl.classList.add('hidden');
+  pendingSplitIndex = null;
+}
+
+if (confirmSplitResponseBtn) {
+  confirmSplitResponseBtn.addEventListener('click', confirmSplitResponse);
+  cancelSplitResponseBtn.addEventListener('click', cancelSplitResponse);
+}
+
+function deleteResponse(idx) {
+  const data = getBreakdownDataForReviewer(state.activeReviewerIdx);
+  if (!data.responses || !data.responses[idx]) return;
+  data.responses.splice(idx, 1);
+  syncAndResequenceResponses(data);
+  state.breakdownData[state.activeReviewerIdx] = data;
+  queueStateSync();
+  renderBreakdownPanel();
+}
+
+function mergeResponses(idx) {
+  const data = getBreakdownDataForReviewer(state.activeReviewerIdx);
+  if (!data.responses || idx < 1 || idx >= data.responses.length) return;
+  const prev = data.responses[idx - 1];
+  const curr = data.responses[idx];
+  prev.quoted_issue = (prev.quoted_issue || '').trimEnd() + '\n\n' + (curr.quoted_issue || '').trimStart();
+  data.responses.splice(idx, 1);
+  syncAndResequenceResponses(data);
+  state.breakdownData[state.activeReviewerIdx] = data;
+  queueStateSync();
+  renderBreakdownPanel();
+}
+
+function syncAndResequenceResponses(data) {
+  let wCount = 0;
+  let qCount = 0;
+  let rCount = 0;
+  const newIssues = [];
+
+  data.responses.forEach(resp => {
+    rCount++;
+    resp.id = `Response${rCount}`;
+    if (resp.source === 'weakness') {
+      wCount++;
+      resp.source_id = `weakness${wCount}`;
+    } else {
+      qCount++;
+      resp.source_id = `question${qCount}`;
+    }
+
+    newIssues.push({
+      id: resp.source_id,
+      source: resp.source,
+      text: (resp.title ? resp.title + ': ' : '') + (resp.quoted_issue || '')
+    });
+  });
+  data.atomicIssues = newIssues;
+}
+
+if (confirmAddResponseBtn) {
+  confirmAddResponseBtn.addEventListener('click', confirmAddResponse);
+  cancelAddResponseBtn.addEventListener('click', cancelAddResponse);
+}
+
+function parseSectionFromEditable(element) {
+  if (!element) return '';
+  return element.innerText.trim();
+}
+
+async function runStage1ApiBreakdown(rawText) {
+  const providerKey = state.apiSettings.activeApiProvider;
+  const profile = getActiveApiProfile(providerKey);
+  if (!profile || !profile.apiKey) {
+    throw new Error(t('alert.configureApi', null, 'Please configure API Settings first.'));
+  }
+  return window.studioApi.runStage1Breakdown({
+    providerKey,
+    profile,
+    content: rawText,
+    conference: state.currentDoc?.conference || 'ICLR',
+  });
+}
+
+function runStage2DirectTransfer() {
+  const data = getBreakdownDataForReviewer(state.activeReviewerIdx);
+  const responses = Array.isArray(data.responses) ? data.responses : [];
+  if (!responses.length) return;
+  const stage2Map = getStage2ResponsesForReviewer(state.activeReviewerIdx);
+  let transferred = 0;
+  for (const resp of responses) {
+    const cell = stage2Map[resp.id] || { outline: '', draft: '', assets: [] };
+    const outline = (cell.outline || '').trim();
+    if (outline) {
+      cell.draft = outline;
+      stage2Map[resp.id] = cell;
+      transferred++;
+    }
+  }
+  if (!transferred) {
+    alert(t('stage2.noOutlinesToTransfer', null, 'No outlines to transfer. Please write outlines first.'));
+    return;
+  }
+  state.stage2Replies[state.activeReviewerIdx] = stage2Map;
+  syncStage2CompletionState();
+  queueStateSync();
+  renderBreakdownPanel();
+  renderSidebarStages();
+}
+
+async function runStage2RefineOneResponse(responseId) {
+  if (convertBtnEl.disabled) return;
+  const data = getBreakdownDataForReviewer(state.activeReviewerIdx);
+  const responses = Array.isArray(data.responses) ? data.responses : [];
+  const resp = responses.find((r) => r.id === responseId);
+  if (!resp) return;
+
+  const providerKey = state.apiSettings.activeApiProvider;
+  const profile = getActiveApiProfile(providerKey);
+  if (!profile || !profile.apiKey) {
+    alert(t('alert.configureApi', null, 'Please configure API Settings first.'));
+    return;
+  }
+
+  const stage2Map = getStage2ResponsesForReviewer(state.activeReviewerIdx);
+  const draftCell = stage2Map[resp.id] || { outline: '', draft: '', assets: [] };
+  const documentMemoryMarkdown = getTrimmedDocumentMemoryMarkdownForStage();
+  if (!`${draftCell.outline || ''}`.trim()) {
+    alert(t('stage2.noOutlineYet', null, 'This response has no outline yet. Please write an outline first.'));
+    return;
+  }
+
+  convertBtnEl.disabled = true;
+  convertBtnEl.classList.add('loading');
+  stage2RefineProgress = { total: 1, current: 1, responseId: resp.id };
+  renderBreakdownPanel();
+
+  try {
+    const refined = await window.studioApi.runStage2Refine({
+      providerKey,
+      profile,
+      responseId: resp.id,
+      title: resp.title || '',
+      source: resp.source || '',
+      source_id: resp.source_id || '',
+      quotedIssue: resp.quoted_issue || '',
+      outline: draftCell.outline || '',
+      documentMemoryMarkdown,
+      conference: state.currentDoc?.conference || 'ICLR',
+    });
+    fetchAndRenderTokenUsage();
+    draftCell.draft = refined?.draft || draftCell.draft;
+    stage2Map[resp.id] = draftCell;
+    state.stage2Replies[state.activeReviewerIdx] = stage2Map;
+    syncStage2CompletionState();
+    queueStateSync();
+    renderBreakdownPanel();
+    renderSidebarStages();
+  } catch (error) {
+    console.error(error);
+    showApiErrorModal(error, { actionLabel: 'Stage2 Refine', stageKey: 'stage2', providerKey, profile });
+  } finally {
+    stage2RefineProgress = null;
+    convertBtnEl.disabled = false;
+    convertBtnEl.classList.remove('loading');
+    renderBreakdownPanel();
+  }
+}
+
+async function runStage2RefineForResponses() {
+  if (convertBtnEl.disabled) return;
+  const data = getBreakdownDataForReviewer(state.activeReviewerIdx);
+  const responses = Array.isArray(data.responses) ? data.responses : [];
+  if (!responses.length) {
+    alert(t('stage2.noStage1Responses', null, 'No Stage1 responses found.'));
+    return;
+  }
+
+  const providerKey = state.apiSettings.activeApiProvider;
+  const profile = getActiveApiProfile(providerKey);
+  if (!profile || !profile.apiKey) {
+    alert(t('alert.configureApi', null, 'Please configure API Settings first.'));
+    return;
+  }
+
+  const stage2Map = getStage2ResponsesForReviewer(state.activeReviewerIdx);
+  const documentMemoryMarkdown = getTrimmedDocumentMemoryMarkdownForStage();
+  convertBtnEl.disabled = true;
+  convertBtnEl.classList.add('loading');
+
+  try {
+    stage2RefineProgress = { total: responses.length, current: 0, responseId: '' };
+    renderBreakdownPanel();
+    for (let i = 0; i < responses.length; i++) {
+      const resp = responses[i];
+      const draftCell = stage2Map[resp.id] || { outline: '', draft: '', assets: [] };
+      stage2RefineProgress = { total: responses.length, current: i + 1, responseId: resp.id };
+      renderBreakdownPanel();
+      if (!`${draftCell.outline || ''}`.trim()) {
+        continue;
+      }
+      // Skip if draft is already present
+      if (`${draftCell.draft || ''}`.trim()) {
+        continue;
+      }
+
+      const refined = await window.studioApi.runStage2Refine({
+        providerKey,
+        profile,
+        responseId: resp.id,
+        title: resp.title || '',
+        source: resp.source || '',
+        source_id: resp.source_id || '',
+        quotedIssue: resp.quoted_issue || '',
+        outline: draftCell.outline || '',
+        documentMemoryMarkdown,
+        conference: state.currentDoc?.conference || 'ICLR',
+      });
+      fetchAndRenderTokenUsage();
+      draftCell.draft = refined?.draft || draftCell.draft;
+      stage2Map[resp.id] = draftCell;
+    }
+    state.stage2Replies[state.activeReviewerIdx] = stage2Map;
+    syncStage2CompletionState();
+    queueStateSync();
+    renderBreakdownPanel();
+    renderSidebarStages();
+  } catch (error) {
+    console.error(error);
+    showApiErrorModal(error, { actionLabel: 'Stage2 Refine', stageKey: 'stage2', providerKey, profile });
+  } finally {
+    stage2RefineProgress = null;
+    convertBtnEl.disabled = false;
+    convertBtnEl.classList.remove('loading');
+    renderBreakdownPanel();
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   Convert Button — parse reviewer input to breakdown
+   ──────────────────────────────────────────────────────────── */
+async function performBreakdown() {
+  const rawText = reviewerInput.innerText.trim();
+  if (!rawText) return;
+
+  const data = getBreakdownDataForReviewer(state.activeReviewerIdx);
+  convertBtnEl.disabled = true;
+  convertBtnEl.classList.add('loading');
+
+  try {
+    const result = await runStage1ApiBreakdown(rawText);
+    fetchAndRenderTokenUsage();
+    data.scores = {
+      ...data.scores,
+      ...(result?.scores || {}),
+    };
+    data.sections = {
+      ...data.sections,
+      ...(result?.sections || {}),
+    };
+    data.atomicIssues = Array.isArray(result?.atomicIssues) ? result.atomicIssues : [];
+    data.responses = Array.isArray(result?.responses) ? result.responses : [];
+  } catch (error) {
+    console.error(error);
+    showApiErrorModal(error, { actionLabel: 'Stage1 Breakdown', stageKey: 'stage1' });
+  } finally {
+    convertBtnEl.disabled = false;
+    convertBtnEl.classList.remove('loading');
+  }
+
+  state.breakdownData[state.activeReviewerIdx] = data;
+
+  if (state.currentDoc) {
+    state.currentDoc.stage1.content = rawText;
+    state.currentDoc.stage1.lastEditedAt = new Date().toISOString();
+    queueStateSync();
+  }
+
+  renderBreakdownPanel();
+  renderSidebarStages();
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   Stage Advance Modal
+   ──────────────────────────────────────────────────────────── */
+let pendingAdvanceTarget = null;
+
+function showStageAdvanceModal() {
+  if (!state.currentDoc) return;
+  const curIdx = stageIndexFromCurrent();
+  if (curIdx >= STAGES.length - 1) return; // already at last stage
+
+  // If advancing from Stage 2 to Stage 3
+  if (curIdx === 1) {
+    if (!isStage2FullyRefined()) {
+      alert(t('stage2.missingRefinedAnswers', null, 'Missing Refined Answers: Please ensure all responses have a generated or manually entered Refined Draft before proceeding.'));
+      return;
+    }
+  }
+
+  const nextStage = STAGES[curIdx + 1];
+  pendingAdvanceTarget = nextStage.label;
+  stageAdvanceMsgEl.textContent = `You are currently at "${STAGES[curIdx].label}". Are you ready to advance to "${nextStage.label}"?`;
+  stageAdvanceModalEl.classList.remove('hidden');
+}
+
+function confirmAdvance() {
+  if (!state.currentDoc || !pendingAdvanceTarget) return;
+  const nextIdx = STAGES.findIndex((s) => s.label === pendingAdvanceTarget);
+  const prevStage = nextIdx > 0 ? STAGES[nextIdx - 1] : null;
+  if (prevStage?.key === 'stage2') {
+    syncStage2CompletionState();
+  }
+  state.currentDoc.currentStage = pendingAdvanceTarget;
+  pendingAdvanceTarget = null;
+  stageAdvanceModalEl.classList.add('hidden');
+  queueStateSync();
+  renderSidebarStages();
+  renderBreakdownPanel();
+  syncStageUi();
+}
+
+function cancelAdvance() {
+  pendingAdvanceTarget = null;
+  stageAdvanceModalEl.classList.add('hidden');
+}
+
+/* ────────────────────────────────────────────────────────────
+   Sidebar Mode Switching
+   ──────────────────────────────────────────────────────────── */
+function enterProjectMode() {
+  sidebarProjectsEl.classList.add('hidden');
+  sidebarStagesEl.classList.remove('hidden');
+  appEl.classList.add('project-mode');
+  projectDrawerEl.classList.remove('hidden');
+  renderSidebarStages();
+  updateDrawerToggleUi();
+}
+
+function exitProjectMode() {
+  sidebarStagesEl.classList.add('hidden');
+  sidebarProjectsEl.classList.remove('hidden');
+  appEl.classList.remove('project-mode');
+  projectDrawerEl.classList.add('hidden');
+  projectDrawerEl.classList.remove('open');
+  state.drawerOpen = false;
+  updateDrawerToggleUi();
+}
+
+/* ────────────────────────────────────────────────────────────
+   Project Drawer Toggle
+   ──────────────────────────────────────────────────────────── */
+function toggleDrawer() {
+  state.drawerOpen = !state.drawerOpen;
+  projectDrawerEl.classList.toggle('open', state.drawerOpen);
+  updateDrawerToggleUi();
+}
+
+/* ────────────────────────────────────────────────────────────
+   Workspace
+   ──────────────────────────────────────────────────────────── */
+function renderWorkspace() {
+  document.getElementById('docsPanel')?.classList.add('hidden');
+  document.getElementById('skillsPanel')?.classList.add('hidden');
+  documentMemoryPanelEl?.classList.add('hidden');
+  state.documentMemoryPanelOpen = false;
+  const hasProject = Boolean(state.currentDoc);
+  const showingHomeLanding = !hasProject && !state.pendingCreate;
+  workspaceEl.classList.toggle('hidden', !hasProject);
+  emptyStateEl.classList.toggle('hidden', !showingHomeLanding);
+  namingPanelEl.classList.toggle('hidden', !state.pendingCreate);
+
+  if (hasProject) {
+    clearHomeIntroTimers();
+    stage4RefineRuntime = { running: false, reviewerIdx: -1 };
+    stage5AutoFillRuntime = { running: false };
+    loadProjectStateFromDoc(state.currentDoc);
+    restoreActiveReviewerSelection();
+    renderReviewerTabs();
+    renderBreakdownPanel();
+    syncStageUi();
+
+    enterProjectMode();
+    if (projectHistoryState.folderName !== state.currentFolderName || !projectHistoryState.present) {
+      initializeProjectHistory();
+    } else {
+      updateHistoryButtons();
+    }
+
+    maybePromptInitialReviewerName();
+  } else {
+    hideCopyPopup();
+    closeStage5TemplateModal();
+    exitProjectMode();
+    syncStageUi();
+    clearProjectHistory();
+    if (showingHomeLanding) {
+      renderHomeLanding();
+    } else {
+      clearHomeIntroTimers();
+    }
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   Data operations
+   ──────────────────────────────────────────────────────────── */
+async function loadProjects() {
+  state.projects = await window.studioApi.listProjects();
+  renderProjectList();
+}
+
+function queueStateSync(options = {}) {
+  if (!state.currentDoc || !state.currentFolderName) return;
+  state.currentDoc = buildProjectDocFromState();
+  if (!options.skipHistory) {
+    commitProjectHistorySnapshot();
+  } else {
+    updateHistoryButtons();
+  }
+  window.studioApi.updateProjectState({
+    folderName: state.currentFolderName,
+    doc: state.currentDoc,
+  });
+}
+
+async function createProjectFromPrompt() {
+  const rawName = projectNameInput.value;
+  if (!rawName.trim()) {
+    projectNameError.textContent = 'Project name is required.';
+    return;
+  }
+  const pendingDocumentMemoryFile = state.pendingDocumentMemoryFile;
+  const confirmBtn = document.getElementById('confirmProjectBtn');
+  try {
+    if (confirmBtn) confirmBtn.disabled = true;
+    projectNameError.textContent = pendingDocumentMemoryFile
+      ? 'Creating project and processing Document Memory...'
+      : '';
+    const created = await window.studioApi.createProject({
+      projectName: rawName,
+      conference: conferenceSelect.value,
+      autosaveIntervalSeconds: state.appSettings.defaultAutosaveIntervalSeconds,
+    });
+    clearProjectHistory();
+    state.currentFolderName = created.folderName;
+    state.currentDoc = created.doc;
+    state.pendingCreate = false;
+    state.breakdownData = {};
+    projectNameInput.value = '';
+    state.pendingDocumentMemoryFile = null;
+    renderPendingDocumentMemorySelection();
+    if (pendingDocumentMemoryFile) {
+      await importDocumentMemorySelection(pendingDocumentMemoryFile, { openPanel: false });
+    }
+    projectNameError.textContent = '';
+    renderWorkspace();
+    if (pendingDocumentMemoryFile) {
+      openDocumentMemoryPanel();
+    }
+    await loadProjects();
+  } catch (error) {
+    projectNameError.textContent = error.message;
+  } finally {
+    if (confirmBtn) confirmBtn.disabled = false;
+  }
+}
+
+async function openProject(folderName) {
+  try {
+    finalizeProjectHistoryTyping();
+    const opened = await window.studioApi.openProject(folderName);
+    clearProjectHistory();
+    state.currentFolderName = opened.folderName;
+    state.currentDoc = opened.doc;
+    state.pendingCreate = false;
+
+    projectDrawerEl.classList.remove('open');
+    state.drawerOpen = false;
+
+    renderWorkspace();
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   Settings
+   ──────────────────────────────────────────────────────────── */
+async function applySettings() {
+  settingsError.textContent = '';
+  const next = Number(autosaveInput.value);
+  if (!Number.isFinite(next) || next < 10 || next > 1800) {
+    settingsError.textContent = 'Please enter 10–1800 seconds.';
+    return;
+  }
+  state.appSettings = await window.studioApi.updateDefaultInterval(next);
+  if (state.currentDoc) {
+    const result = await window.studioApi.setAutosaveInterval(next);
+    state.currentDoc = result.doc;
+  }
+  closeModal('settingsModal');
+  await loadProjects();
+}
+
+function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+function getActiveApiProfile(providerKey = state.apiSettings.activeApiProvider) {
+  if (!providerKey || !state.apiSettings.apiProfiles[providerKey]) return null;
+  return state.apiSettings.apiProfiles[providerKey];
+}
+
+function getApiVisibilityIconMarkup(visible) {
+  if (visible) {
+    return `
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M3 3l18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        <path d="M10.6 10.7a2 2 0 0 0 2.7 2.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M9.9 5.2A11.4 11.4 0 0 1 12 5c6.7 0 10.5 7 10.5 7a18.5 18.5 0 0 1-4 4.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M6.3 6.3A18.2 18.2 0 0 0 1.5 12s3.8 7 10.5 7a11.8 11.8 0 0 0 5.1-1.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    `;
+  }
+  return `
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M1.5 12s3.8-7 10.5-7 10.5 7 10.5 7-3.8 7-10.5 7S1.5 12 1.5 12Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8" />
+    </svg>
+  `;
+}
+
+function setApiKeyVisibility(visible) {
+  if (!apiInputEl || !apiToggleVisibilityBtnEl) return;
+  const isVisible = Boolean(visible);
+  apiInputEl.type = isVisible ? 'text' : 'password';
+  apiToggleVisibilityBtnEl.innerHTML = getApiVisibilityIconMarkup(isVisible);
+  apiToggleVisibilityBtnEl.setAttribute('aria-pressed', String(isVisible));
+  apiToggleVisibilityBtnEl.setAttribute('aria-label', isVisible ? 'Hide API key' : 'Show API key');
+  apiToggleVisibilityBtnEl.title = isVisible ? 'Hide API key' : 'Show API key';
+}
+
+function isLocalModelProfile(profile = {}) {
+  const baseUrl = `${profile.baseUrl || ''}`.trim();
+  if (!baseUrl) return false;
+  try {
+    const host = `${new URL(baseUrl).hostname || ''}`.toLowerCase();
+    return host === 'localhost' || host === '127.0.0.1' || host === '0.0.0.0' || host === '::1' || host.endsWith('.local');
+  } catch {
+    return /localhost|127\.0\.0\.1|0\.0\.0\.0|::1/i.test(baseUrl);
+  }
+}
+
+function getActiveModelBadgeText() {
+  const profile = getActiveApiProfile(state.apiSettings.activeApiProvider);
+  if (!profile) return '';
+  if (isLocalModelProfile(profile)) return 'local model';
+  return `${profile.model || ''}`.trim();
+}
+
+function renderActiveModelBadge() {
+  if (!activeModelBadgeEl) return;
+  const text = getActiveModelBadgeText();
+  activeModelBadgeEl.textContent = text;
+  activeModelBadgeEl.title = text;
+  activeModelBadgeEl.classList.toggle('hidden', !text);
+}
+
+function renderTokenUsageBadge({ input, output }) {
+  if (!tokenUsageBadgeEl) return;
+  const fmt = (n) => n >= 1000 ? `${(n / 1000).toFixed(1)}K` : String(n);
+  tokenUsageBadgeEl.textContent = `${fmt(input)} in | ${fmt(output)} out`;
+  tokenUsageBadgeEl.title = `Input: ${input.toLocaleString()} tokens | Output: ${output.toLocaleString()} tokens`;
+}
+
+async function fetchAndRenderTokenUsage() {
+  try {
+    const usage = await window.studioApi?.getTokenUsage?.();
+    if (usage) renderTokenUsageBadge(usage);
+  } catch (_) { /* non-critical */ }
+}
+
+function renderApiForm(providerKey = state.apiSettings.activeApiProvider) {
+  const profile = getActiveApiProfile(providerKey);
+  const guide = API_PROVIDER_GUIDE[providerKey] || {};
+  apiProviderSelectEl.value = providerKey;
+  apiBaseUrlInputEl.value = profile?.baseUrl ?? guide.baseUrl ?? '';
+  apiModelInputEl.value = profile?.model ?? guide.model ?? '';
+  apiInputEl.value = profile?.apiKey ?? '';
+  setApiKeyVisibility(false);
+  // Reset model selector to text input mode
+  apiModelSelectEl.classList.add('hidden');
+  apiModelInputEl.classList.remove('hidden');
+  renderProviderGuide(providerKey);
+}
+
+
+function fillModelSuggestions(models = []) {
+  if (models.length === 0) {
+    // No models — hide select, show text input
+    apiModelSelectEl.classList.add('hidden');
+    apiModelInputEl.classList.remove('hidden');
+    apiModelSelectEl.innerHTML = '<option value="">-- Select a model --</option>';
+    return;
+  }
+  // Build options
+  let opts = models.map((name) => `<option value="${name}">${name}</option>`).join('');
+  opts += '<option value="__custom__">Custom...</option>';
+  apiModelSelectEl.innerHTML = opts;
+  // Show select, hide text input
+  apiModelSelectEl.classList.remove('hidden');
+  apiModelInputEl.classList.add('hidden');
+  // Pre-select the current model if it matches, otherwise select first
+  const curModel = apiModelInputEl.value.trim();
+  if (curModel && models.includes(curModel)) {
+    apiModelSelectEl.value = curModel;
+  } else {
+    apiModelSelectEl.value = models[0];
+    apiModelInputEl.value = models[0];
+  }
+}
+
+function renderProviderGuide(providerKey) {
+  const guide = API_PROVIDER_GUIDE[providerKey] || {};
+  apiBaseUrlHelpEl.textContent = guide.baseUrlHelp || '';
+  if (!apiBaseUrlInputEl.value.trim() && guide.baseUrl) {
+    apiBaseUrlInputEl.value = guide.baseUrl;
+  }
+  if (!apiModelInputEl.value.trim() && guide.model) {
+    apiModelInputEl.value = guide.model;
+  }
+}
+
+async function detectProviderModels() {
+  apiSettingsErrorEl.textContent = '';
+  apiModelHintEl.textContent = '';
+  const providerKey = apiProviderSelectEl.value;
+  const currentProfile = getActiveApiProfile(providerKey) || {};
+  const profile = {
+    ...currentProfile,
+    baseUrl: apiBaseUrlInputEl.value.trim(),
+    apiKey: apiInputEl.value.trim(),
+    model: apiModelInputEl.value.trim(),
+  };
+
+  if (!profile.apiKey) {
+    apiSettingsErrorEl.textContent = 'Please fill API key first, then click Detect models.';
+    return;
+  }
+
+  detectModelsBtnEl.disabled = true;
+  detectModelsBtnEl.textContent = 'Detecting...';
+  try {
+    const result = await window.studioApi.listProviderModels({ providerKey, profile });
+    const models = result?.models || [];
+    fillModelSuggestions(models);
+    if (!apiModelInputEl.value.trim() && models.length) {
+      apiModelInputEl.value = models[0];
+    }
+    apiModelHintEl.textContent = result?.hint || '';
+    if (!models.length && !result?.hint) {
+      apiModelHintEl.textContent = 'No models returned.';
+    }
+  } catch (error) {
+    apiSettingsErrorEl.textContent = error.message || 'Failed to detect models.';
+  } finally {
+    detectModelsBtnEl.disabled = false;
+    detectModelsBtnEl.textContent = 'Detect models';
+  }
+}
+
+function validateApiSettingsInput(providerKey, profile) {
+  if (!API_PROVIDER_KEYS.includes(providerKey)) {
+    return 'Please choose a supported API provider.';
+  }
+  if (!profile.apiKey || !profile.apiKey.trim()) {
+    return 'API key is required.';
+  }
+  if (providerKey !== 'azureOpenai' && (!profile.baseUrl || !profile.baseUrl.trim())) {
+    return 'Base URL is required.';
+  }
+  if (!profile.model || !profile.model.trim()) {
+    return 'Model / deployment is required.';
+  }
+  return '';
+}
+
+async function openApiSettingsModal() {
+  apiSettingsErrorEl.textContent = '';
+  const latest = await window.studioApi.getApiSettings();
+  state.apiSettings = latest;
+  renderActiveModelBadge();
+  renderApiForm();
+  openModal('apiModal');
+}
+
+async function saveApiSettings() {
+  apiSettingsErrorEl.textContent = '';
+  const providerKey = apiProviderSelectEl.value;
+  const currentProfile = getActiveApiProfile(providerKey) || {};
+  const guide = API_PROVIDER_GUIDE[providerKey] || {};
+  const nextProfile = {
+    ...currentProfile,
+    baseUrl: apiBaseUrlInputEl.value.trim() || guide.baseUrl || '',
+    model: apiModelInputEl.value.trim() || guide.model || '',
+    apiKey: apiInputEl.value.trim(),
+  };
+
+  const validationError = validateApiSettingsInput(providerKey, nextProfile);
+  if (validationError) {
+    apiSettingsErrorEl.textContent = validationError;
+    return;
+  }
+
+  const nextApiProfiles = {
+    ...state.apiSettings.apiProfiles,
+    [providerKey]: nextProfile,
+  };
+
+  const saved = await window.studioApi.updateApiSettings({
+    activeApiProvider: providerKey,
+    apiProfiles: nextApiProfiles,
+  });
+  state.apiSettings = saved;
+  renderActiveModelBadge();
+  window.studioApi?.resetTokenUsage?.();
+  renderTokenUsageBadge({ input: 0, output: 0 });
+  closeModal('apiModal');
+}
+
+
+function beginProjectCreation() {
+  clearProjectHistory();
+  documentMemoryRuntime = { importing: false, saving: false };
+  state.pendingCreate = true;
+  state.currentDoc = null;
+  state.pendingDocumentMemoryFile = null;
+  state.documentMemoryPanelOpen = false;
+  state.stage4Data = {};
+  state.stage5Data = {};
+  state.stage5Settings = { style: 'run' };
+  state.selectedConference = 'ICLR';
+  conferenceSelect.value = 'ICLR';
+  exitProjectMode();
+  renderWorkspace();
+  renderPendingDocumentMemorySelection();
+  projectNameInput.focus();
+}
+
+function selectStage(label) {
+  if (!state.currentDoc) return;
+
+  const docsPanelEl = document.getElementById('docsPanel');
+  if (docsPanelEl && !docsPanelEl.classList.contains('hidden')) {
+    docsPanelEl.classList.add('hidden');
+    document.getElementById('workspace').classList.remove('hidden');
+  }
+  if (documentMemoryPanelEl && !documentMemoryPanelEl.classList.contains('hidden')) {
+    documentMemoryPanelEl.classList.add('hidden');
+    state.documentMemoryPanelOpen = false;
+    document.getElementById('workspace').classList.remove('hidden');
+  }
+
+  state.currentDoc.currentStage = label;
+  queueStateSync();
+  renderSidebarStages();
+  renderBreakdownPanel();
+  syncStageUi();
+  if (currentStageKey() === 'stage5') {
+    const stage5 = getStage5State();
+    if (!stage5.templateConfirmed || !stage5.styleKey || !getStage5TemplateEntry(stage5.styleKey)) {
+      openStage5TemplateModal();
+    }
+  }
+}
+
+function syncStageUi() {
+  const stageKey = currentStageKey();
+  const isStage2 = stageKey === 'stage2';
+  const isStage3 = stageKey === 'stage3';
+  const isStage4 = stageKey === 'stage4';
+  const isStage5 = stageKey === 'stage5';
+  const isRefineMode = isStage2 || isStage4;
+  const isPreviewMode = isStage3 || isStage5;
+  convertBtnEl.querySelector('.convert-label').textContent = isRefineMode
+    ? t('workspace.refine', null, 'Refine')
+    : (isPreviewMode ? t('workspace.preview', null, 'Preview') : t('workspace.breakDown', null, 'Break down'));
+
+  const iconEl = convertBtnEl.querySelector('.convert-icon');
+  if (isRefineMode) {
+    iconEl.textContent = '⇢';
+  } else if (isPreviewMode) {
+    iconEl.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top:4px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+  } else {
+    iconEl.textContent = '→';
+  }
+
+  const heading = document.querySelector('.breakdown-panel > .breakdown-heading');
+  if (heading) {
+    heading.textContent = isStage2
+      ? t('workspace.refinedDraft', null, 'Refined Draft')
+      : (isStage3
+        ? t('workspace.preview', null, 'Preview')
+        : (isStage4
+          ? t('workspace.finalRefinedOutput', null, 'Final Refined Output')
+          : (isStage5 ? t('workspace.finalRemarksPreview', null, 'Final Remarks Preview') : t('workspace.structuredBreakdown', null, 'Structured Breakdown'))));
+  }
+
+  // Toggle left panel: reviewer input vs outline panel
+  const stage2LeftEl = document.getElementById('stage2LeftPanel');
+  if (isStage2 || isStage3 || isStage4 || isStage5) {
+    reviewerInput.classList.add('hidden');
+    stage2LeftEl.classList.remove('hidden');
+  } else {
+    reviewerInput.classList.remove('hidden');
+    stage2LeftEl.classList.add('hidden');
+  }
+  stage2LeftEl.style.overflowY = isStage3 ? 'visible' : 'auto';
+  reviewerInput.setAttribute('contenteditable', (isStage2 || isStage3 || isStage4 || isStage5) ? 'false' : 'true');
+  reviewerInput.classList.toggle('readonly', (isStage2 || isStage3 || isStage4 || isStage5));
+
+  if (reviewerTabsRowEl) {
+    reviewerTabsRowEl.classList.toggle('hidden', isStage5);
+  }
+
+  if (stage3AdjustStyleBtn) {
+    stage3AdjustStyleBtn.classList.toggle('hidden', !(isStage3 || isStage5));
+    const labelEl = stage3AdjustStyleBtn.querySelector('.convert-label');
+    const iconSpan = stage3AdjustStyleBtn.querySelector('.convert-icon');
+    if (isStage5) {
+      if (labelEl) labelEl.textContent = t('workspace.template', null, 'Template');
+      stage3AdjustStyleBtn.title = t('workspace.chooseTemplate', null, 'Choose template');
+      stage3AdjustStyleBtn.setAttribute('aria-label', t('workspace.chooseTemplate', null, 'Choose template'));
+      if (iconSpan) {
+        iconSpan.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="6" rx="1.5"></rect><rect x="3" y="14" width="18" height="6" rx="1.5"></rect></svg>';
+      }
+    } else {
+      if (labelEl) labelEl.textContent = t('workspace.style', null, 'Style');
+      stage3AdjustStyleBtn.title = 'Adjust Style';
+      stage3AdjustStyleBtn.setAttribute('aria-label', 'Adjust Style');
+      if (iconSpan) {
+        iconSpan.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" /></svg>';
+      }
+    }
+  }
+  if (stage3ThemeNoticeEl && !isStage3) {
+    showStage3ThemeNotice('');
+  }
+
+  if (stage2DirectTransferBtn) {
+    stage2DirectTransferBtn.classList.toggle('hidden', !isStage2);
+  }
+  if (stage2AutoFitBtn) {
+    stage2AutoFitBtn.classList.toggle('hidden', !(isStage2 || isStage5));
+    const labelEl = stage2AutoFitBtn.querySelector('.convert-label');
+    const iconSpan = stage2AutoFitBtn.querySelector('.convert-icon');
+    if (isStage5) {
+      if (labelEl) labelEl.textContent = t('workspace.autoFill', null, 'Auto Fill');
+      stage2AutoFitBtn.title = 'Auto fill final remarks';
+      stage2AutoFitBtn.setAttribute('aria-label', 'Auto fill final remarks');
+      if (iconSpan) {
+        iconSpan.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>';
+      }
+    } else {
+      if (labelEl) labelEl.textContent = t('workspace.autoFit', null, 'Auto Fit');
+      stage2AutoFitBtn.title = 'Auto fit heights';
+      stage2AutoFitBtn.setAttribute('aria-label', 'Auto fit heights');
+      if (iconSpan) {
+        iconSpan.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>';
+      }
+    }
+  }
+  if (convertColumnEl) {
+    convertColumnEl.classList.remove('hidden');
+  }
+  workspaceEl.classList.remove('stage4-two-col');
+  if (!isStage4) {
+    hideCopyPopup();
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   Init
+   ──────────────────────────────────────────────────────────── */
+async function init() {
+  document.documentElement.classList.add('platform-' + window.studioApi.getPlatform());
+  if (homeFeedbackInputEl) homeFeedbackInputEl.value = '';
+  loadTheme();
+  loadDocsLanguage();
+  await loadTemplateLibrary();
+  await loadStage3StyleLibrary();
+  await loadStage5StyleLibrary();
+  await loadStage5SampleTemplate();
+  state.appSettings = await window.studioApi.getAppSettings();
+  state.apiSettings = await window.studioApi.getApiSettings();
+  renderActiveModelBadge();
+  renderTokenUsageBadge({ input: 0, output: 0 });
+  autosaveInput.value = state.appSettings.defaultAutosaveIntervalSeconds;
+  renderPendingDocumentMemorySelection();
+  await loadProjects();
+  renderWorkspace();
+  syncStageUi();
+  updateDrawerToggleUi();
+}
+
+function isProjectHistoryEditableTarget(target) {
+  if (!state.currentDoc || !target) return false;
+  const node = target.nodeType === Node.ELEMENT_NODE ? target : target.parentElement;
+  if (!node) return false;
+  if (!node.closest('#workspace')) return false;
+  if (node === reviewerInput || node.closest('#reviewerInput')) return true;
+  if (node.closest('[contenteditable="true"]')) return true;
+  if (node.closest('textarea, input')) return true;
+  return false;
+}
+
+function shouldFinalizeTypingForTarget(target) {
+  if (!state.currentDoc || !projectHistoryState.typing || !target) return false;
+  const node = target.nodeType === Node.ELEMENT_NODE ? target : target.parentElement;
+  if (!node) return false;
+  return Boolean(node.closest('button, select, input[type="checkbox"], input[type="radio"], .project-item, [data-stage3-format], [data-outline-insert], [data-stage3-color]'));
+}
+
+function shouldHandleProjectHistoryShortcut(target) {
+  if (!state.currentDoc || !target) return false;
+  const node = target.nodeType === Node.ELEMENT_NODE ? target : target.parentElement;
+  if (!node) return false;
+  return Boolean(
+    node.closest('#workspace')
+    || node.closest('#sidebarStages')
+    || node.closest('#projectDrawer')
+    || node.closest('.topbar-history-group')
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+   Event listeners
+   ──────────────────────────────────────────────────────────── */
+document.addEventListener('beforeinput', (e) => {
+  if (!isProjectHistoryEditableTarget(e.target)) return;
+  beginProjectHistoryTyping();
+}, true);
+
+document.addEventListener('focusout', (e) => {
+  if (!isProjectHistoryEditableTarget(e.target)) return;
+  finalizeProjectHistoryTyping();
+}, true);
+
+document.addEventListener('pointerdown', (e) => {
+  if (typeof e.button === 'number' && e.button !== 0) return;
+  if (!shouldFinalizeTypingForTarget(e.target)) return;
+  finalizeProjectHistoryTyping();
+}, true);
+
+// New Project (Global Sidebar handling or Delegate)
+document.addEventListener('click', (e) => {
+  if (e.target.closest('[data-new-project-open]')) {
+    beginProjectCreation();
+  }
+});
+
+document.getElementById('sortProjectsBtn')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const popup = document.getElementById('sortProjectsPopup');
+  if (popup) {
+    popup.classList.toggle('hidden');
+  }
+});
+
+// Hide sort popup when clicking outside
+document.addEventListener('click', (e) => {
+  const popup = document.getElementById('sortProjectsPopup');
+  if (popup && !popup.classList.contains('hidden') && !e.target.closest('#sortProjectsBtn')) {
+    popup.classList.add('hidden');
+  }
+});
+
+document.querySelectorAll('.sort-popup-item').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    state.projectSortMode = e.target.dataset.sort;
+    renderProjectList();
+    document.getElementById('sortProjectsPopup')?.classList.add('hidden');
+  });
+});
+
+
+// Documentation buttons
+document.getElementById('openDocsExternalBtn')?.addEventListener('click', async () => {
+  const url = new URL(getDocsPath('readme', docsCurrentLanguage), window.location.href);
+  const absPath = decodeURIComponent(url.pathname);
+  await window.studioApi.openPath(absPath);
+});
+
+document.getElementById('openDocsReaderBtn')?.addEventListener('click', () => {
+  renderDocsPanel('readme');
+});
+
+docsTabListEl?.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-doc-id]');
+  if (!btn) return;
+  renderDocsPanel(btn.dataset.docId);
+});
+
+[docsLangEnBtnEl, docsLangZhBtnEl].forEach((btn) => {
+  btn?.addEventListener('click', () => {
+    const nextLang = btn.dataset.docsLang || 'en';
+    if (docsCurrentLanguage === nextLang) return;
+    applyDocsLanguage(nextLang);
+    renderDocsPanel(docsCurrentDocId);
+  });
+});
+
+document.getElementById('docsCloseBtn')?.addEventListener('click', () => {
+  document.getElementById('docsPanel').classList.add('hidden');
+  renderWorkspace();
+});
+
+documentMemoryCloseBtnEl?.addEventListener('click', () => {
+  closeDocumentMemoryPanel();
+});
+
+documentMemoryContentEl?.addEventListener('click', async (e) => {
+  const uploadBtn = e.target.closest('[data-document-memory-upload]');
+  if (uploadBtn) {
+    const fileInfo = await pickDocumentMemoryFile();
+    if (!fileInfo) return;
+    await importDocumentMemorySelection(fileInfo, { openPanel: true });
+    return;
+  }
+
+  const rebuildBtn = e.target.closest('[data-document-memory-rebuild]');
+  if (rebuildBtn) {
+    await rebuildDocumentMemorySummary();
+    return;
+  }
+
+  const saveBtn = e.target.closest('[data-document-memory-save]');
+  if (saveBtn) {
+    await saveDocumentMemoryMarkdownFromPanel();
+  }
+});
+
+// Skills nav button
+document.getElementById('skillsNavBtn')?.addEventListener('click', () => {
+  renderSkillsPanel();
+});
+
+homeSendBtnEl?.addEventListener('click', async () => {
+  const issueUrl = buildFeedbackIssueUrl(homeFeedbackInputEl?.value || '');
+  await window.studioApi.openExternal(issueUrl);
+});
+
+homeFeedbackInputEl?.addEventListener('input', () => {
+  autoResizeHomeFeedbackInput();
+});
+
+homeFeedbackInputEl?.addEventListener('keydown', async (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+    e.preventDefault();
+    const issueUrl = buildFeedbackIssueUrl(homeFeedbackInputEl?.value || '');
+    await window.studioApi.openExternal(issueUrl);
+  }
+});
+
+document.getElementById('homeHowToBtn')?.addEventListener('click', () => {
+  renderDocsPanel('readme');
+});
+
+document.getElementById('homeBehindBtn')?.addEventListener('click', () => {
+  renderSkillsPanel();
+});
+
+document.getElementById('homeStartBtn')?.addEventListener('click', () => {
+  beginProjectCreation();
+});
+
+// Skills panel: click skill card or propose button (event delegation)
+document.getElementById('skillsGrid')?.addEventListener('click', async (e) => {
+  const card = e.target.closest('[data-skill-path]');
+  if (card) {
+    await openSkillModal(card.dataset.skillPath, card.dataset.skillLabel);
+    return;
+  }
+  const propose = e.target.closest('[data-propose]');
+  if (propose) {
+    await window.studioApi.openExternal(GITHUB_PR_URL);
+  }
+});
+
+// Skill modal close button
+document.getElementById('skillModalCloseBtn')?.addEventListener('click', closeSkillModal);
+
+// Skill modal backdrop click to close
+document.getElementById('skillModal')?.addEventListener('click', (e) => {
+  if (e.target === document.getElementById('skillModal')) closeSkillModal();
+});
+
+apiErrorOkBtnEl?.addEventListener('click', closeApiErrorModal);
+apiErrorViewBtnEl?.addEventListener('click', () => {
+  setApiErrorDetailsVisible(!apiErrorModalState.expanded);
+});
+apiErrorReportBtnEl?.addEventListener('click', async () => {
+  await reportApiError();
+});
+apiErrorModalEl?.addEventListener('click', (e) => {
+  if (e.target === apiErrorModalEl) closeApiErrorModal();
+});
+
+document.getElementById('brandBtn').addEventListener('click', () => {
+  clearProjectHistory();
+  state.pendingCreate = false;
+  state.currentDoc = null;
+  state.currentFolderName = null;
+  state.pendingDocumentMemoryFile = null;
+  state.documentMemoryPanelOpen = false;
+  state.reviewers = [{ id: 0, name: '', content: '' }];
+  state.activeReviewerIdx = 0;
+  state.breakdownData = {};
+  state.stage2Replies = {};
+  state.stage3Settings = { style: 'standard', color: '#f26921' };
+  state.stage3Drafts = {};
+  state.stage3Selection = {};
+  state.stage4Data = {};
+  state.stage5Data = {};
+  state.stage5Settings = { style: 'run' };
+  documentMemoryRuntime = { importing: false, saving: false };
+  hideCopyPopup();
+  closeStage5TemplateModal();
+  renderWorkspace();
+  syncStageUi();
+});
+document.getElementById('cancelProjectBtn').addEventListener('click', () => {
+  state.pendingCreate = false;
+  state.pendingDocumentMemoryFile = null;
+  renderPendingDocumentMemorySelection();
+  renderWorkspace();
+  syncStageUi();
+});
+
+projectDocumentPickBtnEl?.addEventListener('click', async () => {
+  const fileInfo = await pickDocumentMemoryFile();
+  if (!fileInfo) return;
+  state.pendingDocumentMemoryFile = fileInfo;
+  renderPendingDocumentMemorySelection();
+});
+
+projectDocumentClearBtnEl?.addEventListener('click', () => {
+  state.pendingDocumentMemoryFile = null;
+  renderPendingDocumentMemorySelection();
+});
+
+document.getElementById('confirmProjectBtn').addEventListener('click', createProjectFromPrompt);
+projectNameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') createProjectFromPrompt(); });
+
+projectSearchEl.addEventListener('input', renderProjectList);
+
+searchProjectsToggleBtn.addEventListener('click', () => {
+  projectSearchContainer.classList.toggle('hidden');
+  if (!projectSearchContainer.classList.contains('hidden')) {
+    projectSearchEl.focus();
+  } else {
+    projectSearchEl.value = '';
+    renderProjectList();
+  }
+});
+
+// Project list click (main sidebar)
+projectListEl.addEventListener('click', (e) => {
+  const exportBtn = e.target.closest('.project-export-btn');
+  if (exportBtn) {
+    const folder = exportBtn.dataset.exportFolder;
+    showExportPopup(exportBtn, folder);
+    return;
+  }
+  const btn = e.target.closest('[data-folder]');
+  if (btn) openProject(btn.dataset.folder);
+});
+
+// Project list click (drawer)
+drawerProjectListEl.addEventListener('click', (e) => {
+  const exportBtn = e.target.closest('.project-export-btn');
+  if (exportBtn) {
+    const folder = exportBtn.dataset.exportFolder;
+    showExportPopup(exportBtn, folder);
+    return;
+  }
+  const btn = e.target.closest('[data-folder]');
+  if (btn) openProject(btn.dataset.folder);
+});
+
+// Stage selection from sidebar
+sidebarStageListEl.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-stage]');
+  const templateBtn = e.target.closest('[data-template-open]');
+  const docsBtn = e.target.closest('[data-docs-open]');
+  const documentMemoryBtn = e.target.closest('[data-document-memory-open]');
+
+  if (templateBtn) {
+    openTemplateModal();
+    return;
+  }
+  if (documentMemoryBtn) {
+    openDocumentMemoryPanel();
+    return;
+  }
+  if (docsBtn) {
+    const docIdx = parseInt(docsBtn.dataset.docsOpen, 10);
+    if (DOCS_STAGE_DOC_IDS[docIdx]) {
+      renderDocsPanel(DOCS_STAGE_DOC_IDS[docIdx]);
+    }
+    return;
+  }
+  if (!btn || btn.disabled) return;
+  selectStage(btn.dataset.stage);
+});
+
+// Drawer toggle
+drawerToggleEl.addEventListener('click', toggleDrawer);
+
+// Export Popup Logic
+function showExportPopup(btn, folder) {
+  exportTargetFolder = folder;
+  exportProjectPopup.classList.remove('hidden');
+
+  const rect = btn.getBoundingClientRect();
+  const popupRect = exportProjectPopup.getBoundingClientRect();
+
+  // Align right edge of popup with right edge of button
+  let left = rect.right - popupRect.width;
+  let top = rect.bottom + 5;
+
+  // Stay within sidebar if sidebar reference is available
+  const sidebarRect = sidebarEl?.getBoundingClientRect();
+  if (sidebarRect && left < sidebarRect.left + 5) left = sidebarRect.left + 5;
+
+  if (top + popupRect.height > window.innerHeight) {
+    top = rect.top - popupRect.height - 5;
+  }
+
+  exportProjectPopup.style.position = 'fixed';
+  exportProjectPopup.style.top = `${top}px`;
+  exportProjectPopup.style.left = `${left}px`;
+  exportProjectPopup.style.zIndex = '10000';
+}
+
+function hideExportPopup() {
+  exportProjectPopup.classList.add('hidden');
+  exportTargetFolder = null;
+}
+
+// Global click to close popups
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.project-export-btn') && !e.target.closest('#exportProjectPopup')) {
+    hideExportPopup();
+  }
+  if (!e.target.closest('#sortProjectsBtn') && !e.target.closest('#sortProjectsPopup')) {
+    const popup = document.getElementById('sortProjectsPopup');
+    if (popup) popup.classList.add('hidden');
+  }
+});
+
+exportProjectPopup.addEventListener('click', async (e) => {
+  const btn = e.target.closest('[data-export-type]');
+  if (!btn) return;
+  const type = btn.dataset.exportType;
+  const folder = exportTargetFolder;
+  hideExportPopup();
+  await handleProjectExport(type, folder);
+});
+
+async function handleProjectExport(format, folder) {
+  if (!folder) return;
+
+  try {
+    console.log(`Starting export: ${folder} as ${format}`);
+    let doc;
+    if (state.currentDoc && state.currentFolderName === folder) {
+      doc = state.currentDoc;
+    } else {
+      const res = await window.studioApi.openProject(folder);
+      doc = res.doc;
+    }
+
+    if (!doc) throw new Error('Project data could not be loaded.');
+
+    const { markdown, html } = compileFirstRoundForExport(doc);
+    const exportRes = await window.studioApi.exportFirstRound({
+      folderName: folder,
+      format,
+      markdown,
+      htmlStr: html
+    });
+
+    if (exportRes && exportRes.success) {
+      console.log('Export success');
+      alert('Project exported successfully!');
+    }
+  } catch (err) {
+    console.error('Export failed:', err);
+    alert(`Export failed: ${err.message}`);
+  }
+}
+
+// Reviewer tabs
+reviewerTabsEl.addEventListener('click', (e) => {
+  const tab = e.target.closest('[data-reviewer]');
+  if (!tab) return;
+  switchReviewer(Number(tab.dataset.reviewer));
+});
+
+addReviewerBtnEl.addEventListener('click', addReviewer);
+
+// Convert button
+convertBtnEl.addEventListener('click', () => {
+  if (currentStageKey() === 'stage2') {
+    runStage2RefineForResponses();
+    return;
+  }
+  if (currentStageKey() === 'stage3') {
+    renderStage3Preview();
+    return;
+  }
+  if (currentStageKey() === 'stage4') {
+    runStage4RefinePipeline();
+    return;
+  }
+  if (currentStageKey() === 'stage5') {
+    renderStage5Preview();
+    return;
+  }
+  performBreakdown();
+});
+
+// Next Stage button
+nextStageBtnEl.addEventListener('click', showStageAdvanceModal);
+
+// Stage advance modal
+confirmAdvanceBtnEl.addEventListener('click', confirmAdvance);
+cancelAdvanceBtnEl.addEventListener('click', cancelAdvance);
+
+// Reviewer input
+reviewerInput.addEventListener('input', (e) => {
+  if (!state.currentDoc) return;
+  const content = reviewerInput.innerHTML;
+  state.reviewers[state.activeReviewerIdx].content = content;
+  state.currentDoc.stage1.content = state.reviewers[0]?.content || '';
+  state.currentDoc.stage1.lastEditedAt = new Date().toISOString();
+  state.currentDoc.stage1.history.push({ timestamp: state.currentDoc.stage1.lastEditedAt, content: content });
+  queueStateSync();
+  renderSidebarStages();
+});
+
+
+
+function showTooltipModal(htmlContent) {
+  const overlay = document.createElement('div');
+  overlay.className = 'tooltip-overlay';
+  overlay.addEventListener('click', () => {
+    overlay.remove();
+    modal.remove();
+  });
+
+  const modal = document.createElement('div');
+  modal.className = `tooltip-modal ${document.documentElement.getAttribute('data-theme') || 'dark'}`;
+  modal.innerHTML = `<div class="tooltip-modal-content">${htmlContent}</div>`;
+  modal.addEventListener('click', (e) => e.stopPropagation());
+
+  document.body.appendChild(overlay);
+  document.body.appendChild(modal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      overlay.click();
+    }
+  }, { once: true });
+}
+
+breakdownContentEl.addEventListener('click', (e) => {
+  const tooltipBadge = e.target.closest('.tooltip-badge');
+  if (tooltipBadge) {
+    const scoreLabel = e.target.closest('.score-label');
+    const tooltipKey = scoreLabel?.getAttribute('data-tooltip-key');
+    const tooltipHTML = tooltipKey ? TOOLTIP_STORAGE[tooltipKey] : null;
+    if (tooltipHTML) {
+      showTooltipModal(tooltipHTML);
+    }
+    return;
+  }
+
+  const stage4CopyBtn = e.target.closest('[data-stage4-copy-refined]');
+  if (stage4CopyBtn) {
+    const stage4 = getStage4StateForReviewer(state.activeReviewerIdx);
+    copyText(stage4.refinedText || '');
+    return;
+  }
+  const stage5ToggleBtn = e.target.closest('[data-stage5-toggle-sample]');
+  if (stage5ToggleBtn) {
+    const stage5 = getStage5State();
+    stage5.previewMode = stage5.previewMode === 'sample' ? 'project' : 'sample';
+    queueStateSync();
+    renderStage5Panels();
+    return;
+  }
+
+  const refineOneBtn = e.target.closest('[data-stage2-refine-one]');
+  if (refineOneBtn) {
+    runStage2RefineOneResponse(refineOneBtn.dataset.stage2RefineOne);
+    return;
+  }
+
+  const insertBtn = e.target.closest('.insert-response-btn');
+  if (insertBtn) {
+    promptAddResponse(Number(insertBtn.dataset.insertIndex));
+    return;
+  }
+  const splitBtn = e.target.closest('.split-response-btn');
+  if (splitBtn) {
+    promptSplitResponse(Number(splitBtn.dataset.splitIndex));
+    return;
+  }
+  const deleteBtn = e.target.closest('.delete-response-btn');
+  if (deleteBtn) {
+    deleteResponse(Number(deleteBtn.dataset.deleteIndex));
+    return;
+  }
+  const mergeBtn = e.target.closest('.merge-response-btn');
+  if (mergeBtn) {
+    mergeResponses(Number(mergeBtn.dataset.mergeIndex));
+    return;
+  }
+});
+
+breakdownContentEl.addEventListener('input', (e) => {
+  if (e.target.classList.contains('response-quoted-issue') || e.target.classList.contains('response-textarea')) {
+    e.target.style.height = 'auto';
+    e.target.style.height = e.target.scrollHeight + 'px';
+  }
+
+  const data = getBreakdownDataForReviewer(state.activeReviewerIdx);
+
+  const stage2Field = e.target?.dataset?.stage2Field;
+  const stage2ResponseId = e.target?.dataset?.responseId;
+  if (stage2Field && stage2ResponseId) {
+    const stage2Map = getStage2ResponsesForReviewer(state.activeReviewerIdx);
+    if (!stage2Map[stage2ResponseId]) {
+      stage2Map[stage2ResponseId] = { outline: '', draft: '', assets: [] };
+    }
+    stage2Map[stage2ResponseId][stage2Field] = e.target.value;
+    state.stage2Replies[state.activeReviewerIdx] = stage2Map;
+    syncStage2CompletionState();
+    queueStateSync();
+    if (stage2Field === 'draft') renderSidebarStages();
+    return;
+  }
+  const scoreKey = e.target?.dataset?.scoreEdit;
+  if (scoreKey) {
+    data.scores[scoreKey] = e.target.innerText.trim();
+    state.breakdownData[state.activeReviewerIdx] = data;
+    queueStateSync();
+    return;
+  }
+
+  const sectionKey = e.target?.dataset?.sectionEdit;
+  if (sectionKey) {
+    data.sections[sectionKey] = parseSectionFromEditable(e.target);
+    state.breakdownData[state.activeReviewerIdx] = data;
+    queueStateSync();
+    return;
+  }
+
+  const issueId = e.target?.dataset?.issueEdit;
+  if (issueId) {
+    const issue = (data.atomicIssues || []).find((item) => item.id === issueId);
+    if (issue) {
+      issue.text = parseSectionFromEditable(e.target);
+      state.breakdownData[state.activeReviewerIdx] = data;
+      queueStateSync();
+    }
+  }
+});
+
+breakdownContentEl.addEventListener('change', (e) => {
+  const field = e.target?.dataset?.responseField;
+  const responseId = e.target?.dataset?.responseId;
+  if (!field || !responseId) return;
+  const data = getBreakdownDataForReviewer(state.activeReviewerIdx);
+  const response = (data.responses || []).find((item) => item.id === responseId);
+  if (!response) return;
+  response[field] = e.target.value.trim();
+  state.breakdownData[state.activeReviewerIdx] = data;
+  queueStateSync();
+});
+
+
+// Stage2 left panel input handler (outline text in stage2)
+const stage2LeftPanelEl = document.getElementById('stage2LeftPanel');
+stage2LeftPanelEl.addEventListener('input', (e) => {
+  if (e.target.classList.contains('response-textarea')) {
+    e.target.style.height = 'auto';
+    e.target.style.height = e.target.scrollHeight + 'px';
+  }
+
+  const stage2Field = e.target?.dataset?.stage2Field;
+  const stage2ResponseId = e.target?.dataset?.responseId;
+  const stage3Field = e.target?.dataset?.stage3Field;
+  const stage3ResponseId = e.target?.dataset?.responseId;
+  const stage4Field = e.target?.dataset?.stage4Field;
+  const stage5Field = e.target?.dataset?.stage5Field;
+  const stage5RatingReviewerId = e.target?.dataset?.stage5Rating;
+  if (stage3Field && stage3ResponseId) {
+    const draft = getStage3DraftForResponse(stage3ResponseId);
+    draft[stage3Field] = e.target.value;
+    if (stage3Field === 'markdownSource') {
+      updateStage3CharCounter(draft.markdownSource);
+    }
+    queueStateSync();
+    return;
+  }
+  if (stage2Field && stage2ResponseId) {
+    const stage2Map = getStage2ResponsesForReviewer(state.activeReviewerIdx);
+    if (!stage2Map[stage2ResponseId]) {
+      stage2Map[stage2ResponseId] = { outline: '', draft: '', assets: [] };
+    }
+    stage2Map[stage2ResponseId][stage2Field] = e.target.value;
+    state.stage2Replies[state.activeReviewerIdx] = stage2Map;
+    syncStage2CompletionState();
+    queueStateSync();
+    if (stage2Field === 'draft') {
+      renderSidebarStages();
+    }
+    return;
+  }
+  if (stage4Field === 'draft') {
+    const stage4 = getStage4StateForReviewer(state.activeReviewerIdx);
+    stage4.draft = e.target.value;
+    persistStage4DraftToStorage(getReviewerId(state.activeReviewerIdx), stage4.draft);
+    queueStateSync();
+    return;
+  }
+  if (stage4Field === 'followupQuestion') {
+    const stage4 = getStage4StateForReviewer(state.activeReviewerIdx);
+    stage4.followupQuestion = e.target.value;
+    queueStateSync();
+    return;
+  }
+  if (stage5Field === 'source') {
+    const stage5 = getStage5State();
+    stage5.source = e.target.value;
+    stage5.previewMode = 'project';
+    fitStage5SourceEditorHeight();
+    queueStateSync();
+    return;
+  }
+  if (stage5RatingReviewerId) {
+    const stage5 = getStage5State();
+    stage5.finalRatings[stage5RatingReviewerId] = e.target.value;
+    queueStateSync();
+  }
+});
+
+// Right-click context menu on stage2 left panel outline textareas
+stage2LeftPanelEl.addEventListener('contextmenu', (e) => {
+  const target = e.target;
+  if (target?.dataset?.stage2Field === 'outline') {
+    // When text is selected, show selected-text actions instead of insert menu.
+    if (target.selectionStart !== target.selectionEnd) {
+      showTextActionsMenu(e, target);
+      return;
+    }
+    e.preventDefault();
+    const responseId = target.dataset.responseId;
+    stage2OutlineContext = { responseId, x: e.clientX, y: e.clientY };
+    const menu = ensureStage2ContextMenu();
+    menu.style.left = `${e.clientX}px`;
+    menu.style.top = `${e.clientY}px`;
+    menu.classList.remove('hidden');
+    hideStage3SourceMenu();
+    hideTextActionsMenu();
+    return;
+  }
+
+  if (target?.dataset?.stage3Field === 'markdownSource') {
+    e.preventDefault();
+    const responseId = target.dataset.responseId;
+    stage3SourceContext = {
+      responseId,
+      x: e.clientX,
+      y: e.clientY,
+      start: target.selectionStart || 0,
+      end: target.selectionEnd || 0,
+    };
+    // Pre-populate selected-text state so text actions work if clicked.
+    if (target.selectionStart !== target.selectionEnd) {
+      textActionState.element = target;
+      textActionState.type = 'textarea';
+      textActionState.selectedText = target.value.substring(target.selectionStart, target.selectionEnd);
+      textActionState.selStart = target.selectionStart;
+      textActionState.selEnd = target.selectionEnd;
+      textActionState.originalValue = target.value;
+      textActionState.savedRange = null;
+    } else {
+      resetTextActionState();
+    }
+    const menu = ensureStage3SourceMenu();
+    menu.style.left = `${e.clientX}px`;
+    menu.style.top = `${e.clientY}px`;
+    menu.classList.remove('hidden');
+    hideStage2ContextMenu();
+    hideTextActionsMenu();
+  }
+});
+
+breakdownContentEl.addEventListener('contextmenu', (e) => {
+  const outlineEl = e.target.closest('textarea[data-stage2-field="outline"]');
+  if (!outlineEl) return;
+  // When text is selected, show selected-text actions instead of insert menu.
+  if (outlineEl.selectionStart !== outlineEl.selectionEnd) {
+    showTextActionsMenu(e, outlineEl);
+    return;
+  }
+  e.preventDefault();
+  const menu = ensureStage2ContextMenu();
+  stage2OutlineContext = {
+    responseId: outlineEl.dataset.responseId || null,
+    x: e.clientX,
+    y: e.clientY,
+  };
+  menu.style.left = `${stage2OutlineContext.x}px`;
+  menu.style.top = `${stage2OutlineContext.y}px`;
+  menu.classList.remove('hidden');
+  hideTextActionsMenu();
+});
+
+// Global contextmenu handler for selected-text actions on any editable element with a selection
+document.addEventListener('contextmenu', (e) => {
+  const target = e.target;
+
+  // Determine whether right-click is inside an editable element
+  const isTextarea = target.tagName === 'TEXTAREA' && !target.readOnly && !target.disabled;
+  const contentEditableEl = !isTextarea ? target.closest('[contenteditable="true"]') : null;
+
+  if (isTextarea) {
+    if (target.selectionStart === target.selectionEnd) return; // no selection
+    // Stage2/Stage3 textareas with selection are already handled above.
+    // For all other textareas (stage4, stage5, modal textareas, reviewerInput-style textareas) handle here
+    const alreadyHandled = target.dataset.stage2Field === 'outline' || target.dataset.stage3Field === 'markdownSource';
+    if (alreadyHandled) return;
+    showTextActionsMenu(e, target);
+  } else if (contentEditableEl) {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+    showTextActionsMenu(e, contentEditableEl);
+  }
+});
+
+document.addEventListener('click', (e) => {
+  // Dismiss selected-text actions menu on any outside click.
+  if (!e.target.closest('#textActionsMenu')) {
+    hideTextActionsMenu();
+  }
+
+  const stage3Fmt = e.target.closest('[data-stage3-format]');
+  if (stage3Fmt) {
+    const action = stage3Fmt.dataset.stage3Format;
+    hideStage3SourceMenu();
+    hideStage2ContextMenu();
+    if (action === 'anti-ai') {
+      runSelectedTextAction('antiAI');
+    } else if (action === 'condense') {
+      runSelectedTextAction('condense');
+    } else if (action) {
+      applyStage3SourceFormat(action);
+    }
+    return;
+  }
+
+  const option = e.target.closest('[data-outline-insert]');
+  if (!option) {
+    hideStage2ContextMenu();
+    hideStage3SourceMenu();
+    return;
+  }
+  const responseId = stage2OutlineContext.responseId;
+  const action = option.dataset.outlineInsert;
+  hideStage2ContextMenu();
+  if (!responseId || !action) return;
+
+  if (action === 'table') {
+    openStage2TableModal(responseId);
+    return;
+  }
+
+  if (action === 'code') {
+    openStage2CodeModal(responseId);
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const skillModalEl = document.getElementById('skillModal');
+    if (skillModalEl && !skillModalEl.classList.contains('hidden')) {
+      closeSkillModal();
+      return;
+    }
+    if (projectSnapshotsModalEl && !projectSnapshotsModalEl.classList.contains('hidden')) {
+      closeProjectSnapshotsModal();
+      return;
+    }
+    hideStage2ContextMenu();
+    hideStage3SourceMenu();
+    hideTextActionsMenu();
+    hideTextActionToast();
+  }
+});
+
+
+function buildStage2TableGrid(rows = stage2TableRows, cols = stage2TableCols) {
+  stage2TableRows = normalizePositiveInt(rows, stage2TableRows, 1, 20);
+  stage2TableCols = normalizePositiveInt(cols, stage2TableCols, 1, 10);
+  stage2TableRowsInputEl.value = stage2TableRows;
+  stage2TableColsInputEl.value = stage2TableCols;
+
+  const grid = Array.from({ length: stage2TableRows }).map((_, r) => {
+    const rowHtml = Array.from({ length: stage2TableCols })
+      .map((__, c) => `<input class="stage2-table-cell" data-table-row="${r}" data-table-col="${c}" placeholder="${r === 0 ? `H${c + 1}` : ''}" />`)
+      .join('');
+    return `<div class="stage2-table-row" style="grid-template-columns: repeat(${stage2TableCols}, minmax(120px, 1fr));">${rowHtml}</div>`;
+  }).join('');
+  stage2TableGridEl.innerHTML = grid;
+}
+
+function buildMarkdownTableFromGrid() {
+  const rows = Array.from(stage2TableGridEl.querySelectorAll('.stage2-table-row'));
+  if (!rows.length) return '';
+  const matrix = rows.map((row) => Array.from(row.querySelectorAll('.stage2-table-cell')).map((input) => {
+    const text = `${input.value || ''}`.replace(/\|/g, '\\|').trim();
+    return text || ' ';
+  }));
+  const header = matrix[0].map((cell, idx) => cell.trim() || `H${idx + 1}`);
+  const divider = header.map(() => '---');
+  const body = matrix.slice(1);
+  const lines = [
+    `| ${header.join(' | ')} |`,
+    `| ${divider.join(' | ')} |`,
+    ...body.map((row) => `| ${row.join(' | ')} |`),
+  ];
+  return lines.join('\n');
+}
+
+function openStage2TableModal(responseId) {
+  stage2ModalTargetResponseId = responseId;
+  stage2TableErrorEl.textContent = '';
+  buildStage2TableGrid(stage2TableRowsInputEl.value || stage2TableRows, stage2TableColsInputEl.value || stage2TableCols);
+  openModal('stage2TableModal');
+}
+
+function closeStage2TableModal() {
+  stage2TableErrorEl.textContent = '';
+  closeModal('stage2TableModal');
+}
+
+function openStage2CodeModal(responseId) {
+  stage2ModalTargetResponseId = responseId;
+  stage2CodeErrorEl.textContent = '';
+  stage2CodeLanguageInputEl.value = '';
+  stage2CodeContentInputEl.value = '';
+  openModal('stage2CodeModal');
+  stage2CodeContentInputEl.focus();
+}
+
+function closeStage2CodeModal() {
+  stage2CodeErrorEl.textContent = '';
+  closeModal('stage2CodeModal');
+}
+
+stage2TableBuildBtnEl.addEventListener('click', () => {
+  buildStage2TableGrid(stage2TableRowsInputEl.value, stage2TableColsInputEl.value);
+});
+
+stage2TableCancelBtnEl.addEventListener('click', closeStage2TableModal);
+stage2TableConfirmBtnEl.addEventListener('click', () => {
+  if (!stage2ModalTargetResponseId) {
+    closeStage2TableModal();
+    return;
+  }
+  const tableMd = buildMarkdownTableFromGrid();
+  if (!tableMd.trim()) {
+    stage2TableErrorEl.textContent = 'Please build and fill table content first.';
+    return;
+  }
+  insertStage2Asset(stage2ModalTargetResponseId, 'table', tableMd);
+  closeStage2TableModal();
+});
+
+stage2CodeCancelBtnEl.addEventListener('click', closeStage2CodeModal);
+stage2CodeConfirmBtnEl.addEventListener('click', () => {
+  if (!stage2ModalTargetResponseId) {
+    closeStage2CodeModal();
+    return;
+  }
+  const rawCode = `${stage2CodeContentInputEl.value || ''}`.trimEnd();
+  if (!rawCode.trim()) {
+    stage2CodeErrorEl.textContent = 'Please input code content.';
+    return;
+  }
+  const lang = `${stage2CodeLanguageInputEl.value || ''}`.trim();
+  const fenced = `\`\`\`${lang}
+${rawCode}
+\`\`\``;
+  insertStage2Asset(stage2ModalTargetResponseId, 'code', fenced);
+  closeStage2CodeModal();
+});
+
+document.getElementById('apiOpenBtn').addEventListener('click', openApiSettingsModal);
+document.getElementById('cancelApiBtn').addEventListener('click', () => closeModal('apiModal'));
+document.getElementById('saveApiBtn').addEventListener('click', saveApiSettings);
+apiToggleVisibilityBtnEl?.addEventListener('click', () => {
+  setApiKeyVisibility(apiInputEl?.type !== 'text');
+});
+apiProviderSelectEl.addEventListener('change', (e) => {
+  renderApiForm(e.target.value);
+  apiSettingsErrorEl.textContent = '';
+  apiModelHintEl.textContent = '';
+  fillModelSuggestions([]);
+});
+apiModelSelectEl.addEventListener('change', () => {
+  const val = apiModelSelectEl.value;
+  if (val === '__custom__') {
+    // Switch to manual input mode
+    apiModelSelectEl.classList.add('hidden');
+    apiModelInputEl.classList.remove('hidden');
+    apiModelInputEl.value = '';
+    apiModelInputEl.focus();
+  } else if (val) {
+    apiModelInputEl.value = val;
+  }
+});
+detectModelsBtnEl.addEventListener('click', detectProviderModels);
+
+// Settings button — both modes
+document.getElementById('settingsBtn').addEventListener('click', () => {
+  autosaveInput.value = state.currentDoc?.autosaveIntervalSeconds || state.appSettings.defaultAutosaveIntervalSeconds;
+  document.querySelectorAll('.theme-toggle-btn').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.themeValue === state.theme);
+  });
+  openModal('settingsModal');
+});
+document.getElementById('settingsBtnStage').addEventListener('click', () => {
+  autosaveInput.value = state.currentDoc?.autosaveIntervalSeconds || state.appSettings.defaultAutosaveIntervalSeconds;
+  document.querySelectorAll('.theme-toggle-btn').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.themeValue === state.theme);
+  });
+  openModal('settingsModal');
+});
+
+document.getElementById('closeSettingsBtn').addEventListener('click', applySettings);
+document.getElementById('saveNowBtn').addEventListener('click', async () => {
+  if (!state.currentDoc) return;
+  const result = await window.studioApi.saveNow();
+  if (result.doc) state.currentDoc = result.doc;
+  await loadProjects();
+});
+
+undoBtnEl?.addEventListener('click', undoProjectHistory);
+redoBtnEl?.addEventListener('click', redoProjectHistory);
+
+document.addEventListener('keydown', async (e) => {
+  const isHistoryShortcut = (e.ctrlKey || e.metaKey) && (
+    e.key.toLowerCase() === 'z'
+    || e.key.toLowerCase() === 'y'
+  );
+  if (isHistoryShortcut && shouldHandleProjectHistoryShortcut(e.target)) {
+    e.preventDefault();
+    if (e.key.toLowerCase() === 'z' && e.shiftKey) {
+      redoProjectHistory();
+      return;
+    }
+    if (e.key.toLowerCase() === 'y') {
+      redoProjectHistory();
+      return;
+    }
+    undoProjectHistory();
+    return;
+  }
+
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+    e.preventDefault();
+    const result = await window.studioApi.saveNow();
+    if (result.doc) state.currentDoc = result.doc;
+    await loadProjects();
+  }
+});
+
+
+document.getElementById('closeTemplateBtn').addEventListener('click', () => closeModal('templateModal'));
+templateAudienceTabsEl.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-template-audience]');
+  if (!btn) return;
+  state.templateUi.audienceKey = btn.dataset.templateAudience;
+  state.templateUi.typeKey = '';
+  renderTemplateModal();
+  templateRenderedOutputEl.value = renderTemplateText();
+});
+templateTypeListEl.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-template-type]');
+  if (!btn) return;
+  state.templateUi.typeKey = btn.dataset.templateType;
+  renderTemplateModal();
+  templateRenderedOutputEl.value = renderTemplateText();
+});
+templateFieldsEl.addEventListener('input', (e) => {
+  const key = e.target?.dataset?.templateVar;
+  if (!key) return;
+  state.templateUi.values[key] = e.target.value;
+  templateRenderedOutputEl.value = renderTemplateText();
+});
+document.getElementById('templateRenderCopyBtn').addEventListener('click', async () => {
+  templateRenderedOutputEl.value = renderTemplateText();
+  await copyText(templateRenderedOutputEl.value);
+});
+document.getElementById('templateAiPolishBtn').addEventListener('click', runTemplatePolish);
+
+
+if (stage3StyleSelectEl) {
+  stage3StyleSelectEl.addEventListener('change', () => {
+    stage3ColorSectionEl.classList.toggle('hidden', stage3StyleSelectEl.value !== 'standard');
+  });
+  stage3PresetColorsEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-stage3-color]');
+    if (!btn) return;
+    const color = btn.dataset.stage3Color;
+    if (color && color !== 'custom') {
+      renderStage3Palette(color);
+    } else {
+      renderStage3Palette('custom');
+      stage3CustomHexInputEl.focus();
+    }
+  });
+
+  stage3CustomHexInputEl.addEventListener('input', (e) => {
+    const val = e.target.value.trim();
+    let isCustom = true;
+    document.querySelectorAll('.stage3-color-dot').forEach(btn => {
+      if (normalizeHexColor(btn.dataset.stage3Color) === normalizeHexColor(val) && normalizeHexColor(val) !== '') {
+        btn.classList.add('active');
+        isCustom = false;
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+    const customBtn = stage3PresetColorsEl.querySelector('.stage3-color-custom');
+    if (customBtn) {
+      if (isCustom) customBtn.classList.add('active');
+      else customBtn.classList.remove('active');
+    }
+  });
+  stage3StyleConfirmBtnEl.addEventListener('click', applyStage3StyleSettings);
+
+  stage2LeftPanelEl.addEventListener('click', (e) => {
+    const breakdownOpenBtn = e.target.closest('[data-stage3-breakdown-open]');
+    if (breakdownOpenBtn) {
+      openStage3BreakdownModal();
+      return;
+    }
+    const btn = e.target.closest('[data-stage3-response]');
+    if (!btn) return;
+    state.stage3Selection[state.activeReviewerIdx] = btn.dataset.stage3Response;
+    queueStateSync();
+    renderStage3Panels();
+  });
+}
+
+if (stage3AdjustStyleBtn) {
+  stage3AdjustStyleBtn.addEventListener('click', () => {
+    if (currentStageKey() === 'stage5') {
+      openStage5TemplateModal();
+      return;
+    }
+    openStage3StyleModal();
+  });
+}
+
+if (stage2AutoFitBtn) {
+  stage2DirectTransferBtn.addEventListener('click', () => {
+    runStage2DirectTransfer();
+  });
+
+  stage2AutoFitBtn.addEventListener('click', () => {
+    if (currentStageKey() === 'stage5') {
+      runStage5AutoFillPipeline();
+      return;
+    }
+    document.querySelectorAll('.response-quoted-issue, .response-textarea').forEach(el => {
+      el.style.height = 'auto';
+      if (el.scrollHeight > 0) el.style.height = el.scrollHeight + 'px';
+    });
+  });
+}
+
+if (stage5TemplateApplyBtnEl) {
+  stage5TemplateApplyBtnEl.addEventListener('click', applyStage5TemplateSelection);
+}
+
+if (stage5TemplateCancelBtnEl) {
+  stage5TemplateCancelBtnEl.addEventListener('click', closeStage5TemplateModal);
+}
+
+if (stage3BreakdownCancelBtnEl) {
+  stage3BreakdownCancelBtnEl.addEventListener('click', closeStage3BreakdownModal);
+}
+
+if (stage3BreakdownConfirmBtnEl) {
+  stage3BreakdownConfirmBtnEl.addEventListener('click', confirmStage3Breakdown);
+}
+
+if (stage3BreakdownLengthInputEl) {
+  stage3BreakdownLengthInputEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') confirmStage3Breakdown();
+    if (e.key === 'Escape') closeStage3BreakdownModal();
+  });
+}
+
+if (stage3BreakdownResultCloseBtnEl) {
+  stage3BreakdownResultCloseBtnEl.addEventListener('click', closeStage3BreakdownResultModal);
+}
+
+if (stage3BreakdownResultBodyEl) {
+  stage3BreakdownResultBodyEl.addEventListener('click', async (e) => {
+    const copyBtn = e.target.closest('[data-stage3-copy-part]');
+    if (!copyBtn) return;
+    const idx = Number(copyBtn.dataset.stage3CopyPart);
+    const part = stage3BreakdownPartsCache[idx];
+    if (!part) return;
+    const reviewerId = getCurrentReviewerIdentifier();
+    const total = stage3BreakdownPartsCache.length;
+    const subject = `Author Response to Reviewer ${reviewerId} (Part ${idx + 1}/${total})`;
+    await copyText(`Subject: ${subject}\n\nContent:\n${part.text}`);
+  });
+}
+
+if (stage4CopyPopupCopyBtnEl) {
+  stage4CopyPopupCopyBtnEl.addEventListener('click', async () => {
+    const text = stage4CopyPopupEl?.dataset?.copyText || '';
+    await copyText(text);
+  });
+}
+
+if (stage4CopyPopupCloseBtnEl) {
+  stage4CopyPopupCloseBtnEl.addEventListener('click', hideCopyPopup);
+}
+
+window.addEventListener('resize', () => {
+  autoExpandStage3Editor();
+  fitStage5SourceEditorHeight();
+});
+
+if (typeof I18n !== 'undefined' && typeof I18n.onChange === 'function') {
+  I18n.onChange(() => {
+    if (state.currentDoc) {
+      renderSidebarStages();
+      renderBreakdownPanel();
+      syncStageUi();
+    }
+    updateDrawerToggleUi();
+  });
+}
+
+init();

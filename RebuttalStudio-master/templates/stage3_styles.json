@@ -1,0 +1,16 @@
+{
+  "defaultStyle": "standard",
+  "styles": {
+    "standard": {
+      "label": "Run’s Template",
+      "supportsThemeColor": true,
+      "template": {
+        "title": "Response {{responseIndex}}: {{responseTitle}}",
+        "quoteLabel": "{{issueTypeLabel}}-{{issueIndex}}:",
+        "quoteContent": "{{quotedIssue}}",
+        "responseLabel": "Response {{issueCode}}:",
+        "responseContent": "{{refinedAnswer}}"
+      }
+    }
+  }
+}

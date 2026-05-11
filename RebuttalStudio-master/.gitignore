@@ -1,0 +1,7 @@
+node_modules/
+projects/*
+!projects/RebuttalStudio/
+!projects/RebuttalStudio/project.json
+.DS_Store
+.claude
+docs

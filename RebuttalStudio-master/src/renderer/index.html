@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rebuttal Studio</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <div class="app">
+    <!-- ── Project Switcher Pull-tab (visible when inside a project) ── -->
+    <div id="projectDrawer" class="project-drawer hidden">
+      <button id="drawerToggle" class="drawer-toggle" aria-label="Toggle project list">
+        <span class="drawer-toggle-icon">▸</span>
+      </button>
+      <div class="drawer-panel">
+        <h2 class="sidebar-title">Projects</h2>
+        <div id="drawerProjectList" class="project-nav"></div>
+      </div>
+    </div>
+
+    <aside id="sidebar" class="sidebar">
+      <!-- Default mode: project list -->
+      <div id="sidebarProjects" class="sidebar-projects-mode">
+        <div>
+          <!-- Static Nav -->
+          <div style="margin-bottom: var(--space-2); display: flex; flex-direction: column; gap: 2px;">
+            <button class="settings-nav-item" data-new-project-open aria-label="Create New Project">
+              <span
+                style="display: flex; align-items: center; justify-content: center; width: 15px; height: 15px; font-size: 16px; font-weight: bold;">+</span>
+              <span>New Projects</span>
+            </button>
+            <button id="openDocsReaderBtn" class="settings-nav-item" aria-label="Open documents">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+                <polyline points="10 9 9 9 8 9" />
+              </svg>
+              <span>Document</span>
+            </button>
+            <button id="skillsNavBtn" class="settings-nav-item" aria-label="Browse skills">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+              <span>Skills</span>
+            </button>
+          </div>
+
+          <div class="sidebar-section-header">
+            <h2 class="sidebar-title">Projects</h2>
+            <div style="display: flex; gap: 4px;">
+              <button id="searchProjectsToggleBtn" class="icon-btn" title="Search projects"
+                aria-label="Search projects">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </button>
+              <div style="position: relative;">
+                <button id="sortProjectsBtn" class="icon-btn" title="Sort Projects" aria-label="Sort projects">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="15" y2="12" />
+                    <line x1="3" y1="18" x2="9" y2="18" />
+                  </svg>
+                </button>
+                <div id="sortProjectsPopup" class="sort-popup hidden">
+                  <div class="sort-popup-section">Alphabetical</div>
+                  <button class="sort-popup-item" data-sort="az">A → Z</button>
+                  <button class="sort-popup-item" data-sort="za">Z → A</button>
+                  <div class="sort-popup-section">Creation Time</div>
+                  <button class="sort-popup-item" data-sort="date-desc">Newest First</button>
+                  <button class="sort-popup-item" data-sort="date-asc">Oldest First</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="projectSearchContainer" class="hidden" style="margin-bottom: var(--space-2);">
+            <input id="projectSearch" class="search-input"
+              style="width: 100%; border: 1px solid var(--border); background: var(--panel); border-radius: 6px; padding: 6px 10px; font-size: 0.85rem; color: var(--text);"
+              placeholder="Search projects" aria-label="Search projects" />
+          </div>
+          <div id="projectList" class="project-nav"></div>
+        </div>
+        <div class="sidebar-settings-row">
+          <button id="settingsBtn" class="settings-nav-item" aria-label="Open settings">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </svg>
+            <span>Settings</span>
+          </button>
+          <div class="sidebar-theme-switch" aria-label="Switch theme">
+            <button class="sidebar-theme-btn" type="button" data-theme-value="light" aria-label="Switch to light theme"
+              aria-pressed="false">☀</button>
+            <span class="sidebar-theme-divider" aria-hidden="true">|</span>
+            <button class="sidebar-theme-btn" type="button" data-theme-value="dark" aria-label="Switch to dark theme"
+              aria-pressed="false">☾</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage breakdown mode (shown when inside a project) -->
+      <div id="sidebarStages" class="sidebar-stages-mode hidden">
+        <div class="stages-header">
+          <h2 class="sidebar-title">Stages</h2>
+        </div>
+        <div id="sidebarStageList" class="sidebar-stage-list"></div>
+        <div class="sidebar-bottom-row">
+          <button id="nextStageBtn" class="btn next-stage-btn next-stage-btn--full">Next Stage →</button>
+          <div class="sidebar-settings-row">
+            <button id="settingsBtnStage" class="settings-nav-item settings-nav-item--compact" aria-label="Open settings">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+              </svg>
+              <span>Settings</span>
+            </button>
+            <div class="sidebar-theme-switch" aria-label="Switch theme">
+              <button class="sidebar-theme-btn" type="button" data-theme-value="light" aria-label="Switch to light theme"
+                aria-pressed="false">☀</button>
+              <span class="sidebar-theme-divider" aria-hidden="true">|</span>
+              <button class="sidebar-theme-btn" type="button" data-theme-value="dark" aria-label="Switch to dark theme"
+                aria-pressed="false">☾</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="brandBtn" class="brand-btn" aria-label="Go to projects home">
+            <img src="../../img/rebuttalstudio_hori.png" alt="Rebuttal Studio" class="brand-logo" />
+          </button>
+          <div class="topbar-history-group" aria-label="History controls">
+            <button id="undoBtn" class="history-btn" type="button" aria-label="Undo" title="Undo (Ctrl/Cmd+Z)" disabled>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 14 4 9l5-5" />
+                <path d="M4 9h9a7 7 0 1 1 0 14h-1" />
+              </svg>
+            </button>
+            <button id="redoBtn" class="history-btn" type="button" aria-label="Redo" title="Redo (Ctrl/Cmd+Shift+Z / Ctrl+Y)" disabled>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m15 14 5-5-5-5" />
+                <path d="M20 9h-9a7 7 0 1 0 0 14h1" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <span id="tokenUsageBadge" class="token-usage-badge" aria-live="polite" title="Token usage this session"></span>
+          <span id="activeModelBadge" class="active-model-badge hidden" aria-live="polite"></span>
+          <div class="topbar-actions-group">
+            <button id="apiOpenBtn" class="btn topbar-btn">API Settings</button>
+          </div>
+        </div>
+      </header>
+
+      <section class="content">
+        <div id="namingPanel" class="panel hidden">
+          <h3>Create New Project</h3>
+          <div class="create-form-group">
+            <label for="projectNameInput">Project Name</label>
+            <input id="projectNameInput" class="text-input" placeholder="e.g. My Paper Rebuttal" />
+          </div>
+          <div class="create-form-group">
+            <label for="conferenceSelect">Conference</label>
+            <select id="conferenceSelect" class="conference-select">
+              <option value="ICLR" selected>ICLR</option>
+              <option value="ICML">ICML</option>
+              <option value="NeurIPS">NeurIPS</option>
+              <option value="ARR">ARR (ACL, EMNLP)</option>
+            </select>
+          </div>
+          <div class="create-form-group">
+            <label>Document Memory (Optional)</label>
+            <div class="document-memory-picker-row">
+              <button id="projectDocumentPickBtn" class="btn" type="button">Choose Document</button>
+              <button id="projectDocumentClearBtn" class="btn hidden" type="button">Clear</button>
+            </div>
+            <p id="projectDocumentSelected" class="muted">No document selected.</p>
+            <div class="document-memory-helper">
+              <p class="document-memory-helper-intro">This feature always converts your input into text before calling the API. It does not rely on native file-upload support from the model provider.</p>
+              <ul class="document-memory-helper-list">
+                <li>Most APIs do not accept document files directly. We recommend uploading plain text, Markdown, or LaTeX whenever possible.</li>
+                <li>PDF text extraction can be imperfect. If you already have clean text, Markdown, or LaTeX, use that instead of PDF.</li>
+                <li>We recommend uploading only the main paper. Skip references and appendices unless they are essential.</li>
+                <li>Document memory can significantly increase token usage and cost.</li>
+              </ul>
+              <p class="document-memory-helper-footnote">Some platforms also offer native document workflows, such as OpenAI, Gemini, and Anthropic. Support depends on the exact model and endpoint.</p>
+            </div>
+          </div>
+          <div class="row">
+            <button id="cancelProjectBtn" class="btn">Cancel</button>
+            <button id="confirmProjectBtn" class="btn primary">Create Project</button>
+          </div>
+          <p id="projectNameError" class="error"></p>
+        </div>
+
+        <div id="workspace" class="workspace-layout hidden">
+          <!-- Left panel: Reviewer Input -->
+          <section class="panel workspace-panel">
+            <div class="reviewer-tabs-row">
+              <div id="reviewerTabs" class="reviewer-tabs">
+                <button class="reviewer-tab active" data-reviewer="0">Reviewer 1</button>
+              </div>
+              <button id="addReviewerBtn" class="add-reviewer-btn" aria-label="Add reviewer">+</button>
+            </div>
+            <div id="reviewerInput" class="reviewer-input" contenteditable="true"
+              data-placeholder="Paste the complete reviewer feedback here. Include all sections: summary, strengths, weaknesses, questions, rating, confidence, and any additional comments from the reviewer.">
+            </div>
+            <!-- Stage 2 Left Panel Content -->
+            <div id="stage2LeftPanel" class="stage2-left-panel hidden"></div>
+          </section>
+
+          <!-- Center: Convert button -->
+          <div class="convert-column" style="gap: 15px;">
+            <button id="convertBtn" class="convert-btn" aria-label="Convert reviewer input to structured breakdown"
+              title="Convert to structured breakdown">
+              <span class="convert-icon">→</span>
+              <span class="convert-label">Break down</span>
+              <div class="loading-dots"><span></span><span></span><span></span></div>
+            </button>
+            <button id="stage3AdjustStyleBtn" class="convert-btn hidden" aria-label="Adjust Style" title="Adjust Style">
+              <span class="convert-icon" style="display:flex; justify-content:center; align-items:center;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+                </svg>
+              </span>
+              <span class="convert-label">Style</span>
+            </button>
+            <button id="stage2DirectTransferBtn" class="convert-btn hidden" aria-label="Direct Transfer" title="Copy outline directly to draft">
+              <span class="convert-icon" style="display:flex; justify-content:center; align-items:center;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M13 6l6 6-6 6"/>
+                </svg>
+              </span>
+              <span class="convert-label">Transfer</span>
+            </button>
+            <button id="stage2AutoFitBtn" class="convert-btn hidden" aria-label="Auto Resize" title="Auto fit heights">
+              <span class="convert-icon" style="display:flex; justify-content:center; align-items:center;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                </svg>
+              </span>
+              <span class="convert-label">Auto Fit</span>
+            </button>
+            <p id="stage3ThemeNotice" class="stage3-theme-notice hidden" role="status" aria-live="polite"></p>
+          </div>
+
+          <!-- Right panel: Structured Breakdown (ICLR format) -->
+          <section class="panel workspace-panel breakdown-panel">
+            <h3 class="breakdown-heading">Structured Breakdown</h3>
+            <div id="breakdownContent" class="breakdown-content">
+              <!-- Scores row -->
+              <div class="scores-header">
+                <div class="scores-row">
+                  <div class="score-item">
+                    <span class="score-label">RATING</span>
+                    <span class="score-value" id="scoreRating">A</span>
+                  </div>
+                  <span class="score-divider">|</span>
+                  <div class="score-item">
+                    <span class="score-label">CONFIDENCE</span>
+                    <span class="score-value" id="scoreConfidence">B</span>
+                  </div>
+                </div>
+                <div class="scores-row">
+                  <div class="score-item">
+                    <span class="score-label">SOUNDNESS</span>
+                    <span class="score-value" id="scoreSoundness">C</span>
+                  </div>
+                  <span class="score-divider">|</span>
+                  <div class="score-item">
+                    <span class="score-label">PRESENTATION</span>
+                    <span class="score-value" id="scorePresentation">D</span>
+                  </div>
+                  <span class="score-divider">|</span>
+                  <div class="score-item">
+                    <span class="score-label">CONTRIBUTION</span>
+                    <span class="score-value" id="scoreContribution">E</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Block: Summary & Strength -->
+              <div class="breakdown-block">
+                <div class="breakdown-section">
+                  <h4 class="breakdown-section-title">Summary</h4>
+                  <div class="breakdown-section-body" id="sectionSummary">
+                    <p class="breakdown-placeholder">This is the summary.</p>
+                  </div>
+                </div>
+                <div class="breakdown-section">
+                  <h4 class="breakdown-section-title">Strength</h4>
+                  <div class="breakdown-section-body" id="sectionStrength">
+                    <p class="breakdown-placeholder">This is the strength.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Block: Weakness & Questions -->
+              <div class="breakdown-block">
+                <div class="breakdown-section">
+                  <h4 class="breakdown-section-title">Weakness</h4>
+                  <div class="breakdown-section-body" id="sectionWeakness">
+                    <p class="breakdown-placeholder">This is the weakness.</p>
+                  </div>
+                </div>
+                <div class="breakdown-section">
+                  <h4 class="breakdown-section-title">Questions</h4>
+                  <div class="breakdown-section-body" id="sectionQuestions">
+                    <p class="breakdown-placeholder">This is the questions.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Skills Browser Panel -->
+        <div id="skillsPanel" class="skills-panel hidden">
+          <div class="skills-panel-header">
+            <h2 class="skills-panel-title">Rebuttal Studio Skills</h2>
+            <p class="skills-panel-subtitle">Click any skill to view its full documentation.</p>
+          </div>
+          <div id="skillsGrid" class="skills-grid"></div>
+        </div>
+
+        <!-- Docs Reader Panel -->
+        <div id="docsPanel" class="docs-panel hidden">
+          <div class="docs-nav">
+            <div id="docsTabList" class="docs-tab-list" aria-label="Document tabs"></div>
+            <div class="docs-nav-actions">
+              <div class="docs-language-switch" aria-label="Switch document language">
+                <button id="docsLangEnBtn" class="docs-language-btn" type="button" data-docs-lang="en" aria-pressed="false">EN</button>
+                <span class="docs-language-divider" aria-hidden="true">|</span>
+                <button id="docsLangZhBtn" class="docs-language-btn" type="button" data-docs-lang="ch" aria-pressed="false">中</button>
+              </div>
+              <button id="docsCloseBtn" class="btn">✕ Close</button>
+            </div>
+          </div>
+          <div id="docsContent" class="docs-content markdown-body"></div>
+        </div>
+
+        <div id="documentMemoryPanel" class="docs-panel hidden">
+          <div class="docs-nav">
+            <div>
+              <h2 class="document-memory-title">Document Memory</h2>
+              <p class="document-memory-subtitle">Project-level background knowledge stored as editable Markdown.</p>
+            </div>
+            <div class="docs-nav-actions">
+              <button id="documentMemoryCloseBtn" class="btn">✕ Close</button>
+            </div>
+          </div>
+          <div id="documentMemoryContent" class="document-memory-content"></div>
+        </div>
+
+        <div id="emptyState" class="empty-state">
+          <div id="pixelLanding" class="feedback-home">
+            <div class="feedback-logo-line">
+              <span id="homeWordRebuttal" class="feedback-logo-rebuttal"></span>
+              <span class="feedback-logo-studio">Studio</span>
+            </div>
+
+            <div class="feedback-dialog">
+              <div class="feedback-input-wrap">
+                <textarea id="homeFeedbackInput" class="feedback-input" rows="1" autocomplete="off"
+                  placeholder="Write down any feedback (or encouragement) for Rebuttal Studio ツ"></textarea>
+                <button id="homeSendBtn" class="feedback-send-btn" type="button" aria-label="Send feedback">↗</button>
+              </div>
+
+              <div class="feedback-actions-row">
+                <button id="homeHowToBtn" class="feedback-mini-btn" type="button">> How to use it </button>
+                <button id="homeBehindBtn" class="feedback-mini-btn" type="button">> How we do it
+                </button>
+                <button id="homeStartBtn" class="feedback-mini-btn" type="button">> Start Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- API Modal -->
+  <div id="apiModal" class="modal-backdrop hidden">
+    <div class="modal api-modal" role="dialog" aria-modal="true" aria-labelledby="apiModalTitle">
+      <h3 id="apiModalTitle">API Settings</h3>
+
+      <div class="settings-group">
+        <label for="apiProviderSelect">Provider</label>
+        <select id="apiProviderSelect" class="conference-select">
+          <option value="openai">OpenAI</option>
+          <option value="anthropic">Anthropic</option>
+          <option value="gemini">Google Gemini</option>
+          <option value="deepseek">DeepSeek</option>
+          <option value="azureOpenai">Azure OpenAI</option>
+          <option value="qwen">Alibaba Qwen</option>
+          <option value="openrouter">OpenRouter</option>
+          <option value="groq">Groq</option>
+          <option value="grok">Grok (xAI)</option>
+          <option value="together">Together AI</option>
+          <option value="kimi">Kimi (Moonshot AI)</option>
+          <option value="minimax">MiniMax</option>
+          <option value="huggingface">HuggingFace</option>
+          <option value="portkey">Portkey.ai</option>
+          <option value="bedrock">AWS Bedrock</option>
+          <option value="custom">Custom (OpenAI-compatible)</option>
+        </select>
+      </div>
+
+      <div class="settings-group">
+        <label for="apiBaseUrlInput">Base URL</label>
+        <input id="apiBaseUrlInput" class="text-input" placeholder="https://api.openai.com/v1" />
+        <p id="apiBaseUrlHelp" class="muted"></p>
+      </div>
+
+      <div class="settings-group">
+        <label for="apiModelInput">Model</label>
+        <div class="model-input-row">
+          <select id="apiModelSelect" class="conference-select model-select hidden">
+            <option value="">-- Select a model --</option>
+          </select>
+          <input id="apiModelInput" class="text-input" placeholder="gpt-4o-mini" />
+          <button id="detectModelsBtn" class="btn" type="button">Detect models</button>
+        </div>
+        <p id="apiModelHint" class="muted"></p>
+      </div>
+
+          <div class="settings-group">
+            <label for="apiInput">API Key</label>
+            <div class="api-key-row">
+              <input id="apiInput" type="password" class="text-input" placeholder="Paste API key" />
+              <button
+                id="apiToggleVisibilityBtn"
+                class="btn api-visibility-btn"
+                type="button"
+                aria-label="Show API key"
+                aria-pressed="false"
+                title="Show API key"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path
+                    d="M1.5 12s3.8-7 10.5-7 10.5 7 10.5 7-3.8 7-10.5 7S1.5 12 1.5 12Z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="3"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+      <p id="apiSettingsError" class="error"></p>
+      <p class="muted">Tip: Google Gemini from AI Studio can use API key only; URL/model can be auto-filled.</p>
+
+      <div class="modal-actions">
+        <button id="cancelApiBtn" class="btn">Cancel</button>
+        <button id="saveApiBtn" class="btn primary">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- API Error Modal -->
+  <div id="apiErrorModal" class="modal-backdrop hidden">
+    <div class="modal api-error-modal" role="dialog" aria-modal="true" aria-labelledby="apiErrorTitle">
+      <h3 id="apiErrorTitle">API Error</h3>
+      <p id="apiErrorSummary" class="api-error-summary">The API request failed.</p>
+      <p class="muted">You can review the full error report or open a pre-filled GitHub issue.</p>
+      <div id="apiErrorReportWrap" class="api-error-report-wrap hidden">
+        <label for="apiErrorReport">Full Error Report</label>
+        <textarea id="apiErrorReport" class="api-error-report" readonly spellcheck="false"></textarea>
+      </div>
+      <div class="modal-actions api-error-actions">
+        <button id="apiErrorViewBtn" class="btn" type="button">View Full Error</button>
+        <button id="apiErrorReportBtn" class="btn" type="button">Report This Error</button>
+        <button id="apiErrorOkBtn" class="btn primary" type="button">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="modal-backdrop hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <h3 id="settingsTitle">Settings</h3>
+
+      <div class="settings-group">
+        <label>Theme</label>
+        <div class="theme-toggle-row">
+          <button id="themeDarkBtn" class="theme-toggle-btn active" data-theme-value="dark">Dark</button>
+          <button id="themeLightBtn" class="theme-toggle-btn" data-theme-value="light">Light</button>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <label for="autosaveInput">Autosave interval (seconds)</label>
+        <input id="autosaveInput" class="text-input" type="number" min="10" max="1800" />
+        <p class="muted">Minimum 10 s, maximum 1800 s.</p>
+      </div>
+
+      <p id="settingsError" class="error"></p>
+      <div class="modal-actions">
+        <button id="saveNowBtn" class="btn">Save now</button>
+        <button id="closeSettingsBtn" class="btn primary">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage Advance Confirmation Modal -->
+  <div id="stageAdvanceModal" class="modal-backdrop hidden">
+    <div class="modal stage-advance-modal" role="dialog" aria-modal="true" aria-labelledby="stageAdvanceTitle">
+      <h3 id="stageAdvanceTitle">Advance to Next Stage</h3>
+      <p id="stageAdvanceMsg" class="stage-advance-msg">Are you sure you want to proceed to the next stage?</p>
+      <div class="modal-actions">
+        <button id="cancelAdvanceBtn" class="btn">Cancel</button>
+        <button id="confirmAdvanceBtn" class="btn primary">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reviewer Name Modal -->
+  <div id="reviewerNameModal" class="modal-backdrop hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="reviewerNameTitle">
+      <h3 id="reviewerNameTitle">Reviewer Name</h3>
+      <div class="settings-group">
+        <label for="reviewerNameInput">Enter the reviewer's 4-character identifier</label>
+        <div class="reviewer-name-input-row">
+          <span class="reviewer-name-prefix">Reviewer</span>
+          <input id="reviewerNameInput" class="text-input reviewer-name-suffix" maxlength="4" placeholder="e.g. Ab1C" />
+        </div>
+      </div>
+      <p id="reviewerNameError" class="error"></p>
+      <div class="modal-actions">
+        <button id="cancelReviewerNameBtn" class="btn">Cancel</button>
+        <button id="confirmReviewerNameBtn" class="btn primary">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project Rename Modal -->
+  <div id="projectRenameModal" class="modal-backdrop hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="projectRenameTitle">
+      <h3 id="projectRenameTitle">Rename Project</h3>
+      <div class="settings-group">
+        <label for="projectRenameInput">Project Name</label>
+        <input id="projectRenameInput" class="text-input" maxlength="120" placeholder="Enter a new project name" />
+      </div>
+      <p id="projectRenameError" class="error"></p>
+      <div class="modal-actions">
+        <button id="cancelProjectRenameBtn" class="btn">Cancel</button>
+        <button id="confirmProjectRenameBtn" class="btn primary">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project Snapshots Modal -->
+  <div id="projectSnapshotsModal" class="modal-backdrop hidden">
+    <div class="modal project-snapshots-modal" role="dialog" aria-modal="true" aria-labelledby="projectSnapshotsTitle">
+      <h3 id="projectSnapshotsTitle">Restore Snapshot</h3>
+      <p id="projectSnapshotsHint" class="muted">Select a saved snapshot to restore.</p>
+      <div id="projectSnapshotsList" class="project-snapshots-list">
+        <p class="muted">Loading snapshots...</p>
+      </div>
+      <p id="projectSnapshotsError" class="error"></p>
+      <div class="modal-actions">
+        <button id="closeProjectSnapshotsBtn" class="btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right-click context menu for reviewer tabs -->
+  <div id="reviewerContextMenu" class="context-menu hidden">
+    <button class="context-menu-item" data-action="rename">✏️ Rename</button>
+  </div>
+
+  <!-- Right-click context menu for project items -->
+  <div id="projectContextMenu" class="context-menu hidden">
+    <button class="context-menu-item" data-action="rename">Rename</button>
+    <button class="context-menu-item" data-action="copy">Copy</button>
+    <button class="context-menu-item" data-action="snapshot-create">Add Snapshot</button>
+    <button class="context-menu-item" data-action="snapshot-restore">Restore Snapshot</button>
+    <button class="context-menu-item" data-action="delete">Delete</button>
+  </div>
+
+  <!-- Add Response Modal -->
+  <div id="addResponseModal" class="modal-backdrop hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="addResponseTitle">
+      <h3 id="addResponseTitle">Add Atomic Issue</h3>
+      <div class="settings-group">
+        <label for="addResponseTypeInput">Type</label>
+        <select id="addResponseTypeInput" class="text-input">
+          <option value="weakness">Weakness</option>
+          <option value="question">Question</option>
+        </select>
+      </div>
+      <div class="settings-group">
+        <label for="addResponseTitleInput">Title</label>
+        <input id="addResponseTitleInput" class="text-input" placeholder="e.g. Missing baseline comparison" />
+      </div>
+      <div class="settings-group">
+        <label for="addResponseContentInput">Content</label>
+        <textarea id="addResponseContentInput" class="text-input" style="min-height: 80px;"
+          placeholder="The issue text..."></textarea>
+      </div>
+      <p id="addResponseError" class="error"></p>
+      <div class="modal-actions">
+        <button id="cancelAddResponseBtn" class="btn">Cancel</button>
+        <button id="confirmAddResponseBtn" class="btn primary">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Split Response Modal -->
+  <div id="splitResponseModal" class="modal-backdrop hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="splitResponseTitle">
+      <h3 id="splitResponseTitle">Split Issue</h3>
+      <p class="muted">Position your cursor where you want to split the issue into two, then click the <strong>Split at
+          Cursor</strong> button.</p>
+      <div class="settings-group">
+        <label for="splitResponseContentInput">Issue Content</label>
+        <textarea id="splitResponseContentInput" class="text-input" style="min-height: 150px; line-height: 1.5;"
+          placeholder="Issue text..."></textarea>
+      </div>
+      <p id="splitResponseError" class="error"></p>
+      <div class="modal-actions">
+        <button id="cancelSplitResponseBtn" class="btn">Cancel</button>
+        <button id="confirmSplitResponseBtn" class="btn primary">Split at Cursor</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage3 Style Modal -->
+  <div id="stage3StyleModal" class="modal-backdrop hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="stage3StyleTitle">
+      <h3 id="stage3StyleTitle">First Round Style</h3>
+      <div class="settings-group">
+        <label for="stage3StyleSelect">Style</label>
+        <select id="stage3StyleSelect" class="text-input">
+          <option value="standard">Run’s Template</option>
+        </select>
+      </div>
+      <div id="stage3ColorSection" class="settings-group">
+        <label>Theme Color</label>
+        <div id="stage3PresetColors" class="stage3-palette"></div>
+        <div class="stage3-custom-color-row">
+          <span class="muted">Custom Hex</span>
+          <input id="stage3CustomHexInput" class="text-input" placeholder="#f26921" maxlength="7" />
+        </div>
+      </div>
+      <p id="stage3StyleError" class="error"></p>
+      <div class="modal-actions">
+        <button id="stage3StyleConfirmBtn" class="btn primary">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage5 Template Modal -->
+  <div id="stage5TemplateModal" class="modal-backdrop hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="stage5TemplateTitle">
+      <h3 id="stage5TemplateTitle">Final Remarks Template</h3>
+      <div class="settings-group">
+        <label for="stage5TemplateSelect">Template</label>
+        <select id="stage5TemplateSelect" class="text-input"></select>
+      </div>
+      <p class="muted">Applying a template resets the Stage5 raw source to that template skeleton.</p>
+      <p id="stage5TemplateError" class="error"></p>
+      <div class="modal-actions">
+        <button id="stage5TemplateCancelBtn" class="btn">Cancel</button>
+        <button id="stage5TemplateApplyBtn" class="btn primary">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage3 Breakdown Max Length Modal -->
+  <div id="stage3BreakdownModal" class="modal-backdrop hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="stage3BreakdownTitle">
+      <h3 id="stage3BreakdownTitle">To break down</h3>
+      <div class="settings-group">
+        <label for="stage3BreakdownLengthInput">Max character length per part?</label>
+        <input id="stage3BreakdownLengthInput" class="text-input" type="number" min="1" step="1"
+          placeholder="e.g. 4000" />
+      </div>
+      <p id="stage3BreakdownError" class="error"></p>
+      <div class="modal-actions">
+        <button id="stage3BreakdownCancelBtn" class="btn">Cancel</button>
+        <button id="stage3BreakdownConfirmBtn" class="btn primary">Split</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage3 Breakdown Result Modal -->
+  <div id="stage3BreakdownResultModal" class="modal-backdrop hidden">
+    <div class="modal stage3-breakdown-result-modal" role="dialog" aria-modal="true"
+      aria-labelledby="stage3BreakdownResultTitle">
+      <h3 id="stage3BreakdownResultTitle">Breakdown Result</h3>
+      <div id="stage3BreakdownResultBody" class="stage3-breakdown-result-body"></div>
+      <div class="modal-actions">
+        <button id="stage3BreakdownResultCloseBtn" class="btn primary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage2 Insert Table Modal -->
+  <div id="stage2TableModal" class="modal-backdrop hidden">
+    <div class="modal stage2-insert-modal" role="dialog" aria-modal="true" aria-labelledby="stage2TableModalTitle">
+      <h3 id="stage2TableModalTitle">Insert Table</h3>
+      <div class="settings-group stage2-table-dimensions">
+        <div>
+          <label for="stage2TableRowsInput">Rows</label>
+          <input id="stage2TableRowsInput" type="number" min="1" max="20" class="text-input" value="3" />
+        </div>
+        <div>
+          <label for="stage2TableColsInput">Columns</label>
+          <input id="stage2TableColsInput" type="number" min="1" max="10" class="text-input" value="3" />
+        </div>
+      </div>
+      <div class="modal-actions stage2-table-actions">
+        <button id="stage2TableBuildBtn" class="btn" type="button">Build Grid</button>
+      </div>
+      <div id="stage2TableGrid" class="stage2-table-grid"></div>
+      <p id="stage2TableError" class="error"></p>
+      <div class="modal-actions">
+        <button id="stage2TableCancelBtn" class="btn">Cancel</button>
+        <button id="stage2TableConfirmBtn" class="btn primary">Insert</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage2 Insert Code Modal -->
+  <div id="stage2CodeModal" class="modal-backdrop hidden">
+    <div class="modal stage2-insert-modal" role="dialog" aria-modal="true" aria-labelledby="stage2CodeModalTitle">
+      <h3 id="stage2CodeModalTitle">Insert Code</h3>
+      <div class="settings-group">
+        <label for="stage2CodeLanguageInput">Language (optional)</label>
+        <input id="stage2CodeLanguageInput" class="text-input" placeholder="e.g. python" />
+      </div>
+      <div class="settings-group">
+        <label for="stage2CodeContentInput">Code</label>
+        <textarea id="stage2CodeContentInput" class="text-input stage2-code-input"
+          placeholder="Paste your code here..."></textarea>
+      </div>
+      <p id="stage2CodeError" class="error"></p>
+      <div class="modal-actions">
+        <button id="stage2CodeCancelBtn" class="btn">Cancel</button>
+        <button id="stage2CodeConfirmBtn" class="btn primary">Insert</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Template Modal -->
+  <div id="templateModal" class="modal-backdrop hidden">
+    <div class="modal template-modal" role="dialog" aria-modal="true" aria-labelledby="templateModalTitle">
+      <h3 id="templateModalTitle">Template Center</h3>
+      <div class="template-layout">
+        <section class="template-left">
+          <div id="templateAudienceTabs" class="template-audience-tabs"></div>
+          <div id="templateTypeList" class="template-type-list"></div>
+        </section>
+        <section class="template-right">
+          <div class="template-preview-header">
+            <h4 id="templatePreviewTitle">Template</h4>
+            <div class="template-actions">
+              <button id="templateRenderCopyBtn" class="btn" title="Render and copy">↗ Render+Copy</button>
+              <button id="templateAiPolishBtn" class="btn" title="AI rephrase">
+                <span class="polish-btn-label">✨ Polish</span>
+                <div class="loading-dots"><span></span><span></span><span></span></div>
+              </button>
+            </div>
+          </div>
+          <div id="templateFields" class="template-fields"></div>
+          <textarea id="templateRenderedOutput" class="text-input template-output" readonly
+            placeholder="Rendered template text will appear here..."></textarea>
+          <p id="templateError" class="error"></p>
+        </section>
+      </div>
+      <div class="modal-actions">
+        <button id="closeTemplateBtn" class="btn primary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="stage4CopyPopup" class="stage4-copy-popup hidden" role="status" aria-live="polite">
+    <div class="stage4-copy-popup-title">Refined result is ready.</div>
+    <div class="stage4-copy-popup-actions">
+      <button id="stage4CopyPopupCopyBtn" class="btn primary">Copy</button>
+      <button id="stage4CopyPopupCloseBtn" class="btn">Close</button>
+    </div>
+  </div>
+
+  <!-- Skill Viewer Modal -->
+  <div id="skillModal" class="modal-backdrop hidden">
+    <div class="modal skill-modal" role="dialog" aria-modal="true" aria-labelledby="skillModalTitle">
+      <div class="skill-modal-header">
+        <h3 id="skillModalTitle">Skill</h3>
+        <button id="skillModalCloseBtn" class="icon-btn" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+      <div id="skillModalContent" class="skill-modal-content markdown-body"></div>
+    </div>
+  </div>
+
+  <div id="exportProjectPopup" class="sort-popup hidden" style="z-index: 9999; margin-top: 5px;">
+    <div class="sort-popup-section" id="exportProjectPopupTitle">Export First Round</div>
+    <button class="sort-popup-item" data-export-type="md">Markdown Document (.md)</button>
+    <button class="sort-popup-item" disabled style="opacity:0.4;cursor:not-allowed;">Word Document (.docx) (Not
+      supported yet)</button>
+  </div>
+
+  <script src="../../node_modules/marked/lib/marked.umd.js"></script>
+  <script src="../../node_modules/dompurify/dist/purify.min.js"></script>
+  <script src="./i18n/locales.js"></script>
+  <script src="./i18n/dom-map.js"></script>
+  <script src="./i18n/i18n.js"></script>
+  <script src="./app.js"></script>
+</body>
+
+</html>

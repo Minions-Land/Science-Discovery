@@ -1,0 +1,51 @@
+# OS
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# Python (from academic-research-skills CI lints)
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.eggs/
+build/
+dist/
+.tox/
+.venv/
+venv/
+env/
+.env
+.coverage
+htmlcov/
+
+# Node (from RebuttalStudio + ARA installer)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+
+# Electron build artefacts (RebuttalStudio)
+out/
+release/
+*.dmg
+*.exe
+*.AppImage
+
+# Local backups
+*.bak
+*.orig
+research-report.v*.html
