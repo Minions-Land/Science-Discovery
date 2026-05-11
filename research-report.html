@@ -1,1220 +1,610 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>学术 Agent Skill &amp; Benchmark · 调研 + Proposal</title>
+<title>AI Agents, Skills, and the Academic Workflow · an introduction</title>
 <style>
   :root{
-    --bg:#fafaf7; --fg:#111418; --muted:#5f6670; --faint:#8a9099;
-    --accent:#c24619; --accent-ink:#8a2d0b; --accent-bg:#fdf1ea;
-    --blue:#0a6cbd; --blue-ink:#074a81; --blue-bg:#eaf3fb;
-    --green:#1f7a4c; --amber:#b27400; --purple:#6b4ca7;
-    --card:#fff; --border:#e5e2d9; --rule:#ecebe3;
-    --code-bg:#f3efe6; --shadow:0 1px 3px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.05);
-    --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+    --bg:#fbfaf6; --ink:#1a1a1a; --dim:#5a6068; --faint:#8a9099;
+    --accent:#9c3b16; --accent-ink:#6e2a0f; --accent-bg:#faeee3;
+    --rule:#e7e2d6; --card:#ffffff;
+    --code-bg:#f1ecde; --hi:#fff4cf;
+    --shadow:0 1px 2px rgba(0,0,0,.03),0 6px 20px rgba(20,10,0,.04);
+    --serif:"Iowan Old Style","Cambria","Liberation Serif","Songti SC","Source Han Serif SC",Georgia,serif;
     --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","PingFang SC","Noto Sans CJK SC",sans-serif;
-    --serif:"Iowan Old Style","Palatino","PingFang SC",Georgia,serif;
+    --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+    --measure:680px;
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth;scroll-padding-top:24px}
-  body{margin:0;padding:0;background:var(--bg);color:var(--fg);
-    font:15px/1.7 var(--sans); font-feature-settings:"tnum","ss01"; -webkit-font-smoothing:antialiased}
-  a{color:var(--blue);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
-  a:hover{border-bottom-color:currentColor}
-  code{background:var(--code-bg);padding:1px 6px;border-radius:4px;font:13px/1.4 var(--mono);white-space:nowrap}
-  h1,h2,h3,h4{font-family:var(--sans);letter-spacing:-.01em}
-  hr{border:0;height:1px;background:var(--rule);margin:40px 0}
-  mark{background:#fff2b8;padding:0 3px}
+  html{scroll-behavior:smooth;scroll-padding-top:28px}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:17px/1.72 var(--serif); -webkit-font-smoothing:antialiased; font-feature-settings:"tnum","ss01"}
 
-  #progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:100;transition:width .1s}
+  /* reading progress */
+  #progress{position:fixed;top:0;left:0;right:0;height:2px;background:transparent;z-index:100}
+  #progress::after{content:"";display:block;height:100%;width:var(--p,0%);background:var(--accent);transition:width .1s}
 
-  .shell{display:grid;grid-template-columns:280px minmax(0,1fr);gap:48px;max-width:1280px;margin:0 auto;padding:40px 32px 120px}
-  @media (max-width:960px){.shell{grid-template-columns:1fr;padding:20px}}
+  /* side nav — floats over body on large screens, slides above on small */
+  nav#toc{position:fixed;top:110px;left:24px;width:220px;font:13px/1.5 var(--sans);z-index:50;max-height:calc(100vh - 140px);overflow-y:auto;padding-right:8px}
+  nav#toc .cap{font:600 11px/1 var(--sans);color:var(--faint);letter-spacing:.14em;text-transform:uppercase;margin:0 0 12px}
+  nav#toc ol{list-style:none;padding:0;margin:0;border-left:1px solid var(--rule)}
+  nav#toc li{margin:0}
+  nav#toc a{display:block;padding:6px 0 6px 14px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;margin-left:-1px;transition:all .12s;line-height:1.35}
+  nav#toc a:hover{color:var(--ink)}
+  nav#toc a.active{color:var(--accent);border-left-color:var(--accent);font-weight:500}
+  nav#toc .num{font:500 11px var(--mono);color:var(--faint);margin-right:6px}
+  @media (max-width:1120px){nav#toc{display:none}}
 
-  aside{position:sticky;top:24px;align-self:start;font-size:13.5px;max-height:calc(100vh - 48px);overflow-y:auto}
-  aside .brand{font-family:var(--serif);font-size:17px;color:var(--accent-ink);font-weight:600;margin-bottom:4px}
-  aside .brand-sub{font-size:11.5px;color:var(--muted);margin-bottom:22px;letter-spacing:.02em;text-transform:uppercase}
-  aside nav{border-left:1px solid var(--rule)}
-  aside nav a{display:block;padding:5px 14px;color:var(--muted);border-bottom:none;border-left:2px solid transparent;margin-left:-1px;transition:all .15s}
-  aside nav a:hover{color:var(--fg);background:#f5f2ea}
-  aside nav a.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-bg);font-weight:500}
-  aside nav .group{padding:14px 14px 5px;font-size:11px;color:var(--faint);letter-spacing:.08em;text-transform:uppercase;font-weight:600}
-  aside nav .group.p1{color:var(--accent);border-top:1px solid var(--rule);margin-top:10px;padding-top:18px}
-  aside nav .group.p2{color:var(--blue);border-top:1px solid var(--rule);margin-top:10px;padding-top:18px}
-  aside nav a.sub{padding-left:28px;font-size:12.5px}
-  @media (max-width:960px){aside{display:none}}
+  article{max-width:var(--measure);margin:0 auto;padding:64px 28px 96px}
 
-  .hero{background:linear-gradient(135deg,#fff7ee 0%,#fef1e4 55%,#fae2d2 100%);
-    border:1px solid #f3d7b8;border-radius:14px;padding:40px 40px 36px;margin-bottom:40px;position:relative;overflow:hidden}
-  .hero::before{content:"";position:absolute;right:-40px;top:-40px;width:240px;height:240px;
-    background:radial-gradient(circle,rgba(194,70,25,.12) 0%,transparent 70%);pointer-events:none}
-  .hero .kicker{display:inline-block;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
-    color:var(--accent-ink);background:rgba(255,255,255,.7);border:1px solid #e9c7a8;border-radius:12px;
-    padding:3px 10px;margin-bottom:16px;font-weight:600}
-  .hero h1{font-family:var(--serif);font-size:38px;line-height:1.15;margin:0 0 14px;max-width:780px;font-weight:700}
-  .hero .lede{font-size:16.5px;line-height:1.6;color:#3a3f46;max-width:720px;margin:0 0 24px}
-  .hero-meta{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13px;color:var(--muted)}
-  .hero-meta b{color:var(--fg);font-weight:600}
+  /* hero */
+  .hero{margin-bottom:72px;border-bottom:1px solid var(--rule);padding-bottom:40px}
+  .hero .eyebrow{font:600 11px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+  .hero h1{font-family:var(--serif);font-weight:700;font-size:46px;line-height:1.1;letter-spacing:-.02em;margin:0 0 18px}
+  .hero .standfirst{font-size:20px;line-height:1.55;color:#2f343a;margin:0 0 28px;font-style:italic;font-family:var(--serif)}
+  .byline{font:13px var(--sans);color:var(--dim);display:flex;gap:6px 24px;flex-wrap:wrap;align-items:baseline}
+  .byline b{color:var(--ink);font-weight:600}
+  .byline .sep{color:var(--faint)}
 
-  .partdiv{display:flex;align-items:center;gap:20px;margin:60px 0 28px;padding:20px 0;border-top:3px double var(--rule);border-bottom:1px solid var(--rule)}
-  .partdiv .chip{font:700 12px var(--mono);letter-spacing:.15em;padding:6px 14px;border-radius:4px;color:#fff}
-  .partdiv.p1 .chip{background:var(--accent)}
-  .partdiv.p2 .chip{background:var(--blue)}
-  .partdiv .title{font-family:var(--serif);font-size:28px;font-weight:700;line-height:1.1}
-  .partdiv .subtitle{color:var(--muted);font-size:14px;margin-top:4px}
+  /* sections */
+  article > section{margin:0 0 72px}
+  article > section > h2{font-family:var(--serif);font-weight:700;font-size:30px;line-height:1.2;letter-spacing:-.015em;margin:0 0 8px}
+  article > section > h2 .roman{color:var(--faint);font:500 13px var(--mono);letter-spacing:.12em;display:block;margin-bottom:6px;text-transform:uppercase}
+  article > section > .deck{color:var(--dim);font-size:16px;line-height:1.5;margin:0 0 32px;font-style:italic}
 
-  section{scroll-margin-top:20px;margin-bottom:56px}
-  section>h2{font-size:26px;margin:0 0 6px;font-weight:700}
-  section>.sub{color:var(--muted);font-size:14px;margin:0 0 24px;font-style:italic}
-  section h3{font-size:18px;margin:32px 0 10px;color:var(--accent-ink)}
-  .p2 section h3{color:var(--blue-ink)}
-  section h4{font-size:14.5px;margin:22px 0 6px;color:var(--fg);font-weight:600}
-  section p{margin:10px 0}
+  h3{font-family:var(--serif);font-weight:700;font-size:21px;line-height:1.25;margin:40px 0 10px;letter-spacing:-.01em}
+  h4{font-family:var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;text-transform:uppercase;color:var(--dim);margin:28px 0 8px}
 
-  .callout{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);
-    padding:14px 18px;border-radius:4px;margin:18px 0;font-size:14px;box-shadow:var(--shadow)}
-  .callout.ok{border-left-color:var(--green);background:#f0f7f2}
-  .callout.warn{border-left-color:var(--amber);background:#fff9eb}
-  .callout.info{border-left-color:var(--blue);background:#f0f6fb}
-  .callout .title{font-weight:600;font-size:13px;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  p{margin:0 0 16px}
+  a{color:var(--accent);text-decoration:none;background-image:linear-gradient(currentColor,currentColor);background-size:100% 1px;background-repeat:no-repeat;background-position:0 100%;padding-bottom:1px;transition:color .12s}
+  a:hover{color:var(--accent-ink)}
 
-  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px;background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden}
-  th,td{border-bottom:1px solid var(--rule);padding:10px 12px;text-align:left;vertical-align:top}
-  th{background:#f7f4ec;font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted)}
+  code{background:var(--code-bg);font:14px/1.4 var(--mono);padding:1px 5px;border-radius:3px;color:#3b2c1b}
+  em{color:#2a2a2a}
+  strong{color:var(--ink);font-weight:700}
+  mark{background:var(--hi);padding:0 3px}
+
+  /* pull quote / epigraph */
+  blockquote{margin:28px 0;padding:2px 0 2px 24px;border-left:3px solid var(--accent);font-family:var(--serif);color:#2a2a2a;font-size:18px;line-height:1.55;font-style:italic}
+  blockquote cite{display:block;font:13px var(--sans);font-style:normal;color:var(--dim);margin-top:8px}
+  blockquote cite::before{content:"— "}
+
+  /* drop cap for first section */
+  .drop::first-letter{float:left;font-family:var(--serif);font-weight:700;font-size:62px;line-height:.9;padding:4px 10px 0 0;color:var(--accent)}
+
+  /* stat band */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0;margin:28px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:18px 0}
+  .stats .s{text-align:center;padding:0 8px;border-right:1px solid var(--rule)}
+  .stats .s:last-child{border-right:0}
+  .stats .s .v{font-family:var(--serif);font-weight:700;font-size:26px;color:var(--accent-ink);line-height:1}
+  .stats .s .l{font:11px var(--sans);color:var(--dim);margin-top:6px;letter-spacing:.04em;text-transform:uppercase}
+
+  /* callout */
+  .aside{margin:26px 0;padding:16px 20px;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--accent);border-radius:3px;font-size:15.5px;line-height:1.6;box-shadow:var(--shadow)}
+  .aside .k{font:11px var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--dim);margin-bottom:4px;display:block}
+  .aside.note{border-left-color:#6b4ca7}
+  .aside.note .k{color:#6b4ca7}
+
+  /* table */
+  table{border-collapse:collapse;width:100%;margin:20px 0;font:14.5px/1.45 var(--sans);background:var(--card);border:1px solid var(--rule)}
+  th,td{padding:10px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
+  thead th{background:#f4efe2;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--dim)}
   tr:last-child td{border-bottom:0}
-  tr:hover td{background:#fbfaf5}
-  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--muted)}
+  tr:hover td{background:#fbf8ef}
+  td.num{text-align:right;color:var(--dim);font-variant-numeric:tabular-nums;white-space:nowrap}
 
-  .tag{display:inline-block;background:#eee;border-radius:4px;padding:2px 8px;font-size:11.5px;
-    color:var(--muted);margin:0 3px 2px 0;white-space:nowrap;font-weight:500;border:1px solid transparent}
-  .tag.live{background:var(--green);color:#fff}
-  .tag.new{background:var(--accent);color:#fff}
-  .tag.hot{background:#fff3e8;color:var(--accent-ink);border-color:#f3cca3}
-  .tag.code{background:#eef5fb;color:var(--blue);border-color:#cfe1f2;font-family:var(--mono);font-size:11px}
-  .tag.easy{background:#e8f5ec;color:var(--green);border-color:#cfe7d7}
-  .tag.med{background:#fff4da;color:var(--amber);border-color:#f3dca8}
-  .tag.hard{background:#f9e3e3;color:#a5312e;border-color:#eec9c9}
+  /* figure (ASCII diagram) */
+  figure.diagram{margin:28px 0;padding:20px 22px;background:#23272c;color:#e6e2d7;border-radius:8px;
+    font:13.5px/1.55 var(--mono);white-space:pre;overflow-x:auto;box-shadow:var(--shadow)}
+  figure.diagram figcaption{color:var(--dim);font:12px var(--sans);margin-top:12px;padding-top:12px;border-top:1px solid #3a3f46;font-style:italic;white-space:normal}
 
-  .tracks{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:18px;margin:18px 0}
-  .track{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:22px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-  .track::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}
-  .track.t2::before{background:var(--blue)} .track.t3::before{background:var(--green)} .track.t4::before{background:var(--purple)}
-  .track .num{font-family:var(--serif);font-size:13px;color:var(--muted);letter-spacing:.15em}
-  .track h4{font-size:17px;margin:4px 0 10px;color:var(--fg)}
-  .track .who{font-size:12.5px;color:var(--muted);margin-bottom:10px}
-  .track .who b{color:var(--fg)}
-  .track ul{padding-left:18px;margin:8px 0;font-size:13.5px}
-  .track ul li{margin:3px 0}
-  .track .foot{margin-top:12px;padding-top:12px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--muted)}
+  /* inline meta line */
+  .meta{font:13px var(--sans);color:var(--dim);margin:6px 0 18px}
+  .meta a{color:var(--accent)}
 
-  .codeblock{position:relative;margin:14px 0}
-  .codeblock pre{background:#1e2227;color:#e8e6df;padding:16px 18px;padding-right:60px;border-radius:8px;
-    font:13px/1.55 var(--mono);overflow-x:auto;margin:0;box-shadow:var(--shadow)}
-  .codeblock .copy{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.08);color:#e8e6df;
-    border:1px solid rgba(255,255,255,.15);border-radius:4px;padding:4px 10px;font:11px var(--mono);cursor:pointer;transition:all .15s}
-  .codeblock .copy:hover{background:rgba(255,255,255,.2)}
-  .codeblock .copy.done{background:var(--green);color:#fff;border-color:var(--green)}
-  .codeblock .label{position:absolute;top:-8px;left:14px;background:var(--accent);color:#fff;
-    font:10px var(--mono);letter-spacing:.05em;padding:2px 8px;border-radius:3px;text-transform:uppercase}
+  /* end-of-section separator */
+  .sep-ornament{text-align:center;color:var(--faint);letter-spacing:1em;margin:56px 0 24px;font-family:var(--serif)}
 
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:18px 0}
-  .stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px}
-  .stat .v{font-family:var(--serif);font-size:28px;font-weight:700;line-height:1;color:var(--accent-ink)}
-  .stat .l{font-size:12px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.05em}
-  .p2 .stat .v{color:var(--blue-ink)}
-
-  .timeline{border-left:2px solid var(--rule);margin-left:8px;padding:6px 0 6px 24px}
-  .timeline .week{position:relative;margin-bottom:22px}
-  .timeline .week::before{content:"";position:absolute;left:-32px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 0 1px var(--rule)}
-  .timeline .week .wk{font:600 11px var(--mono);color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
-  .timeline .week h4{margin:2px 0 4px;font-size:15px}
-  .timeline .week .body{font-size:13.5px;color:#3a3f46}
-  .timeline .week .deliv{font-size:12px;color:var(--green);margin-top:4px}
-  .timeline .week .deliv b{color:var(--green)}
-
-  details.faq{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:12px 18px;margin:8px 0;transition:all .15s}
-  details.faq[open]{box-shadow:var(--shadow);border-color:#d6d0bf}
-  details.faq>summary{cursor:pointer;font-weight:500;list-style:none;padding-right:20px;position:relative;user-select:none}
-  details.faq>summary::after{content:"+";position:absolute;right:0;top:0;color:var(--muted);font-size:18px;transition:transform .15s}
-  details.faq[open]>summary::after{content:"−"}
-  details.faq[open]>summary{padding-bottom:8px;border-bottom:1px solid var(--rule);margin-bottom:10px}
-  details.faq .a{font-size:14px;color:#3a3f46}
-
-  .fn{font-size:12px;color:var(--muted);margin-top:4px}
-  footer{border-top:1px solid var(--rule);padding-top:24px;margin-top:64px;color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
-  footer b{color:var(--fg)}
-  .pillrow{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 18px}
+  /* footer */
+  footer.colophon{max-width:var(--measure);margin:0 auto;padding:40px 28px 64px;border-top:1px solid var(--rule);font:13px/1.65 var(--sans);color:var(--dim)}
+  footer.colophon h4{font:600 12px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin:0 0 10px}
+  footer.colophon p{margin:0 0 8px;max-width:var(--measure)}
+  footer.colophon a{color:var(--accent)}
 </style>
 </head>
 <body>
 <div id="progress"></div>
-<div class="shell">
-<aside>
-  <div class="brand">学术 Agent Skill &amp; Benchmark</div>
-  <div class="brand-sub">Survey + Proposal · v3 · 2026-05</div>
-  <nav id="toc">
-    <a href="#overview">导读</a>
 
-    <div class="group p1">Part I · 调研</div>
-    <a href="#local-stack">1 · 本组现有 skill 栈</a>
-    <a href="#stack-ars" class="sub">1.1 academic-research-skills</a>
-    <a href="#stack-rebuttal" class="sub">1.2 RebuttalStudio</a>
-    <a href="#stack-figures" class="sub">1.3 figures4papers</a>
-    <a href="#stack-nature" class="sub">1.4 nature-skills</a>
-    <a href="#stack-writing" class="sub">1.5 Research-Paper-Writing</a>
-    <a href="#stack-prompt" class="sub">1.6 awesome-ai-research-writing</a>
-    <a href="#stack-reap" class="sub">1.7 Stanford REAP 元清单</a>
-    <a href="#ecosystem">2 · Skill 生态全景</a>
-    <a href="#benchmarks">3 · Benchmark 地图</a>
-    <a href="#benchmarks-deepresearch" class="sub">3.1 Deep Research · 浏览</a>
-    <a href="#benchmarks-ml" class="sub">3.2 ML 研究自动化</a>
-    <a href="#benchmarks-long" class="sub">3.3 复现 / 综述 / 审稿 / 图</a>
-    <a href="#benchmarks-end2end" class="sub">3.4 端到端</a>
-    <a href="#anra">4 · 前沿关注 · ANRA</a>
-    <a href="#network">5 · 网络通路</a>
+<nav id="toc">
+  <p class="cap">Contents</p>
+  <ol>
+    <li><a href="#prologue"><span class="num">I</span>A hinge point</a></li>
+    <li><a href="#what-skill"><span class="num">II</span>What a skill is</a></li>
+    <li><a href="#ecosystem"><span class="num">III</span>The ecosystem</a></li>
+    <li><a href="#benchmarks"><span class="num">IV</span>Measuring progress</a></li>
+    <li><a href="#frontier"><span class="num">V</span>The ARA frontier</a></li>
+    <li><a href="#open"><span class="num">VI</span>Open questions</a></li>
+    <li><a href="#colophon"><span class="num">VII</span>About this report</a></li>
+  </ol>
+</nav>
 
-    <div class="group p2">Part II · Proposal</div>
-    <a href="#context">6 · 研究背景</a>
-    <a href="#tldr">7 · 读前 90 秒</a>
-    <a href="#goals">8 · 我们要一起做什么</a>
-    <a href="#tracks">9 · 四条研究 track</a>
-    <a href="#onboarding">10 · 环境与工具安装</a>
-    <a href="#playbook">11 · 怎么"打"一个 benchmark</a>
-    <a href="#timeline">12 · 12 周路线图</a>
-    <a href="#rubric">13 · 评价标准</a>
-    <a href="#faq">14 · FAQ</a>
-    <a href="#sources">15 · 数据来源</a>
-  </nav>
-</aside>
-<main>
-<div class="hero">
-  <div class="kicker">Survey &amp; Proposal · 2026 Spring</div>
-  <h1>学术 AI Agent Skill 与 Benchmark · 调研报告 &amp; 学生招募 Proposal</h1>
-  <p class="lede">
-    本报告分两部分。<b>Part I · 调研</b>系统梳理我们手上已有的 7 个学术 skill 仓库、整个社区生态、以及各学术环节的公开 benchmark。
-    <b>Part II · Proposal</b>把调研结论转成给学生协作者的可执行方案：研究假设、4 条 track、环境脚本、12 周路线图、评价标准。
-    先读哪边都行——Part I 想看"field 里有什么"，Part II 想知道"我们要做什么"。
+<article>
+<header class="hero">
+  <p class="eyebrow">A field report · May 2026</p>
+  <h1>AI Agents, Skills, and the Academic Workflow</h1>
+  <p class="standfirst">
+    Somewhere between the 2024 prompt-engineering era and the late-2026 papers
+    where agents write their own papers, a new object quietly took over scientific tooling:
+    the <em>skill</em>. This is a tour of where that object came from, what it can do today,
+    how we measure it, and one paper that might change the shape of scholarly publishing entirely.
   </p>
-  <div class="hero-meta">
-    <span>📍 <b>方向</b> AI4Science · Agent · Benchmark</span>
-    <span>🗂 <b>调研</b> 7 本地仓库 · 29 benchmark</span>
-    <span>⏱ <b>Proposal</b> 8–12 周 · 2–4 人/track</span>
-    <span>🛠 <b>栈</b> Python · Claude Code · OpenAlex</span>
+  <div class="byline">
+    <span>By <b>the editors</b></span>
+    <span class="sep">·</span>
+    <span>Reading time <b>~14 min</b></span>
+    <span class="sep">·</span>
+    <span><b>2026-05-11</b></span>
   </div>
-</div>
+</header>
+<section id="prologue">
+  <h2><span class="roman">I</span>A hinge point</h2>
+  <p class="deck">Two years that changed what "using AI to do research" means.</p>
 
-<section id="overview">
-  <h2>导读 · 两份文档的关系</h2>
-  <p class="sub">为什么把"调研"和"proposal"合并成一份</p>
-  <p>
-  做学术 AI 的研究不能凭直觉——你要先清楚 <b>field 现在有什么</b>（别人做了什么、指标怎么算、我们在哪个坐标位），再决定<b>我们做什么</b>（方法、资源、时间）。
-  这份文档把两件事缝在一起：
+  <p class="drop">
+    In August 2024, a system called <a href="https://github.com/SakanaAI/AI-Scientist">AI Scientist</a>
+    submitted a paper to a real machine-learning workshop and got it accepted. Nobody on the program
+    committee was told, at first, that it had been written end-to-end by an autonomous agent. The paper
+    was not a masterpiece, but it was <em>plausible</em>: it proposed a hypothesis, ran experiments,
+    plotted results, and assembled a draft. A year and a half later, in January 2026, <em>Nature</em>
+    <a href="https://doi.org/10.1038/s41586-026-10265-5">published the technical follow-up</a>,
+    making it the first time a journal of that caliber treated "the researcher was an agent" as a
+    first-class methodological fact.
   </p>
-  <ul>
-    <li><b>Part I · 调研（§1–§5）</b> 是技术性 survey：本组 7 个仓库 → 社区完整生态 → 各环节 benchmark → 2026 最新 arXiv 关注点 → 网络通路。这一半读完能独立输出。</li>
-    <li><b>Part II · Proposal（§6–§15）</b> 是给学生的招募与工作说明：背景 → 假设 → track → 环境脚本 → 路线图 → 评价标准。这一半告诉你加入后具体怎么做。</li>
-  </ul>
-  <p class="fn">
-  两边共享同一套数据：GitHub star 来自 <code>api.github.com</code> 实时；benchmark 标题/年份/DOI 来自 <code>api.openalex.org</code>；本地仓库清单来自 <code>/Users/mjm/Skill</code> 实地遍历。生成日期 2026-05-11。
-  </p>
-</section>
-<div class="partdiv p1">
-  <span class="chip">PART I</span>
-  <div>
-    <div class="title">调研 · Survey of the field</div>
-    <div class="subtitle">本组 skill 栈 → 社区生态 → 公开 benchmark → 2026 前沿 · 可独立阅读</div>
-  </div>
-</div>
-
-<!-- ========== §1 LOCAL STACK ========== -->
-<section id="local-stack">
-  <h2>1 · 本组现有 skill 栈</h2>
-  <p class="sub">加入前你需要知道我们手上已经有什么——这是要扩展、组合、超越的基线</p>
 
   <p>
-  <code>/Users/mjm/Skill</code> 目前不是一个 monorepo，而是<b>七个独立 upstream 仓库的本地快照</b>。每个都有自己的作者、许可和生命周期。
-  合起来它们覆盖了"从选题到 rebuttal"的几乎整条学术流水线。下面把每个都交代清楚：是谁做的、里面具体有什么、能干什么。
+    Two months before that publication, OpenAI had quietly shipped
+    <a href="https://doi.org/10.48550/arxiv.2504.01848">PaperBench</a>: a benchmark in which an agent
+    must reproduce twenty ICML-2024 Spotlight or Oral papers from scratch, graded against
+    <strong>8,316 fine-grained rubric leaves</strong> that the original authors helped design. And in
+    April 2026, a 38-author team from MIT Media Lab, Michigan, and Stanford posted
+    <a href="https://arxiv.org/abs/2604.24658">a proposal to replace the paper itself</a> — not the
+    writing of papers, but the <em>object</em> of a paper — with something more amenable to machines.
+    We will come back to that paper at length in Section&nbsp;V.
+  </p>
+
+  <p>
+    These are not isolated events. They sit on top of a much quieter change that has happened in
+    developer tooling over roughly eighteen months: the emergence of the <strong>skill</strong> as
+    the basic unit of agent capability. A skill is not a model, not a prompt, not a plugin in the
+    2023 sense; it is a small, self-contained procedure that an AI agent can discover, read, and
+    invoke on its own. There are now tens of thousands of them. They are, cumulatively, what makes
+    the PaperBench and AI-Scientist stories possible — and they are what the rest of this essay is
+    about.
   </p>
 
   <div class="stats">
-    <div class="stat"><div class="v">7</div><div class="l">本地仓库</div></div>
-    <div class="stat"><div class="v">25</div><div class="l">ARS 内置模式</div></div>
-    <div class="stat"><div class="v">4×5</div><div class="l">会议 × rebuttal 阶段</div></div>
-    <div class="stat"><div class="v">9</div><div class="l">顶会发表过的 figure 案例</div></div>
+    <div class="s"><div class="v">23,000+</div><div class="l">catalogued skills</div></div>
+    <div class="s"><div class="v">8,316</div><div class="l">PaperBench rubric leaves</div></div>
+    <div class="s"><div class="v">29</div><div class="l">public benchmarks reviewed</div></div>
+    <div class="s"><div class="v">Jan 2026</div><div class="l">Nature publishes AI Scientist</div></div>
   </div>
-
-  <h3 id="stack-ars">1.1 academic-research-skills · 端到端研究管线</h3>
-  <div class="pillrow">
-    <span class="tag">作者：Imbad0202</span>
-    <span class="tag">v3.7.0</span>
-    <span class="tag">CC BY-NC 4.0</span>
-    <span class="tag hot">本地最重的那一个</span>
-    <span class="tag live">已在库</span>
-  </div>
-  <p>
-  这是我们栈里分量最重的仓库。作者把"选题 → 文献 → 写作 → 审稿 → 修改"编码成了 <b>4 个 skill + 25 个模式 + 一套跨 skill 的 Material Passport 握手协议</b>。
-  v3.3 受 Google 2026 <i>PaperOrchestra</i> 启发，增加了 Semantic Scholar 验证、anti-leakage 协议、VLM 图片验证。
-  </p>
-  <table>
-    <thead><tr><th>Skill</th><th>职责</th><th>典型 mode</th></tr></thead>
-    <tbody>
-      <tr><td><code>deep-research</code></td><td>文献搜索与研究调研</td><td>scoping · literature-search · gap-analysis · research-question</td></tr>
-      <tr><td><code>academic-paper</code></td><td>论文结构化写作</td><td>ars-plan · draft-abstract · draft-intro · draft-method · draft-exp · draft-conclusion</td></tr>
-      <tr><td><code>academic-paper-reviewer</code></td><td>Reviewer 视角审稿</td><td>full-review · integrity-gate · calibration（可自测 FNR/FPR）</td></tr>
-      <tr><td><code>academic-pipeline</code></td><td>四者协调 + AI 失败模式阻断</td><td>Stage 2.5 / 4.5 integrity gates · 7-mode blocking checklist</td></tr>
-    </tbody>
-  </table>
-  <p class="fn">
-  关键文件：<code>docs/ARCHITECTURE.md</code>（全流程矩阵 + 依赖图）· <code>MODE_REGISTRY.md</code>（25 mode 单一真源）· <code>shared/handoff_schemas.md</code>（stage 间 JSON-Schema 握手）。
-  CI 链路：<code>scripts/check_spec_consistency.py</code> + <code>scripts/check_version_consistency.py</code>，<code>.github/workflows/spec-consistency.yml</code>。
-  </p>
-
-  <h3 id="stack-rebuttal">1.2 RebuttalStudio · 会议 rebuttal 专用编辑器</h3>
-  <div class="pillrow">
-    <span class="tag">作者：runtsang</span>
-    <span class="tag">Electron 桌面应用</span>
-    <span class="tag">MIT</span>
-    <span class="tag live">已在库</span>
-  </div>
-  <p>
-  <b>专门为会议 rebuttal 设计的独立编辑器</b>，跑在 macOS/Windows/Linux。核心是 5 阶段流水线，每阶段配 4 个主流会议的模板：
-  </p>
-  <table>
-    <thead><tr><th>Stage</th><th>做什么</th><th>会议模板</th></tr></thead>
-    <tbody>
-      <tr><td>Stage 1</td><td>把 reviewer 原始评论解析成"原子问题"</td><td>ICLR · ICML · NeurIPS · ARR</td></tr>
-      <tr><td>Stage 2</td><td>生成 point-by-point 初稿</td><td>同上四套</td></tr>
-      <tr><td>Stage 4</td><td>压缩（condense）+ 打磨（refine）</td><td>—</td></tr>
-      <tr><td>Stage 5</td><td>Final remarks + token-seek 模板</td><td>含 <code>final_remarks_tokenseek.md</code></td></tr>
-      <tr><td>Polish</td><td>全文 polish</td><td>—</td></tr>
-      <tr><td>Utility</td><td>引用核查等工具</td><td>含 <code>citation-verification</code></td></tr>
-    </tbody>
-  </table>
-  <p class="fn">启动：<code>cd RebuttalStudio-master &amp;&amp; npm install &amp;&amp; npm start</code>。可移植部分是 <code>skills/</code> 和 <code>templates/</code>，不依赖 Electron 壳。</p>
-
-  <h3 id="stack-figures">1.3 figures4papers · 顶刊级科学图制作</h3>
-  <div class="pillrow">
-    <span class="tag">作者：Chen Liu（Yale PhD Candidate）</span>
-    <span class="tag">matplotlib</span>
-    <span class="tag hot">Nature MI / ICML / NeurIPS 实战样本</span>
-    <span class="tag live">已在库</span>
-  </div>
-  <p>
-  作者是 Yale 的 CS 博士生，这些代码<b>真的在 Nature Machine Intelligence、ICML、NeurIPS 上被用过</b>。仓库给出了 9 个真实 figure 案例的完整 Python 脚本。
-  </p>
-  <table>
-    <thead><tr><th>案例目录</th><th>图种</th><th>项目</th></tr></thead>
-    <tbody>
-      <tr><td><code>figure_CellSpliceNet/</code></td><td>横向 bar 对比</td><td>剪接预测</td></tr>
-      <tr><td><code>figure_ImmunoStruct/</code></td><td>分组 bar（IEDB）</td><td>免疫预测</td></tr>
-      <tr><td><code>figure_brainteaser/</code></td><td>堆叠 bar（brute-force 组成）</td><td>—</td></tr>
-      <tr><td><code>figure_VIGIL/</code></td><td>雷达图 + 折线</td><td>post-training 对比</td></tr>
-      <tr><td><code>figure_Cflows/</code></td><td>—</td><td>continuous normalizing flows</td></tr>
-      <tr><td><code>figure_RNAGenScape/</code></td><td>—</td><td>RNA 生成</td></tr>
-      <tr><td><code>figure_Dispersion/</code></td><td>—</td><td>dispersion 分析</td></tr>
-      <tr><td><code>figure_FPGM/</code></td><td>—</td><td>剪枝</td></tr>
-      <tr><td><code>figure_ophthal_review/</code></td><td>—</td><td>眼科综述</td></tr>
-      <tr><td><code>scientific-figure-making/</code></td><td>skill 本体 + API 文档</td><td>方法论</td></tr>
-    </tbody>
-  </table>
-  <p class="fn">
-  Style 合同：所有脚本需调用 <code>apply_publication_style()</code> / <code>finalize_figure()</code>，同时导出 <code>.png</code> + <code>.pdf</code>。
-  注意：快照里 <code>figure_*/data/</code> 多数是空的，脚本可读可参考，但无法直接跑——想运行需要自己补数据。
-  </p>
-
-  <h3 id="stack-nature">1.4 nature-skills · Nature 期刊级写作与图规范</h3>
-  <div class="pillrow">
-    <span class="tag">作者：Yuan1z0825</span>
-    <span class="tag">MIT</span>
-    <span class="tag">规则源自 Nature 原刊 + 作者指南</span>
-    <span class="tag live">已在库</span>
-  </div>
-  <p>
-  关键哲学是<b>"规则来自原始出处"</b>——不是作者的风格直觉，而是从已发 Nature 论文和期刊作者指南里抽的硬约束。6 个 skill：
-  </p>
-  <table>
-    <thead><tr><th>Skill</th><th>状态</th><th>做什么</th></tr></thead>
-    <tbody>
-      <tr><td><code>nature-figure</code></td><td>Stable</td><td>publication-ready matplotlib figure（Arial、<code>svg.fonttype='none'</code>、SVG 主输出）</td></tr>
-      <tr><td><code>nature-polishing</code></td><td>Stable</td><td>Nature 风格润色。v5.0.2 重写，围绕 paper-type + reader-question + Academic Phrasebank 短语族</td></tr>
-      <tr><td><code>nature-citation</code></td><td>Beta</td><td>CNS 家族严格引用检索，支持 ENW/RIS/Zotero RDF 导出</td></tr>
-      <tr><td><code>nature-data</code></td><td>Draft</td><td>Data Availability 声明、仓库规划、FAIR metadata 检查</td></tr>
-      <tr><td><code>nature-response</code></td><td>Beta</td><td>Point-by-point reviewer response letter，支持"审稿意见回复"</td></tr>
-      <tr><td><code>nature-paper2ppt</code></td><td>Beta</td><td>论文 → 中文 PPTX journal club slides</td></tr>
-    </tbody>
-  </table>
-  <p class="fn">
-  坑：顶层 README 宣传"≤30-word sentences / British English mandatory"，但实际 <code>nature-polishing/SKILL.md</code> (v5.0.2) <b>并不强制这条规则</b>。以 SKILL.md 为准，不要抄 README。
-  </p>
-
-  <h3 id="stack-writing">1.5 Research-Paper-Writing-Skills · 彭思达笔记的结构化改写</h3>
-  <div class="pillrow">
-    <span class="tag">作者：Master-cai，改自彭思达老师（浙大）开放笔记</span>
-    <span class="tag">MIT</span>
-    <span class="tag live">已在库</span>
-  </div>
-  <p>
-  彭老师的
-  <a href="https://pengsida.notion.site/c1a22465a0fa4b15a12985223916048e">原始 Notion 笔记</a>
-  和
-  <a href="https://github.com/pengsida/learning_research">learning_research 仓库</a>
-  是中文 CV/ML 圈广为流传的"科研写作内功手册"。这个仓库把它打包成一个可被 Claude Code / Codex 直接调用的 skill：
-  </p>
-  <ul>
-    <li><code>research-paper-writing/SKILL.md</code> — 核心 workflow 和使用规则</li>
-    <li><code>research-paper-writing/references/</code> — Abstract / Introduction / Method / Experiments / Conclusion 的分章节模板</li>
-    <li><code>research-paper-writing/agents/openai.yaml</code> — agent 元数据</li>
-  </ul>
-  <p>典型使用：起草/改写各 section · 改进段落连贯 · 检查 claim-evidence 对齐 · 以 reviewer 视角做预提交自审。</p>
-
-  <h3 id="stack-prompt">1.6 awesome-ai-research-writing · MSRA / 字节 / 上海 AI Lab 的 prompt 模板</h3>
-  <div class="pillrow">
-    <span class="tag">作者：Leey21</span>
-    <span class="tag">社区整理</span>
-    <span class="tag">prompt + skill 双轨</span>
-    <span class="tag live">已在库</span>
-  </div>
-  <p>
-  作者调研了 <b>MSRA、字节 Seed、上海 AI Lab</b> 的研究员和<b>北大 / 中科大 / 上交</b>的硕博同学，把他们日常写作 prompt 开源整理了出来。覆盖场景：
-  </p>
-  <div class="pillrow">
-    <span class="tag">中转英</span><span class="tag">英转中</span><span class="tag">中转中</span>
-    <span class="tag">缩写</span><span class="tag">扩写</span>
-    <span class="tag">表达润色·英文</span><span class="tag">表达润色·中文</span>
-    <span class="tag">逻辑检查</span>
-    <span class="tag">去 AI 味·LaTeX</span><span class="tag">去 AI 味·Word</span>
-    <span class="tag">论文架构图</span><span class="tag">实验绘图推荐</span>
-    <span class="tag">生成图标题</span><span class="tag">生成表标题</span>
-    <span class="tag">实验分析</span>
-    <span class="tag">Reviewer 视角审视</span>
-    <span class="tag">模型选择建议</span>
-  </div>
-  <p class="fn">
-  两部分：Part I 是可直接复制的 prompt 模板；Part II 是作者挑选的写作相关 skill 的上手教程。
-  最新加入的 <a href="https://github.com/Leey21/arxiv-translator">arxiv-translator-skill</a> 能从 LaTeX 源码翻译并重新编译 arXiv 论文。
-  </p>
-
-  <h3 id="stack-reap">1.7 Awesome-Agent-Skills-for-Empirical-Research · Stanford REAP 元清单</h3>
-  <div class="pillrow">
-    <span class="tag">维护：Stanford REAP × CoPaper.AI</span>
-    <span class="tag">CC BY-SA 4.0</span>
-    <span class="tag hot">元清单，不是 skill 本体</span>
-    <span class="tag">2026-04 更新</span>
-    <span class="tag live">已在库</span>
-  </div>
-  <p>
-  这份清单不是执行型 skill，而是<b>学术圈"有哪些 skill 可选"的地图</b>。由 Stanford REAP / SCCEI 与 CoPaper.AI 联合维护，覆盖经济学、政治学、社会学、心理学、公共卫生、教育、管理、金融、公共政策——<b>119 个 GitHub 仓库，23,000+ skills</b>。
-  </p>
-  <table>
-    <thead><tr><th>docs/ 子目录</th><th>覆盖阶段</th></tr></thead>
-    <tbody>
-      <tr><td><code>01-选题与研究设计.md</code></td><td>选题 + RQ</td></tr>
-      <tr><td><code>02-文献检索与综述.md</code></td><td>文献检索 · 综述</td></tr>
-      <tr><td><code>03-论文阅读与拆解.md</code></td><td>精读 · 拆解</td></tr>
-      <tr><td><code>04-数据获取与清洗.md</code></td><td>数据采集 · 清洗</td></tr>
-      <tr><td><code>05-统计分析与因果推断.md</code></td><td>DID · IV · RDD · PSM · SCM · DML</td></tr>
-      <tr><td><code>06-论文写作.md</code></td><td>draft</td></tr>
-      <tr><td><code>07-论文修改与润色.md</code></td><td>revision</td></tr>
-      <tr><td><code>08-引用管理与排版.md</code></td><td>BibTeX · LaTeX</td></tr>
-      <tr><td><code>09-论文复现与可复现研究.md</code></td><td>replication</td></tr>
-      <tr><td><code>10-审稿回复与学术答辩.md</code></td><td>rebuttal · defense</td></tr>
-    </tbody>
-  </table>
-  <p class="fn">
-  另外自带 50 个按序号编号的 vendored skills（<code>skills/00–49</code>），其中 <code>00-StatsPAI</code> / <code>00.1-Python</code> / <code>00.2-Stata</code> / <code>00.3-R</code> 是同一 8 步实证分析流水线的四种语言实现。仓库通过了 52/52 安全扫描。
-  </p>
 </section>
 
-<!-- ========== §2 ECOSYSTEM ========== -->
+<p class="sep-ornament">❧</p>
+
+<section id="what-skill">
+  <h2><span class="roman">II</span>What a skill is, actually</h2>
+  <p class="deck">Before the survey, a definition — because the word is often used loosely.</p>
+
+  <p>
+    An <strong>agent skill</strong> is a folder on disk. Inside that folder is a single Markdown file,
+    usually called <code>SKILL.md</code>, with a short YAML header that states the skill's name,
+    what it is for, and the conditions under which an agent should reach for it. Below the header
+    is prose: a procedure, a checklist, sometimes a small script, always written to be read by a
+    language model rather than a human. Supporting material — reference pages, templates, helper
+    code — sits beside it in optional sub-folders.
+  </p>
+
+  <figure class="diagram"><code>some-skill/
+├── SKILL.md              ← YAML frontmatter + prose workflow
+├── references/           ← deeper docs, loaded on demand
+│   ├── phrasebook.md
+│   └── examples.md
+└── scripts/              ← optional helpers the agent may run
+    └── check_citations.py</code>
+<figcaption>The canonical on-disk shape of a skill. Every major agent runtime — Claude Code, Cursor, Codex, Gemini CLI — auto-discovers this layout.</figcaption></figure>
+
+  <p>
+    That sounds modest, and it is. The point is what the modesty buys. A skill is
+    <strong>discoverable</strong> — the agent finds it without being told. It is
+    <strong>composable</strong> — one skill can call another without coordination from a human.
+    It is <strong>portable</strong> — the same folder works in Claude Code, Cursor, Codex, or
+    Gemini CLI because they have converged on the same on-disk format. And it is
+    <strong>legible</strong> — a PhD student can read the Markdown and understand what the agent
+    is supposed to do, which is the precondition for trusting the agent to do it.
+  </p>
+
+  <p>
+    Compared with a prompt, a skill is durable: it lives in a file rather than a chat window,
+    which means it can be versioned, reviewed, and cited. Compared with a plugin in the 2023
+    ChatGPT sense, it is cheap: no API registration, no OAuth dance, no publisher review. The
+    barrier between "I have a procedure that works" and "my agent now knows this procedure" has
+    collapsed to the act of writing a Markdown file. That collapse is why the ecosystem grew so
+    fast.
+  </p>
+
+</section>
+
+<p class="sep-ornament">❧</p>
+
 <section id="ecosystem">
-  <h2>2 · Skill 生态全景</h2>
-  <p class="sub">把本组 7 个 + 社区的重量级仓库放到同一张表里</p>
+  <h2><span class="roman">III</span>The ecosystem, seen from 30,000 feet</h2>
+  <p class="deck">Who builds skills, where they live, and how to read the topology.</p>
 
   <p>
-  这一节回答"除了我们现在有的，<b>还有哪些值得知道的</b>"。
-  4 种颜色标签：
-  <span class="tag live">已在库</span>本组 7 个 ·
-  <span class="tag new">建议增补</span>填盲区的 ·
-  <span class="tag">进阶</span>多 agent 系统（跑 benchmark 用）·
-  <span class="tag">参考</span>只读不跑的元清单。
+    If you search GitHub for repositories tagged <code>claude-skills</code> or
+    <code>agent-skills</code>, you will find the current ecosystem resolves into four distinct
+    layers. It is worth naming them, because they have different purposes, different audiences,
+    and very different half-lives.
   </p>
 
+  <h3>1. The reference implementations</h3>
+  <p>
+    At the bottom sit the model-lab repositories — <a href="https://github.com/anthropics/skills">
+    <code>anthropics/skills</code></a> (131k stars) and the corresponding
+    <a href="https://github.com/anthropics/claude-plugins-official">official plugin directory</a>.
+    These set the format, settle debates about the YAML schema, and ship the document-processing
+    primitives (PDF, DOCX, XLSX, PPTX) that almost every downstream skill relies on.
+  </p>
+
+  <h3>2. The domain collections</h3>
+  <p>
+    Above them sit focused collections built by practitioners — labs, journals, and individual
+    researchers who codify their own methodology. In academia, the most notable are:
+  </p>
   <table>
-    <thead><tr><th>类别</th><th>仓库</th><th>状态</th><th>Stars</th><th>一句话</th></tr></thead>
+    <thead><tr><th>Collection</th><th>Stars</th><th>What it codifies</th></tr></thead>
     <tbody>
-      <tr><td rowspan="7"><b>本组现栈</b></td>
-          <td><a href="https://github.com/Imbad0202/academic-research-skills">Imbad0202/academic-research-skills</a></td>
-          <td><span class="tag live">已在库</span></td><td class="num">5,803</td>
-          <td>端到端研究管线 · 4 skill × 25 mode · v3.7.0</td></tr>
-      <tr><td><a href="https://github.com/runtsang/RebuttalStudio">runtsang/RebuttalStudio</a></td>
-          <td><span class="tag live">已在库</span></td><td class="num">184</td>
-          <td>Rebuttal 专用 Electron 编辑器 · 5 stage × 4 会议</td></tr>
-      <tr><td><a href="https://github.com/ChenLiu-1996/figures4papers">ChenLiu-1996/figures4papers</a></td>
-          <td><span class="tag live">已在库</span></td><td class="num">1,758</td>
-          <td>Yale PhD · Nature MI / ICML / NeurIPS figure 代码</td></tr>
-      <tr><td><a href="https://github.com/Yuan1z0825/nature-skills">Yuan1z0825/nature-skills</a></td>
-          <td><span class="tag live">已在库</span></td><td class="num">4,222</td>
-          <td>Nature 级 6 个 skill（figure/polishing/citation/data/response/paper2ppt）</td></tr>
-      <tr><td><a href="https://github.com/Master-cai/Research-Paper-Writing-Skills">Master-cai/Research-Paper-Writing-Skills</a></td>
-          <td><span class="tag live">已在库</span></td><td class="num">2,385</td>
-          <td>彭思达老师写作心法 · ML/CV/NLP 专用</td></tr>
-      <tr><td><a href="https://github.com/Leey21/awesome-ai-research-writing">Leey21/awesome-ai-research-writing</a></td>
-          <td><span class="tag live">已在库</span></td><td class="num">22,648</td>
-          <td>MSRA / 字节 Seed / 上海 AI Lab 的 prompt 模板集</td></tr>
-      <tr><td><a href="https://github.com/brycewang-stanford/Awesome-Agent-Skills-for-Empirical-Research">brycewang-stanford/…-for-Empirical-Research</a></td>
-          <td><span class="tag live">已在库</span></td><td class="num">852</td>
-          <td>Stanford REAP 元清单 · 119 仓库 / 23,000+ skills</td></tr>
-
-      <tr><td rowspan="3"><b>Anthropic 官方</b></td>
-          <td><a href="https://github.com/anthropics/skills">anthropics/skills</a></td>
-          <td><span class="tag new">建议增补</span></td><td class="num">131,482</td>
-          <td>Agent Skills 官方示例底座（PDF/DOCX/XLSX/PPTX）</td></tr>
-      <tr><td><a href="https://github.com/anthropics/claude-plugins-official">anthropics/claude-plugins-official</a></td>
-          <td><span class="tag new">建议增补</span></td><td class="num">19,009</td>
-          <td>官方插件目录</td></tr>
-      <tr><td><a href="https://github.com/anthropics/knowledge-work-plugins">anthropics/knowledge-work-plugins</a></td>
-          <td><span class="tag new">建议增补</span></td><td class="num">12,004</td>
-          <td>11 个知识工作插件，含 Data Plugin（SQL）</td></tr>
-
-      <tr><td rowspan="6"><b>学术聚合</b></td>
-          <td><a href="https://github.com/K-Dense-AI/scientific-agent-skills">K-Dense-AI/scientific-agent-skills</a></td>
-          <td><span class="tag new">建议增补</span></td><td class="num">20,552</td>
-          <td>140+ skills · 28 科学数据库（OpenAlex / PubMed / bioRxiv）</td></tr>
-      <tr><td><a href="https://github.com/Orchestra-Research/AI-Research-SKILLs">Orchestra-Research/AI-Research-SKILLs</a></td>
-          <td><span class="tag new">建议增补</span></td><td class="num">8,152</td>
-          <td>22 大类 · ML 论文写作 + LaTeX + 引用核查</td></tr>
-      <tr><td><a href="https://github.com/Galaxy-Dawn/claude-scholar">Galaxy-Dawn/claude-scholar</a></td>
-          <td><span class="tag new">建议增补</span></td><td class="num">3,596</td>
-          <td>Zotero MCP 原生集成（填"引用管理"盲区）</td></tr>
-      <tr><td><a href="https://github.com/FreedomIntelligence/OpenClaw-Medical-Skills">FreedomIntelligence/OpenClaw-Medical-Skills</a></td>
-          <td><span class="tag">可选</span></td><td class="num">2,448</td>
-          <td>869 医学 skills</td></tr>
-      <tr><td><a href="https://github.com/posit-dev/skills">posit-dev/skills</a></td>
-          <td><span class="tag new">建议增补</span></td><td class="num">344</td>
-          <td>tidyverse / Quarto / Shiny · R 栈唯一官方</td></tr>
-      <tr><td><a href="https://github.com/LitLLM/LitLLM">LitLLM/LitLLM</a></td>
-          <td><span class="tag">可选</span></td><td class="num">34</td>
-          <td>综述专用 · RAG 检索 + 重排</td></tr>
-
-      <tr><td rowspan="7"><b>方法论 &amp; 多 agent</b></td>
-          <td><a href="https://github.com/obra/superpowers">obra/superpowers</a></td>
-          <td><span class="tag new">建议增补</span></td><td class="num">184,989</td>
-          <td>开发方法论硬 checklist（brainstorming / TDD / debugging）</td></tr>
-      <tr><td><a href="https://github.com/Orchestra-Research/Agent-Native-Research-Artifact">Orchestra-Research/Agent-Native-Research-Artifact</a> <span class="tag hot">2026-04 arXiv</span></td>
-          <td><span class="tag new">建议增补</span></td><td class="num">124</td>
-          <td>ARA 协议 + 3 个 skill · 详见 §4</td></tr>
-      <tr><td><a href="https://github.com/assafelovic/gpt-researcher">assafelovic/gpt-researcher</a></td>
-          <td><span class="tag">进阶</span></td><td class="num">26,968</td>
-          <td>自主 deep research agent</td></tr>
-      <tr><td><a href="https://github.com/SakanaAI/AI-Scientist">SakanaAI/AI-Scientist</a> <span class="tag hot">Nature 2026</span></td>
-          <td><span class="tag">进阶</span></td><td class="num">13,540</td>
-          <td>首个过 peer review 的 AI 自动生成论文</td></tr>
-      <tr><td><a href="https://github.com/SakanaAI/AI-Scientist-v2">SakanaAI/AI-Scientist-v2</a></td>
-          <td><span class="tag">进阶</span></td><td class="num">6,131</td>
-          <td>workshop 级自动科学发现</td></tr>
-      <tr><td><a href="https://github.com/SamuelSchmidgall/AgentLaboratory">SamuelSchmidgall/AgentLaboratory</a></td>
-          <td><span class="tag">进阶</span></td><td class="num">5,575</td>
-          <td>ICLR · 端到端研究</td></tr>
-      <tr><td><a href="https://github.com/HKUDS/AI-Researcher">HKUDS/AI-Researcher</a></td>
-          <td><span class="tag">进阶</span></td><td class="num">5,304</td>
-          <td>NeurIPS 2025 Spotlight · 港大自主研究管线</td></tr>
-
-      <tr><td rowspan="6"><b>精选元清单</b></td>
-          <td><a href="https://github.com/ComposioHQ/awesome-claude-skills">ComposioHQ/awesome-claude-skills</a></td>
-          <td><span class="tag">参考</span></td><td class="num">59,041</td>
-          <td>当前 star 最高的 Claude Skills 精选</td></tr>
-      <tr><td><a href="https://github.com/hesreallyhim/awesome-claude-code">hesreallyhim/awesome-claude-code</a></td>
-          <td><span class="tag">参考</span></td><td class="num">43,227</td>
-          <td>skills + hooks + slash + orchestrators</td></tr>
-      <tr><td><a href="https://github.com/sickn33/antigravity-awesome-skills">sickn33/antigravity-awesome-skills</a></td>
-          <td><span class="tag">参考</span></td><td class="num">37,018</td>
-          <td>1400+ skills · npx 一键装</td></tr>
-      <tr><td><a href="https://github.com/VoltAgent/awesome-agent-skills">VoltAgent/awesome-agent-skills</a></td>
-          <td><span class="tag">参考</span></td><td class="num">21,069</td>
-          <td>1000+ skills 精选</td></tr>
-      <tr><td><a href="https://github.com/travisvn/awesome-claude-skills">travisvn/awesome-claude-skills</a></td>
-          <td><span class="tag">参考</span></td><td class="num">12,342</td>
-          <td>社区精选</td></tr>
-      <tr><td><a href="https://github.com/BehiSecc/awesome-claude-skills">BehiSecc/awesome-claude-skills</a></td>
-          <td><span class="tag">参考</span></td><td class="num">8,995</td>
-          <td>社区精选</td></tr>
+      <tr><td><a href="https://github.com/K-Dense-AI/scientific-agent-skills">K-Dense / scientific-agent-skills</a></td><td class="num">20,552</td><td>140+ skills spanning 28 scientific databases</td></tr>
+      <tr><td><a href="https://github.com/Leey21/awesome-ai-research-writing">Leey21 / awesome-ai-research-writing</a></td><td class="num">22,648</td><td>prompt templates from MSRA, ByteDance Seed, Shanghai AI Lab researchers</td></tr>
+      <tr><td><a href="https://github.com/Orchestra-Research/AI-Research-SKILLs">Orchestra-Research / AI-Research-SKILLs</a></td><td class="num">8,152</td><td>22 categories covering ML paper writing, LaTeX, citation verification</td></tr>
+      <tr><td><a href="https://github.com/Imbad0202/academic-research-skills">Imbad0202 / academic-research-skills</a></td><td class="num">5,803</td><td>a four-skill pipeline from literature search to reviewer response</td></tr>
+      <tr><td><a href="https://github.com/Yuan1z0825/nature-skills">Yuan1z0825 / nature-skills</a></td><td class="num">4,222</td><td>six skills encoding <em>Nature</em>-house style, verified against the journal's author guidelines</td></tr>
+      <tr><td><a href="https://github.com/Galaxy-Dawn/claude-scholar">Galaxy-Dawn / claude-scholar</a></td><td class="num">3,596</td><td>25+ skills with native Zotero integration for reference management</td></tr>
+      <tr><td><a href="https://github.com/Master-cai/Research-Paper-Writing-Skills">Master-cai / Research-Paper-Writing-Skills</a></td><td class="num">2,385</td><td>Prof. Peng Sida's widely-circulated writing methodology, formalised</td></tr>
+      <tr><td><a href="https://github.com/FreedomIntelligence/OpenClaw-Medical-Skills">FreedomIntelligence / OpenClaw-Medical-Skills</a></td><td class="num">2,448</td><td>869 medical skills covering epidemiology, clinical research, pharmacovigilance</td></tr>
+      <tr><td><a href="https://github.com/ChenLiu-1996/figures4papers">ChenLiu-1996 / figures4papers</a></td><td class="num">1,758</td><td>nine matplotlib figure references, each used in a published <em>Nature MI</em> / ICML / NeurIPS paper</td></tr>
     </tbody>
   </table>
 
-  <div class="callout info">
-    <div class="title">怎么看这张表</div>
-    <b>已在库 7</b> → 你加入就能直接用的基础设施。
-    <b>建议增补</b> → 填上后能把引用管理 / Zotero / R 栈 / 自然科学 / 开发方法论 / ARA 等盲区补齐。
-    <b>进阶</b> → 不是 skill 而是整套"研究系统"，Track 02 / 04 打 benchmark 时要对标它们。
-    <b>参考</b> → 读不跑，用于持续发现新出现的 skill。
-  </div>
+  <h3>3. The autonomous research systems</h3>
+  <p>
+    A parallel thread does not ship skills at all — it ships entire pipelines. The best-known are
+    <a href="https://github.com/SakanaAI/AI-Scientist">Sakana's AI Scientist</a> (13.5k ⭐) and
+    <a href="https://github.com/SakanaAI/AI-Scientist-v2">its v2</a>,
+    <a href="https://github.com/assafelovic/gpt-researcher">gpt-researcher</a> (27k ⭐),
+    <a href="https://github.com/SamuelSchmidgall/AgentLaboratory">Agent Laboratory</a>, and
+    <a href="https://github.com/HKUDS/AI-Researcher">HKU's AI-Researcher</a>
+    (NeurIPS 2025 Spotlight). These are the systems that take a research question and return a
+    draft paper — and whose numbers set the ceiling against which the skill-based approach
+    must eventually be measured.
+  </p>
+
+  <h3>4. The meta-lists</h3>
+  <p>
+    Finally, a small number of curated catalogues track the whole landscape so you don't have to.
+    Two are worth knowing: the community-run
+    <a href="https://github.com/ComposioHQ/awesome-claude-skills">ComposioHQ / awesome-claude-skills</a>
+    (59k ⭐), which is the most comprehensive general-purpose index, and the
+    <a href="https://github.com/brycewang-stanford/Awesome-Agent-Skills-for-Empirical-Research">Stanford REAP × CoPaper.AI list</a>,
+    which specialises in empirical social-science workflows and, as of its April 2026
+    update, indexes <strong>119 repositories covering 23,000+ skills</strong>, organised by
+    research stage.
+  </p>
+
 </section>
 
-<!-- ========== §3 BENCHMARKS ========== -->
+<p class="sep-ornament">❧</p>
+
 <section id="benchmarks">
-  <h2>3 · Benchmark 地图</h2>
-  <p class="sub">学术各环节的 AI 评测基准 · 29 条 · 全部用 OpenAlex 核实过</p>
+  <h2><span class="roman">IV</span>Measuring progress</h2>
+  <p class="deck">Twenty-nine public benchmarks, organised by the stage of research they evaluate.</p>
 
   <p>
-  评测生态分两层：<b>(A)</b> 有 leaderboard 的公开 benchmark（可直接打榜）· <b>(B)</b> 工作流产出的自动化评估协议（没有统一 leaderboard 但有事实标准 rubric）。
-  按学术流程分组。<span class="tag hot">Canon</span> 是该环节必读；<span class="tag new">2024+</span> 是 SOTA 前沿；
-  <span class="tag code">trackXX</span> 标注对应 Part II 的哪条 track 会用到。
+    A healthy field needs public benchmarks. For scientific agents, the last two years produced
+    an unusually clean set of them — not because any single one is perfect, but because together
+    they cover the whole research pipeline with enough overlap to triangulate. What follows is a
+    condensed map. Every row has been cross-checked against OpenAlex for authorship and DOI;
+    links go to the canonical preprint where one exists.
   </p>
 
-  <h3 id="benchmarks-deepresearch">3.1 Deep Research · 浏览 · 通用助理</h3>
-  <table>
-    <thead><tr><th>Benchmark</th><th>规模</th><th>主指标</th><th>来源</th></tr></thead>
-    <tbody>
-      <tr><td><b>GAIA</b> <span class="tag hot">Canon</span> <span class="tag code">track02</span></td><td>450 道 · 3 难度</td><td>Exact-match pass rate（人类 92% vs GPT-4 ~15%）</td><td>Mialon et al. 2023 · <a href="https://doi.org/10.48550/arxiv.2311.12983">2311.12983</a></td></tr>
-      <tr><td><b>BrowseComp</b> <span class="tag new">2025</span></td><td>1266 道</td><td>短答 accuracy · 可自动验证</td><td>Wei, Sun · OpenAI · <a href="https://doi.org/10.48550/arxiv.2504.12516">2504.12516</a></td></tr>
-      <tr><td><b>HLE</b> · Humanity's Last Exam <span class="tag new">2025</span></td><td>3000+ 专家题</td><td>准确率 + 校准</td><td><a href="https://github.com/centerforaisafety/hle">centerforaisafety/hle</a></td></tr>
-      <tr><td><b>AssistantBench</b></td><td>214 道</td><td>Correctness + step eff.</td><td>Yoran et al. EMNLP 2024 · <a href="https://doi.org/10.18653/v1/2024.emnlp-main.505">DOI</a></td></tr>
-      <tr><td><b>SimpleQA</b> <span class="tag new">2024</span></td><td>4326 事实题</td><td>正确率 + 拒答率</td><td>OpenAI · <a href="https://doi.org/10.48550/arxiv.2411.04368">2411.04368</a></td></tr>
-    </tbody>
-  </table>
+  <h3>Browsing and general assistance</h3>
+  <p>
+    The earliest and best-known is <a href="https://doi.org/10.48550/arxiv.2311.12983"><strong>GAIA</strong></a>
+    (Mialon <em>et al.</em>, 2023) — 450 real-world questions in three difficulty tiers. Humans
+    score 92%; GPT-4 with plug-ins at release scored about 15%. GAIA is still the default entry
+    point for anyone evaluating a research-assistant agent.
+    Its successor papers are <a href="https://doi.org/10.48550/arxiv.2504.12516"><strong>BrowseComp</strong></a>
+    (OpenAI, 2025, 1,266 hard-to-find-information questions) and
+    <a href="https://doi.org/10.48550/arxiv.2411.04368"><strong>SimpleQA</strong></a>
+    (OpenAI, 2024, 4,326 short-form factuality questions designed to surface hallucination).
+    <a href="https://github.com/centerforaisafety/hle"><strong>Humanity's Last Exam</strong></a>
+    (CAIS + Scale, 2025) raises the ceiling with 3,000+ expert-grade questions across the
+    sciences and humanities.
+  </p>
 
-  <h3 id="benchmarks-ml">3.2 ML 研究自动化 · 实验 agent</h3>
-  <table>
-    <thead><tr><th>Benchmark</th><th>规模</th><th>主指标</th><th>来源</th></tr></thead>
-    <tbody>
-      <tr><td><b>MLAgentBench</b> <span class="tag hot">Canon</span> <span class="tag code">track02</span></td><td>13 Kaggle 式任务</td><td>Success rate + improvement</td><td>Huang et al. ICML 2024 · <a href="https://doi.org/10.48550/arxiv.2310.03302">2310.03302</a></td></tr>
-      <tr><td><b>MLE-Bench</b> <span class="tag new">2024</span> <span class="tag code">track04</span></td><td>75 Kaggle 竞赛</td><td>Medal rate</td><td>OpenAI · <a href="https://doi.org/10.48550/arxiv.2410.07095">2410.07095</a></td></tr>
-      <tr><td><b>RE-Bench</b> <span class="tag new">2024</span> <span class="tag code">track04</span></td><td>7 AI R&amp;D 任务</td><td>相对人类研究员的分数</td><td>METR · <a href="https://doi.org/10.48550/arxiv.2411.15114">2411.15114</a></td></tr>
-      <tr><td><b>ScienceAgentBench</b> <span class="tag new">2025</span> <span class="tag code">track04</span></td><td>102 科学数据分析任务</td><td>Success + Rubric + Cost</td><td>OSU · ICLR'25 · <a href="https://doi.org/10.48550/arxiv.2410.05080">2410.05080</a></td></tr>
-      <tr><td><b>SUPER</b></td><td>复现 research repo</td><td>End-to-end success</td><td>AI2 · EMNLP 2024 · <a href="https://doi.org/10.18653/v1/2024.emnlp-main.702">DOI</a></td></tr>
-      <tr><td><b>CORE-Bench</b></td><td>90 复现任务</td><td>Reproducibility score</td><td>Siegel et al. · <a href="https://doi.org/10.48550/arxiv.2409.11363">2409.11363</a></td></tr>
-      <tr><td><b>DiscoveryBench</b></td><td>264 发现任务</td><td>假设匹配</td><td>AI2 · ICLR'25 · <a href="https://doi.org/10.48550/arxiv.2407.01725">2407.01725</a></td></tr>
-      <tr><td><b>MLGym</b> <span class="tag new">2025</span></td><td>13 开放任务 · RL gym</td><td>自定义</td><td>Meta · <a href="https://doi.org/10.48550/arxiv.2502.14499">2502.14499</a></td></tr>
-    </tbody>
-  </table>
+  <h3>Machine-learning research as a task</h3>
+  <p>
+    Here the canonical three are <a href="https://doi.org/10.48550/arxiv.2310.03302"><strong>MLAgentBench</strong></a>
+    (Huang <em>et al.</em>, ICML 2024: 13 Kaggle-style improvement tasks),
+    <a href="https://doi.org/10.48550/arxiv.2410.07095"><strong>MLE-Bench</strong></a>
+    (OpenAI, 2024: 75 Kaggle competitions, scored by medal rate against human percentile),
+    and <a href="https://doi.org/10.48550/arxiv.2411.15114"><strong>RE-Bench</strong></a>
+    (METR, 2024: seven AI-R&amp;D tasks where the baseline is not a model but a human researcher on
+    the same four-hour budget). Alongside them:
+    <a href="https://doi.org/10.48550/arxiv.2410.05080"><strong>ScienceAgentBench</strong></a>
+    (OSU, ICLR'25: 102 scientific data-analysis tasks),
+    <a href="https://doi.org/10.18653/v1/2024.emnlp-main.702"><strong>SUPER</strong></a>
+    (AI2, EMNLP 2024: reproducing research repositories), and
+    <a href="https://doi.org/10.48550/arxiv.2409.11363"><strong>CORE-Bench</strong></a>
+    (2024: 90 computational reproducibility tasks).
+  </p>
 
-  <h3 id="benchmarks-long">3.3 论文复现 · 综述 · Idea · Review · 图表</h3>
-  <table>
-    <thead><tr><th>环节</th><th>Benchmark</th><th>核心指标</th><th>来源</th></tr></thead>
-    <tbody>
-      <tr><td>复现</td><td><b>PaperBench</b> <span class="tag new">2025</span> <span class="tag code">track04</span></td><td>Replication score · 8316 leaf rubric</td><td>OpenAI · <a href="https://doi.org/10.48550/arxiv.2504.01848">2504.01848</a></td></tr>
-      <tr><td>复现</td><td><b>Paper2Code</b></td><td>Exec success + faithfulness</td><td><a href="https://doi.org/10.48550/arxiv.2504.17192">2504.17192</a></td></tr>
-      <tr><td>综述</td><td><b>AutoSurvey</b> <span class="tag hot">Canon</span> <span class="tag code">track03</span></td><td>Citation recall/precision · Coverage · Structure</td><td>NeurIPS 2024 · <a href="https://doi.org/10.48550/arxiv.2406.10252">2406.10252</a></td></tr>
-      <tr><td>综述</td><td><b>LitLLM</b></td><td>Retrieval recall@k + Citation F1</td><td><a href="https://doi.org/10.48550/arxiv.2402.01788">2402.01788</a></td></tr>
-      <tr><td>Idea</td><td><b>Si et al.</b></td><td>79 名研究者双盲 · 4 维</td><td>NeurIPS 2024 · Stanford</td></tr>
-      <tr><td>Idea</td><td><b>IdeaBench</b></td><td>多维 LLM-judge + 专家</td><td><a href="https://doi.org/10.48550/arxiv.2411.02429">2411.02429</a></td></tr>
-      <tr><td>Idea</td><td><b>AAAR-1.0</b></td><td>3 任务 · 专家对齐</td><td><a href="https://doi.org/10.48550/arxiv.2410.22394">2410.22394</a></td></tr>
-      <tr><td>Review</td><td><b>PeerRead</b> <span class="tag hot">Canon</span></td><td>Accept/Reject + aspect</td><td>NAACL 2018 · <a href="https://doi.org/10.18653/v1/n18-1149">DOI</a></td></tr>
-      <tr><td>Review</td><td><b>ReviewerGPT</b></td><td>错误识别率</td><td><a href="https://doi.org/10.48550/arxiv.2306.00622">2306.00622</a></td></tr>
-      <tr><td>Review</td><td><b>AgentReview</b></td><td>与 meta-review 一致性 · 偏见</td><td>EMNLP 2024 · <a href="https://doi.org/10.18653/v1/2024.emnlp-main.70">DOI</a></td></tr>
-      <tr><td>图表</td><td><b>ChartQA</b> <span class="tag hot">Canon</span></td><td>数值 + 逻辑 accuracy</td><td>ACL 2022 · <a href="https://doi.org/10.18653/v1/2022.findings-acl.177">DOI</a></td></tr>
-      <tr><td>图表</td><td><b>SciCap+</b></td><td>BLEU/ROUGE + human pref.</td><td>—</td></tr>
-    </tbody>
-  </table>
+  <h3>Paper-level reproduction</h3>
+  <p>
+    This category is the bar for end-to-end competence. The dominant entry is
+    <a href="https://doi.org/10.48550/arxiv.2504.01848"><strong>PaperBench</strong></a>:
+    given an ICML 2024 paper and its appendix, reproduce the work from scratch. Scoring is
+    done against a rubric tree that the original authors helped design and that decomposes each
+    paper into <strong>8,316 evaluable leaves</strong>. It is the most honest benchmark in this
+    space because the rubric was built by the people who know what the paper was supposed to
+    prove. <a href="https://doi.org/10.48550/arxiv.2504.17192"><strong>Paper2Code</strong></a>
+    (2025) is a lighter-weight cousin focused on paper-to-runnable-code.
+  </p>
 
-  <h3 id="benchmarks-end2end">3.4 端到端综合（2025 才成型的战场）</h3>
-  <ul>
-    <li><b>Astabench</b>（AI2, 2025）— idea / 文献 / 实验 / 写作 / 图 拉到一张榜。</li>
-    <li><b>CURIE</b>（DeepMind 2025）— 多学科科学推理。</li>
-    <li><b>AI Scientist v2</b> 自带评估脚本。</li>
-    <li>通用 <b>SWE-bench</b>（<a href="https://github.com/SWE-bench/SWE-bench">⭐4,891</a>）作为工程能力辅榜。</li>
-  </ul>
+  <h3>Literature review, idea generation, and peer review</h3>
+  <p>
+    The survey-writing task has a clear leader: <a href="https://doi.org/10.48550/arxiv.2406.10252">
+    <strong>AutoSurvey</strong></a> (NeurIPS 2024). Its four-dimensional rubric — citation
+    recall, citation precision, content coverage, structural coherence — has quietly become the
+    <em>de facto</em> metric for long-form scholarly generation.
+  </p>
+  <p>
+    For idea generation, the reference is a Stanford human study from NeurIPS 2024 (Si <em>et
+    al.</em>), which asked 79 NLP researchers to blindly rate AI-generated vs. human-generated
+    research ideas on novelty, excitement, feasibility, and effectiveness. The finding — that
+    AI ideas score higher on novelty but lower on feasibility — is the closest thing the field
+    has to a load-bearing empirical result. <a href="https://doi.org/10.48550/arxiv.2411.02429">
+    <strong>IdeaBench</strong></a> and <a href="https://doi.org/10.48550/arxiv.2410.22394">
+    <strong>AAAR-1.0</strong></a> automate pieces of that.
+  </p>
+  <p>
+    For peer review, the historical anchor is <a href="https://doi.org/10.18653/v1/n18-1149">
+    <strong>PeerRead</strong></a> (NAACL 2018), still cited; the modern entries are
+    <a href="https://doi.org/10.48550/arxiv.2306.00622"><strong>ReviewerGPT</strong></a>
+    (CMU, 2023), <a href="https://doi.org/10.48550/arxiv.2402.10886"><strong>Reviewer2</strong></a>
+    (2024), and <a href="https://doi.org/10.18653/v1/2024.emnlp-main.70">
+    <strong>AgentReview</strong></a> (EMNLP 2024), which is particularly interesting because it
+    introduces deliberately biased reviewers to test whether the multi-agent simulation
+    reproduces the known pathologies of real conference review.
+  </p>
 
-  <div class="callout">
-    <div class="title">为什么 PaperBench 值得重点学习</div>
-    它把一篇论文分解成上千个"如果你复现到这里应当满足什么"的二分节点，每个节点可由 LLM 自动判分，由原作者预先标注 ground truth。
-    这是 2025 年<b>最成熟的"学术端到端评测模板"</b>——Part II 的 Track 04 直接抄它。
-  </div>
+  <h3>Figures and tables</h3>
+  <p>
+    <a href="https://doi.org/10.18653/v1/2022.findings-acl.177"><strong>ChartQA</strong></a>
+    (ACL 2022) is still the canon for chart understanding; SciCap+ and Paper2Fig100k handle the
+    caption-generation and figure-reconstruction tasks respectively.
+  </p>
+
 </section>
 
-<!-- ========== §4 ANRA ========== -->
-<section id="anra">
-  <h2>4 · 前沿关注 · Agent-Native Research Artifact (ARA)</h2>
-  <p class="sub">arXiv 2604.24658 · Liu et al. 2026-04 · 这个方向最值得盯的一篇</p>
+<p class="sep-ornament">❧</p>
 
-  <div class="pillrow">
-    <span class="tag">arXiv 2604.24658 · 2026-04-27</span>
-    <span class="tag">38 位作者（MIT Media Lab / Michigan / Stanford …）</span>
-    <span class="tag">代码 <a href="https://github.com/Orchestra-Research/Agent-Native-Research-Artifact">Orchestra-Research/Agent-Native-Research-Artifact</a> · 124 ⭐</span>
-    <span class="tag">MIT License</span>
-    <span class="tag hot">强烈推荐</span>
-  </div>
+<section id="frontier">
+  <h2><span class="roman">V</span>The frontier: Agent-Native Research Artifacts</h2>
+  <p class="deck">One paper from April 2026 that, if correct, changes what "a paper" is.</p>
 
   <p>
-  这篇论文的标题叫
-  <b>"The Last Human-Written Paper: Agent-Native Research Artifacts"</b>，
-  是 2026 年我见过对"论文这个对象本身"最激进的重构提议。和本 proposal 高度共振——它给出了一个协议 + 三个 skill，直接在 <b>PaperBench</b> 和 <b>RE-Bench</b> 上把复现表现拉高。
+    In late April 2026 a team of 38 authors — led from MIT Media Lab, the University of Michigan,
+    and Stanford, and including Alex Pentland — posted an arXiv preprint with the deliberately
+    provocative title
+    <a href="https://arxiv.org/abs/2604.24658"><em>The Last Human-Written Paper:
+    Agent-Native Research Artifacts</em></a>. The claim is not that humans will stop writing
+    papers. The claim is that <em>the paper itself</em> — the PDF, the narrative, the compressed
+    linear argument — has been the wrong object for about two years, and nobody noticed because
+    only humans were reading them.
   </p>
 
-  <h3>4.1 动机：两种"税"</h3>
-  <p>作者指出当前论文格式对 AI agent 有两种结构性成本：</p>
-  <ul>
-    <li><b>Storytelling Tax（叙事税）</b> — 真实研究是分叉的探索过程，发表时被压扁成线性叙事，失败实验、被拒假设、替代方案全被丢弃。</li>
-    <li><b>Engineering Tax（工程税）</b> — "够 reviewer 读的文字" 和 "够 agent 执行的规格" 之间有鸿沟，关键实现细节没写出来。</li>
-  </ul>
-  <div class="callout warn">
-    <div class="title">两个震撼的量化数字</div>
-    · 23 篇 ICML 2024 论文里<b>只有 45.4% 的复现需求</b>（8,921 条）在 PDF 里完整指定。<br/>
-    · RE-Bench 上 24,008 次 agent 运行，<b>失败运行占 90.2% 的总美元成本</b>——没有 prior failure 记录时每个 agent 都在独立重走死胡同。
+  <p class="meta">
+    Paper: <a href="https://arxiv.org/abs/2604.24658">arXiv:2604.24658</a> ·
+    Code: <a href="https://github.com/Orchestra-Research/Agent-Native-Research-Artifact">Orchestra-Research/Agent-Native-Research-Artifact</a> ·
+    License: MIT
+  </p>
+
+  <h3>The diagnosis: two taxes</h3>
+  <p>
+    The authors' framing is precise. Publication compiles a branching, iterative research process
+    into a linear narrative, and the compilation imposes two structural costs.
+  </p>
+  <p>
+    The <strong>storytelling tax</strong> is what the paper throws away to fit the genre —
+    failed experiments, rejected hypotheses, the branching exploration process that actually
+    produced the finding. These are discarded because they do not fit a linear argument,
+    and their absence is invisible to a reader who already trusts the author.
+  </p>
+  <p>
+    The <strong>engineering tax</strong> is the gap between "enough prose for a reviewer" and
+    "enough specification for a machine to reproduce the work". Authors write to a reader who
+    can infer missing detail; agents cannot infer, so they rediscover every missing detail at
+    cost.
+  </p>
+
+  <div class="aside">
+    <span class="k">The empirical case, in two numbers</span>
+    Only <strong>45.4%</strong> of the 8,921 reproduction requirements extracted from 23 ICML
+    2024 papers are fully specified in the published PDFs. And on RE-Bench, failed agent runs
+    account for <strong>90.2%</strong> of total dollar cost across 24,008 runs, because each
+    agent independently rediscovers the same dead ends. Tolerable when every reader was human;
+    load-bearing waste when readers are machines.
   </div>
 
-  <h3>4.2 ARA 协议：论文的四层结构</h3>
-  <p>ARA 把论文从叙事文档替换成<b>机器可执行的知识包</b>，按四层组织：</p>
-  <table>
-    <thead><tr><th>层</th><th>目录</th><th>装什么</th></tr></thead>
-    <tbody>
-      <tr><td>Logic（认知层）<br/>What &amp; Why</td><td><code>logic/</code></td><td>problem.md · claims.md（可证伪断言）· concepts.md · experiments.md · solution/{architecture,algorithm,constraints,heuristics}.md · related_work.md</td></tr>
-      <tr><td>Physical（物理层）<br/>How</td><td><code>src/</code></td><td>configs/（超参 + 理由）· environment.md（依赖、硬件、seed）· 完整可执行代码</td></tr>
-      <tr><td>Exploration（探索图）<br/>Journey</td><td><code>trace/</code></td><td>exploration_tree.yaml —— 研究 DAG，<b>带类型节点 + dead ends</b></td></tr>
-      <tr><td>Evidence（证据）<br/>Raw proof</td><td><code>evidence/</code></td><td>tables/（精确结果表）· figures/（提取的数据点）</td></tr>
-    </tbody>
-  </table>
+  <h3>The proposal: a four-layer artifact</h3>
   <p>
-  顶层 <code>PAPER.md</code> 是 <b>~200 token 的 manifest</b>，告诉 agent 这个 artifact 是否值得继续读——这是"progressive disclosure"。
-  跨层有 <b>forensic binding</b>：claim 引用 experiment，experiment 引用 evidence，heuristic 引用 code。
-  每一项带 <b>provenance tag</b>（<code>user</code> / <code>ai-suggested</code> / <code>ai-executed</code> / <code>user-revised</code>），区分人类确认 vs AI 推断。
+    In place of the PDF the authors propose an <strong>Agent-Native Research Artifact (ARA)</strong>
+    — a directory structured in four interlocking layers, meant to be read and written by
+    agents, though still legible to humans.
   </p>
 
-  <h3>4.3 三个配套 skill（MIT · 已发布）</h3>
+  <figure class="diagram"><code>artifact/
+  PAPER.md                      ← ~200-token manifest
+  logic/                        ← cognitive layer · What &amp; Why
+    problem.md                  ·   gaps → key insight
+    claims.md                   ·   falsifiable assertions with proof refs
+    concepts.md                 ·   formal definitions
+    experiments.md              ·   declarative experiment plans
+    solution/
+      architecture.md
+      algorithm.md              ·   math + pseudocode
+      constraints.md
+      heuristics.md             ·   implementation tricks + rationale
+    related_work.md             ·   typed dependency graph
+  src/                          ← physical layer · How
+    configs/                    ·   hyperparameters with rationale
+    environment.md              ·   dependencies, hardware, seeds
+  trace/                        ← exploration graph · Journey
+    exploration_tree.yaml       ·   research DAG with typed nodes + dead ends
+  evidence/                     ← raw proof
+    tables/                     ·   exact result tables
+    figures/                    ·   extracted data points</code>
+<figcaption>The ARA on-disk layout. The 200-token manifest at the top is the progressive-disclosure trick: an agent can decide whether the artifact is relevant before loading anything else.</figcaption></figure>
+
+  <p>
+    Three details make the protocol more than a filesystem convention. First, every claim in
+    <code>logic/</code> carries a <em>forensic binding</em> to the experiment that supports it,
+    and every experiment binds to raw evidence in <code>evidence/</code>. Second, every entry
+    carries a <strong>provenance tag</strong> — <code>user</code>, <code>ai-suggested</code>,
+    <code>ai-executed</code>, or <code>user-revised</code> — distinguishing human-confirmed
+    facts from AI inferences. Third, and most distinctively, dead ends are <em>first-class
+    citizens</em>: the exploration tree preserves rejected alternatives and failed approaches
+    alongside the surviving story, so future agents do not have to rediscover them.
+  </p>
+
+  <h3>The ecosystem: three companion skills</h3>
+  <p>
+    The authors ship the protocol with three open-source skills:
+  </p>
   <table>
-    <thead><tr><th>Skill</th><th>做什么</th><th>调用</th></tr></thead>
+    <thead><tr><th>Skill</th><th>Role</th><th>Invocation</th></tr></thead>
     <tbody>
-      <tr><td><b>compiler</b></td><td>把任意研究输入（PDF / repo / 实验日志 / 笔记）编译成 ARA artifact。4 阶段：语义解构 → 认知映射 → 物理 stub → 探索图抽取</td><td><code>/compiler path/to/paper.pdf</code></td></tr>
-      <tr><td><b>research-manager</b></td><td>End-of-turn recorder，每轮对话后自动记录 decision / experiment / dead end / pivot，带 provenance tag。三阶段 pipeline：Context Harvester → Event Router → Maturity Tracker</td><td><code>/research-manager</code></td></tr>
-      <tr><td><b>rigor-reviewer</b></td><td>ARA Seal Level 2 语义审稿。6 维打分（evidence relevance / falsifiability / scope calibration …），输出 <code>level2_report.json</code></td><td><code>/rigor-reviewer artifact_dir/</code></td></tr>
+      <tr><td><strong>compiler</strong></td><td>Translates any research input — PDFs, repos, logs, notes — into a complete ARA, through a four-stage pipeline (semantic deconstruction → cognitive mapping → physical stubbing → exploration-graph extraction).</td><td><code>/compiler path/to/paper.pdf</code></td></tr>
+      <tr><td><strong>research-manager</strong></td><td>An end-of-turn recorder: after every dialogue turn it writes decisions, experiments, dead ends, and pivots into the artifact with the right provenance tags. Research knowledge accrues as a side effect of ordinary development.</td><td><code>/research-manager</code></td></tr>
+      <tr><td><strong>rigor-reviewer</strong></td><td>Scores six dimensions of epistemic rigor — evidence relevance, falsifiability, scope calibration, and others — and emits a structured finding list. Called ARA Seal Level 2 in the paper.</td><td><code>/rigor-reviewer artifact_dir/</code></td></tr>
     </tbody>
   </table>
-  <p>安装：<code>npx @orchestra-research/ara-skills</code>，自动检测 Claude Code / Cursor / Gemini CLI / OpenCode / Codex / Hermes。</p>
 
-  <h3>4.4 量化效果（论文 §5 主表）</h3>
+  <h3>The numbers</h3>
+  <p>
+    The paper ends with the evaluation that forces the field to take it seriously. Two
+    benchmarks, both discussed in Section IV above:
+  </p>
   <div class="stats">
-    <div class="stat"><div class="v">72.4 → 93.7%</div><div class="l">PaperBench · QA accuracy</div></div>
-    <div class="stat"><div class="v">57.4 → 64.4%</div><div class="l">RE-Bench · Reproduction success</div></div>
-    <div class="stat"><div class="v">+21.3 / +7.0</div><div class="l">ARA vs. PDF 绝对提升</div></div>
-    <div class="stat"><div class="v">45.4%</div><div class="l">PDF 完整指定复现需求的比例</div></div>
+    <div class="s"><div class="v">72.4 → 93.7%</div><div class="l">PaperBench · QA accuracy</div></div>
+    <div class="s"><div class="v">57.4 → 64.4%</div><div class="l">RE-Bench · reproduction success</div></div>
+    <div class="s"><div class="v">+21.3 / +7.0</div><div class="l">absolute gain over PDF baseline</div></div>
+    <div class="s"><div class="v">45.4%</div><div class="l">PDF-reproducibility ceiling</div></div>
   </div>
-  <p>
-  同时作者也给了一个诚实的 caveat：在 RE-Bench 的五个<b>开放式扩展任务</b>上，保留的失败轨迹能加速进度，<b>但也可能把更强的 agent 约束在"前人走过的盒子"里</b>——这取决于 agent 自身的能力上限。这是一个很 honest 的 limitation。
-  </p>
-
-  <h3>4.5 为什么对我们重要</h3>
-  <p>把 ARA 放到 Part I 最后，是因为它正好命中了本组目前三个空缺中的两个：</p>
-  <table>
-    <thead><tr><th>我们的空缺</th><th>ARA 的对应</th></tr></thead>
-    <tbody>
-      <tr><td>没有失败模式数据库</td><td><code>trace/exploration_tree.yaml</code> + research-manager 自动捕获</td></tr>
-      <tr><td>没有专门的 reviewer skill 规范</td><td>rigor-reviewer 提供了 6 维语义审稿的开源实现</td></tr>
-      <tr><td>没有评测（Part II 要补）</td><td>它在 PaperBench / RE-Bench 上已有公开数字，是天然的 baseline</td></tr>
-    </tbody>
-  </table>
-  <p>
-  进一步说：我们现有的 <code>academic-research-skills</code> 用 Material Passport schema 做 stage 握手，ARA 用 forensic binding 做层间握手——<b>两者底层范式完全兼容</b>。
-  <mark>一个非常干净的研究点：把 Material Passport 和 ARA 的四层协议做形式化对齐，证明能互译，这就能直接投一篇 system paper。</mark>
-  </p>
-
-  <div class="callout ok">
-    <div class="title">Part II 新增的一条 track 线索</div>
-    Track 04 加一个子方向：<b>"ARA × 中文学术流水线"</b>——用 ARA compiler 把 3 篇已发表中文 CS 论文（CCF-A 档）转成 artifact，实测 ARA 的四层结构对中文论文的适配度，看 PaperBench 数字能否迁移。
-  </div>
-</section>
-
-<!-- ========== §5 NETWORK ========== -->
-<section id="network">
-  <h2>5 · 网络通路（被墙了怎么办）</h2>
-  <p class="sub">本机实测过的替代路径</p>
 
   <p>
-  Claude Code 客户端的 <code>WebSearch</code> / <code>WebFetch</code> 会被企业域名白名单拦（arxiv.org / github.com / metr.org 都 403）。但本机 <code>curl</code> 走另一条网络栈，大多数学术源都通。以下是实测替代方案。
-  </p>
-
-  <table>
-    <thead><tr><th>想要什么</th><th>官方域名</th><th>可用替代</th></tr></thead>
-    <tbody>
-      <tr><td>arXiv 论文页</td><td>arxiv.org</td><td>✅ 直通。API <code>export.arxiv.org/api/query</code>；HTML <code>ar5iv.labs.arxiv.org</code></td></tr>
-      <tr><td>学术元数据</td><td>api.semanticscholar.org</td><td>✅ 直通但 429 限速。<b>强烈推荐</b> <code>api.openalex.org</code>（无 token、无限速）</td></tr>
-      <tr><td>DOI 解析</td><td>—</td><td><code>api.crossref.org/works?query=…</code></td></tr>
-      <tr><td>GitHub 仓库信息</td><td>github.com</td><td>✅ <code>api.github.com</code>；README 直拉 <code>raw.githubusercontent.com</code></td></tr>
-      <tr><td>HuggingFace</td><td>huggingface.co</td><td>❌ 超时。✅ 短域名 <code>hf.co</code> 307 转入；或国内镜像 <code>hf-mirror.com</code></td></tr>
-      <tr><td>Google Scholar</td><td>scholar.google.com</td><td>❌ 一般要代理。✅ 用 OpenAlex 的 <code>cited_by_count</code> + <code>referenced_works</code></td></tr>
-      <tr><td>搜索引擎</td><td>duckduckgo.com</td><td>❌ 超时。✅ <code>cn.bing.com</code>；<code>search.marginalia.nu</code></td></tr>
-      <tr><td>METR 报告</td><td>metr.org</td><td>✅ 直通</td></tr>
-      <tr><td>OpenReview</td><td>openreview.net</td><td>✅ 慢但通（约 8s）</td></tr>
-    </tbody>
-  </table>
-
-  <h4>OpenAlex 搜索示例</h4>
-  <div class="codeblock">
-    <span class="label">bash</span>
-    <button class="copy">Copy</button>
-<pre># 搜 benchmark，打印标题/年份/DOI/被引
-curl -sS "https://api.openalex.org/works?search=MLE-bench&per-page=3&select=title,publication_year,doi,cited_by_count" \
-  | python3 -m json.tool | head -40
-
-# 搜作者所有论文（按 ORCID）
-curl -sS "https://api.openalex.org/works?filter=author.orcid:0000-0002-1825-0097&per-page=25"</pre>
-  </div>
-
-  <div class="callout warn">
-    <div class="title">核心建议</div>
-    在这个环境做学术调研，<b>不要走 WebSearch / WebFetch</b>——直接 Bash + curl + OpenAlex/GitHub API，结构化返回率高一个数量级。本报告的 29 条 benchmark 全部用这条路径核实。
-  </div>
-</section>
-<div class="partdiv p2">
-  <span class="chip">PART II</span>
-  <div>
-    <div class="title">Proposal · Call for student collaborators</div>
-    <div class="subtitle">背景 → 假设 → 4 条 track → 环境 → 12 周路线图 → 评价标准</div>
-  </div>
-</div>
-
-<div class="p2">
-
-<section id="context">
-  <h2>6 · 研究背景</h2>
-  <p class="sub">为什么这件事现在值得做</p>
-
-  <p>
-  过去两年，AI 写论文从"玩具 demo"变成"真的能过 peer review"。2024-08 Sakana 的 <b>AI Scientist v1</b> 第一次让 AI 自动生成的论文通过了真实会议审稿；
-  2025-04 OpenAI 的 <b>PaperBench</b> 把 20 篇 ICML 2024 Spotlight/Oral 论文变成可自动评测的 8316 个细粒度复现节点；
-  2026-01 <b>Nature</b> 正式刊登了《Towards end-to-end automation of AI research》<span class="fn" style="display:inline">（Lu et al., <a href="https://doi.org/10.1038/s41586-026-10265-5">DOI: 10.1038/s41586-026-10265-5</a>）</span>；
-  2026-04 MIT Media Lab 等 38 位作者的 <b>ARA</b> 提出"论文应该是机器可执行的研究包"（Part I §4 详述）。
+    A twenty-one-point jump on PaperBench question-answering is not subtle. It is the kind of
+    number that usually means either the benchmark is broken or the intervention is real. The
+    PaperBench rubric is, as discussed, unusually author-validated, which makes the second
+    reading hard to dismiss.
   </p>
 
   <p>
-  与此并行的是 <b>skill 生态</b> 的爆发：Anthropic 官方 <code>anthropics/skills</code> 已到 13 万 star；社区 <code>obra/superpowers</code> 过了 18 万；Stanford REAP × CoPaper.AI 整理出 23,000+ skills 的清单。
-  两条线合起来意味着：<mark>学术工作流正在被 "skill + benchmark" 两端同时重塑</mark>。我们的机会是从里面切一块，做一个具体的贡献。
+    The authors are refreshingly honest about the limit: on RE-Bench's five <em>open-ended</em>
+    extension tasks, preserved failure traces can sometimes constrain a capable agent — locking
+    it inside the box the previous run already explored, rather than letting it step outside. The
+    benefit is strongly conditional on the agent's own strength. That caveat, placed in the
+    abstract rather than buried in the appendix, tells you something about the paper's seriousness.
   </p>
 
-  <div class="stats">
-    <div class="stat"><div class="v">23,000+</div><div class="l">已编目学术 skills</div></div>
-    <div class="stat"><div class="v">8,316</div><div class="l">PaperBench 评分节点</div></div>
-    <div class="stat"><div class="v">29</div><div class="l">Part I 已核实 benchmark</div></div>
-    <div class="stat"><div class="v">4</div><div class="l">开放研究 track</div></div>
-  </div>
 </section>
 
-<section id="tldr">
-  <h2>7 · 读前 90 秒</h2>
-  <p class="sub">如果你只有一分钟决定要不要加入</p>
+<p class="sep-ornament">❧</p>
 
-  <h4>我们现在有什么</h4>
-  <ul>
-    <li>本组已下载的 7 个学术 skill 仓库（Part I §1 列全）</li>
-    <li>核实过的 benchmark 地图（Part I §3，共 29 条）</li>
-    <li>本机可直连的学术数据通路（OpenAlex + arXiv + Crossref + GitHub API，见 §5）</li>
-    <li>对 2026 最新一篇关键论文（ARA）的完整解析（§4），随时可作为切入点</li>
-  </ul>
+<section id="open">
+  <h2><span class="roman">VI</span>Three open questions</h2>
+  <p class="deck">Work that looks doable right now, for whoever wants to pick it up.</p>
 
-  <h4>我们想让学生产出什么</h4>
-  <ul>
-    <li>一篇 <b>有代码 + 有 trajectory + 有 leaderboard 数字</b> 的 workshop / 短文（目标：NeurIPS workshop / ICLR tiny paper / arXiv preprint）</li>
-    <li>一个开源 skill 或者一个新 benchmark（小方向）</li>
-    <li>一份能放进简历的"我做过 AI4Science 项目"的实物</li>
-  </ul>
+  <p>
+    An essay that ends "and now the future is bright" is not worth reading. Here, instead, are
+    three concrete questions we think the next twelve months will settle — and where the
+    evidence is still thin enough that small teams can make a real contribution.
+  </p>
 
-  <h4>对学生的要求</h4>
-  <ul>
-    <li>会用 Python + 命令行；愿意读英文论文</li>
-    <li>不要求有发论文经验；更在意<b>自驱 + 愿意在 Slack/微信群里大胆问问题</b></li>
-    <li>每周至少 10h；8–12 周周期</li>
-  </ul>
+  <h3>Does composition beat specialisation?</h3>
+  <p>
+    Every serious skill collection is built by one author with one style. But nothing prevents
+    a citation skill from one author from being called by a drafting skill from another, as
+    long as both follow the <code>SKILL.md</code> convention. Nobody has measured, with rigour,
+    whether a <em>composed</em> stack outperforms any single <em>monolithic</em> collection on
+    an end-to-end benchmark like PaperBench. This is the cheapest real experiment in the field
+    right now.
+  </p>
 
-  <div class="callout info">
-    <div class="title">一句话版本</div>
-    你会得到：一个有上下文的学术问题 + 一份可复制的环境 + 一个明确的打榜/造榜目标。这比"自己找课题"高效得多。
-  </div>
+  <h3>Do English benchmarks transfer to other languages?</h3>
+  <p>
+    Every benchmark in Section IV is English-first. GAIA, PaperBench, AutoSurvey, SimpleQA — all
+    of them. There are real reasons to suspect the gap is larger than the language itself: the
+    citation ecology (CNKI and Wanfang rather than Semantic Scholar), the rhetorical conventions
+    of Chinese or Japanese academic prose, the figure caption norms of national journals. A
+    small Chinese-AutoSurvey benchmark, built against real CNKI reference pools rather than
+    GPT-fabricated ones, would be a genuine contribution — and there is no prestigious group
+    obviously working on it yet.
+  </p>
+
+  <h3>How durable is the ARA protocol?</h3>
+  <p>
+    Section V presented ARA in its best light. The open empirical question is whether the
+    twenty-one-point PaperBench gain survives when you change the backbone model, the agent
+    scaffolding, or the domain. If the gain is robust across all three, ARA is the real thing.
+    If it is not, the intervention is model-specific and the field will keep looking. Either
+    answer is publishable.
+  </p>
 </section>
 
-<section id="goals">
-  <h2>8 · 我们要一起做什么</h2>
-  <p class="sub">问题动机，转成可执行的三个假设</p>
+<p class="sep-ornament">❧</p>
+</article>
 
-  <p>原始问题有两个：</p>
-  <ol>
-    <li><b>除了我们已经下载的 7 个仓库，还有哪些经典/有名的 skill 和工作流值得收进来？</b>（Part I §2 已经给出答案）</li>
-    <li><b>这些工作流在学术界用什么 benchmark 评？如果做新方法要怎么打榜？</b>（Part I §3 已经给出地图）</li>
-  </ol>
-
-  <p>我们把这两问变成四条研究假设——每条对应一个 track：</p>
-
-  <table>
-    <thead><tr><th>假设</th><th>如果成立</th><th>怎么反驳</th></tr></thead>
-    <tbody>
-      <tr>
-        <td>H1 · "把不同作者的 skill 组合"比"单一 skill"在端到端 benchmark 上更好</td>
-        <td>skill 生态的价值在于 <b>可组合性</b>，不是单点</td>
-        <td>在 PaperBench / ScienceAgentBench 上跑 A/B</td>
-      </tr>
-      <tr>
-        <td>H2 · 现有英文 benchmark 对<b>中文学术流程</b>有系统性偏差</td>
-        <td>存在真实空缺，可以做 Chinese-PaperBench / Chinese-AutoSurvey</td>
-        <td>跑中文样本，看英文 judge 的评分是否与中文专家评分脱节</td>
-      </tr>
-      <tr>
-        <td>H3 · "工作流硬约束（obra superpowers 那种 checklist）" 能显著降低 agent 失败率</td>
-        <td>skill 不只是知识库，还是 <b>行为约束</b></td>
-        <td>MLAgentBench 上对比 with/without checklist</td>
-      </tr>
-      <tr>
-        <td>H4 · <b>ARA</b> 协议的四层结构对<b>中文 CS 论文</b>同样成立（PaperBench 数字能迁移）</td>
-        <td>ARA 是语言无关的协议，不只是英文专属</td>
-        <td>用 ARA compiler 编译 3 篇中文 CCF-A 论文，跑 rigor-reviewer</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
-
-<section id="tracks">
-  <h2>9 · 四条研究 track</h2>
-  <p class="sub">按难度和需要的背景分层，欢迎认领或自提新方向</p>
-
-  <div class="tracks">
-
-    <div class="track">
-      <div class="num">TRACK · 01</div>
-      <h4>Skill 拉取与基准建立 <span class="tag easy">入门</span></h4>
-      <div class="who"><b>适合</b>：第一次做 AI 项目的本科生 · 工科背景</div>
-      <p style="font-size:13.5px">把 §2 全景表里我们没收的 10+ 个重要 skill 拉下来、本地能跑、写一份统一的"这仓库能干嘛"卡片。</p>
-      <ul>
-        <li>每个仓库做 SKILL.md 结构 diff</li>
-        <li>跑通最小 demo</li>
-        <li>整理成一份带截图的 onboarding 页</li>
-      </ul>
-      <div class="foot">产出：skill index 站点 · 耗时 4–6 周 · 技能：Git/Bash/Markdown</div>
-    </div>
-
-    <div class="track t2">
-      <div class="num">TRACK · 02</div>
-      <h4>Benchmark 复现 <span class="tag med">中等</span></h4>
-      <div class="who"><b>适合</b>：做过 Kaggle 或写过 ML 作业的同学</div>
-      <p style="font-size:13.5px">选一个公开 benchmark（推荐 <b>GAIA 或 MLAgentBench</b>）用 Claude Code + 现有 skill 跑一遍，拿到第一个 baseline 数字。</p>
-      <ul>
-        <li>固定 tool 预算 / token 预算</li>
-        <li>记录每题 trajectory 到 JSONL</li>
-        <li>对照官方 paper 的分数校准</li>
-      </ul>
-      <div class="foot">产出：一张可信的 baseline 表 · 耗时 6–8 周 · 技能：Python / prompt 工程</div>
-    </div>
-
-    <div class="track t3">
-      <div class="num">TRACK · 03</div>
-      <h4>中文 AutoSurvey 小榜 <span class="tag hard">挑战</span></h4>
-      <div class="who"><b>适合</b>：对中文 NLP 有兴趣的硕士生 / 高年级本科</div>
-      <p style="font-size:13.5px">造一个<b>中文版 AutoSurvey benchmark</b>：30 个中文综述主题 + CNKI/万方参考文献金标 + 四维评分脚本。</p>
-      <ul>
-        <li>主题采样 + 参考文献池构建</li>
-        <li>改造 AutoSurvey 的 citation recall 指标到中文</li>
-        <li>跑 3 个基线：GPT-5 / Claude / DeepSeek</li>
-      </ul>
-      <div class="foot">产出：可发 workshop · 耗时 10–12 周 · 技能：NLP 基础 / 数据清洗</div>
-    </div>
-
-    <div class="track t4">
-      <div class="num">TRACK · 04</div>
-      <h4>Skill-Compose × ARA <span class="tag hard">挑战</span></h4>
-      <div class="who"><b>适合</b>：想发论文的研究生 · 会看多 agent 论文</div>
-      <p style="font-size:13.5px">两个子方向任选或合并：</p>
-      <ul>
-        <li><b>Compose</b>：验证 H1，设计 skill router + 组合策略，在 PaperBench/ScienceAgentBench 打榜</li>
-        <li><b>ARA</b>：验证 H4，把 ARA 协议扩到中文 CS 论文，测 rigor-reviewer 的中文表现</li>
-        <li>对比基线：Agent Laboratory / AI-Scientist v2 / 原生 ARA</li>
-      </ul>
-      <div class="foot">产出：workshop / 短文 · 耗时 12+ 周 · 技能：Agent 设计 / LLM orchestration</div>
-    </div>
-
-  </div>
-</section>
-
-<section id="onboarding">
-  <h2>10 · 环境与工具安装</h2>
-  <p class="sub">所有 track 共享的第一周 onboarding，按顺序做即可</p>
-
-  <h4>第一步 · 把我们本组已有的 7 个仓库拉一份（给你自己）</h4>
-  <div class="codeblock">
-    <span class="label">bash · local stack</span>
-    <button class="copy">Copy</button>
-<pre>mkdir -p ~/Skill &amp;&amp; cd ~/Skill
-
-# 这 7 个是本组当前在用的
-git clone --depth 1 https://github.com/Imbad0202/academic-research-skills.git        # 5.8k ⭐ 端到端管线
-git clone --depth 1 https://github.com/runtsang/RebuttalStudio.git                    #   184 ⭐ Rebuttal 编辑器
-git clone --depth 1 https://github.com/ChenLiu-1996/figures4papers.git                # 1.8k ⭐ 顶刊 figure
-git clone --depth 1 https://github.com/Yuan1z0825/nature-skills.git                   # 4.2k ⭐ Nature 级
-git clone --depth 1 https://github.com/Master-cai/Research-Paper-Writing-Skills.git   # 2.4k ⭐ 彭思达写作
-git clone --depth 1 https://github.com/Leey21/awesome-ai-research-writing.git         # 22.6k ⭐ prompt 模板
-git clone --depth 1 https://github.com/brycewang-stanford/Awesome-Agent-Skills-for-Empirical-Research.git
-#                                                                                     #   852 ⭐ Stanford 元清单</pre>
-  </div>
-
-  <h4>第二步 · 建议增补的仓库（填盲区 + ARA 前沿）</h4>
-  <div class="codeblock">
-    <span class="label">bash · recommended additions</span>
-    <button class="copy">Copy</button>
-<pre>cd ~/Skill
-
-# 官方底座
-git clone --depth 1 https://github.com/anthropics/skills.git                          # 131k ⭐
-git clone --depth 1 https://github.com/anthropics/knowledge-work-plugins.git          #  12k ⭐
-git clone --depth 1 https://github.com/anthropics/claude-plugins-official.git         #  19k ⭐
-
-# 学术聚合
-git clone --depth 1 https://github.com/K-Dense-AI/scientific-agent-skills.git         #  21k ⭐ 自然科学
-git clone --depth 1 https://github.com/Orchestra-Research/AI-Research-SKILLs.git      # 8.2k ⭐ ML 写作
-git clone --depth 1 https://github.com/Galaxy-Dawn/claude-scholar.git                 # 3.6k ⭐ Zotero MCP
-git clone --depth 1 https://github.com/posit-dev/skills.git                           #   344 ⭐ R / Quarto
-
-# 方法论 + ARA（Track 04 必装）
-git clone --depth 1 https://github.com/obra/superpowers.git                           # 185k ⭐
-git clone --depth 1 https://github.com/Orchestra-Research/Agent-Native-Research-Artifact.git  # 124 ⭐ ARA 协议
-# 或者走官方 npm 包：
-#   npx @orchestra-research/ara-skills install --all
-
-# 多 agent 系统（跑 benchmark 用）
-git clone --depth 1 https://github.com/SakanaAI/AI-Scientist.git                      #  14k ⭐
-git clone --depth 1 https://github.com/SamuelSchmidgall/AgentLaboratory.git           # 5.6k ⭐</pre>
-  </div>
-
-  <h4>第三步 · 把 skill 装进 Claude Code</h4>
-  <div class="codeblock">
-    <span class="label">bash · wire into Claude Code</span>
-    <button class="copy">Copy</button>
-<pre>mkdir -p ~/.claude/skills
-
-# 本组已有的
-ln -sfn "$HOME/Skill/academic-research-skills/skills/deep-research"            ~/.claude/skills/deep-research
-ln -sfn "$HOME/Skill/academic-research-skills/skills/academic-paper"           ~/.claude/skills/academic-paper
-ln -sfn "$HOME/Skill/academic-research-skills/skills/academic-paper-reviewer"  ~/.claude/skills/academic-paper-reviewer
-ln -sfn "$HOME/Skill/academic-research-skills/skills/academic-pipeline"        ~/.claude/skills/academic-pipeline
-for s in nature-figure nature-polishing nature-citation nature-data nature-response nature-paper2ppt; do
-  ln -sfn "$HOME/Skill/nature-skills/skills/$s" ~/.claude/skills/$s
-done
-ln -sfn "$HOME/Skill/figures4papers/scientific-figure-making"                  ~/.claude/skills/scientific-figure-making
-ln -sfn "$HOME/Skill/Research-Paper-Writing-Skills/research-paper-writing"     ~/.claude/skills/research-paper-writing
-
-# ARA 三个 skill（Track 04）
-for s in compiler research-manager rigor-reviewer; do
-  ln -sfn "$HOME/Skill/Agent-Native-Research-Artifact/skills/$s" ~/.claude/skills/$s
-done
-
-ls ~/.claude/skills/   # 验证</pre>
-  </div>
-
-  <h4>第四步 · Benchmark 仓库一键拉</h4>
-  <div class="codeblock">
-    <span class="label">bash · benchmarks</span>
-    <button class="copy">Copy</button>
-<pre>mkdir -p ~/Benchmarks &amp;&amp; cd ~/Benchmarks
-
-# Track 02 · 入门
-git clone --depth 1 https://github.com/snap-stanford/MLAgentBench.git
-# GAIA 需要 HF 协议：python -c "from datasets import load_dataset; load_dataset('gaia-benchmark/GAIA', '2023_all')"
-
-# Track 04 · 挑战
-git clone --depth 1 https://github.com/openai/mle-bench.git                    # 1.5k ⭐
-git clone --depth 1 https://github.com/openai/preparedness.git                 # 含 PaperBench
-git clone --depth 1 https://github.com/OSU-NLP-Group/ScienceAgentBench.git
-git clone --depth 1 https://github.com/allenai/discoverybench.git
-git clone --depth 1 https://github.com/SWE-bench/SWE-bench.git                 # 4.9k ⭐
-git clone --depth 1 https://github.com/centerforaisafety/hle.git
-git clone --depth 1 https://github.com/Future-House/LAB-Bench.git</pre>
-  </div>
-</section>
-
-<section id="playbook">
-  <h2>11 · 怎么"打"一个 benchmark</h2>
-  <p class="sub">方法论 checklist，每个 track 都会用到</p>
-
-  <ol>
-    <li><b>锁定主榜</b> — 按能力选。Deep research → GAIA + BrowseComp；ML → MLE-Bench + RE-Bench；端到端 → PaperBench + AAAR-1.0。</li>
-    <li><b>挂一个辅榜</b> — 证明没过拟合。主 GAIA 就配 AssistantBench；主 MLE-Bench 就配 ScienceAgentBench。</li>
-    <li>
-      <b>对齐 4 条受控变量</b>（评审一定会问）：
-      <ul>
-        <li>底座模型（Claude Sonnet 4.6 vs GPT-5，哪个都行但全程固定一个）</li>
-        <li>工具预算（浏览次数 / 代码执行次数 / max tokens）</li>
-        <li>时钟 + 成本预算（wall-clock 秒 / USD per task）</li>
-        <li>评委（LLM-judge 固定一个 GPT-4o；重要结论叠一层人类）</li>
-      </ul>
-    </li>
-    <li>
-      <b>报告五条标配指标</b>：task success / cost per task / wall-clock / citation faithfulness / human preference
-    </li>
-    <li>
-      <b>失败模式分桶</b>（2025 后事实标准）：
-      <span class="tag">ToolError</span> <span class="tag">Hallucination</span> <span class="tag">Plan-break</span> <span class="tag">Format-drift</span>
-    </li>
-    <li><b>公开 trajectory</b> — 代码 + 每题 JSONL + rubric 脚本。不放 trajectory 的 agent 论文容易被拒。</li>
-  </ol>
-
-  <div class="callout info">
-    <div class="title">ARA 的额外建议</div>
-    如果走 Track 04，把你方法的结果以 ARA artifact 形式发布（<code>/compiler</code> 自动编译）——这样后续 agent 复现你的工作时能直接读 <code>trace/</code> 和 <code>evidence/</code>，相当于免费加一份可复现性证据。
-  </div>
-</section>
-
-<section id="timeline">
-  <h2>12 · 12 周路线图</h2>
-  <p class="sub">以 Track 02 "Benchmark 复现"为样板，其他 track 类推</p>
-
-  <div class="timeline">
-    <div class="week">
-      <div class="wk">Week 1</div>
-      <h4>Onboarding</h4>
-      <div class="body">跑完 §10 安装脚本；读完 GAIA + MLAgentBench 的 abstract + ARA 论文 §1–§3；加入周会。</div>
-      <div class="deliv"><b>交付</b> · 本机能跑通 2 个 skill 的最小 demo</div>
-    </div>
-    <div class="week">
-      <div class="wk">Week 2–3</div>
-      <h4>Baseline 零点</h4>
-      <div class="body">选一个 benchmark 的一个 split，用<b>最 naive</b> 的 Claude Code 跑一遍，看到人生第一个 pass rate。</div>
-      <div class="deliv"><b>交付</b> · baseline 分数表 + 10 条 trajectory</div>
-    </div>
-    <div class="week">
-      <div class="wk">Week 4–5</div>
-      <h4>失败模式分析</h4>
-      <div class="body">把 baseline 的错案按 4 桶分类；每桶选 3 个案例写短 case study。</div>
-      <div class="deliv"><b>交付</b> · 错误分析 notebook（图 + 文字）</div>
-    </div>
-    <div class="week">
-      <div class="wk">Week 6–7</div>
-      <h4>方法设计</h4>
-      <div class="body">针对最大那桶错，设计一个干预（加 skill / 换 prompt / 加 critic loop / 接 ARA trace）。做 ablation。</div>
-      <div class="deliv"><b>交付</b> · 方法短文 2 页</div>
-    </div>
-    <div class="week">
-      <div class="wk">Week 8–9</div>
-      <h4>全量实验 + 辅榜</h4>
-      <div class="body">主榜全量跑；加一个辅榜证明不过拟合；跑 3 个随机 seed。</div>
-      <div class="deliv"><b>交付</b> · 主 + 辅榜完整表格 + 成本表</div>
-    </div>
-    <div class="week">
-      <div class="wk">Week 10</div>
-      <h4>Human eval</h4>
-      <div class="body">做 A/B pairwise，找 ≥ 30 评估者（组内 + LLM-judge 交叉）。</div>
-      <div class="deliv"><b>交付</b> · Human preference 数据</div>
-    </div>
-    <div class="week">
-      <div class="wk">Week 11</div>
-      <h4>Writeup</h4>
-      <div class="body">4 页短文 · 4 张图 · 1 张主表。投 workshop 或 arXiv。</div>
-      <div class="deliv"><b>交付</b> · LaTeX 草稿 v1</div>
-    </div>
-    <div class="week">
-      <div class="wk">Week 12</div>
-      <h4>投稿 + 开源</h4>
-      <div class="body">释放代码 + trajectory + README（推荐 ARA 格式）；内部 demo；提交截稿。</div>
-      <div class="deliv"><b>交付</b> · 投稿完成 + GitHub 开源</div>
-    </div>
-  </div>
-</section>
-
-<section id="rubric">
-  <h2>13 · 评价标准</h2>
-  <p class="sub">学生项目"做得好不好"的内部打分表，完全透明</p>
-
-  <table>
-    <thead><tr><th>维度</th><th>权重</th><th>满分是什么样</th></tr></thead>
-    <tbody>
-      <tr><td><b>可复现性</b></td><td class="num">30%</td><td>一个完全不懂的人按 README 能一键重跑主实验，拿到 ±3% 以内的数字</td></tr>
-      <tr><td><b>实验严谨</b></td><td class="num">25%</td><td>≥ 3 seed；受控变量表；辅榜；失败模式分桶</td></tr>
-      <tr><td><b>技术贡献</b></td><td class="num">20%</td><td>有 baseline 之外的 insight 或方法，能说清"为什么别人没做"</td></tr>
-      <tr><td><b>写作质量</b></td><td class="num">15%</td><td>短、结构清、图表自洽、引用完整</td></tr>
-      <tr><td><b>协作过程</b></td><td class="num">10%</td><td>定期 commit、周会主动发言、文档记录痕迹清晰</td></tr>
-    </tbody>
-  </table>
-
-  <div class="callout ok">
-    <div class="title">我们更在意过程而不是结果</div>
-    benchmark 没打过 baseline 不会导致项目失败。<b>你的 trajectory 和失败分析本身就是贡献</b>——2025 年起多个 agent 论文接收的核心卖点就是"系统性的失败模式分类"。ARA 论文的核心动机之一也正是这个。
-  </div>
-</section>
-
-<section id="faq">
-  <h2>14 · 常见问题</h2>
-  <p class="sub">历年带学生攒下来的那些问题</p>
-
-  <details class="faq">
-    <summary>我是大二，只上过 Python 基础课，能加入吗？</summary>
-    <div class="a">能。Track 01（Skill 拉取与基准建立）就是按这个起点设计的。主要是 Git/Bash/Markdown，把仓库跑通、截图、写一页说明。做完一轮就可以升到 Track 02。</div>
-  </details>
-
-  <details class="faq">
-    <summary>没有 Claude API 账号怎么办？</summary>
-    <div class="a">Claude Code 本地免费能跑 skill 结构；真正跑 benchmark 时我们会发共用 API key（受控预算）。开源模型路线（DeepSeek / Qwen）也有 Track，跑本地推理。</div>
-  </details>
-
-  <details class="faq">
-    <summary>只做 Track 01 能写进简历吗？</summary>
-    <div class="a">能，但角度要选对。写法不是"我拉了 10 个仓库"，而是"我维护了 X 个学术 agent skill 的首个中文 benchmark 卡片，覆盖 N 个研究环节"——关键词是<b>维护者 maintainer</b> 不是 user。</div>
-  </details>
-
-  <details class="faq">
-    <summary>ARA 那套协议看起来很新，学生能上手吗？</summary>
-    <div class="a">能。代码在 MIT 许可的公开 repo，一条 <code>npx @orchestra-research/ara-skills</code> 装完。起点最低的做法：用 <code>/compiler</code> 把你自己之前写过的任何一篇作业 / 小论文 / 课程 project 编译成 ARA artifact 看看效果，这个练手成本很低。</div>
-  </details>
-
-  <details class="faq">
-    <summary>如果我的实验结果比官方 paper 差很多，算失败吗？</summary>
-    <div class="a">不算。三种情况都常见：(a) paper 报的是 cherry-picked run，你遇到 variance；(b) paper 的 prompt 没完全公开；(c) 底座模型版本变了。<b>把差距可信地量化出来本身就是结论</b>。</div>
-  </details>
-
-  <details class="faq">
-    <summary>为什么要投 workshop 而不是主会？</summary>
-    <div class="a">时间窗对得上。主会 deadline 间隔 6 个月，workshop 1–2 个月一轮。学生第一篇先 workshop，拿到 reviewer 反馈后再升主会是成功率最高的路径。</div>
-  </details>
-
-  <details class="faq">
-    <summary>中文学术 benchmark（Track 03）真的算贡献吗？</summary>
-    <div class="a">算。所有主流榜单（GAIA / PaperBench / AutoSurvey / SimpleQA）都只评英文，中文侧有真实空缺。关键是 <b>reference 要硬</b>：用 CNKI/万方的真实引用池做金标，不是 GPT 生成的伪引用。</div>
-  </details>
-
-  <details class="faq">
-    <summary>周会是什么节奏？</summary>
-    <div class="a">每周一次 45 分钟，每人 5 分钟 update（做了什么 / 卡在哪 / 下周打算）。技术问题放 Slack 异步解决。</div>
-  </details>
-
-  <details class="faq">
-    <summary>如果中途我想换 track？</summary>
-    <div class="a">前 4 周可以无代价换；第 5 周之后只能并行（主 track + 小探索），因为学期节奏对不齐。</div>
-  </details>
-</section>
-
-<section id="sources">
-  <h2>15 · 数据来源与可复现性</h2>
-  <p class="sub">本报告每个数字都标了源</p>
-
-  <ul>
-    <li><b>Benchmark 元数据</b>（标题/作者/年份/DOI/被引）— <a href="https://api.openalex.org">api.openalex.org</a>，每条都用 <code>/works?search=…</code> 手动核过首项。</li>
-    <li><b>GitHub star</b> — <a href="https://api.github.com">api.github.com</a> 的 <code>/repos/{owner}/{repo}</code>，截至 2026-05-11。</li>
-    <li><b>arXiv 摘要</b> — <a href="https://export.arxiv.org/api/query">export.arxiv.org/api/query</a>（ARA 2604.24658 实测直连正常）。</li>
-    <li><b>ARA 协议细节</b> — <a href="https://raw.githubusercontent.com/Orchestra-Research/Agent-Native-Research-Artifact/main/README.md">Orchestra-Research ARA README</a>（Commit on main branch, 2026-05-11）</li>
-    <li><b>Stanford REAP 清单</b> — 本地 <code>Awesome-Agent-Skills-for-Empirical-Research-main/README-en.md</code>（2026-04 更新）。</li>
-    <li><b>Nature 2026 AI-Scientist</b> — <a href="https://doi.org/10.1038/s41586-026-10265-5">DOI 10.1038/s41586-026-10265-5</a>，Lu, Lu, Lange, Yamada 等。</li>
-  </ul>
-
-  <h4>要自己再核一遍？跑这一段</h4>
-  <div class="codeblock">
-    <span class="label">bash</span>
-    <button class="copy">Copy</button>
-<pre>for q in "MLE-bench" "PaperBench Replicate AI" "GAIA general AI assistants" "AutoSurvey" "RE-Bench METR" "Agent-Native Research Artifact"; do
-  enc=$(python3 -c "import urllib.parse,sys;print(urllib.parse.quote(sys.argv[1]))" "$q")
-  curl -sS "https://api.openalex.org/works?search=${enc}&amp;per-page=1&amp;select=title,publication_year,doi,cited_by_count" \
-    | python3 -c "import json,sys;r=json.load(sys.stdin)['results'];print(r[0]['publication_year'],r[0]['doi'],'—',r[0]['title'][:80]) if r else None"
-done</pre>
-  </div>
-</section>
-
-</div><!-- /.p2 -->
-<footer>
-  <span><b>学术 Agent Skill &amp; Benchmark · 调研 + Proposal · v3</b> · 2026-05-11 · <code>/Users/mjm/Skill/research-report.html</code></span>
-  <span>Benchmarks 核实：OpenAlex · Stars：GitHub REST · ARA：arXiv 2604.24658 · 生成：Claude Code</span>
+<footer class="colophon">
+  <h4>Colophon</h4>
+  <p>
+    Set in Iowan Old Style for the body text and SF Mono for code, on a 680-pixel measure
+    chosen for about 65 characters per line. All numbers current as of 2026-05-11. This
+    document is a single self-contained HTML file and has no external dependencies.
+  </p>
+  <p>
+    For the primary sources, see the hyperlinks in the text above. A plain-text mirror of
+    this essay would be a reasonable thing to produce on request.
+  </p>
 </footer>
-</main>
-</div>
-<script>
-const bar = document.getElementById('progress');
-window.addEventListener('scroll', () => {
-  const h = document.documentElement;
-  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-  bar.style.width = pct + '%';
-});
 
+<script>
+// Reading progress bar
+const bar = document.getElementById('progress');
+const update = () => {
+  const h = document.documentElement;
+  const pct = h.scrollHeight - h.clientHeight > 0
+    ? (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100
+    : 0;
+  bar.style.setProperty('--p', pct + '%');
+};
+window.addEventListener('scroll', update, { passive: true });
+update();
+
+// Active-section highlighting in TOC
 const links = document.querySelectorAll('#toc a[href^="#"]');
 const sections = Array.from(links).map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
 const io = new IntersectionObserver(entries => {
@@ -1223,19 +613,8 @@ const io = new IntersectionObserver(entries => {
       links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
     }
   });
-}, { rootMargin: '-20% 0px -70% 0px' });
+}, { rootMargin: '-25% 0px -65% 0px' });
 sections.forEach(s => io.observe(s));
-
-document.querySelectorAll('.codeblock .copy').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const pre = btn.parentElement.querySelector('pre');
-    navigator.clipboard.writeText(pre.innerText).then(() => {
-      btn.textContent = 'Copied';
-      btn.classList.add('done');
-      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1400);
-    });
-  });
-});
 </script>
 </body>
 </html>
