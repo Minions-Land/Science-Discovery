@@ -6,11 +6,11 @@
 <title>AI Agents, Skills, and the Academic Workflow · an introduction</title>
 <style>
   :root{
-    --bg:#fbfaf6; --ink:#1a1a1a; --dim:#5a6068; --faint:#8a9099;
-    --accent:#9c3b16; --accent-ink:#6e2a0f; --accent-bg:#faeee3;
-    --rule:#e7e2d6; --card:#ffffff;
-    --code-bg:#f1ecde; --hi:#fff4cf;
-    --shadow:0 1px 2px rgba(0,0,0,.03),0 6px 20px rgba(20,10,0,.04);
+    --bg:#fbfaf6; --ink:#191714; --dim:#5f6267; --faint:#908b7d;
+    --accent:#b8922d; --accent-ink:#6f5411; --accent-bg:#fbf2d8;
+    --rule:#e4dac2; --card:#fffdf8;
+    --code-bg:#f3eddf; --hi:#fff4cf;
+    --shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(42,30,6,.08);
     --serif:"Iowan Old Style","Cambria","Liberation Serif","Songti SC","Source Han Serif SC",Georgia,serif;
     --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","PingFang SC","Noto Sans CJK SC",sans-serif;
     --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
@@ -18,7 +18,10 @@
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth;scroll-padding-top:28px}
-  body{margin:0;background:var(--bg);color:var(--ink);
+  body{margin:0;background:
+    radial-gradient(circle at 50% -12%,rgba(224,188,88,.28),transparent 34rem),
+    linear-gradient(180deg,#fffdf8 0%,var(--bg) 34rem);
+    color:var(--ink);
     font:17px/1.72 var(--serif); -webkit-font-smoothing:antialiased; font-feature-settings:"tnum","ss01"}
 
   /* reading progress */
@@ -42,7 +45,7 @@
   .hero{margin-bottom:72px;border-bottom:1px solid var(--rule);padding-bottom:40px}
   .hero .eyebrow{font:600 11px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
   .hero h1{font-family:var(--serif);font-weight:700;font-size:46px;line-height:1.1;letter-spacing:-.02em;margin:0 0 18px}
-  .hero .standfirst{font-size:20px;line-height:1.55;color:#2f343a;margin:0 0 28px;font-style:italic;font-family:var(--serif)}
+  .hero .standfirst{font-size:20px;line-height:1.55;color:#30343a;margin:0 0 28px;font-style:italic;font-family:var(--serif)}
   .byline{font:13px var(--sans);color:var(--dim);display:flex;gap:6px 24px;flex-wrap:wrap;align-items:baseline}
   .byline b{color:var(--ink);font-weight:600}
   .byline .sep{color:var(--faint)}
@@ -60,7 +63,7 @@
   a{color:var(--accent);text-decoration:none;background-image:linear-gradient(currentColor,currentColor);background-size:100% 1px;background-repeat:no-repeat;background-position:0 100%;padding-bottom:1px;transition:color .12s}
   a:hover{color:var(--accent-ink)}
 
-  code{background:var(--code-bg);font:14px/1.4 var(--mono);padding:1px 5px;border-radius:3px;color:#3b2c1b}
+  code{background:var(--code-bg);font:14px/1.4 var(--mono);padding:1px 5px;border-radius:3px;color:#3f2f15}
   em{color:#2a2a2a}
   strong{color:var(--ink);font-weight:700}
   mark{background:var(--hi);padding:0 3px}
@@ -83,21 +86,43 @@
   /* callout */
   .aside{margin:26px 0;padding:16px 20px;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--accent);border-radius:3px;font-size:15.5px;line-height:1.6;box-shadow:var(--shadow)}
   .aside .k{font:11px var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--dim);margin-bottom:4px;display:block}
-  .aside.note{border-left-color:#6b4ca7}
-  .aside.note .k{color:#6b4ca7}
+  .aside.note{border-left-color:#7d62b8}
+  .aside.note .k{color:#7d62b8}
 
   /* table */
   table{border-collapse:collapse;width:100%;margin:20px 0;font:14.5px/1.45 var(--sans);background:var(--card);border:1px solid var(--rule)}
   th,td{padding:10px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
-  thead th{background:#f4efe2;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--dim)}
+  thead th{background:#f6eed9;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--accent-ink)}
   tr:last-child td{border-bottom:0}
-  tr:hover td{background:#fbf8ef}
+  tr:hover td{background:#fcf7e9}
   td.num{text-align:right;color:var(--dim);font-variant-numeric:tabular-nums;white-space:nowrap}
 
   /* figure (ASCII diagram) */
-  figure.diagram{margin:28px 0;padding:20px 22px;background:#23272c;color:#e6e2d7;border-radius:8px;
-    font:13.5px/1.55 var(--mono);white-space:pre;overflow-x:auto;box-shadow:var(--shadow)}
-  figure.diagram figcaption{color:var(--dim);font:12px var(--sans);margin-top:12px;padding-top:12px;border-top:1px solid #3a3f46;font-style:italic;white-space:normal}
+  figure.diagram{margin:28px 0;padding:20px 22px;background:#fffdf8;color:#24282e;border-radius:6px;border:1px solid #d8c58f;
+    font:13.5px/1.55 var(--mono);white-space:normal;overflow-x:auto;box-shadow:var(--shadow)}
+  figure.diagram code{display:block;background:transparent;color:inherit;padding:0;border-radius:0;font:inherit;white-space:pre;min-width:max-content}
+  figure.diagram figcaption{color:var(--dim);font:12px var(--sans);margin-top:12px;padding-top:12px;border-top:1px solid #eadfbe;font-style:italic;white-space:normal}
+
+  /* Nobel-style feature panels */
+  .nobel-panel{margin:30px 0;padding:22px;background:linear-gradient(135deg,#fffdf8,#f8f0d8);color:var(--ink);border:1px solid #d8c58f;border-left:3px solid var(--accent);border-radius:4px;box-shadow:var(--shadow)}
+  .nobel-panel .label{font:600 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--accent-ink);margin:0 0 8px}
+  .nobel-panel h3{margin-top:0;color:var(--ink)}
+  .nobel-panel p{color:#34322c}
+  .portrait-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
+  .portrait-card{background:#fffdf8;border:1px solid #d8c58f;min-width:0}
+  .portrait-card img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(.92) contrast(1.05) sepia(.14)}
+  .portrait-card .pbody{padding:10px 11px 12px}
+  .portrait-card b{display:block;font:600 13px/1.2 var(--sans);color:var(--ink);margin-bottom:3px}
+  .portrait-card span{display:block;font:12px/1.35 var(--sans);color:var(--dim)}
+  .ledger{font-size:13.5px}
+  .ledger .status{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+  .status.supported{color:#247a3b}
+  .status.limited{color:#9c6b05}
+  .status.new{color:#2b61b8}
+  .protocol{counter-reset:step;display:grid;gap:10px;margin:20px 0}
+  .protocol .step{position:relative;padding:12px 14px 12px 42px;background:var(--card);border:1px solid var(--rule);font:14px/1.45 var(--sans)}
+  .protocol .step::before{counter-increment:step;content:counter(step);position:absolute;left:13px;top:12px;width:18px;height:18px;border-radius:50%;background:#d8aa3a;color:#100b03;font:700 11px/18px var(--sans);text-align:center}
+  @media (max-width:760px){.portrait-grid{grid-template-columns:repeat(2,1fr)}}
 
   /* inline meta line */
   .meta{font:13px var(--sans);color:var(--dim);margin:6px 0 18px}
@@ -124,8 +149,12 @@
     <li><a href="#ecosystem"><span class="num">III</span>The ecosystem</a></li>
     <li><a href="#benchmarks"><span class="num">IV</span>Measuring progress</a></li>
     <li><a href="#frontier"><span class="num">V</span>The ARA frontier</a></li>
-    <li><a href="#open"><span class="num">VI</span>Open questions</a></li>
-    <li><a href="#colophon"><span class="num">VII</span>About this report</a></li>
+    <li><a href="#four-postures"><span class="num">VI</span>Four postures</a></li>
+    <li><a href="#evidence-ledger"><span class="num">VII</span>Evidence ledger</a></li>
+    <li><a href="#skillos"><span class="num">VIII</span>Skills as a learned policy</a></li>
+    <li><a href="#ssl"><span class="num">IX</span>Managing a skill library</a></li>
+    <li><a href="#open"><span class="num">X</span>Open questions</a></li>
+    <li><a href="#colophon"><span class="num">XI</span>About this report</a></li>
   </ol>
 </nav>
 
@@ -137,14 +166,15 @@
     Somewhere between the 2024 prompt-engineering era and the late-2026 papers
     where agents write their own papers, a new object quietly took over scientific tooling:
     the <em>skill</em>. This is a tour of where that object came from, what it can do today,
-    how we measure it, and one paper that might change the shape of scholarly publishing entirely.
+    how we measure it, and why autonomous discovery now needs four hard-gated cognitive
+    postures rather than one general-purpose assistant persona.
   </p>
   <div class="byline">
     <span>By <b>the editors</b></span>
     <span class="sep">·</span>
-    <span>Reading time <b>~14 min</b></span>
+    <span>Reading time <b>~18 min</b></span>
     <span class="sep">·</span>
-    <span><b>2026-05-11</b></span>
+    <span><b>2026-05-13</b></span>
   </div>
 </header>
 <section id="prologue">
@@ -548,8 +578,363 @@
 
 <p class="sep-ornament">❧</p>
 
+<section id="four-postures">
+  <h2><span class="roman">VI</span>Four postures for autonomous scientific collaboration</h2>
+  <p class="deck">A story worth keeping, with gates tight enough to keep it honest.</p>
+
+  <div class="nobel-panel">
+    <p class="label">Core story</p>
+    <h3>Ask like Socrates. Decompose like Musk. See conflict like Marx. Close the loop like Qian.</h3>
+    <p>
+      The four figures below are not a claim of intellectual priority. They are a mnemonic for
+      four mutually exclusive operating postures an agent can adopt during scientific work.
+      The point is not to decorate the system with famous names; it is to prevent the most common
+      failure mode in agent reasoning: mixing incompatible moves inside one step.
+    </p>
+    <div class="portrait-grid" aria-label="Four cognitive posture portraits">
+      <div class="portrait-card">
+        <img alt="Bust of Socrates" src="https://commons.wikimedia.org/wiki/Special:FilePath/Socrates_Louvre.jpg"/>
+        <div class="pbody"><b>Socrates</b><span>Expose hidden premises before answering.</span></div>
+      </div>
+      <div class="portrait-card">
+        <img alt="Elon Musk portrait" src="https://commons.wikimedia.org/wiki/Special:FilePath/Elon_Musk_Royal_Society_%28crop2%29.jpg"/>
+        <div class="pbody"><b>Elon Musk</b><span>Reduce the problem to hard constraints.</span></div>
+      </div>
+      <div class="portrait-card">
+        <img alt="Karl Marx portrait" src="https://commons.wikimedia.org/wiki/Special:FilePath/Karl_Marx_001.jpg"/>
+        <div class="pbody"><b>Karl Marx</b><span>Read tensions as dynamic, not fixed.</span></div>
+      </div>
+      <div class="portrait-card">
+        <img alt="Qian Xuesen portrait" src="https://commons.wikimedia.org/wiki/Special:FilePath/Qian_Xuesen_in_the_US.jpg"/>
+        <div class="pbody"><b>Qian Xuesen</b><span>Turn ideas into engineered feedback loops.</span></div>
+      </div>
+    </div>
+    <p class="meta">
+      Portrait sources: Wikimedia Commons. The Qian Xuesen image is treated conservatively here as
+      a U.S.-public-domain source with possible jurisdictional caveats outside the United States.
+    </p>
+  </div>
+
+  <p>
+    The unifying logic is bias reduction. Each posture attacks one class of error that appears
+    repeatedly in scientific-agent systems. <strong>Socratic inquiry</strong> reduces premise
+    bias: assumptions the team did not know it had. <strong>First-principles decomposition</strong>
+    reduces analogy bias: copying the field's current recipe instead of reasoning from the
+    lowest constraints available. <strong>Dialectical synthesis</strong> reduces static bias:
+    treating live tensions as frozen trade-offs. <strong>Cybernetic control</strong> reduces
+    landing bias: producing ideas that cannot be measured, corrected, or stopped.
+  </p>
+
+  <table>
+    <thead><tr><th>Posture</th><th>Permitted move</th><th>Hard gate</th><th>Bias reduced</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Socratic</strong></td><td>Clarify terms, expose assumptions, locate missing constraints.</td><td>No solution proposal until the premise ledger is explicit.</td><td>Premise bias</td></tr>
+      <tr><td><strong>First principles</strong></td><td>Derive options from mechanisms, resources, causal structure, mathematics, or institutional constraints.</td><td>No appeal to popularity, precedent, or standard practice as evidence.</td><td>Analogy bias</td></tr>
+      <tr><td><strong>Dialectical</strong></td><td>State thesis, antithesis, live tension, and candidate synthesis.</td><td>No premature compromise; the conflict must be modeled before it is resolved.</td><td>Static bias</td></tr>
+      <tr><td><strong>Cybernetic</strong></td><td>Define sensor, metric, intervention, feedback period, and stopping rule.</td><td>No implementation claim without a closed verification loop.</td><td>Landing bias</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    The hard gate matters. In the Socratic posture, the agent may ask and classify but must
+    not answer. In the first-principles posture, it may derive but must not borrow authority
+    from what other labs do. In the dialectical posture, it may map contradictions but must not
+    flatten them into a bland trade-off. In the cybernetic posture, it may operationalize but
+    must not sell a vision without observability. These constraints are the shackles; scientific
+    imagination is the dance allowed inside them.
+  </p>
+</section>
+
+<p class="sep-ornament">❧</p>
+
+<section id="evidence-ledger">
+  <h2><span class="roman">VII</span>What is supported, limited, and new</h2>
+  <p class="deck">The story is useful only if the provenance labels stay visible.</p>
+
+  <p>
+    A review of the current HTML report and the local skill stack gives a clean classification.
+    The existing material already supports structured workflows, evidence binding, failure
+    preservation, Socratic review, multi-perspective critique, calibration, and closed empirical
+    loops. It does not yet prove that the four-posture story itself improves autonomous discovery.
+    That remains a proposal to be tested.
+  </p>
+
+  <table class="ledger">
+    <thead><tr><th>Claim or mechanism</th><th>Local support</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Agents benefit from machine-legible artifacts with claim-to-evidence bindings.</td>
+        <td>ARA uses <code>logic/</code>, <code>src/</code>, <code>trace/</code>, and <code>evidence/</code>; the report cites PaperBench QA rising from 72.4% to 93.7%.</td>
+        <td><span class="status supported">Supported</span></td>
+      </tr>
+      <tr>
+        <td>Failed ideas should be preserved rather than hidden.</td>
+        <td>ARA makes dead ends first-class nodes; its README reports failed RE-Bench runs account for 90.2% of dollar cost.</td>
+        <td><span class="status supported">Supported</span></td>
+      </tr>
+      <tr>
+        <td>Socratic guidance is useful as a review and revision posture.</td>
+        <td><code>academic-paper-reviewer</code> includes guided Socratic review and revision coaching.</td>
+        <td><span class="status supported">Supported</span></td>
+      </tr>
+      <tr>
+        <td>Independent critique reduces groupthink and confirmation bias.</td>
+        <td>The reviewer skill includes a Devil's Advocate, cherry-picking detection, confirmation-bias detection, and a rule that critical findings cannot be ignored.</td>
+        <td><span class="status supported">Supported</span></td>
+      </tr>
+      <tr>
+        <td>Closed loops are useful in empirical work.</td>
+        <td>The empirical-research stack contains explicit 6-step and 8-step loops for diagnostics, estimation, robustness, and publication outputs.</td>
+        <td><span class="status supported">Supported</span></td>
+      </tr>
+      <tr>
+        <td>Preserved failure traces are always beneficial.</td>
+        <td>The current report already notes the ARA caveat: on open-ended RE-Bench extension tasks, preserved traces can constrain a strong agent.</td>
+        <td><span class="status limited">Limited</span></td>
+      </tr>
+      <tr>
+        <td>The exact Socrates-Musk-Marx-Qian four-posture protocol improves autonomous discovery.</td>
+        <td>No local benchmark has tested this exact decomposition against a monolithic agent, ARA-only agent, or ordinary multi-agent debate.</td>
+        <td><span class="status new">New hypothesis</span></td>
+      </tr>
+      <tr>
+        <td>Popper, Peirce, Bayes, Darwin, and Shannon should become auxiliary discovery modules.</td>
+        <td>The stack contains pieces of this logic, especially falsifiability, novelty checks, robustness, and information-bearing benchmarks; the unified module map is new.</td>
+        <td><span class="status new">New hypothesis</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>A conservative experimental path</h3>
+  <p>
+    The right way to use the story is not to declare victory. It is to make it falsifiable.
+    A minimal study would compare four agents on the same research tasks:
+  </p>
+  <div class="protocol">
+    <div class="step">Baseline agent: one general assistant prompt, no explicit posture gate.</div>
+    <div class="step">Artifact-only agent: ARA or Material Passport structure, but no four-posture reasoning protocol.</div>
+    <div class="step">Debate-only agent: multiple critics, but without posture separation.</div>
+    <div class="step">Four-posture agent: Socratic to first principles to dialectical to cybernetic, with gate violations logged.</div>
+  </div>
+  <p>
+    Outcomes should be modest and observable: unsupported-claim rate, premise errors caught,
+    novelty-check failures, experiment-plan completeness, dead-end reuse, reviewer score, and
+    reproduction success on PaperBench-like or ScienceAgentBench-like tasks. The framework
+    should be abandoned or revised if it improves narrative quality without improving these
+    measurements.
+  </p>
+</section>
+
+<p class="sep-ornament">❧</p>
+
+
+<section id="skillos">
+  <h2><span class="roman">VIII</span>The other frontier: skills as a learned policy</h2>
+  <p class="deck">A second paper, from the same month, points in a direction ARA does not.</p>
+
+  <p>
+    Section V took one paper seriously because its intervention is architectural: it
+    changes the object that science is published <em>as</em>. A second 2026 paper,
+    posted a week and a half later from a UIUC&ndash;Google collaboration, is worth reading
+    alongside it because its intervention runs orthogonal. Where ARA reshapes the
+    <em>paper</em>, <a href="https://arxiv.org/abs/2605.06614"><strong>SkillOS</strong></a>
+    (Ouyang <em>et&nbsp;al.</em>, May 2026) reshapes the <em>skill</em> &mdash; or rather, it
+    stops treating the skill as a thing a human writes, and asks whether an agent can
+    learn to curate its own skill library.
+  </p>
+
+  <p class="meta">
+    Paper: <a href="https://arxiv.org/abs/2605.06614">arXiv:2605.06614</a> &middot;
+    Sixteen authors led by Siru Ouyang (UIUC / Google Research); last author Chen-Yu
+    Lee. Published 2026-05-07.
+  </p>
+
+  <h3>The setup</h3>
+  <p>
+    SkillOS factors an agent into two components. The <strong>executor</strong> is
+    frozen &mdash; a capable LLM that, given a task, retrieves relevant skills from a
+    repository and applies them. The <strong>curator</strong> is trainable: after
+    each task, it decides what to add, revise, or remove from the repository based on
+    what just happened. The repository itself is plain Markdown, one file per skill,
+    the same format the ecosystem has already settled on. What is new is the
+    training signal.
+  </p>
+
+  <p>
+    Skill curation is a reinforcement-learning problem with an awkward shape. The
+    reward for deciding to write down a particular heuristic today does not arrive
+    until some future task benefits from having read it. The authors handle this by
+    grouping tasks into streams whose dependencies are known in advance: earlier
+    trajectories update the SkillRepo; later, related tasks evaluate those updates
+    and yield the learning signal. A composite reward combines direct task success
+    with how often the curator&rsquo;s edits are actually consulted downstream.
+  </p>
+
+  <h3>What the curator learns</h3>
+  <p>
+    SkillOS beats memory-free and strong memory-based baselines on both multi-turn
+    agentic benchmarks and single-turn reasoning tasks, and a curator trained against
+    one executor backbone transfers to a different one with most of the gain intact.
+    The harder-to-dismiss finding is qualitative: over training, the skills produced
+    by the curator <strong>evolve from flat procedural notes into richly structured
+    Markdown files</strong> &mdash; documents that encode higher-level meta-skills rather
+    than isolated recipes. The curator, left to its own devices, rediscovers the
+    organisational moves that the best human skill-authors were already making.
+  </p>
+
+  <div class="aside note">
+    <span class="k">A consequence worth spelling out</span>
+    If the curator produces skill files that look like the ones a careful human
+    would write, and if those files remain Markdown in the canonical format, then a
+    learned curator and a human author can populate the same repository. The
+    boundary between &ldquo;written by a researcher&rdquo; and &ldquo;written by an agent that
+    learned to write&rdquo; becomes observational rather than structural. That matters
+    both as a promise &mdash; ecosystems can self-fill their gaps &mdash; and as a caution:
+    provenance tracking of the kind ARA built into its four-layer protocol becomes
+    more, not less, important.
+  </div>
+
+  <h3>Read alongside ARA</h3>
+  <p>
+    The two papers are complementary without overlapping. ARA gives you an artifact
+    format that agents can reliably consume; SkillOS gives you a mechanism by which
+    agents learn to produce the documents that populate such formats. Neither is
+    sufficient on its own. Together they sketch a closed loop in which research
+    outputs are machine-legible by construction, skill authoring is itself subject to
+    empirical pressure, and the distance between a finding and a reusable capability
+    collapses from &ldquo;a paper and a graduate student&rsquo;s weekend&rdquo; to &ldquo;an RL update.&rdquo;
+    Whether that loop actually closes in 2026 is the question the next year will
+    answer.
+  </p>
+</section>
+
+<p class="sep-ornament">❧</p>
+
+<p class="sep-ornament">❧</p>
+
+<section id="ssl">
+  <h2><span class="roman">IX</span>Managing a skill library, and the problem of progressive disclosure</h2>
+  <p class="deck">A third 2026 paper turns the practical question of skill management into a representation question — and finds an answer worth taking seriously.</p>
+
+  <p>
+    Sections V and VI were about what agents <em>do</em> — reproduce papers, learn to
+    curate their own libraries. There is a more mundane question underneath both, and
+    it is the one that anyone with a <code>~/.claude/skills/</code> folder discovers within a
+    week of use: <strong>how should a skill library be organised so that the agent
+    finds the right skill at the right moment, and reads only as much of it as it
+    needs?</strong> Practitioners call this <em>progressive disclosure</em>, and
+    until recently it was treated as a prompt-engineering problem: write the skill's
+    description in the YAML header tightly enough that the agent can triage on
+    keywords alone, and keep the bulk of the prose in <code>references/</code>
+    files that load on demand. It works, but only up to the point where the library
+    is small enough for one author to remember.
+  </p>
+
+  <p>
+    In late April 2026, a group from Peking University
+    (<a href="https://arxiv.org/abs/2604.24026">Liang, Wang, Liang &amp; Liu</a>)
+    argued that progressive disclosure is really a
+    <em>representation</em> problem, and proposed a solution sharp enough to
+    evaluate. Their paper — <em>From Skill Text to Skill Structure</em> — points out
+    that a <code>SKILL.md</code> file entangles three very different kinds of
+    information in a single textual surface: <strong>scheduling</strong> (when
+    should this skill be invoked? what does it take and return?),
+    <strong>structural</strong> (what phases does its execution fall into, and how
+    do they connect?), and <strong>logical</strong> (inside each phase, what
+    concrete actions happen, what resources do they touch, what could go wrong?).
+    Keeping them in one Markdown blob is fine when a human is doing the retrieval,
+    but forces a machine to reason over all three axes simultaneously each time it
+    reaches for the file.
+  </p>
+
+  <p class="meta">
+    Paper: <a href="https://arxiv.org/abs/2604.24026">arXiv:2604.24026</a> &middot;
+    Code &amp; annotated skill corpus:
+    <a href="https://github.com/COOLPKU/SSL">COOLPKU/SSL</a> &middot;
+    Published 2026-04-27.
+  </p>
+
+  <h3>The SSL representation</h3>
+  <p>
+    Drawing on Schank and Abelson's 1970s cognitive-linguistic work — Memory
+    Organisation Packets, Script Theory, Conceptual Dependency — the authors
+    disentangle the three layers into a typed graph:
+  </p>
+
+  <figure class="diagram"><code>G_d = (r_sch,   G_str,   G_log,   R_cont,   R_entry)
+       |         |        |       |         +-- entry-point bindings
+       |         |        |       +------------ cross-layer containment
+       |         |        +-------------------- Logical  (actions, resources, effects)
+       |         +----------------------------- Structural (scene graph, transitions)
+       +--------------------------------------- Scheduling (intent, I/O, deps)</code>
+<figcaption>The SSL decomposition of a single <code>SKILL.md</code>. Cross-layer containment <em>R</em><sub>cont</sub> keeps every structural scene and logical step anchored to the source span it came from; <em>R</em><sub>entry</sub> marks which scene each scheduling intent begins in.</figcaption></figure>
+
+  <p>
+    The three layers map onto three different retrieval questions. When an agent
+    is asking <em>which skill should I use?</em>, only the scheduling layer
+    matters — a compact capability record. When it is asking <em>how does this
+    skill unfold?</em>, the structural layer provides the scene graph. When it
+    finally executes, the logical layer supplies concrete action/resource
+    evidence and the associated risks. Each layer is loaded on demand, and each
+    is grounded back to the exact span in the original
+    <code>SKILL.md</code> that produced it — so the source document remains the
+    ground truth and the structured record remains an <em>interface</em> over it,
+    never a replacement.
+  </p>
+
+  <h3>Does it actually help?</h3>
+  <p>
+    The paper evaluates SSL on two tasks that stand in for the two halves of
+    progressive disclosure — <em>finding</em> the right skill, and <em>inspecting</em>
+    it before use.
+  </p>
+
+  <div class="stats">
+    <div class="s"><div class="v">0.649 &rarr; 0.729</div><div class="l">Skill Discovery &middot; MRR@50</div></div>
+    <div class="s"><div class="v">0.409 &rarr; 0.509</div><div class="l">Risk Assessment &middot; macro F1</div></div>
+    <div class="s"><div class="v">+8 / +10 pts</div><div class="l">absolute gain over SKILL.md baseline</div></div>
+    <div class="s"><div class="v">3 layers</div><div class="l">independently loadable</div></div>
+  </div>
+
+  <p>
+    The gains are not dramatic, but they are consistent and in the right
+    direction. More interestingly, the tasks exercise different layers: Skill
+    Discovery leans on scheduling and structural evidence (the "what does this
+    skill do?" question), Risk Assessment leans on logical evidence (the "what
+    could this skill touch, and how badly?" question). Both improve when the
+    evidence they need is typed and separated from the prose that surrounds it.
+  </p>
+
+  <div class="aside note">
+    <span class="k">Why this is the right framing of progressive disclosure</span>
+    In the practitioner community, progressive disclosure usually means "keep
+    the YAML header short so the agent can triage, and push detail into
+    <code>references/</code>". That is a quantitative cut — less prose up front,
+    more on demand. SSL suggests a <em>qualitative</em> cut instead: at every
+    depth, load only the <em>kind</em> of evidence the current decision needs.
+    Triage reads the scheduling layer. Planning reads the structural layer.
+    Execution and safety checks read the logical layer. The source document
+    remains for anything the structure cannot anchor — rationale, examples,
+    caveats — which is what an authored document is uniquely good at.
+  </div>
+
+  <h3>Read alongside ARA and SkillOS</h3>
+  <p>
+    The three papers from April–May 2026 now form a tidy stack. ARA (Section V) gives
+    you a machine-legible <em>artifact format</em> for research outputs. SkillOS
+    (Section VI) gives you a mechanism by which agents <em>learn to curate</em> the
+    skills that populate such formats. SSL (this section) gives you a
+    <em>representation layer</em> that makes the resulting library searchable and
+    inspectable without flattening it back into prose. Together they sketch a
+    system in which skills are authored (by humans or agents), structured for
+    progressive disclosure, and retrieved by type rather than by keyword.
+  </p>
+</section>
+
+<p class="sep-ornament">❧</p>
+
 <section id="open">
-  <h2><span class="roman">VI</span>Three open questions</h2>
+  <h2><span class="roman">X</span>Four open questions</h2>
   <p class="deck">Work that looks doable right now, for whoever wants to pick it up.</p>
 
   <p>
@@ -587,17 +972,28 @@
     If it is not, the intervention is model-specific and the field will keep looking. Either
     answer is publishable.
   </p>
+
+  <h3>Do cognitive gates improve discovery, or only prose?</h3>
+  <p>
+    The four-posture story in Section VI is attractive, but attractiveness is not evidence.
+    The next test is whether hard gates reduce measurable failure modes: hidden assumptions,
+    analogy-driven design choices, unresolved tensions, and unclosed feedback loops. If the
+    gains appear only in writing quality or reviewer impression, the framework is rhetoric.
+    If the gains appear in reproducibility, failed-branch reuse, and experiment selection,
+    it becomes infrastructure.
+  </p>
 </section>
 
 <p class="sep-ornament">❧</p>
 </article>
 
-<footer class="colophon">
+<footer class="colophon" id="colophon">
   <h4>Colophon</h4>
   <p>
     Set in Iowan Old Style for the body text and SF Mono for code, on a 680-pixel measure
-    chosen for about 65 characters per line. All numbers current as of 2026-05-11. This
-    document is a single self-contained HTML file and has no external dependencies.
+    chosen for about 65 characters per line. Visual tone revised toward a Nobel-style
+    white-and-gold treatment on 2026-05-13. All numbers current as of 2026-05-13. This
+    document remains a single HTML file; the four portrait images are loaded from Wikimedia Commons.
   </p>
   <p>
     For the primary sources, see the hyperlinks in the text above. A plain-text mirror of
