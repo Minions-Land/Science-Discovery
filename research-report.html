@@ -155,8 +155,9 @@
     <li><a href="#lifecycle"><span class="num">VIII</span>The lifecycle of a skill</a></li>
     <li><a href="#four-postures"><span class="num">IX</span>Four thinking postures</a></li>
     <li><a href="#evidence-ledger"><span class="num">X</span>What is supported, and what is new</a></li>
-    <li><a href="#open"><span class="num">XI</span>Open questions</a></li>
-    <li><a href="#colophon"><span class="num">XII</span>About this report</a></li>
+    <li><a href="#zero-citation"><span class="num">XI</span>Zero-hallucination evidence</a></li>
+    <li><a href="#open"><span class="num">XII</span>Open questions</a></li>
+    <li><a href="#colophon"><span class="num">XIII</span>About this report</a></li>
   </ol>
 </nav>
 
@@ -174,7 +175,7 @@
   <div class="byline">
     <span>By <b>the editors</b></span>
     <span class="sep">·</span>
-    <span>Reading time <b>~18 min</b></span>
+    <span>Reading time <b>~23 min</b></span>
     <span class="sep">·</span>
     <span><b>2026-05-13</b></span>
   </div>
@@ -1241,6 +1242,16 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
         <td><span class="status supported">Supported</span></td>
       </tr>
       <tr>
+        <td>Zero-hallucination citation verification is already an operational skill, not only a norm.</td>
+        <td><code>AI-Research-SKILLs</code>, <code>claude-scholar</code>, and RebuttalStudio all ship citation-verification guidance: search first, verify existence, retrieve BibTeX from a source of record, validate the cited claim, and mark unresolved items rather than inventing metadata.</td>
+        <td><span class="status supported">Supported</span></td>
+      </tr>
+      <tr>
+        <td>The same verification pattern can be generalized from citations to every research action.</td>
+        <td>ARA already has claim-to-experiment-to-evidence bindings and a trace DAG. The proposed extension below adds citation receipts, action receipts, and node-level support status for the whole team process.</td>
+        <td><span class="status new">New hypothesis</span></td>
+      </tr>
+      <tr>
         <td>Preserved failure traces are always beneficial.</td>
         <td>The current report already notes the ARA caveat: on open-ended RE-Bench extension tasks, preserved traces can constrain a strong agent.</td>
         <td><span class="status limited">Limited</span></td>
@@ -1280,14 +1291,194 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
 
 <p class="sep-ornament">❧</p>
 
-<section id="open">
-  <h2><span class="roman">XI</span>Five open questions</h2>
-  <p class="deck">Five concrete problems that inherit directly from Sections III through X, and where small teams can still make a first move.</p>
+<section id="zero-citation">
+  <h2><span class="roman">XI</span>Zero-hallucination evidence</h2>
+  <p class="deck">Citation verification is the smallest useful version of a larger problem: a research agent should never promote a claim, result, or branch in the discovery process without a checkable receipt.</p>
 
   <p>
-    An essay that ends &ldquo;and now the future is bright&rdquo; is not worth reading. The five
+    The community evidence is unusually practical here. The GitHub ecosystem
+    has moved beyond generic &ldquo;write better papers&rdquo; prompts toward executable
+    academic workflows: <a href="https://github.com/Orchestra-Research/AI-Research-SKILLs">
+    <code>AI-Research-SKILLs</code></a> packages ML paper writing, LaTeX, and
+    citation APIs; <a href="https://github.com/Imbad0202/academic-research-skills">
+    <code>academic-research-skills</code></a> wraps research, writing, review,
+    revision, and finalization; <a href="https://github.com/Galaxy-Dawn/claude-scholar">
+    <code>claude-scholar</code></a> adds Zotero-centered reference management;
+    <a href="https://github.com/binary-husky/gpt_academic"><code>GPT Academic</code></a>
+    shows how much demand exists for interactive paper reading, polishing,
+    translation, and code explanation; and the empirical-research collection
+    indexes 119 repositories and 23,000+ skills across social-science workflows.
+    The exact star counts move daily, so the meaningful signal is not the number.
+    It is that citation hygiene, evidence propagation, and reference management
+    are becoming infrastructure.
+  </p>
+
+  <p>
+    The empirical pressure is real. In the
+    <a href="https://www.nature.com/articles/s41586-025-10072-4">OpenScholar
+    study in <em>Nature</em></a>, the authors introduce a retrieval-augmented
+    system and ScholarQABench for long-form scientific synthesis. Their most
+    relevant finding for this report is not that retrieval helps; it is that
+    citation accuracy becomes measurable. The paper reports a 45-million-paper
+    open-access store, a 2,967-query benchmark, and GPT-4o citation hallucination
+    rates of 78&ndash;90% in its setting, while OpenScholar's retrieval store,
+    retrievers, and self-feedback loop brought citation-backed synthesis close
+    to expert-level citation accuracy. That is the right lesson:
+    no-hallucination writing is not a tone style. It is a retrieval and
+    verification architecture.
+  </p>
+
+  <div class="aside">
+    <span class="k">The first hard rule</span>
+    A model may suggest a reference, but it may not write a reference from memory.
+    A citation enters the paper only after an external source of record confirms
+    the work exists, its metadata matches, and the specific claim being cited is
+    actually supported by that work. If verification fails, the system must drop
+    the citation or leave an explicit <code>[CITATION NEEDED]</code> marker.
+  </div>
+
+  <h3>What the current skills already know</h3>
+  <p>
+    Three local sources converge on the same workflow. The vendored
+    <code>AI-Research-SKILLs</code> citation guide defines a five-step path:
+    search, verify in multiple sources, retrieve BibTeX through DOI or a trusted
+    metadata service, validate the claim, and only then add the entry. The
+    <code>claude-scholar</code> citation skill adds a layered validator: BibTeX
+    format, existence, metadata matching, and content validation. RebuttalStudio
+    adapts the same rule for the highest-pressure setting: never introduce a
+    reviewer-facing citation unless it has been checked.
+  </p>
+
+  <table>
+    <thead><tr><th>Layer</th><th>Operational check</th><th>Failure behavior</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Existence</b></td>
+        <td>Resolve title, DOI, arXiv ID, or venue through CrossRef, Semantic Scholar, OpenAlex, arXiv, ACL Anthology, OpenReview, or Zotero.</td>
+        <td>Do not cite; keep a visible unresolved marker.</td>
+      </tr>
+      <tr>
+        <td><b>Metadata</b></td>
+        <td>Match title, first author, year tolerance, venue, DOI, and BibTeX key against the source of record.</td>
+        <td>Downgrade to human review if any field only partially matches.</td>
+      </tr>
+      <tr>
+        <td><b>Claim support</b></td>
+        <td>Locate the sentence, table, figure, theorem, or result that supports the statement being cited.</td>
+        <td>Use a weaker phrasing or remove the citation if the source only supports a neighboring claim.</td>
+      </tr>
+      <tr>
+        <td><b>Propagation</b></td>
+        <td>Carry the verified citation key from notes to related work, methods, experiments, rebuttal, and final references.</td>
+        <td>Block finalization when cited keys are undefined, unused, or unsupported.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>The citation record</h3>
+  <p>
+    The immediate engineering move is to stop treating a citation as a string.
+    It should be a typed record, with its own provenance and support status:
+  </p>
+
+  <figure class="diagram"><code>citation_record:
+  id: CR-042
+  paper_key: vaswani_2017_attention
+  cited_claim: C-INTRO-03
+  search_query: "Attention is All You Need Vaswani 2017"
+  existence_sources: [SemanticScholar, arXiv, OpenReview]
+  bibtex_source: DOI content negotiation | Zotero | CrossRef
+  metadata_match:
+    title: exact
+    first_author: exact
+    year: within_tolerance
+    venue: matched
+  claim_support:
+    source_location: "Section 3, Figure 2, or page/paragraph locator"
+    support_level: direct | indirect | background | not_supported
+  status: verified | needs_human | rejected
+  verified_by: user | agent | mixed
+  timestamp: 2026-05-13T00:00:00Z</code>
+<figcaption>A citation is no longer just <code>\cite{...}</code>. It is a small evidence object that can be audited, propagated, and rejected.</figcaption></figure>
+
+  <h3>From clean citations to clean discovery</h3>
+  <p>
+    Once citation verification is expressed this way, the generalization becomes
+    obvious. A citation is only one kind of evidence edge. An experiment result,
+    a data-cleaning decision, a baseline choice, a failed hypothesis, a reviewer
+    response, and a design pivot all need the same treatment: a node, an action,
+    a receipt, a status, and a link to the claims it affects.
+  </p>
+
+  <figure class="diagram"><code>root question
+  ├── P01 premise: "skill libraries reduce procedural error"
+  │     └── receipt: survey / benchmark / local observation
+  ├── H01 hypothesis: "four hard-gated postures reduce bias"
+  │     ├── E01 experiment plan: compare four agent variants
+  │     ├── R01 result: unsupported-claim rate falls
+  │     └── F01 failed branch: preserved if no improvement appears
+  ├── C01 citation node: verified source for "procedural gap"
+  └── D01 decision: promote / revise / abandon the claim</code>
+<figcaption>The desired object is an evidence web: a branching research history where positive and negative paths are both first-class, and every edge carries a receipt.</figcaption></figure>
+
+  <p>
+    This is the ARA idea taken one level further. ARA already gives us
+    <code>logic/claims.md</code>, <code>logic/experiments.md</code>,
+    <code>trace/exploration_tree.yaml</code>, and <code>evidence/</code>.
+    The zero-hallucination extension is to add receipts for every transition,
+    not only every final claim. A negative path should not disappear because it
+    failed; it should be typed as <code>refuted</code>, <code>blocked</code>,
+    <code>not_reproducible</code>, or <code>out_of_scope</code>, with the
+    evidence that made the team stop.
+  </p>
+
+  <h3>How it lands on disk</h3>
+  <p>
+    A minimal implementation does not require a new monolithic platform. It can
+    be a thin extension of the existing ARA layout:
+  </p>
+
+  <figure class="diagram"><code>artifact/
+  logic/
+    claims.md                       ← claim IDs, falsification criteria, support status
+    related_work.md                 ← typed dependency graph and verified citation keys
+  trace/
+    exploration_tree.yaml           ← node DAG: premise, question, hypothesis, action, result, dead end
+    team_journal.jsonl              ← append-only turn log with actor, action, and affected nodes
+  evidence/
+    citations/
+      verified.bib                  ← only source-backed BibTeX entries
+      verification-ledger.jsonl     ← one citation_record per attempted reference
+    receipts/
+      search/*.json                 ← query, API, result IDs, retrieval timestamp
+      experiments/*.json            ← command, config, seed, environment, output hash
+      reviews/*.json                ← reviewer claim, response, supporting evidence
+    tables/ figures/                ← raw numeric and visual evidence
+  views/
+    evidence-web.json               ← graph view for HTML, notebook, or dashboard rendering</code>
+<figcaption>The persistent object is append-only where possible. Claims can be revised; receipts should remain.</figcaption></figure>
+
+  <p>
+    The governance rule is simple: writing may be fluent, but promotion is
+    gated. A paragraph can be drafted speculatively; it cannot be finalized
+    until every strong claim resolves to a claim ID, every claim ID resolves to
+    evidence, and every evidence object carries a source, timestamp, and actor.
+    That is the disciplined version of &ldquo;dance with shackles&rdquo;: the agent may
+    explore freely, but the research artifact only admits what the evidence web
+    can carry.
+  </p>
+</section>
+
+<p class="sep-ornament">❧</p>
+
+<section id="open">
+  <h2><span class="roman">XII</span>Six open questions</h2>
+  <p class="deck">Six concrete problems that inherit directly from Sections III through XI, and where small teams can still make a first move.</p>
+
+  <p>
+    An essay that ends &ldquo;and now the future is bright&rdquo; is not worth reading. The six
     questions below are not speculative; each one is a direct descendant of something left
-    unresolved in Sections III through VIII, and each one is at a stage where evidence is
+    unresolved in Sections III through XI, and each one is at a stage where evidence is
     still thin enough that a modest study can move the consensus.
   </p>
 
@@ -1353,6 +1544,17 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
     If the gains appear in reproducibility, failed-branch reuse, and experiment selection,
     it becomes infrastructure.
   </p>
+
+  <h3>Can an evidence web stay usable after it grows?</h3>
+  <p>
+    Section XI proposes a traceable discovery web, but the hard part is not drawing the graph.
+    It is keeping the graph useful after hundreds of nodes, many agents, and several abandoned
+    branches. A first benchmark should measure receipt completeness, unsupported-claim rate,
+    duplicate-node growth, time-to-audit, and whether negative paths actually prevent repeated
+    failed work. If the web becomes a museum of logs that nobody queries, it fails. If it lets
+    a new agent resume a project without inventing citations, rerunning dead ends, or overstating
+    evidence, it becomes the operating substrate for autonomous science.
+  </p>
 </section>
 
 <p class="sep-ornament">❧</p>
@@ -1371,8 +1573,10 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
     were verified through <code>api.github.com</code>; benchmark metadata through
     <code>api.openalex.org</code>; the four featured 2026 papers (ARA, SkillOS, SSL,
     and the CUHK-Shenzhen agent-skills survey)
-    through arXiv's rendered HTML mirror. A plain-text mirror of this essay would be
-    a reasonable thing to produce on request.
+    through arXiv's rendered HTML mirror. Section XI additionally checks local vendored
+    skill files for <code>AI-Research-SKILLs</code>, <code>claude-scholar</code>, and
+    RebuttalStudio, plus the OpenScholar article in <em>Nature</em>. A plain-text
+    mirror of this essay would be a reasonable thing to produce on request.
   </p>
 </footer>
 
