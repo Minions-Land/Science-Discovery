@@ -111,6 +111,27 @@
   /* end-of-section separator */
   .sep-ornament{text-align:center;color:var(--faint);letter-spacing:1em;margin:56px 0 24px;font-family:var(--serif)}
 
+  /* Nobel-style feature panels */
+  .nobel-panel{margin:30px 0;padding:22px;background:linear-gradient(135deg,#fffdf8,#f8f0d8);color:var(--ink);border:1px solid #d8c58f;border-left:3px solid var(--accent);border-radius:4px;box-shadow:var(--shadow)}
+  .nobel-panel .label{font:600 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--accent-ink);margin:0 0 8px}
+  .nobel-panel h3{margin-top:0;color:var(--ink)}
+  .nobel-panel p{color:#34322c}
+  .portrait-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
+  .portrait-card{background:#fffdf8;border:1px solid #d8c58f;min-width:0}
+  .portrait-card img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(.92) contrast(1.05) sepia(.14)}
+  .portrait-card .pbody{padding:10px 11px 12px}
+  .portrait-card b{display:block;font:600 13px/1.2 var(--sans);color:var(--ink);margin-bottom:3px}
+  .portrait-card span{display:block;font:12px/1.35 var(--sans);color:var(--dim)}
+  .ledger{font-size:13.5px}
+  .ledger .status{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+  .status.supported{color:#247a3b}
+  .status.limited{color:#9c6b05}
+  .status.new{color:#2b61b8}
+  .protocol{counter-reset:step;display:grid;gap:10px;margin:20px 0}
+  .protocol .step{position:relative;padding:12px 14px 12px 42px;background:var(--card);border:1px solid var(--rule);font:14px/1.45 var(--sans)}
+  .protocol .step::before{counter-increment:step;content:counter(step);position:absolute;left:13px;top:12px;width:18px;height:18px;border-radius:50%;background:#d8aa3a;color:#100b03;font:700 11px/18px var(--sans);text-align:center}
+  @media (max-width:760px){.portrait-grid{grid-template-columns:repeat(2,1fr)}}
+
   /* footer */
   footer.colophon{max-width:var(--measure);margin:0 auto;padding:40px 28px 64px;border-top:1px solid var(--rule);font:13px/1.65 var(--sans);color:var(--dim)}
   footer.colophon h4{font:600 12px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin:0 0 10px}
@@ -132,8 +153,10 @@
     <li><a href="#skillos"><span class="num">VI</span>The other frontier</a></li>
     <li><a href="#ssl"><span class="num">VII</span>The practical frontier</a></li>
     <li><a href="#lifecycle"><span class="num">VIII</span>The lifecycle of a skill</a></li>
-    <li><a href="#open"><span class="num">IX</span>Open questions</a></li>
-    <li><a href="#colophon"><span class="num">X</span>About this report</a></li>
+    <li><a href="#four-postures"><span class="num">IX</span>Four thinking postures</a></li>
+    <li><a href="#evidence-ledger"><span class="num">X</span>What is supported, and what is new</a></li>
+    <li><a href="#open"><span class="num">XI</span>Open questions</a></li>
+    <li><a href="#colophon"><span class="num">XII</span>About this report</a></li>
   </ol>
 </nav>
 
@@ -1035,13 +1058,172 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
 
 <p class="sep-ornament">❧</p>
 
-
-<section id="open">
-  <h2><span class="roman">IX</span>Four open questions</h2>
-  <p class="deck">Concrete problems that inherit directly from the preceding sections, and where small teams can still make a first move.</p>
+<section id="four-postures">
+  <h2><span class="roman">IX</span>Four thinking postures for autonomous scientific work</h2>
+  <p class="deck">Sections V&ndash;VIII gave the agent its instruments. This one gives it a discipline.</p>
 
   <p>
-    An essay that ends &ldquo;and now the future is bright&rdquo; is not worth reading. The four
+    Every piece of infrastructure assembled above &mdash; the ARA artifact, the SkillOS
+    curator, the SSL retrieval layer, the lifecycle verbs &mdash; eventually resolves to one
+    moment: an agent has the right skill loaded, and now has to think. What happens inside
+    that moment is not fully covered by any single paper above. The most common failure mode
+    in real scientific-agent systems is not a missing skill but a <em>mixed reasoning step</em>
+    &mdash; asking for assumptions and also committing to an answer, appealing to first
+    principles and also deferring to precedent, staging a contradiction and also flattening
+    it. The four postures below are a mnemonic for keeping those moves separate.
+  </p>
+
+  <div class="nobel-panel">
+    <p class="label">Core story</p>
+    <h3>Ask like Socrates. Decompose like Musk. See conflict like Marx. Close the loop like Qian.</h3>
+    <p>
+      The four figures below are not a claim of intellectual priority. They are a mnemonic for
+      four mutually exclusive operating postures an agent can adopt during scientific work.
+      The point is not to decorate the system with famous names; it is to prevent the most common
+      failure mode in agent reasoning: mixing incompatible moves inside one step.
+    </p>
+    <div class="portrait-grid" aria-label="Four cognitive posture portraits">
+      <div class="portrait-card">
+        <img alt="Bust of Socrates" src="https://commons.wikimedia.org/wiki/Special:FilePath/Socrates_Louvre.jpg"/>
+        <div class="pbody"><b>Socrates</b><span>Expose hidden premises before answering.</span></div>
+      </div>
+      <div class="portrait-card">
+        <img alt="Elon Musk portrait" src="https://commons.wikimedia.org/wiki/Special:FilePath/Elon_Musk_Royal_Society_%28crop2%29.jpg"/>
+        <div class="pbody"><b>Elon Musk</b><span>Reduce the problem to hard constraints.</span></div>
+      </div>
+      <div class="portrait-card">
+        <img alt="Karl Marx portrait" src="https://commons.wikimedia.org/wiki/Special:FilePath/Karl_Marx_001.jpg"/>
+        <div class="pbody"><b>Karl Marx</b><span>Read tensions as dynamic, not fixed.</span></div>
+      </div>
+      <div class="portrait-card">
+        <img alt="Qian Xuesen portrait" src="https://commons.wikimedia.org/wiki/Special:FilePath/Qian_Xuesen_in_the_US.jpg"/>
+        <div class="pbody"><b>Qian Xuesen</b><span>Turn ideas into engineered feedback loops.</span></div>
+      </div>
+    </div>
+    <p class="meta">
+      Portrait sources: Wikimedia Commons. The Qian Xuesen image is treated conservatively here as
+      a U.S.-public-domain source with possible jurisdictional caveats outside the United States.
+    </p>
+  </div>
+
+  <p>
+    The unifying logic is bias reduction. Each posture attacks one class of error that appears
+    repeatedly in scientific-agent systems. <strong>Socratic inquiry</strong> reduces premise
+    bias: assumptions the team did not know it had. <strong>First-principles decomposition</strong>
+    reduces analogy bias: copying the field's current recipe instead of reasoning from the
+    lowest constraints available. <strong>Dialectical synthesis</strong> reduces static bias:
+    treating live tensions as frozen trade-offs. <strong>Cybernetic control</strong> reduces
+    landing bias: producing ideas that cannot be measured, corrected, or stopped.
+  </p>
+
+  <table>
+    <thead><tr><th>Posture</th><th>Permitted move</th><th>Hard gate</th><th>Bias reduced</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Socratic</strong></td><td>Clarify terms, expose assumptions, locate missing constraints.</td><td>No solution proposal until the premise ledger is explicit.</td><td>Premise bias</td></tr>
+      <tr><td><strong>First principles</strong></td><td>Derive options from mechanisms, resources, causal structure, mathematics, or institutional constraints.</td><td>No appeal to popularity, precedent, or standard practice as evidence.</td><td>Analogy bias</td></tr>
+      <tr><td><strong>Dialectical</strong></td><td>State thesis, antithesis, live tension, and candidate synthesis.</td><td>No premature compromise; the conflict must be modeled before it is resolved.</td><td>Static bias</td></tr>
+      <tr><td><strong>Cybernetic</strong></td><td>Define sensor, metric, intervention, feedback period, and stopping rule.</td><td>No implementation claim without a closed verification loop.</td><td>Landing bias</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    The hard gate matters. In the Socratic posture, the agent may ask and classify but must
+    not answer. In the first-principles posture, it may derive but must not borrow authority
+    from what other labs do. In the dialectical posture, it may map contradictions but must not
+    flatten them into a bland trade-off. In the cybernetic posture, it may operationalize but
+    must not sell a vision without observability. These constraints are the shackles; scientific
+    imagination is the dance allowed inside them.
+  </p>
+</section>
+
+<p class="sep-ornament">❧</p>
+
+<section id="evidence-ledger">
+  <h2><span class="roman">X</span>What is supported, and what is new</h2>
+  <p class="deck">A discipline is useful only if you can say which of its claims are already evidenced and which remain conjectural.</p>
+
+  <p>
+    A review of the current HTML report and the local skill stack gives a clean classification.
+    The existing material already supports structured workflows, evidence binding, failure
+    preservation, Socratic review, multi-perspective critique, calibration, and closed empirical
+    loops. It does not yet prove that the four-posture story in Section IX improves autonomous discovery.
+    That remains a proposal to be tested.
+  </p>
+
+  <table class="ledger">
+    <thead><tr><th>Claim or mechanism</th><th>Local support</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Agents benefit from machine-legible artifacts with claim-to-evidence bindings.</td>
+        <td>ARA uses <code>logic/</code>, <code>src/</code>, <code>trace/</code>, and <code>evidence/</code>; the report cites PaperBench QA rising from 72.4% to 93.7%.</td>
+        <td><span class="status supported">Supported</span></td>
+      </tr>
+      <tr>
+        <td>Failed ideas should be preserved rather than hidden.</td>
+        <td>ARA makes dead ends first-class nodes; its README reports failed RE-Bench runs account for 90.2% of dollar cost.</td>
+        <td><span class="status supported">Supported</span></td>
+      </tr>
+      <tr>
+        <td>Socratic guidance is useful as a review and revision posture.</td>
+        <td><code>academic-paper-reviewer</code> includes guided Socratic review and revision coaching.</td>
+        <td><span class="status supported">Supported</span></td>
+      </tr>
+      <tr>
+        <td>Independent critique reduces groupthink and confirmation bias.</td>
+        <td>The reviewer skill includes a Devil's Advocate, cherry-picking detection, confirmation-bias detection, and a rule that critical findings cannot be ignored.</td>
+        <td><span class="status supported">Supported</span></td>
+      </tr>
+      <tr>
+        <td>Closed loops are useful in empirical work.</td>
+        <td>The empirical-research stack contains explicit 6-step and 8-step loops for diagnostics, estimation, robustness, and publication outputs.</td>
+        <td><span class="status supported">Supported</span></td>
+      </tr>
+      <tr>
+        <td>Preserved failure traces are always beneficial.</td>
+        <td>The current report already notes the ARA caveat: on open-ended RE-Bench extension tasks, preserved traces can constrain a strong agent.</td>
+        <td><span class="status limited">Limited</span></td>
+      </tr>
+      <tr>
+        <td>The exact Socrates-Musk-Marx-Qian four-posture protocol improves autonomous discovery.</td>
+        <td>No local benchmark has tested this exact decomposition against a monolithic agent, ARA-only agent, or ordinary multi-agent debate.</td>
+        <td><span class="status new">New hypothesis</span></td>
+      </tr>
+      <tr>
+        <td>Popper, Peirce, Bayes, Darwin, and Shannon should become auxiliary discovery modules.</td>
+        <td>The stack contains pieces of this logic, especially falsifiability, novelty checks, robustness, and information-bearing benchmarks; the unified module map is new.</td>
+        <td><span class="status new">New hypothesis</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>A conservative experimental path</h3>
+  <p>
+    The right way to use the story is not to declare victory. It is to make it falsifiable.
+    A minimal study would compare four agents on the same research tasks:
+  </p>
+  <div class="protocol">
+    <div class="step">Baseline agent: one general assistant prompt, no explicit posture gate.</div>
+    <div class="step">Artifact-only agent: ARA or Material Passport structure, but no four-posture reasoning protocol.</div>
+    <div class="step">Debate-only agent: multiple critics, but without posture separation.</div>
+    <div class="step">Four-posture agent: Socratic to first principles to dialectical to cybernetic, with gate violations logged.</div>
+  </div>
+  <p>
+    Outcomes should be modest and observable: unsupported-claim rate, premise errors caught,
+    novelty-check failures, experiment-plan completeness, dead-end reuse, reviewer score, and
+    reproduction success on PaperBench-like or ScienceAgentBench-like tasks. The framework
+    should be abandoned or revised if it improves narrative quality without improving these
+    measurements.
+  </p>
+</section>
+
+<p class="sep-ornament">❧</p>
+
+<section id="open">
+  <h2><span class="roman">XI</span>Five open questions</h2>
+  <p class="deck">Five concrete problems that inherit directly from Sections III through X, and where small teams can still make a first move.</p>
+
+  <p>
+    An essay that ends &ldquo;and now the future is bright&rdquo; is not worth reading. The five
     questions below are not speculative; each one is a direct descendant of something left
     unresolved in Sections III through VIII, and each one is at a stage where evidence is
     still thin enough that a modest study can move the consensus.
@@ -1088,6 +1270,16 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
     shared tasks while diverging on taste-sensitive ones, and whether two users collaborating
     on the same project can read one another&rsquo;s patches without friction.
   </p>
+
+  <h3>Do cognitive gates improve discovery, or only prose?</h3>
+  <p>
+    The four-posture story in Section IX is attractive, but attractiveness is not evidence.
+    The next test is whether hard gates reduce measurable failure modes: hidden assumptions,
+    analogy-driven design choices, unresolved tensions, and unclosed feedback loops. If the
+    gains appear only in writing quality or reviewer impression, the framework is rhetoric.
+    If the gains appear in reproducibility, failed-branch reuse, and experiment selection,
+    it becomes infrastructure.
+  </p>
 </section>
 
 <p class="sep-ornament">❧</p>
@@ -1097,8 +1289,9 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
   <h4>Colophon</h4>
   <p>
     Set in Iowan Old Style for the body text and SF Mono for code, on a 680-pixel measure
-    chosen for about 65 characters per line. All numbers current as of 2026-05-13. This
-    document is a single self-contained HTML file with no external dependencies.
+    chosen for about 65 characters per line. A Nobel-style white-and-gold visual treatment
+    carries the four-posture panel in Section IX. All numbers current as of 2026-05-13. This
+    document is a single HTML file; the four portrait images are loaded from Wikimedia Commons.
   </p>
   <p>
     For the primary sources, follow the hyperlinks in the text above. GitHub star counts
