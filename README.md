@@ -111,6 +111,18 @@ cd RebuttalStudio-master && npm install && npm start
 For commands scoped to individual sub-repos (Python lints, figure scripts, etc.), see
 [`CLAUDE.md`](./CLAUDE.md).
 
+### 4. Use the local publishing skill
+
+This repository also keeps a project-local workflow skill for safe Git publishing:
+
+```bash
+skills/git-safe-publish/SKILL.md
+```
+
+Use it when you want an agent to quickly commit and push while preserving collaborator edits:
+inspect status, validate changed files, stage only intended paths, commit, push, and confirm the
+working tree is clean.
+
 ## Layout
 
 ```
@@ -119,6 +131,7 @@ Science-Discovery/
 ├── README.md                                      # this file
 ├── CLAUDE.md                                      # guidance for Claude Code / agents
 ├── AGENTS.md                                      # mirror of CLAUDE.md for other agents
+├── skills/git-safe-publish/                       # safe commit/push workflow skill
 ├── academic-research-skills-main/                 # 4 skills · 25 modes
 ├── RebuttalStudio-master/                         # Electron app + stage templates
 ├── figures4papers-main/                           # matplotlib reference library

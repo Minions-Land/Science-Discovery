@@ -103,26 +103,6 @@
   figure.diagram code{display:block;background:transparent;color:inherit;padding:0;border-radius:0;font:inherit;white-space:pre;min-width:max-content}
   figure.diagram figcaption{color:var(--dim);font:12px var(--sans);margin-top:12px;padding-top:12px;border-top:1px solid #eadfbe;font-style:italic;white-space:normal}
 
-  /* Nobel-style feature panels */
-  .nobel-panel{margin:30px 0;padding:22px;background:linear-gradient(135deg,#fffdf8,#f8f0d8);color:var(--ink);border:1px solid #d8c58f;border-left:3px solid var(--accent);border-radius:4px;box-shadow:var(--shadow)}
-  .nobel-panel .label{font:600 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--accent-ink);margin:0 0 8px}
-  .nobel-panel h3{margin-top:0;color:var(--ink)}
-  .nobel-panel p{color:#34322c}
-  .portrait-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
-  .portrait-card{background:#fffdf8;border:1px solid #d8c58f;min-width:0}
-  .portrait-card img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(.92) contrast(1.05) sepia(.14)}
-  .portrait-card .pbody{padding:10px 11px 12px}
-  .portrait-card b{display:block;font:600 13px/1.2 var(--sans);color:var(--ink);margin-bottom:3px}
-  .portrait-card span{display:block;font:12px/1.35 var(--sans);color:var(--dim)}
-  .ledger{font-size:13.5px}
-  .ledger .status{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
-  .status.supported{color:#247a3b}
-  .status.limited{color:#9c6b05}
-  .status.new{color:#2b61b8}
-  .protocol{counter-reset:step;display:grid;gap:10px;margin:20px 0}
-  .protocol .step{position:relative;padding:12px 14px 12px 42px;background:var(--card);border:1px solid var(--rule);font:14px/1.45 var(--sans)}
-  .protocol .step::before{counter-increment:step;content:counter(step);position:absolute;left:13px;top:12px;width:18px;height:18px;border-radius:50%;background:#d8aa3a;color:#100b03;font:700 11px/18px var(--sans);text-align:center}
-  @media (max-width:760px){.portrait-grid{grid-template-columns:repeat(2,1fr)}}
 
   /* inline meta line */
   .meta{font:13px var(--sans);color:var(--dim);margin:6px 0 18px}
@@ -148,13 +128,12 @@
     <li><a href="#what-skill"><span class="num">II</span>What a skill is</a></li>
     <li><a href="#ecosystem"><span class="num">III</span>The ecosystem</a></li>
     <li><a href="#benchmarks"><span class="num">IV</span>Measuring progress</a></li>
-    <li><a href="#frontier"><span class="num">V</span>The ARA frontier</a></li>
-    <li><a href="#four-postures"><span class="num">VI</span>Four postures</a></li>
-    <li><a href="#evidence-ledger"><span class="num">VII</span>Evidence ledger</a></li>
-    <li><a href="#skillos"><span class="num">VIII</span>Skills as a learned policy</a></li>
-    <li><a href="#ssl"><span class="num">IX</span>Managing a skill library</a></li>
-    <li><a href="#open"><span class="num">X</span>Open questions</a></li>
-    <li><a href="#colophon"><span class="num">XI</span>About this report</a></li>
+    <li><a href="#frontier"><span class="num">V</span>The architectural frontier</a></li>
+    <li><a href="#skillos"><span class="num">VI</span>The other frontier</a></li>
+    <li><a href="#ssl"><span class="num">VII</span>The practical frontier</a></li>
+    <li><a href="#lifecycle"><span class="num">VIII</span>The lifecycle of a skill</a></li>
+    <li><a href="#open"><span class="num">IX</span>Open questions</a></li>
+    <li><a href="#colophon"><span class="num">X</span>About this report</a></li>
   </ol>
 </nav>
 
@@ -261,7 +240,7 @@
     ChatGPT sense, it is cheap: no API registration, no OAuth dance, no publisher review. The
     barrier between "I have a procedure that works" and "my agent now knows this procedure" has
     collapsed to the act of writing a Markdown file. That collapse is why the ecosystem grew so
-    fast.
+    fast &mdash; and the shape of that ecosystem is the next thing worth looking at.
   </p>
 
 </section>
@@ -345,6 +324,11 @@
     which specialises in empirical social-science workflows and, as of its April 2026
     update, indexes <strong>119 repositories covering 23,000+ skills</strong>, organised by
     research stage.
+  </p>
+
+  <p>
+    A field with this many artifacts and this much movement needs benchmarks, or every
+    claim of progress is unverifiable. The next section walks the benchmark map.
   </p>
 
 </section>
@@ -441,13 +425,19 @@
     caption-generation and figure-reconstruction tasks respectively.
   </p>
 
+  <p>
+    Benchmarks let us measure &mdash; but measurement only explains what <em>exists</em>. The
+    three sections that follow are the field&rsquo;s answer to a different question: what, in
+    2026, should the underlying object even <em>be</em>? Each takes one face of it.
+  </p>
+
 </section>
 
 <p class="sep-ornament">❧</p>
 
 <section id="frontier">
-  <h2><span class="roman">V</span>The frontier: Agent-Native Research Artifacts</h2>
-  <p class="deck">One paper from April 2026 that, if correct, changes what "a paper" is.</p>
+  <h2><span class="roman">V</span>The architectural frontier &middot; what a skill contains</h2>
+  <p class="deck">A 38-author April 2026 paper that, if correct, changes not how papers are written but what a paper <em>is</em>.</p>
 
   <p>
     In late April 2026 a team of 38 authors — led from MIT Media Lab, the University of Michigan,
@@ -574,173 +564,28 @@
     abstract rather than buried in the appendix, tells you something about the paper's seriousness.
   </p>
 
-</section>
-
-<p class="sep-ornament">❧</p>
-
-<section id="four-postures">
-  <h2><span class="roman">VI</span>Four postures for autonomous scientific collaboration</h2>
-  <p class="deck">A story worth keeping, with gates tight enough to keep it honest.</p>
-
-  <div class="nobel-panel">
-    <p class="label">Core story</p>
-    <h3>Ask like Socrates. Decompose like Musk. See conflict like Marx. Close the loop like Qian.</h3>
-    <p>
-      The four figures below are not a claim of intellectual priority. They are a mnemonic for
-      four mutually exclusive operating postures an agent can adopt during scientific work.
-      The point is not to decorate the system with famous names; it is to prevent the most common
-      failure mode in agent reasoning: mixing incompatible moves inside one step.
-    </p>
-    <div class="portrait-grid" aria-label="Four cognitive posture portraits">
-      <div class="portrait-card">
-        <img alt="Bust of Socrates" src="https://commons.wikimedia.org/wiki/Special:FilePath/Socrates_Louvre.jpg"/>
-        <div class="pbody"><b>Socrates</b><span>Expose hidden premises before answering.</span></div>
-      </div>
-      <div class="portrait-card">
-        <img alt="Elon Musk portrait" src="https://commons.wikimedia.org/wiki/Special:FilePath/Elon_Musk_Royal_Society_%28crop2%29.jpg"/>
-        <div class="pbody"><b>Elon Musk</b><span>Reduce the problem to hard constraints.</span></div>
-      </div>
-      <div class="portrait-card">
-        <img alt="Karl Marx portrait" src="https://commons.wikimedia.org/wiki/Special:FilePath/Karl_Marx_001.jpg"/>
-        <div class="pbody"><b>Karl Marx</b><span>Read tensions as dynamic, not fixed.</span></div>
-      </div>
-      <div class="portrait-card">
-        <img alt="Qian Xuesen portrait" src="https://commons.wikimedia.org/wiki/Special:FilePath/Qian_Xuesen_in_the_US.jpg"/>
-        <div class="pbody"><b>Qian Xuesen</b><span>Turn ideas into engineered feedback loops.</span></div>
-      </div>
-    </div>
-    <p class="meta">
-      Portrait sources: Wikimedia Commons. The Qian Xuesen image is treated conservatively here as
-      a U.S.-public-domain source with possible jurisdictional caveats outside the United States.
-    </p>
-  </div>
-
   <p>
-    The unifying logic is bias reduction. Each posture attacks one class of error that appears
-    repeatedly in scientific-agent systems. <strong>Socratic inquiry</strong> reduces premise
-    bias: assumptions the team did not know it had. <strong>First-principles decomposition</strong>
-    reduces analogy bias: copying the field's current recipe instead of reasoning from the
-    lowest constraints available. <strong>Dialectical synthesis</strong> reduces static bias:
-    treating live tensions as frozen trade-offs. <strong>Cybernetic control</strong> reduces
-    landing bias: producing ideas that cannot be measured, corrected, or stopped.
-  </p>
-
-  <table>
-    <thead><tr><th>Posture</th><th>Permitted move</th><th>Hard gate</th><th>Bias reduced</th></tr></thead>
-    <tbody>
-      <tr><td><strong>Socratic</strong></td><td>Clarify terms, expose assumptions, locate missing constraints.</td><td>No solution proposal until the premise ledger is explicit.</td><td>Premise bias</td></tr>
-      <tr><td><strong>First principles</strong></td><td>Derive options from mechanisms, resources, causal structure, mathematics, or institutional constraints.</td><td>No appeal to popularity, precedent, or standard practice as evidence.</td><td>Analogy bias</td></tr>
-      <tr><td><strong>Dialectical</strong></td><td>State thesis, antithesis, live tension, and candidate synthesis.</td><td>No premature compromise; the conflict must be modeled before it is resolved.</td><td>Static bias</td></tr>
-      <tr><td><strong>Cybernetic</strong></td><td>Define sensor, metric, intervention, feedback period, and stopping rule.</td><td>No implementation claim without a closed verification loop.</td><td>Landing bias</td></tr>
-    </tbody>
-  </table>
-
-  <p>
-    The hard gate matters. In the Socratic posture, the agent may ask and classify but must
-    not answer. In the first-principles posture, it may derive but must not borrow authority
-    from what other labs do. In the dialectical posture, it may map contradictions but must not
-    flatten them into a bland trade-off. In the cybernetic posture, it may operationalize but
-    must not sell a vision without observability. These constraints are the shackles; scientific
-    imagination is the dance allowed inside them.
+    ARA tells us what a skill &mdash; or, more generally, a reusable research artifact &mdash;
+    should <em>contain</em> if an agent is going to read it. It does not tell us how a skill
+    comes into being in the first place. That is the question a second 2026 paper, posted from
+    a different continent, set out to answer.
   </p>
 </section>
 
 <p class="sep-ornament">❧</p>
-
-<section id="evidence-ledger">
-  <h2><span class="roman">VII</span>What is supported, limited, and new</h2>
-  <p class="deck">The story is useful only if the provenance labels stay visible.</p>
-
-  <p>
-    A review of the current HTML report and the local skill stack gives a clean classification.
-    The existing material already supports structured workflows, evidence binding, failure
-    preservation, Socratic review, multi-perspective critique, calibration, and closed empirical
-    loops. It does not yet prove that the four-posture story itself improves autonomous discovery.
-    That remains a proposal to be tested.
-  </p>
-
-  <table class="ledger">
-    <thead><tr><th>Claim or mechanism</th><th>Local support</th><th>Status</th></tr></thead>
-    <tbody>
-      <tr>
-        <td>Agents benefit from machine-legible artifacts with claim-to-evidence bindings.</td>
-        <td>ARA uses <code>logic/</code>, <code>src/</code>, <code>trace/</code>, and <code>evidence/</code>; the report cites PaperBench QA rising from 72.4% to 93.7%.</td>
-        <td><span class="status supported">Supported</span></td>
-      </tr>
-      <tr>
-        <td>Failed ideas should be preserved rather than hidden.</td>
-        <td>ARA makes dead ends first-class nodes; its README reports failed RE-Bench runs account for 90.2% of dollar cost.</td>
-        <td><span class="status supported">Supported</span></td>
-      </tr>
-      <tr>
-        <td>Socratic guidance is useful as a review and revision posture.</td>
-        <td><code>academic-paper-reviewer</code> includes guided Socratic review and revision coaching.</td>
-        <td><span class="status supported">Supported</span></td>
-      </tr>
-      <tr>
-        <td>Independent critique reduces groupthink and confirmation bias.</td>
-        <td>The reviewer skill includes a Devil's Advocate, cherry-picking detection, confirmation-bias detection, and a rule that critical findings cannot be ignored.</td>
-        <td><span class="status supported">Supported</span></td>
-      </tr>
-      <tr>
-        <td>Closed loops are useful in empirical work.</td>
-        <td>The empirical-research stack contains explicit 6-step and 8-step loops for diagnostics, estimation, robustness, and publication outputs.</td>
-        <td><span class="status supported">Supported</span></td>
-      </tr>
-      <tr>
-        <td>Preserved failure traces are always beneficial.</td>
-        <td>The current report already notes the ARA caveat: on open-ended RE-Bench extension tasks, preserved traces can constrain a strong agent.</td>
-        <td><span class="status limited">Limited</span></td>
-      </tr>
-      <tr>
-        <td>The exact Socrates-Musk-Marx-Qian four-posture protocol improves autonomous discovery.</td>
-        <td>No local benchmark has tested this exact decomposition against a monolithic agent, ARA-only agent, or ordinary multi-agent debate.</td>
-        <td><span class="status new">New hypothesis</span></td>
-      </tr>
-      <tr>
-        <td>Popper, Peirce, Bayes, Darwin, and Shannon should become auxiliary discovery modules.</td>
-        <td>The stack contains pieces of this logic, especially falsifiability, novelty checks, robustness, and information-bearing benchmarks; the unified module map is new.</td>
-        <td><span class="status new">New hypothesis</span></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h3>A conservative experimental path</h3>
-  <p>
-    The right way to use the story is not to declare victory. It is to make it falsifiable.
-    A minimal study would compare four agents on the same research tasks:
-  </p>
-  <div class="protocol">
-    <div class="step">Baseline agent: one general assistant prompt, no explicit posture gate.</div>
-    <div class="step">Artifact-only agent: ARA or Material Passport structure, but no four-posture reasoning protocol.</div>
-    <div class="step">Debate-only agent: multiple critics, but without posture separation.</div>
-    <div class="step">Four-posture agent: Socratic to first principles to dialectical to cybernetic, with gate violations logged.</div>
-  </div>
-  <p>
-    Outcomes should be modest and observable: unsupported-claim rate, premise errors caught,
-    novelty-check failures, experiment-plan completeness, dead-end reuse, reviewer score, and
-    reproduction success on PaperBench-like or ScienceAgentBench-like tasks. The framework
-    should be abandoned or revised if it improves narrative quality without improving these
-    measurements.
-  </p>
-</section>
-
-<p class="sep-ornament">❧</p>
-
 
 <section id="skillos">
-  <h2><span class="roman">VIII</span>The other frontier: skills as a learned policy</h2>
-  <p class="deck">A second paper, from the same month, points in a direction ARA does not.</p>
+  <h2><span class="roman">VI</span>The other frontier &middot; how a skill is born</h2>
+  <p class="deck">A second 2026 paper, posted from a UIUC&ndash;Google collaboration, runs orthogonal to the first. Where ARA reshapes the paper, SkillOS reshapes the skill.</p>
 
   <p>
-    Section V took one paper seriously because its intervention is architectural: it
-    changes the object that science is published <em>as</em>. A second 2026 paper,
-    posted a week and a half later from a UIUC&ndash;Google collaboration, is worth reading
-    alongside it because its intervention runs orthogonal. Where ARA reshapes the
-    <em>paper</em>, <a href="https://arxiv.org/abs/2605.06614"><strong>SkillOS</strong></a>
+    Where ARA reshapes the <em>paper</em>,
+    <a href="https://arxiv.org/abs/2605.06614"><strong>SkillOS</strong></a>
     (Ouyang <em>et&nbsp;al.</em>, May 2026) reshapes the <em>skill</em> &mdash; or rather, it
-    stops treating the skill as a thing a human writes, and asks whether an agent can
-    learn to curate its own skill library.
+    stops treating the skill as a thing a human writes and asks whether an agent can learn to
+    curate its own skill library. The intervention sits one level closer to practice than
+    ARA&rsquo;s, and one level closer to policy. Neither paper cites the other; both, by May,
+    were visibly operating on the same underlying question.
   </p>
 
   <p class="meta">
@@ -794,27 +639,19 @@
     more, not less, important.
   </div>
 
-  <h3>Read alongside ARA</h3>
   <p>
-    The two papers are complementary without overlapping. ARA gives you an artifact
-    format that agents can reliably consume; SkillOS gives you a mechanism by which
-    agents learn to produce the documents that populate such formats. Neither is
-    sufficient on its own. Together they sketch a closed loop in which research
-    outputs are machine-legible by construction, skill authoring is itself subject to
-    empirical pressure, and the distance between a finding and a reusable capability
-    collapses from &ldquo;a paper and a graduate student&rsquo;s weekend&rdquo; to &ldquo;an RL update.&rdquo;
-    Whether that loop actually closes in 2026 is the question the next year will
-    answer.
+    ARA gives a skill its anatomy. SkillOS gives it its origin. A third question sits between
+    the two: once a skill exists, how does the agent that needs it find it amid hundreds of
+    siblings, and load only as much of it as the current decision requires? A smaller paper
+    from Peking University, posted a week before ARA, answers exactly that.
   </p>
 </section>
 
 <p class="sep-ornament">❧</p>
 
-<p class="sep-ornament">❧</p>
-
 <section id="ssl">
-  <h2><span class="roman">IX</span>Managing a skill library, and the problem of progressive disclosure</h2>
-  <p class="deck">A third 2026 paper turns the practical question of skill management into a representation question — and finds an answer worth taking seriously.</p>
+  <h2><span class="roman">VII</span>The practical frontier &middot; how a skill is found</h2>
+  <p class="deck">A third 2026 paper turns the practical question of skill management into a representation question &mdash; and finds an answer sharp enough to evaluate.</p>
 
   <p>
     Sections V and VI were about what agents <em>do</em> — reproduce papers, learn to
@@ -918,29 +755,296 @@
     caveats — which is what an authored document is uniquely good at.
   </div>
 
-  <h3>Read alongside ARA and SkillOS</h3>
+  <h3>A stack is starting to appear</h3>
   <p>
-    The three papers from April–May 2026 now form a tidy stack. ARA (Section V) gives
-    you a machine-legible <em>artifact format</em> for research outputs. SkillOS
-    (Section VI) gives you a mechanism by which agents <em>learn to curate</em> the
-    skills that populate such formats. SSL (this section) gives you a
-    <em>representation layer</em> that makes the resulting library searchable and
-    inspectable without flattening it back into prose. Together they sketch a
-    system in which skills are authored (by humans or agents), structured for
-    progressive disclosure, and retrieved by type rather than by keyword.
+    Three papers, within eight weeks of each other, arrived at three different faces of the
+    same object. ARA gives a skill its <em>anatomy</em>; SkillOS gives it its
+    <em>origin</em>; SSL gives it a <em>retrieval layer</em>. None of them was written as
+    a response to the others; none cites the others. And yet they fit together with an ease
+    that suggests the real structure underneath is not theirs &mdash; it is the structure
+    of the object they are all trying to manage. The next section makes that structure
+    explicit.
   </p>
 </section>
 
 <p class="sep-ornament">❧</p>
 
-<section id="open">
-  <h2><span class="roman">X</span>Four open questions</h2>
-  <p class="deck">Work that looks doable right now, for whoever wants to pick it up.</p>
+<section id="lifecycle">
+  <h2><span class="roman">VIII</span>The lifecycle of a skill</h2>
+  <p class="deck">The three papers we have just read are not answers to different questions. They are answers to the same question, asked about different stages of one object's life — and the literature behind them makes the stages legible.</p>
 
   <p>
-    An essay that ends "and now the future is bright" is not worth reading. Here, instead, are
-    three concrete questions we think the next twelve months will settle — and where the
-    evidence is still thin enough that small teams can make a real contribution.
+    ARA, SkillOS, and SSL do not share an architecture, an evaluation, or a
+    group of authors. They share a premise. All three assume a world in which
+    skills — reusable units of agent capability — exist as persistent,
+    first-class objects in a library, and all three attack a different
+    operational problem in that world. ARA asks what a skill <em>contains</em>
+    when research produces it; SkillOS asks what <em>policy</em> decides when
+    to write one; SSL asks what <em>representation</em> makes one findable.
+    Read separately they sound like three unrelated proposals. Read with their
+    related-work sections open, they fall into place as three moves on a single
+    board.
+  </p>
+
+  <p>
+    That board is the <em>lifecycle of a skill</em>. Not a metaphor — a literal
+    sequence of operations the library must support, each of which has now
+    accumulated a distinct literature. Borrowing the database vocabulary and
+    extending it by one verb, the sequence is:
+  </p>
+
+  <figure class="diagram"><code>ADD      write a skill down        &larr;  when is an experience worth codifying?
+QUERY    find it when needed       &larr;  which skill, and how much of it, to load
+MODIFY   change it from experience &larr;  incorporate failures and edge cases
+DELETE   retire, merge, forget     &larr;  cull redundancy; let the library shrink
+EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert</code>
+<figcaption>The five verbs. CRUD is the first four; <em>evolve</em> is the verb that distinguishes a skill library from a static knowledge base — and it is the verb the field is furthest from solving.</figcaption></figure>
+
+  <p>
+    Two of the three papers name the lifecycle explicitly in their own prose.
+    SSL opens its related-work section by classifying recent skill work into
+    &ldquo;skill repositories, trajectory-derived skill construction,
+    inference-time routing, and training-time internalisation&rdquo; &mdash; four of
+    our five verbs under different names. SkillOS, more bluntly, organises its
+    related-work grid along exactly the operational axis: which systems do
+    <em>manual</em> curation, which do <em>heuristic</em> curation, which train
+    only the <em>query</em> side, and which attempt to learn the full
+    add/modify/delete loop. ARA does not use the vocabulary of skills at all,
+    but its related-work section is doing the same work for a different object
+    class &mdash; research artifacts rather than skill files &mdash; and its Future
+    Work section reaches explicitly for &ldquo;lineage mechanisms in which each
+    Ara declares its parent artifacts and expresses its contribution as a
+    structured diff&rdquo;, which is the <em>evolve</em> verb in plain English.
+    The vocabulary is converging faster than the field has noticed.
+  </p>
+
+  <h3>Add &mdash; when is an experience worth codifying?</h3>
+  <p>
+    The question of when a trajectory becomes a skill has the longest lineage.
+    <a href="https://arxiv.org/abs/2305.16291"><strong>Voyager</strong></a>
+    (Wang <em>et&nbsp;al.</em>, 2023) gave the operational answer: if a piece
+    of code passes self-verification and completes a curriculum-generated
+    goal, commit it. That works in Minecraft because success is
+    machine-checkable. In looser domains the criterion fails, and the
+    literature splits in two.
+  </p>
+  <p>
+    One branch treats skills as <em>abstracted query-response pairs</em>
+    &mdash; distil successful trajectories into reusable insights and store
+    them for retrieval. This is the line from <a href="https://doi.org/10.48550/arxiv.2303.11366">Reflexion</a>
+    (ephemeral self-notes) through
+    <a href="https://doi.org/10.1609/aaai.v38i17.29936">ExpeL</a>
+    (persistent cross-task insights) to Synapse and ReasoningBank. The other
+    branch extracts <em>recurring patterns</em> across many trajectories, not
+    from individual successes &mdash;
+    <a href="https://doi.org/10.48550/arxiv.2409.07429"><strong>Agent Workflow
+    Memory</strong></a> (Wang <em>et&nbsp;al.</em>, 2024) is its clearest
+    statement: a routine that appears once is a solution; a routine that
+    appears three times is a workflow. Buffer-of-Thoughts (Yang
+    <em>et&nbsp;al.</em>, 2024) does the same at the template level.
+  </p>
+  <p>
+    SkillOS sits at the endpoint of this trajectory. Rather than writing a
+    rule for when to add, it trains a <em>curator</em> to make the decision,
+    and is rewarded when its edits help downstream tasks. Across the full arc
+    &mdash; Voyager to ExpeL to AWM to SkillOS &mdash; the centre of gravity of
+    the <em>add</em> verb has moved from &ldquo;does this succeed?&rdquo; to
+    &ldquo;does this generalise?&rdquo; to &ldquo;does an RL-trained curator
+    think this is worth codifying?&rdquo;.
+  </p>
+
+  <h3>Query &mdash; finding the right skill, and loading only what matters</h3>
+  <p>
+    Once a library is large, retrieval splits into two questions. <em>Which</em>
+    skill to pick, and <em>how much</em> of it to load. The skill-retrieval
+    literature &mdash; Sentence-BERT, DPR, BEIR as the generic substrate;
+    CRAFT, ToolRet, ToolReRank, MassTool as the tool-specific refinement
+    &mdash; has accumulated evidence that naive vector search over skill
+    descriptions does not scale: capability matching depends on signals
+    scattered across interface fields, examples, dependencies, and structural
+    detail. SSL&rsquo;s contribution to this thread is not another retriever
+    but a <em>representation</em>: expose the signals as a typed record so
+    that each retrieval decision can consult only the layer it needs.
+  </p>
+  <p>
+    The &ldquo;how much to load&rdquo; question has a parallel thread in the
+    memory community.
+    <a href="https://doi.org/10.48550/arxiv.2310.08560"><strong>MemGPT</strong></a>
+    (Packer <em>et&nbsp;al.</em>, 2023) proposed virtual context management
+    modelled on operating-system paging; <a href="https://doi.org/10.3233/faia251160">Mem0</a>
+    (Chhikara <em>et&nbsp;al.</em>, 2025) industrialised the idea into a
+    production store with dynamic extraction and consolidation;
+    <a href="https://doi.org/10.48550/arxiv.2502.12110">A-MEM</a>
+    (Xu <em>et&nbsp;al.</em>, 2025) lets the LLM itself edit the memory
+    graph, linking related entries and collapsing duplicates. Representation
+    (SSL) and substrate (MemGPT / Mem0 / A-MEM) are currently tracking
+    parallel; the interesting question is where they will meet.
+  </p>
+
+  <h3>Modify &mdash; editing a skill from experience</h3>
+  <p>
+    A skill that never changes after it is written is not a skill but a
+    snippet. Modification has, until recently, been an ephemeral operation.
+    Reflexion&rsquo;s post-mortems evaporate after the task. Voyager&rsquo;s
+    iterative prompting edits only the code inside the single skill. ExpeL
+    persists insights but does not rewrite the skill entries they qualify.
+    The pattern is consistent: modification is the verb everyone supports in
+    principle and very few systems implement as a first-class library
+    operation.
+  </p>
+  <p>
+    Two lines are changing that. The <em>heuristic</em> line &mdash;
+    A-MEM and Alita &mdash; lets an LLM execute fixed memory operations
+    (link, merge, annotate) on the library between turns, using prompted
+    rules rather than a trained policy. The <em>learned</em> line &mdash;
+    SkillOS, and a handful of concurrent works SkillOS groups under
+    &ldquo;learned memory operation&rdquo; &mdash; trains the curator to
+    decide which operation to apply from delayed task reward. Both lines
+    agree on the premise: modification is not a human review step, it is a
+    feedback channel from the environment into the artifact. They disagree
+    on whether the channel is wired by prompt or by gradient.
+  </p>
+
+  <h3>Delete &mdash; the verb nobody wants to talk about</h3>
+  <p>
+    Four verbs in, and the literature is pleasantly crowded. The fifth is
+    where the ground gets thin. Almost every system we have discussed is
+    designed to <em>grow</em> its skill library; almost none is designed to
+    shrink it. The name for this when it is spoken at all is
+    <em>consolidation</em>; the more honest name is
+    <em>forgetting</em>.
+  </p>
+  <p>
+    Mem0 implements dynamic consolidation explicitly &mdash; new memory
+    extracts and merges existing entries rather than appending to them.
+    A-MEM goes further, letting the LLM collapse duplicates as the library
+    matures. Neither is yet a skill-library system in the strict sense, but
+    they sketch the machinery that is missing. ARA&rsquo;s own Future Work
+    calls this out as the most pressing near-term gap: &ldquo;like code
+    repositories, Aras decay without maintenance as dependencies rot and
+    practices evolve, yet unmaintained artifacts are the community norm.&rdquo;
+  </p>
+  <div class="aside note">
+    <span class="k">Why this matters more than it sounds</span>
+    A skill library that only grows is a library that, within a year,
+    becomes unusable. Duplicate skills compete for the same retrieval slot;
+    outdated skills mislead planning; stale heuristics poison the training
+    signal of any curator learning on top. Every mature software system
+    accepts that most of its code will eventually be deleted. Skill
+    libraries are software; the same arithmetic applies. The question is
+    not whether to forget, but how to forget safely &mdash; which edits are
+    merges, which are deprecations, and which are the kind of delete that a
+    later context may regret.
+  </div>
+
+  <h3>Evolve &mdash; the fifth verb, and the missing literature</h3>
+  <p>
+    The fifth verb does not fit CRUD, and it is the one the current
+    literature is furthest from solving. <em>Evolve</em> is the observation
+    that in the presence of real users the same nominal skill &mdash;
+    &ldquo;write a paper introduction&rdquo;, say, or &ldquo;plan a DID
+    analysis&rdquo; &mdash; diverges by task and by person. Researcher A
+    writes introductions against a Keith Head rubric; researcher B writes
+    them against a Samuel Arbesman rubric; both are fluent speakers of the
+    same skill, and both are right. A skill that insists on being a single
+    canonical file erases that difference. A skill library built for
+    experts must preserve it.
+  </p>
+  <p>
+    The building blocks exist; no current system assembles them. ARA gives
+    every entry a provenance tag distinguishing what a human contributed
+    from what an agent proposed, and its Future Work section proposes
+    treating each artifact&rsquo;s contribution as a structured diff against
+    its parents &mdash; the closest the literature comes to naming the
+    evolve verb. SkillOS shows that the curator role can be learned rather
+    than authored. SSL shows that the layers of a skill can be reasoned
+    about independently. Put the three together and a concrete mechanism
+    appears: a skill becomes a base record plus a set of per-user patches,
+    each with its own provenance, its own structural layer, and its own
+    reward history under the curator. Different experts do not <em>fork</em>
+    the base; they <em>inherit</em> from it, and what they change is
+    visible to everyone who queries with their identity.
+  </p>
+  <p>
+    None of the papers we have read implements this yet. It is the work
+    the next year is most likely to produce, and the shape it should take
+    is already visible from where the three 2026 papers meet.
+  </p>
+
+  <h3>The current state of the art, in one table</h3>
+  <p>
+    Organising the citations by verb makes the contour of the field
+    unusually legible. Three of the five verbs have their canonical paper;
+    two do not. The ceiling for contribution on the bottom two rows is
+    unusually high because the community has not yet agreed on what counts
+    as a clean formulation.
+  </p>
+
+  <table>
+    <thead><tr><th>Verb</th><th>Canonical / representative</th><th>Where it is mature</th><th>Where it still fails</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Add</b></td>
+        <td>Voyager &middot; AWM &middot; SkillOS</td>
+        <td>Machine-checkable environments; learned curator policies</td>
+        <td>Loose domains where success is ambiguous; redundancy at write time</td>
+      </tr>
+      <tr>
+        <td><b>Query</b></td>
+        <td>SSL &middot; MemGPT &middot; Mem0 &middot; tool-retrieval stack (DPR, BEIR, ToolRet)</td>
+        <td>Layered retrieval when the schema is fixed; paged memory at scale</td>
+        <td>Cross-library discovery; retrieval under drift; cost-aware loading</td>
+      </tr>
+      <tr>
+        <td><b>Modify</b></td>
+        <td>Reflexion &middot; ExpeL &middot; A-MEM &middot; Alita &middot; SkillOS</td>
+        <td>Closing the loop inside a single skill from environment feedback</td>
+        <td>Propagating fixes to related skills; human review of agent-written edits</td>
+      </tr>
+      <tr>
+        <td><b>Delete</b></td>
+        <td>Mem0 &middot; A-MEM (for memories, not yet skills)</td>
+        <td>Dynamic consolidation of conversational memory</td>
+        <td>Safe deletion of a skill; merge of near-duplicates; retirement of stale procedures</td>
+      </tr>
+      <tr>
+        <td><b>Evolve</b></td>
+        <td>&mdash; (ARA Future Work is the closest prose)</td>
+        <td>Building blocks: ARA provenance, SkillOS curator, SSL layers</td>
+        <td>Per-user differentiation as a first-class concept; inheritance rather than forking</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Two observations are worth stating explicitly. First, the three papers
+    of Sections V through VII sit on three different rows: ARA on delete
+    (via lineage-as-diff) and on the evolve row-in-waiting; SkillOS on add
+    and modify; SSL on query. This is why they compose so cleanly &mdash;
+    they were never competing. Second, the row that has no canonical paper
+    is also the row that matters most for the version of the field where
+    skills are owned by people, not by libraries. That is not an
+    engineering gap; it is a conceptual one. Someone is going to name it.
+  </p>
+
+  <blockquote>
+    A skill library is not an archive; it is an ecology. The verbs that
+    manage the archive miss half of what keeps the ecology alive.
+  </blockquote>
+</section>
+
+<p class="sep-ornament">❧</p>
+
+
+<section id="open">
+  <h2><span class="roman">IX</span>Four open questions</h2>
+  <p class="deck">Concrete problems that inherit directly from the preceding sections, and where small teams can still make a first move.</p>
+
+  <p>
+    An essay that ends &ldquo;and now the future is bright&rdquo; is not worth reading. The four
+    questions below are not speculative; each one is a direct descendant of something left
+    unresolved in Sections III through VIII, and each one is at a stage where evidence is
+    still thin enough that a modest study can move the consensus.
   </p>
 
   <h3>Does composition beat specialisation?</h3>
@@ -973,14 +1077,16 @@
     answer is publishable.
   </p>
 
-  <h3>Do cognitive gates improve discovery, or only prose?</h3>
+  <h3>What does <em>evolve</em> look like, concretely?</h3>
   <p>
-    The four-posture story in Section VI is attractive, but attractiveness is not evidence.
-    The next test is whether hard gates reduce measurable failure modes: hidden assumptions,
-    analogy-driven design choices, unresolved tensions, and unclosed feedback loops. If the
-    gains appear only in writing quality or reviewer impression, the framework is rhetoric.
-    If the gains appear in reproducibility, failed-branch reuse, and experiment selection,
-    it becomes infrastructure.
+    Section VIII closed on the fifth verb without a canonical paper to point to. The open
+    question is not whether personal differentiation of skills is desirable &mdash; every
+    working researcher already has a folder of small rewrites of the same template &mdash;
+    but what mechanism makes it tractable at scale. A plausible first cut is inheritance: a
+    skill becomes a base record plus a set of per-user patches, each with its own provenance
+    and its own reward history. The test is whether such a library remains consistent for
+    shared tasks while diverging on taste-sensitive ones, and whether two users collaborating
+    on the same project can read one another&rsquo;s patches without friction.
   </p>
 </section>
 
@@ -991,13 +1097,15 @@
   <h4>Colophon</h4>
   <p>
     Set in Iowan Old Style for the body text and SF Mono for code, on a 680-pixel measure
-    chosen for about 65 characters per line. Visual tone revised toward a Nobel-style
-    white-and-gold treatment on 2026-05-13. All numbers current as of 2026-05-13. This
-    document remains a single HTML file; the four portrait images are loaded from Wikimedia Commons.
+    chosen for about 65 characters per line. All numbers current as of 2026-05-13. This
+    document is a single self-contained HTML file with no external dependencies.
   </p>
   <p>
-    For the primary sources, see the hyperlinks in the text above. A plain-text mirror of
-    this essay would be a reasonable thing to produce on request.
+    For the primary sources, follow the hyperlinks in the text above. GitHub star counts
+    were verified through <code>api.github.com</code>; benchmark metadata through
+    <code>api.openalex.org</code>; the three featured 2026 papers (ARA, SkillOS, SSL)
+    through arXiv's rendered HTML mirror. A plain-text mirror of this essay would be
+    a reasonable thing to produce on request.
   </p>
 </footer>
 
