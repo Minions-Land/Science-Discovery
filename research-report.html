@@ -780,7 +780,7 @@
 
   <h3>A stack is starting to appear</h3>
   <p>
-    Three papers, within eight weeks of each other, arrived at three different faces of the
+    Three system papers, within eight weeks of each other, arrived at three different faces of the
     same object. ARA gives a skill its <em>anatomy</em>; SkillOS gives it its
     <em>origin</em>; SSL gives it a <em>retrieval layer</em>. None of them was written as
     a response to the others; none cites the others. And yet they fit together with an ease
@@ -794,7 +794,7 @@
 
 <section id="lifecycle">
   <h2><span class="roman">VIII</span>The lifecycle of a skill</h2>
-  <p class="deck">The three papers we have just read are not answers to different questions. They are answers to the same question, asked about different stages of one object's life — and the literature behind them makes the stages legible.</p>
+  <p class="deck">The three system papers we have just read are not answers to different questions. They are answers to the same question, asked about different stages of one object's life — and a new survey now makes that lifecycle legible.</p>
 
   <p>
     ARA, SkillOS, and SSL do not share an architecture, an evaluation, or a
@@ -807,6 +807,68 @@
     Read separately they sound like three unrelated proposals. Read with their
     related-work sections open, they fall into place as three moves on a single
     board.
+  </p>
+
+  <div class="aside note">
+    <span class="k">External check: the CUHK-Shenzhen agent-skills survey</span>
+    On 8 May 2026, Yingli Zhou, Shu Wang, Yaodong Su, Wenchuan Du,
+    Yixiang Fang, and Xuemin Lin at The Chinese University of Hong Kong,
+    Shenzhen posted
+    <a href="https://arxiv.org/abs/2605.07358"><strong>A Comprehensive
+    Survey on Agent Skills: Taxonomy, Techniques, and Applications</strong></a>
+    to arXiv (<code>2605.07358</code>, <code>cs.IR</code>). It is useful
+    precisely because it is not selling a single algorithm. It reads the
+    fragmented literature on LLM agents, tool use, long-term memory, automated
+    workflows, and self-evolving agents through one object: the agent skill.
+  </div>
+
+  <p>
+    The survey sharpens the sentence this report has been circling around:
+    tools answer whether an agent can reach a capability; skills encode how
+    that capability should be used reliably, repeatedly, and under constraints.
+    In the survey&rsquo;s framing, MCP, function calling, scripts, and APIs solve
+    access and interoperability. They do not decide when search beats memory,
+    how several tools should be sequenced, what to do when an output is
+    malformed, or how completion should be checked. That missing layer is the
+    procedural gap. A skill is the artifact that narrows it.
+  </p>
+
+  <table>
+    <thead><tr><th>Survey stage</th><th>What the survey contributes</th><th>How it calibrates this report</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Representation</b></td>
+        <td>Models a skill as a root instruction, auxiliary resources, and applicability conditions; distinguishes text-backed, code-backed, and hybrid skills.</td>
+        <td>Supports Section V&rsquo;s anatomy story: <code>SKILL.md</code>, references, scripts, schemas, and triggers are not incidental packaging, but the visible form of the skill.</td>
+      </tr>
+      <tr>
+        <td><b>Acquisition</b></td>
+        <td>Groups skill creation into human-derived, experience-derived, task-derived, and corpus-derived paths.</td>
+        <td>Supports the <b>ADD</b> row below, and explains why our local collection mixes handcrafted writing skills, figure scripts, rebuttal workflows, and ARA-style artifact compilers.</td>
+      </tr>
+      <tr>
+        <td><b>Retrieval and selection</b></td>
+        <td>Separates candidate recall from execution choice: dense, sparse, generative, and structure-aware retrieval feed context-, composition-, cost-, and feedback-aware selection.</td>
+        <td>Supports Section VII&rsquo;s SSL claim that a good skill representation exposes the right evidence at the right depth, rather than dumping every instruction into context.</td>
+      </tr>
+      <tr>
+        <td><b>Evolution</b></td>
+        <td>Treats revision, validation, policy coupling, repository evolution, and runtime governance as one post-deployment problem.</td>
+        <td>Supports our <b>MODIFY</b> and <b>DELETE</b> rows. Our <b>EVOLVE</b> row goes further: it asks how skills differentiate by user, lab, and research style while preserving lineage.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    This is important evidence, but it should not be over-read. The survey
+    validates the skill-centric lens and gives us vocabulary for the lifecycle.
+    It does not prove that our four cognitive postures improve discovery, nor
+    that per-user skill inheritance is the right mechanism. Those remain
+    proposals that need experiments. The right conclusion is narrower and
+    stronger: our scheme is no longer just an editorial synthesis of ARA,
+    SkillOS, and SSL. It now has an independent survey paper that identifies
+    the same object, names the procedural gap, and organizes the field around
+    representation, acquisition, retrieval, and evolution.
   </p>
 
   <p>
@@ -824,7 +886,7 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
 <figcaption>The five verbs. CRUD is the first four; <em>evolve</em> is the verb that distinguishes a skill library from a static knowledge base — and it is the verb the field is furthest from solving.</figcaption></figure>
 
   <p>
-    Two of the three papers name the lifecycle explicitly in their own prose.
+    Among the three system papers, two name the lifecycle explicitly in their own prose.
     SSL opens its related-work section by classifying recent skill work into
     &ldquo;skill repositories, trajectory-derived skill construction,
     inference-time routing, and training-time internalisation&rdquo; &mdash; four of
@@ -1229,6 +1291,17 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
     still thin enough that a modest study can move the consensus.
   </p>
 
+  <p>
+    The CUHK-Shenzhen survey gives this agenda a useful external check. Its
+    closing challenges &mdash; quality control, interoperability, safe updating,
+    and long-term capability management &mdash; are not abstract desiderata
+    here. They translate into concrete tests: whether composed skill stacks
+    outperform monoliths, whether libraries survive language and domain shift,
+    whether artifact protocols remain durable, whether personal skill evolution
+    can be governed, and whether cognitive gates improve scientific outcomes
+    rather than merely improving prose.
+  </p>
+
   <h3>Does composition beat specialisation?</h3>
   <p>
     Every serious skill collection is built by one author with one style. But nothing prevents
@@ -1296,7 +1369,8 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
   <p>
     For the primary sources, follow the hyperlinks in the text above. GitHub star counts
     were verified through <code>api.github.com</code>; benchmark metadata through
-    <code>api.openalex.org</code>; the three featured 2026 papers (ARA, SkillOS, SSL)
+    <code>api.openalex.org</code>; the four featured 2026 papers (ARA, SkillOS, SSL,
+    and the CUHK-Shenzhen agent-skills survey)
     through arXiv's rendered HTML mirror. A plain-text mirror of this essay would be
     a reasonable thing to produce on request.
   </p>
