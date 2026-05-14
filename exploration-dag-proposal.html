@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Project-Level Exploration DAG for Autonomous Scientific Discovery</title>
+<style>
+  :root{
+    --bg:#fbfaf6;
+    --ink:#191714;
+    --dim:#5f6267;
+    --faint:#908b7d;
+    --accent:#b8922d;
+    --accent-ink:#6f5411;
+    --rule:#e4dac2;
+    --card:#fffdf8;
+    --code-bg:#f3eddf;
+    --hi:#fff4cf;
+    --shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(42,30,6,.08);
+    --serif:"Iowan Old Style","Cambria","Liberation Serif","Songti SC","Source Han Serif SC",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","PingFang SC","Noto Sans CJK SC",sans-serif;
+    --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+    --measure:760px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 50% -12%,rgba(224,188,88,.24),transparent 34rem),
+      linear-gradient(180deg,#fffdf8 0%,var(--bg) 36rem);
+    color:var(--ink);
+    font:17px/1.72 var(--serif);
+    -webkit-font-smoothing:antialiased;
+  }
+  main{max-width:var(--measure);margin:0 auto;padding:64px 28px 92px}
+  header{padding-bottom:36px;margin-bottom:44px;border-bottom:1px solid var(--rule)}
+  .eyebrow{font:700 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+  h1{font:700 46px/1.08 var(--serif);letter-spacing:-.02em;margin:0 0 18px}
+  .standfirst{font-size:20px;line-height:1.55;color:#30343a;font-style:italic;margin:0 0 24px}
+  .meta{font:13px/1.5 var(--sans);color:var(--dim)}
+  section{margin:0 0 54px}
+  h2{font:700 28px/1.2 var(--serif);letter-spacing:-.015em;margin:0 0 10px}
+  h3{font:700 20px/1.25 var(--serif);letter-spacing:-.01em;margin:30px 0 10px}
+  p{margin:0 0 16px}
+  a{color:var(--accent);text-decoration:none;background-image:linear-gradient(currentColor,currentColor);background-size:100% 1px;background-repeat:no-repeat;background-position:0 100%;padding-bottom:1px}
+  a:hover{color:var(--accent-ink)}
+  code{background:var(--code-bg);font:14px/1.4 var(--mono);padding:1px 5px;border-radius:3px;color:#3f2f15}
+  .abstract,.callout{
+    margin:24px 0;
+    padding:18px 22px;
+    background:var(--card);
+    border:1px solid var(--rule);
+    border-left:3px solid var(--accent);
+    border-radius:4px;
+    box-shadow:var(--shadow);
+  }
+  .label{font:700 11px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);display:block;margin-bottom:8px}
+  table{border-collapse:collapse;width:100%;margin:20px 0;font:14.5px/1.45 var(--sans);background:var(--card);border:1px solid var(--rule)}
+  th,td{padding:10px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
+  thead th{background:#f6eed9;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--accent-ink)}
+  tr:last-child td{border-bottom:0}
+  tr:hover td{background:#fcf7e9}
+  ul,ol{padding-left:24px;margin:10px 0 16px}
+  li{margin:4px 0}
+  pre{
+    margin:22px 0;
+    padding:18px 20px;
+    background:#fffdf8;
+    border:1px solid #d8c58f;
+    border-radius:6px;
+    box-shadow:var(--shadow);
+    overflow:auto;
+    color:#24282e;
+    font:13.5px/1.55 var(--mono);
+  }
+  pre code{display:block;background:transparent;color:inherit;padding:0;border-radius:0;font:inherit;min-width:max-content}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0}
+  .card{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:15px 17px;box-shadow:var(--shadow)}
+  .card h3{margin-top:0;font-size:18px}
+  footer{max-width:var(--measure);margin:0 auto;padding:26px 28px 54px;border-top:1px solid var(--rule);font:13px/1.65 var(--sans);color:var(--dim)}
+  @media (max-width:720px){
+    main{padding:42px 20px 72px}
+    h1{font-size:36px}
+    .grid{grid-template-columns:1fr}
+    table{font-size:13.5px}
+    th,td{padding:9px 10px}
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="eyebrow">Proposal</div>
+    <h1>Project-Level Exploration DAG for Autonomous Scientific Discovery</h1>
+    <p class="standfirst">A cautious design for preserving the full research process, selecting evidence-backed paths, and preventing polished papers from outrunning their receipts.</p>
+    <div class="meta">DAG means directed acyclic graph. It does not mean RAG. RAG may enrich nodes, but the DAG is the durable project memory.</div>
+  </header>
+
+  <section class="abstract">
+    <span class="label">Executive Summary</span>
+    <p>
+      Autonomous research needs a shared discovery graph that records questions, assumptions,
+      hypotheses, experiments, citations, decisions, dead ends, and receipts. A final paper
+      should be extracted from the highest-value supported path or subgraph, not invented
+      after the fact as a polished narrative. This is a proposal, not a validated claim:
+      its value must be tested through evidence quality, reproducibility, and audit speed.
+    </p>
+  </section>
+
+  <section>
+    <h2>Why Existing Systems Are Not Enough</h2>
+    <p>
+      The adjacent ecosystem already solves important slices of the problem. The missing layer
+      is a project-native graph that can absorb those signals, keep failed branches alive, and
+      later compress the best-supported subgraph into a paper or artifact.
+    </p>
+
+    <table>
+      <thead><tr><th>System family</th><th>What it contributes</th><th>What remains open</th></tr></thead>
+      <tbody>
+        <tr><td><b>ARA</b></td><td>Artifact layout, claim bindings, traces, evidence folders, dead-end awareness.</td><td>A project-wide team graph with path scoring, cross-project reuse, and paper-path extraction.</td></tr>
+        <tr><td><b>GStack</b></td><td>Stage gates, role separation, review, testing, shipping, reflection.</td><td>Scientific evidence semantics and claim-to-receipt bindings.</td></tr>
+        <tr><td><b>LLM-as-a-Verifier</b></td><td>Better selection among many agent trajectories through fine-grained repeated verification.</td><td>Hard evidence receipts. A verifier score is not proof.</td></tr>
+        <tr><td><b>PROV / RO-Crate / OpenLineage</b></td><td>Standard provenance vocabulary for entities, activities, agents, and lineage.</td><td>Scientific novelty, branch value, and paper composition.</td></tr>
+        <tr><td><b>Run trackers</b></td><td>Runs, metrics, prompts, traces, artifacts, and evaluation records.</td><td>Research-level reasoning structure and failed-branch retention as scientific memory.</td></tr>
+        <tr><td><b>Literature maps and ELNs</b></td><td>Paper graph navigation, lab records, timestamps, protocols, and review workflows.</td><td>Turning a branching investigation history into a supported paper path.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Proposed System</h2>
+    <p>
+      The system is a persistent graph per project. Nodes represent scientific objects and
+      workflow events. Edges represent dependency, support, contradiction, refinement,
+      execution, citation, or decision relationships. Receipts bind nodes and edges to
+      external evidence or local artifacts.
+    </p>
+    <p>
+      The system should support a tree-like view for humans and a DAG model for implementation.
+      A strict tree is too weak because two branches can share the same dataset, citation,
+      failed baseline, or methodological decision. A DAG lets knowledge converge without
+      duplicating records.
+    </p>
+
+    <pre><code>root question
+  |-- Q-001: clarify the scientific question
+  |-- A-002: expose a necessary assumption
+  |-- H-003: propose a falsifiable hypothesis
+  |     |-- E-008: run an experiment
+  |     |-- C-014: attach a verified citation
+  |     `-- D-017: promote, revise, or reject
+  `-- DEAD-021: preserve a failed branch with its receipt</code></pre>
+  </section>
+
+  <section>
+    <h2>Data Model</h2>
+    <p>
+      A minimal graph needs typed nodes, typed edges, receipts, support status, and project
+      boundaries. The schema should be simple enough for agents to append safely and strict
+      enough for audits to reject unsupported promotion.
+    </p>
+
+    <pre><code>project:
+  id: ASD-001
+  root_question: "Can hard-gated agent postures reduce unsupported scientific claims?"
+
+nodes:
+  - id: H-003
+    type: hypothesis
+    text: "A four-posture agent reduces premise and citation errors."
+    support_status: tentative
+
+  - id: E-008
+    type: experiment
+    command: "run benchmark against baseline agents"
+    receipt: receipts/experiments/E-008.json
+
+  - id: C-014
+    type: citation
+    claim: "ARA records dead ends in a trace layer."
+    receipt: evidence/citations/C-014.json
+    support_status: verified
+
+edges:
+  - from: H-003
+    to: E-008
+    relation: tested_by
+  - from: C-014
+    to: H-003
+    relation: background_support</code></pre>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Node Types</h3>
+        <p><code>question</code>, <code>assumption</code>, <code>hypothesis</code>, <code>experiment</code>, <code>result</code>, <code>citation</code>, <code>decision</code>, and <code>dead_end</code>.</p>
+      </div>
+      <div class="card">
+        <h3>Support States</h3>
+        <p><code>unverified</code>, <code>tentative</code>, <code>verified</code>, <code>refuted</code>, <code>blocked</code>, and <code>out_of_scope</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Workflow</h2>
+    <ol>
+      <li><b>Branch:</b> create a node for every meaningful question, assumption, hypothesis, experiment, citation, or decision.</li>
+      <li><b>Record:</b> attach actor, timestamp, prompt or command, input artifacts, and output artifacts.</li>
+      <li><b>Verify:</b> require receipts for citations, experiments, datasets, and major claims.</li>
+      <li><b>Score:</b> use decomposed criteria, not a single vague quality score.</li>
+      <li><b>Promote:</b> move only supported branches into the paper path.</li>
+      <li><b>Retain:</b> keep failed and negative branches with their reason for stopping.</li>
+      <li><b>Extract:</b> generate a paper or ARA-like artifact from the highest-value supported path or subgraph.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Minimal Implementation</h2>
+    <p>
+      The first version should avoid becoming a platform. It can be a file-backed artifact
+      that extends the existing ARA style.
+    </p>
+
+    <pre><code>artifact/
+  logic/
+    claims.md
+    hypotheses.yaml
+  trace/
+    exploration_dag.yaml
+    team_journal.jsonl
+  evidence/
+    citations/
+      verified.bib
+      verification-ledger.jsonl
+    receipts/
+      searches/*.json
+      experiments/*.json
+      reviews/*.json
+    tables/
+    figures/
+  views/
+    exploration-dag.json
+    paper-path.json</code></pre>
+
+    <div class="callout">
+      <span class="label">MVP behavior</span>
+      <p>
+        Append-only team journal, YAML or JSON DAG, citation verification ledger,
+        experiment receipt ledger, a simple graph view, and a path extraction command
+        that exports a supported narrative skeleton.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Evaluation Plan</h2>
+    <p>
+      The proposal should be tested against ordinary multi-agent chat, ARA-only artifact
+      packaging, and run-tracker-only workflows. It should be revised or rejected if it
+      creates impressive diagrams without improving evidence quality.
+    </p>
+
+    <table>
+      <thead><tr><th>Evaluation question</th><th>Possible metric</th></tr></thead>
+      <tbody>
+        <tr><td>Does the DAG reduce unsupported claims?</td><td>Unsupported-claim rate before and after graph gates.</td></tr>
+        <tr><td>Does it prevent repeated failed work?</td><td>Number of repeated dead-end attempts per project.</td></tr>
+        <tr><td>Does it improve audit speed?</td><td>Time for a new agent or human to verify a claim path.</td></tr>
+        <tr><td>Does it help paper writing?</td><td>Fraction of final paper claims linked to verified nodes.</td></tr>
+        <tr><td>Does it preserve novelty?</td><td>Path overlap between extracted paper candidates.</td></tr>
+        <tr><td>Does it stay usable?</td><td>Duplicate-node rate, graph size, retrieval success, user correction rate.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Goals and Risks</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Non-Goals</h3>
+        <ul>
+          <li>Not a replacement for human scientific judgment.</li>
+          <li>Not a claim that every research process is a clean tree.</li>
+          <li>Not a general RAG product.</li>
+          <li>Not a proof engine that turns verifier scores into truth.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Risks</h3>
+        <ul>
+          <li>The graph may become a log archive that nobody uses.</li>
+          <li>Agents may optimize for well-formed nodes instead of better science.</li>
+          <li>Weak receipt schemas may create false confidence.</li>
+          <li>Cross-project reuse may spread mistakes if provenance is shallow.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Closing</h2>
+    <p>
+      The strongest version of this proposal is not a prettier research dashboard. It is a
+      discipline for zero-hallucination scientific work. Agents may explore broadly, but
+      promotion into a paper requires evidence. The DAG is the shared memory that lets the
+      team see not only the final path, but also the abandoned branches, missing receipts,
+      and negative results that made the final path credible.
+    </p>
+  </section>
+</main>
+
+<footer>
+  Standalone proposal prepared for the Science-Discovery repository. The Markdown source is
+  <code>exploration-dag-proposal.md</code>.
+</footer>
+</body>
+</html>

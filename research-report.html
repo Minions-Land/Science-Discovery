@@ -1626,6 +1626,57 @@ promotion gate
   evidence/tables/ and evidence/figures/
   trace/exploration_tree.yaml</code>
 <figcaption>Verification compute helps choose where to look next. It does not replace the evidence objects that make a scientific claim auditable.</figcaption></figure>
+
+  <h3>Adjacent systems for a project-level exploration DAG</h3>
+  <p>
+    The surrounding ecosystem already covers slices of the problem, but no
+    single tool gives us a team-level investigation graph that also knows how to
+    become a paper path. The nearest neighbors are useful precisely because each
+    one covers a different slice of the stack.
+  </p>
+
+  <table>
+    <thead><tr><th>System</th><th>What it already covers</th><th>What it leaves open for an exploration DAG</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2501.04227"><strong>Agent Laboratory</strong></a></td>
+        <td>An end-to-end autonomous research workflow with literature review, experimentation, report writing, and human feedback at each stage.</td>
+        <td>It outputs a research product, but not a persistent team memory graph with shared branches, path scoring, or cross-project reuse.</td>
+      </tr>
+      <tr>
+        <td><a href="https://github.com/SakanaAI/AI-Scientist-v2"><strong>AI Scientist-v2</strong></a></td>
+        <td>Agentic tree search for workshop-level discovery, including ideation, experiments, writeup, and a tree visualization in the logs.</td>
+        <td>The tree is inside a generation pipeline, not a general project DAG that preserves all investigation paths across teams and projects.</td>
+      </tr>
+      <tr>
+        <td><a href="https://www.w3.org/TR/prov-overview/"><strong>W3C PROV</strong></a> / <a href="https://www.researchobject.org/ro-crate/specification.html"><strong>RO-Crate</strong></a> / <a href="https://openlineage.io/"><strong>OpenLineage</strong></a></td>
+        <td>Standard vocabularies for provenance and lineage: entities, activities, agents, runs, jobs, datasets, and reusable metadata packages.</td>
+        <td>They describe what happened and who did it, but do not decide which branch is novel enough to become a paper or which evidence path should be promoted.</td>
+      </tr>
+      <tr>
+        <td><a href="https://mlflow.org/docs/latest/tracking/"><strong>MLflow</strong></a> / <a href="https://dvc.org/doc"><strong>DVC</strong></a> / <a href="https://docs.smith.langchain.com/"><strong>LangSmith</strong></a> / <a href="https://langfuse.com/docs/"><strong>Langfuse</strong></a></td>
+        <td>Runs, metrics, artifacts, traces, sessions, prompts, and evaluation records for AI and ML systems.</td>
+        <td>They observe execution, but they do not turn the exploration history into a structured scientific narrative with novelty-aware branch extraction.</td>
+      </tr>
+      <tr>
+        <td><a href="https://www.researchrabbit.ai/"><strong>ResearchRabbit</strong></a> / <a href="https://www.litmaps.com/about"><strong>Litmaps</strong></a></td>
+        <td>Literature discovery graphs, related-work navigation, and paper-to-paper exploration.</td>
+        <td>They map the literature, not the team&rsquo;s own evolving investigation history, failed branches, or internal receipts.</td>
+      </tr>
+      <tr>
+        <td><a href="https://doc.elabftw.net/"><strong>eLabFTW</strong></a> / <a href="https://test.benchling.com/notebook"><strong>Benchling Notebook</strong></a></td>
+        <td>Electronic lab notebooks for experiments, metadata, timestamps, templates, and review workflows.</td>
+        <td>They are strong lab records, but they do not extract high-value paper paths from a branching investigation graph.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    The gap is now sharper: the field already has provenance standards, run
+    trackers, literature maps, and ELNs. What it does not yet have is a
+    project-native exploration DAG that can absorb those signals, keep failed
+    branches alive, and later compress the best-supported subgraph into a paper.
+  </p>
 </section>
 
 <p class="sep-ornament">❧</p>
