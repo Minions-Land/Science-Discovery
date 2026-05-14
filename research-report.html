@@ -1242,6 +1242,11 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
         <td><span class="status supported">Supported</span></td>
       </tr>
       <tr>
+        <td>Role-gated sprint workflows improve AI-assisted engineering discipline.</td>
+        <td>GStack organizes Think &rarr; Plan &rarr; Build &rarr; Review &rarr; Test &rarr; Ship &rarr; Reflect, with stage-specific skills, browser QA, PR checks, and retrospective learning.</td>
+        <td><span class="status supported">Supported</span></td>
+      </tr>
+      <tr>
         <td>Zero-hallucination citation verification is already an operational skill, not only a norm.</td>
         <td><code>AI-Research-SKILLs</code>, <code>claude-scholar</code>, and RebuttalStudio all ship citation-verification guidance: search first, verify existence, retrieve BibTeX from a source of record, validate the cited claim, and mark unresolved items rather than inventing metadata.</td>
         <td><span class="status supported">Supported</span></td>
@@ -1467,6 +1472,78 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
     explore freely, but the research artifact only admits what the evidence web
     can carry.
   </p>
+
+  <h3>Engineering counterpart: GStack</h3>
+  <p>
+    The closest software-engineering analogue I found is
+    <a href="https://github.com/garrytan/gstack"><code>gstack</code></a>,
+    Garry Tan&rsquo;s Claude Code setup. It is not a scientific-discovery
+    framework; it is a sprint controller for AI-assisted product and code
+    delivery. But the control logic is the same: hard-gated stages, role-specific
+    agents, explicit handoffs, and no shortcut from framing straight to shipping.
+  </p>
+  <p>
+    GStack defines a seven-step sprint &mdash; Think &rarr; Plan &rarr; Build
+    &rarr; Review &rarr; Test &rarr; Ship &rarr; Reflect &mdash; and binds each
+    stage to a concrete skill. `/office-hours` forces a six-question problem
+    interview; `/autoplan` runs CEO, design, engineering, and DX reviews;
+    `/review` and `/qa` catch bugs and add regression tests; `/ship` syncs main,
+    audits coverage, and opens the PR; `/retro` and `/learn` capture what should
+    be reused next time. The OpenClaw integration makes the architecture even
+    clearer: GStack treats itself as a methodology source, while ClawHub acts as
+    the public registry where the four native OpenClaw methodology skills live.
+  </p>
+
+  <table>
+    <thead><tr><th>GStack stage</th><th>Engineering discipline</th><th>Autonomous-science analogue</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Think</b> / <code>/office-hours</code></td>
+        <td>Interrogate the product, expose assumptions, and reframe the request before code exists.</td>
+        <td>Problem framing, premise ledger, and explicit question selection.</td>
+      </tr>
+      <tr>
+        <td><b>Plan</b> / <code>/autoplan</code></td>
+        <td>Force CEO, design, engineering, and DX reviews into one structured plan.</td>
+        <td>Hypothesis design, experiment design, and scope calibration.</td>
+      </tr>
+      <tr>
+        <td><b>Build</b></td>
+        <td>Implement the approved plan in files and modules, not in loose prose.</td>
+        <td>Execute experiments, build artifacts, and record concrete outputs.</td>
+      </tr>
+      <tr>
+        <td><b>Review</b> / <code>/review</code></td>
+        <td>Find defects that pass CI but fail in production; adversarially challenge the branch.</td>
+        <td>Claim audit, epistemic review, and adversarial evidence checking.</td>
+      </tr>
+      <tr>
+        <td><b>Test</b> / <code>/qa</code></td>
+        <td>Exercise the real interface, generate regressions, and audit coverage.</td>
+        <td>Replication, robustness checks, and benchmark validation.</td>
+      </tr>
+      <tr>
+        <td><b>Ship</b> / <code>/ship</code></td>
+        <td>Sync main, verify tests and coverage, and open the PR or deploy path.</td>
+        <td>Publish the paper or artifact only after evidence is complete.</td>
+      </tr>
+      <tr>
+        <td><b>Reflect</b> / <code>/retro</code>, <code>/learn</code></td>
+        <td>Capture what worked, what failed, and what should be reused next time.</td>
+        <td>Evidence ledger, failed-branch retention, and cross-session learning.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    The important lesson is not that software engineering equals science. It is
+    that both domains need the same control discipline once AI agents start doing
+    real work: role separation, stage gates, explicit receipts, and a human owner
+    who decides what gets promoted. GStack is the engineering proof that a fast
+    agent team can stay honest without becoming sluggish. That makes it a useful
+    analog for autonomous scientific discovery, where the final object is not a
+    deployable app but a claim graph that must stay faithful to the evidence.
+  </p>
 </section>
 
 <p class="sep-ornament">❧</p>
@@ -1575,8 +1652,9 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
     and the CUHK-Shenzhen agent-skills survey)
     through arXiv's rendered HTML mirror. Section XI additionally checks local vendored
     skill files for <code>AI-Research-SKILLs</code>, <code>claude-scholar</code>, and
-    RebuttalStudio, plus the OpenScholar article in <em>Nature</em>. A plain-text
-    mirror of this essay would be a reasonable thing to produce on request.
+    RebuttalStudio, plus the OpenScholar article in <em>Nature</em> and the GStack /
+    OpenClaw docs. A plain-text mirror of this essay would be a reasonable thing to
+    produce on request.
   </p>
 </footer>
 
