@@ -175,7 +175,7 @@
   <div class="byline">
     <span>By <b>the editors</b></span>
     <span class="sep">·</span>
-    <span>Reading time <b>~23 min</b></span>
+    <span>Reading time <b>~24 min</b></span>
     <span class="sep">·</span>
     <span><b>2026-05-13</b></span>
   </div>
@@ -1257,6 +1257,11 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
         <td><span class="status new">New hypothesis</span></td>
       </tr>
       <tr>
+        <td>Scaling verification compute can improve long-horizon trajectory selection.</td>
+        <td><a href="https://github.com/llm-as-a-verifier/llm-as-a-verifier">LLM-as-a-Verifier</a> reports gains from fine-grained score tokens, repeated pairwise verification, and decomposed criteria on Terminal-Bench and SWE-Bench Verified; this is a strong selector, not a replacement for hard evidence.</td>
+        <td><span class="status limited">Limited</span></td>
+      </tr>
+      <tr>
         <td>Preserved failure traces are always beneficial.</td>
         <td>The current report already notes the ARA caveat: on open-ended RE-Bench extension tasks, preserved traces can constrain a strong agent.</td>
         <td><span class="status limited">Limited</span></td>
@@ -1544,6 +1549,83 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
     analog for autonomous scientific discovery, where the final object is not a
     deployable app but a claim graph that must stay faithful to the evidence.
   </p>
+
+  <h3>Verification counterpart: LLM-as-a-Verifier</h3>
+  <p>
+    A second useful counterpart is
+    <a href="https://github.com/llm-as-a-verifier/llm-as-a-verifier">
+    <code>LLM-as-a-Verifier</code></a>, a Stanford, Berkeley, and NVIDIA
+    project about long-horizon agent evaluation. Strip away the social-media
+    headline and the technical claim is simple: many coding agents can solve a
+    task if they are sampled many times, but the harness often cannot identify
+    which trajectory is the successful one. The bottleneck is no longer only
+    generation. It is selection.
+  </p>
+
+  <p>
+    The framework replaces coarse <em>LLM-as-a-Judge</em> scoring with
+    pairwise verification. Instead of asking for one discrete score, it reads
+    top-log-probabilities over many score tokens, repeats the comparison, and
+    decomposes evaluation into criteria. In Terminal-Bench-style coding tasks
+    those criteria include specification adherence, output format, and visible
+    error signals; for SWE-Bench-style tasks they include root cause, code
+    quality, and empirical verification. Candidate trajectories then enter a
+    round-robin tournament, and the path with the strongest pairwise record is
+    selected.
+  </p>
+
+  <table>
+    <thead><tr><th>Verifier move</th><th>Why it matters for agents</th><th>Autonomous-science analogue</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Fine-grained score tokens</b></td>
+        <td>Reduces ties that appear when long trajectories receive the same coarse 1&ndash;8 score.</td>
+        <td>Rank competing hypotheses or experiment plans by support strength, not by a vague overall impression.</td>
+      </tr>
+      <tr>
+        <td><b>Repeated verification</b></td>
+        <td>Turns a noisy single judgment into a more stable estimate.</td>
+        <td>Require repeated audit passes before a claim moves from tentative to supported.</td>
+      </tr>
+      <tr>
+        <td><b>Criteria decomposition</b></td>
+        <td>Separates spec compliance, output match, and error evidence instead of hiding them in one score.</td>
+        <td>Score citation validity, experiment fidelity, statistical support, and claim scope separately.</td>
+      </tr>
+      <tr>
+        <td><b>Round-robin selection</b></td>
+        <td>Selects the best trajectory from many candidate agent runs.</td>
+        <td>Choose which branch in the evidence web should be promoted, repeated, rejected, or escalated to a human.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    The boundary matters. A verifier score is not a receipt. In software, the
+    selected trajectory still has to pass tests. In science, the selected branch
+    still has to bind to citations, logs, raw tables, code, and replication
+    artifacts. The right integration is therefore not &ldquo;let the verifier decide
+    truth&rdquo;. It is: use verification compute to triage many possible paths, then
+    promote only the paths whose hard evidence survives the ARA-style ledger.
+  </p>
+
+  <figure class="diagram"><code>candidate trajectories
+  ├── T01: plausible plan, weak citation support
+  ├── T02: stronger experiment design, missing baseline
+  ├── T03: complete evidence chain, slower route
+  └── T04: elegant story, unsupported claim
+        ↓
+LLM-as-a-Verifier
+  criteria: specification · evidence match · error signals · scope control
+  compute: fine-grained scores · repeated checks · pairwise tournament
+        ↓
+promotion gate
+  selected branch must still attach receipts:
+  citations/verification-ledger.jsonl
+  receipts/experiments/*.json
+  evidence/tables/ and evidence/figures/
+  trace/exploration_tree.yaml</code>
+<figcaption>Verification compute helps choose where to look next. It does not replace the evidence objects that make a scientific claim auditable.</figcaption></figure>
 </section>
 
 <p class="sep-ornament">❧</p>
@@ -1652,9 +1734,9 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
     and the CUHK-Shenzhen agent-skills survey)
     through arXiv's rendered HTML mirror. Section XI additionally checks local vendored
     skill files for <code>AI-Research-SKILLs</code>, <code>claude-scholar</code>, and
-    RebuttalStudio, plus the OpenScholar article in <em>Nature</em> and the GStack /
-    OpenClaw docs. A plain-text mirror of this essay would be a reasonable thing to
-    produce on request.
+    RebuttalStudio, plus the OpenScholar article in <em>Nature</em>, the GStack /
+    OpenClaw docs, and the LLM-as-a-Verifier project materials. A plain-text mirror
+    of this essay would be a reasonable thing to produce on request.
   </p>
 </footer>
 
