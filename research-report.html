@@ -692,6 +692,23 @@
   </p>
 
   <p>
+    Perplexity&rsquo;s May 2026 engineering guide,
+    <a href="https://research.perplexity.ai/articles/designing-refining-and-maintaining-agent-skills-at-perplexity">
+    <em>Designing, Refining, and Maintaining Agent Skills at Perplexity</em></a>,
+    is useful because it describes the same problem from production rather than
+    from a paper. Their blunt rule is that a skill is context, not ordinary
+    software. The directory layout is the hub-and-spoke interface:
+    <code>SKILL.md</code> for routing and main instructions, <code>scripts/</code>
+    for deterministic logic the agent should run rather than reinvent,
+    <code>references/</code> for heavy documents, <code>assets/</code> for
+    templates and schemas, and <code>config.json</code> for first-run user setup.
+    That mirrors the public <a href="https://agentskills.io/specification">Agent
+    Skills specification</a>, but Perplexity adds the operator&rsquo;s warning:
+    every visible skill taxes every session, so the library itself has to be
+    treated as an engineered runtime surface.
+  </p>
+
+  <p>
     In late April 2026, a group from Peking University
     (<a href="https://arxiv.org/abs/2604.24026">Liang, Wang, Liang &amp; Liu</a>)
     argued that progressive disclosure is really a
@@ -778,6 +795,71 @@
     remains for anything the structure cannot anchor — rationale, examples,
     caveats — which is what an authored document is uniquely good at.
   </div>
+
+  <h3>Perplexity&rsquo;s production version of the same idea</h3>
+  <p>
+    Perplexity makes the cost model concrete. The <strong>Index</strong> tier
+    loads only each visible skill&rsquo;s <code>name: description</code>, roughly a
+    hundred tokens per skill, for every session and every user. The
+    <strong>Load</strong> tier brings in the full <code>SKILL.md</code> body,
+    on the order of thousands of tokens, after the agent chooses a skill. The
+    <strong>Runtime</strong> tier is unbounded but conditional: scripts,
+    references, assets, subskills, formatting files, and special-case documents
+    are paid for only when the agent actually reads or executes them.
+  </p>
+
+  <table>
+    <thead><tr><th>Perplexity tier</th><th>Practical rule</th><th>SSL interpretation</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Index</b><br/><code>name: description</code></td>
+        <td>The description is a routing trigger. It should say when to load the skill, using user-intent language and negative boundary cases, not summarize the workflow.</td>
+        <td>Scheduling layer: intent, I/O, dependencies, and applicability conditions.</td>
+      </tr>
+      <tr>
+        <td><b>Load</b><br/><code>SKILL.md</code> body</td>
+        <td>The body should be short, opinionated, and high-signal. It should not list commands the model already knows; it should encode policy, taste, constraints, and gotchas.</td>
+        <td>Structural layer: phases, scene transitions, and the execution outline the agent needs after routing.</td>
+      </tr>
+      <tr>
+        <td><b>Runtime</b><br/><code>scripts/</code>, <code>references/</code>, <code>assets/</code></td>
+        <td>Heavy or deterministic material belongs outside the hub: executable scripts, API references, templates, schemas, and exceptional cases read only on demand.</td>
+        <td>Logical layer: concrete actions, resources touched, side effects, risks, and evidence spans.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    This is where Perplexity and SSL fit together cleanly. Perplexity gives the
+    operational budget: index, load, runtime. SSL gives the typed representation
+    that can make those budget cuts less ad hoc: scheduling for the index,
+    structure for the loaded plan, logic for runtime evidence and risk. The
+    lesson is not merely &ldquo;make skills shorter&rdquo;. It is to put the right kind
+    of knowledge at the right context depth.
+  </p>
+
+  <div class="aside">
+    <span class="k">Maintenance implication</span>
+    The highest-value material is usually negative: gotchas, forbidden loads,
+    known failures, and neighbor-confusion examples. Perplexity recommends
+    writing evals before the skill, testing whether the skill loads when it
+    should and stays silent when it should not, and treating post-merge
+    maintenance as an append-mostly gotcha flywheel. That advice also explains
+    the &ldquo;action at a distance&rdquo; problem: adding one skill can make a seemingly
+    unrelated skill route worse, because the index is a shared decision surface.
+  </div>
+
+  <p>
+    SkillsBench gives this caution empirical teeth. Its arXiv abstract reports
+    that curated skills raised average pass rate by 16.2 percentage points across
+    86 tasks and 7,308 trajectories, but effects varied widely, 16 of 84 tasks
+    had negative deltas, and self-generated skills provided no average benefit.
+    Focused skills with two or three modules outperformed comprehensive
+    documentation. For this report, that result matters because it keeps
+    SkillOS honest: an autonomous curator may propose skills, but promotion into
+    a shared repository still needs route evals, progressive-loading evals,
+    end-to-end task evals, and cross-model checks.
+  </p>
 
   <h3>A stack is starting to appear</h3>
   <p>
@@ -1882,7 +1964,9 @@ promotion gate
     and the CUHK-Shenzhen agent-skills survey)
     through arXiv's rendered HTML mirror. Section XI additionally checks local vendored
     skill files for <code>AI-Research-SKILLs</code>, <code>claude-scholar</code>, and
-    RebuttalStudio, plus the OpenScholar article in <em>Nature</em>, the GStack /
+    RebuttalStudio. Section VII adds Perplexity's production skill-design guide,
+    the public Agent Skills specification, and SkillsBench. Section XI additionally
+    checks the OpenScholar article in <em>Nature</em>, the GStack /
     OpenClaw docs, the LLM-as-a-Verifier project materials, Claude-Mem, Codex
     Memories, OpenClaw memory, Cloak, Cline task history, Mem0, Zep, Letta, LangMem,
     and the May 2026 arXiv warning on continuously consolidated LLM memories.
