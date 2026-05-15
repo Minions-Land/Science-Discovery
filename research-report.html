@@ -1455,6 +1455,10 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
   trace/
     exploration_tree.yaml           ← node DAG: premise, question, hypothesis, action, result, dead end
     team_journal.jsonl              ← append-only turn log with actor, action, and affected nodes
+  memory/
+    episodes.jsonl                   ← raw recalled sessions, tool traces, and observations
+    durable_memory.md                ← reviewed project preferences, decisions, and constraints
+    consolidation-ledger.jsonl       ← what was promoted, by whom, and from which episodes
   evidence/
     citations/
       verified.bib                  ← only source-backed BibTeX entries
@@ -1477,6 +1481,99 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
     explore freely, but the research artifact only admits what the evidence web
     can carry.
   </p>
+
+  <h3>Memory counterpart: from recall to research memory</h3>
+  <p>
+    The most practical new layer is not another writing skill. It is long-term
+    agent memory. The everyday pain is familiar: every new session starts by
+    asking the user to restate project context, coding style, unresolved
+    decisions, failed attempts, and preferred workflows. Memory tools solve the
+    recall problem; the exploration DAG solves the evidentiary problem. They
+    should be connected, but not collapsed into one object.
+  </p>
+
+  <p>
+    <a href="https://github.com/thedotmack/claude-mem"><code>Claude-Mem</code></a>
+    is the cleanest current example for Claude-style coding agents. It captures
+    tool-use observations through lifecycle hooks, stores sessions and summaries
+    in SQLite, adds Chroma-backed hybrid search, and exposes a token-efficient
+    MCP workflow: <code>search</code> for compact hits, <code>timeline</code>
+    for surrounding context, and <code>get_observations</code> for full records
+    only after filtering. That is exactly the right retrieval posture for a
+    research project: search broadly, inspect chronology, then pull the raw
+    observation only when it matters.
+  </p>
+
+  <table>
+    <thead><tr><th>Memory system</th><th>What it does well</th><th>How it should connect to this report</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><a href="https://github.com/thedotmack/claude-mem"><strong>Claude-Mem</strong></a></td>
+        <td>Session capture, semantic summaries, observation IDs, MCP search, timeline retrieval, and progressive disclosure across Claude Code, OpenClaw, Codex-like, and other agent shells.</td>
+        <td>Use it as the recall layer for prior decisions, tool traces, and failed attempts; promote only verified memories into the exploration DAG.</td>
+      </tr>
+      <tr>
+        <td><a href="https://developers.openai.com/codex/memories"><strong>Codex Memories</strong></a></td>
+        <td>Off-by-default local memories under <code>~/.codex/memories/</code>, background extraction, per-thread controls, and explicit guidance that required team rules belong in <code>AGENTS.md</code>.</td>
+        <td>Treat memories as helpful generated recall, not source-of-truth project law. Durable rules still belong in checked-in files and DAG receipts.</td>
+      </tr>
+      <tr>
+        <td><a href="https://docs.openclaw.ai/concepts/memory"><strong>OpenClaw memory</strong></a></td>
+        <td>Plain Markdown memory files, daily notes, semantic search, optional dreaming, and a memory-wiki layer with claims, evidence, freshness, and contradiction tracking.</td>
+        <td>Closest to the desired shape: human-readable memory plus a provenance-rich knowledge layer. Still needs explicit paper-path extraction.</td>
+      </tr>
+      <tr>
+        <td><a href="https://docs.cline.bot/core-workflows/task-management"><strong>Cline task history / Memory Bank pattern</strong></a></td>
+        <td>Task-scoped sessions, resumable history, checkpoints, and project memory files that preserve context across coding sessions.</td>
+        <td>Useful for engineering handoff, but it must be upgraded with claim IDs, evidence receipts, and dead-end status for science.</td>
+      </tr>
+      <tr>
+        <td><a href="https://docs.mem0.ai/open-source/overview"><strong>Mem0</strong></a>, <a href="https://help.getzep.com/concepts"><strong>Zep</strong></a>, <a href="https://docs.letta.com/guides/core-concepts/stateful-agents"><strong>Letta</strong></a>, <a href="https://github.com/langchain-ai/langmem"><strong>LangMem</strong></a></td>
+        <td>Production memory infrastructure: self-hosted memory engines, temporal knowledge graphs, stateful agents, hot-path memory tools, and background consolidation.</td>
+        <td>Good substrates for implementation, but scientific use needs stricter support states, audit trails, and citation / experiment receipts.</td>
+      </tr>
+      <tr>
+        <td><a href="https://getcloak.dev/"><strong>Cloak</strong></a></td>
+        <td>Not a memory store. It encrypts local <code>.env</code> secrets, writes sandbox values to disk, and makes agent-readable files safe by default.</td>
+        <td>Memory governance needs this boundary: agents should remember decisions and evidence, not leak credentials into traces, summaries, or vector stores.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    This suggests a three-layer rule. <strong>Memory</strong> recalls what the
+    team has seen. <strong>RAG</strong> retrieves relevant memory, literature,
+    and artifacts. <strong>The DAG</strong> decides what is structurally true
+    inside the project: which node exists, what supports it, what refutes it,
+    and whether it may be promoted into a paper. A retrieved memory can propose
+    a node, but it should not automatically become a supported claim.
+  </p>
+
+  <div class="aside">
+    <span class="k">Memory caveat</span>
+    A May 2026 arXiv study,
+    <a href="https://arxiv.org/abs/2605.12978"><em>Useful Memories Become
+    Faulty When Continuously Updated by LLMs</em></a>, is a useful warning
+    sign. Its reported failure mode is not that memory is useless; it is that
+    automatic consolidation can degrade useful experience when raw episodes are
+    overwritten by faulty summaries. For this report, the design implication is
+    direct: keep raw episodes first-class, gate consolidation, and never let a
+    memory summary replace the receipt it came from.
+  </div>
+
+  <figure class="diagram"><code>agent memory stack for research
+  raw episodes
+    └── complete sessions, commands, tool calls, observations, failed branches
+        ↓ gated consolidation
+  durable memory
+    └── stable preferences, project conventions, decisions, known pitfalls
+        ↓ evidence promotion
+  exploration DAG
+    └── typed nodes + receipts + support status + paper-path extraction
+        ↓ finalization gate
+  research artifact
+    └── paper / ARA package / reproducible claim graph</code>
+<figcaption>Memory should help an agent remember what happened. The DAG decides what the project can responsibly claim.</figcaption></figure>
 
   <h3>Engineering counterpart: GStack</h3>
   <p>
@@ -1786,8 +1883,10 @@ promotion gate
     through arXiv's rendered HTML mirror. Section XI additionally checks local vendored
     skill files for <code>AI-Research-SKILLs</code>, <code>claude-scholar</code>, and
     RebuttalStudio, plus the OpenScholar article in <em>Nature</em>, the GStack /
-    OpenClaw docs, and the LLM-as-a-Verifier project materials. A plain-text mirror
-    of this essay would be a reasonable thing to produce on request.
+    OpenClaw docs, the LLM-as-a-Verifier project materials, Claude-Mem, Codex
+    Memories, OpenClaw memory, Cloak, Cline task history, Mem0, Zep, Letta, LangMem,
+    and the May 2026 arXiv warning on continuously consolidated LLM memories.
+    A plain-text mirror of this essay would be a reasonable thing to produce on request.
   </p>
 </footer>
 
