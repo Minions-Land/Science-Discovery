@@ -1538,9 +1538,14 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
     exploration_tree.yaml           ← node DAG: premise, question, hypothesis, action, result, dead end
     team_journal.jsonl              ← append-only turn log with actor, action, and affected nodes
   memory/
-    episodes.jsonl                   ← raw recalled sessions, tool traces, and observations
-    durable_memory.md                ← reviewed project preferences, decisions, and constraints
-    consolidation-ledger.jsonl       ← what was promoted, by whom, and from which episodes
+    private/
+      agent-id/episodes.jsonl        ← raw recalled sessions, tool traces, and role-local notes
+    shared/
+      project_memory.md              ← reviewed project facts, decisions, constraints, and current state
+      team_path.jsonl                ← who explored what, when, with what status and output
+    policies/
+      access_graph.yaml              ← who / which agent / which resource may read or write
+    consolidation-ledger.jsonl       ← what was promoted, by whom, and from which private episodes
   evidence/
     citations/
       verified.bib                  ← only source-backed BibTeX entries
@@ -1656,6 +1661,221 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
   research artifact
     └── paper / ARA package / reproducible claim graph</code>
 <figcaption>Memory should help an agent remember what happened. The DAG decides what the project can responsibly claim.</figcaption></figure>
+
+  <h3>Team memory: shared state without shared hallucination</h3>
+  <p>
+    Multi-agent memory is now visible enough to be treated as a separate design
+    problem. The broad surveys agree on the vocabulary shift:
+    <a href="https://arxiv.org/abs/2512.13564"><em>Memory in the Age of AI
+    Agents</em></a> separates memory from ordinary RAG and context engineering,
+    while <a href="https://arxiv.org/abs/2603.07670"><em>Memory for Autonomous
+    LLM Agents</em></a> formalizes memory as a write&ndash;manage&ndash;read
+    loop with engineering problems such as write filtering, contradiction
+    handling, latency, and privacy governance. Once there is more than one
+    agent, those problems become distributed-systems problems: who may write,
+    who may read, whose view is authoritative, and which memory survives into
+    the project record.
+  </p>
+
+  <p>
+    The strongest recent answer is not &ldquo;put every agent in the same vector
+    store&rdquo;. <a href="https://arxiv.org/abs/2505.18279">Collaborative
+    Memory</a> explicitly separates private fragments from selectively shared
+    fragments, uses a dynamic access graph over users, agents, and resources,
+    and keeps immutable provenance so later policy checks can ask who created a
+    memory, which resources it touched, and when. <a href="https://arxiv.org/abs/2604.19540">
+    Mesh Memory Protocol</a> reaches a compatible conclusion from the agent-to-agent
+    side: each peer has its own identity and memory, accepts peer content
+    field-by-field rather than wholesale, preserves lineage through content
+    hashes, and stores the receiver&rsquo;s role-evaluated understanding rather than
+    blindly copying raw peer signals.
+  </p>
+
+  <table>
+    <thead><tr><th>Pattern</th><th>What it contributes</th><th>Implication for autonomous science</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2304.03442"><strong>Generative Agents</strong></a></td>
+        <td>Agent-local memory streams, reflection, and planning produce coherent social behavior in a simulated community.</td>
+        <td>Useful baseline: every agent needs its own episodic memory. But project science needs more than social propagation; it needs evidence receipts and promotion gates.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2505.18279"><strong>Collaborative Memory</strong></a></td>
+        <td>Private and shared tiers, dynamic access control, read/write policies, filtered views, and immutable provenance per memory fragment.</td>
+        <td>Adopt the access-graph idea: a student agent, PI agent, reviewer agent, and experiment agent should not see or publish the same memory by default.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2508.08997"><strong>Intrinsic Memory Agents</strong></a></td>
+        <td>Role-aligned memories evolve with each agent&rsquo;s outputs, preserving specialization and procedural consistency across tasks.</td>
+        <td>Private memory is not a bug; it is how specialized roles retain perspective. Sharing should promote stable outputs, not erase role-local judgment.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2507.07957"><strong>MIRIX</strong></a></td>
+        <td>Six structured memory types &mdash; core, episodic, semantic, procedural, resource, and knowledge vault &mdash; coordinated by a multi-agent memory framework, with visual and multimodal recall.</td>
+        <td>A research team should not store every memory as text chunks. Experiments, figures, screenshots, code resources, and stable procedures need different stores and retrieval policies.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2602.05665"><strong>Graph-based agent memory</strong></a></td>
+        <td>Frames memory extraction, storage, retrieval, and evolution as graph operations over knowledge and experience memory.</td>
+        <td>This is the bridge to the exploration DAG: team memory should be queryable as paths, dependencies, contradictions, and branch status, not only as nearest-neighbor snippets.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2604.19540"><strong>Mesh Memory Protocol</strong></a></td>
+        <td>Agent-to-agent memory exchange with field-level acceptance, lineage, role anchors, and receiver-side remixing.</td>
+        <td>Do not let one agent&rsquo;s confident summary overwrite the team state. Peer memory should enter as a proposal, then be accepted, transformed, or rejected by the receiving role.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2308.01542"><strong>Memory Sandbox</strong></a></td>
+        <td>Treats memories as user-visible data objects that can be viewed, edited, summarized, and shared across conversations.</td>
+        <td>Human-readable memory operations matter. A research team needs a dashboard for what agents remember, what they shared, and what was promoted into the project DAG.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    For this report, the operational model should be strict. <strong>Private
+    memory</strong> keeps raw episodes, role preferences, failed drafts, local
+    heuristics, and sensitive notes. <strong>Shared memory</strong> contains only
+    promoted project facts, current decisions, open questions, blocked paths,
+    and stable conventions. <strong>Evidence memory</strong> is not editable
+    prose at all; it is receipts: citation checks, commands, configs, raw
+    tables, figures, reviewer comments, and output hashes. <strong>The
+    exploration DAG</strong> ties them together, making visible who did what,
+    what each branch produced, what is missing, and why a path was promoted or
+    abandoned.
+  </p>
+
+  <figure class="diagram"><code>multi-agent research memory
+  agent-private memory
+    PI-agent/episodes.jsonl
+    reviewer-agent/episodes.jsonl
+    experiment-agent/episodes.jsonl
+        ↓ write policy: redact, summarize, classify, attach provenance
+  shared project memory
+    project_memory.md
+    open_questions.yaml
+    team_path.jsonl
+        ↓ promotion policy: requires receipt or explicit unsupported status
+  evidence memory
+    citations/verification-ledger.jsonl
+    receipts/experiments/*.json
+    tables/ figures/
+        ↓ graph binding
+  exploration DAG
+    nodes: question · hypothesis · action · result · dead_end · decision
+    edges: supports · refutes · blocks · depends_on · supersedes
+        ↓ visual views
+  team map
+    agent lanes · branch status · missing evidence · promoted paper paths</code>
+<figcaption>The safest team memory is layered: agents may remember privately, share selectively, and promote into the project only through evidence-bearing edges.</figcaption></figure>
+
+  <p>
+    The visualization follows directly. A useful team map should not be a chat
+    transcript. It should look like a research operations board over a DAG:
+    horizontal lanes for agents or roles, vertical time, branch nodes for
+    questions and hypotheses, edge labels for support or contradiction, and
+    visible statuses such as <code>open</code>, <code>supported</code>,
+    <code>refuted</code>, <code>blocked</code>, <code>stale</code>, and
+    <code>needs_human</code>. The most important view is often negative: what
+    nobody has checked, which branch failed, which result lacks a receipt, and
+    which two agents are relying on contradictory memories.
+  </p>
+
+  <h3>Programmable memory runtime: why Rust is interesting</h3>
+  <p>
+    A newer implementation pattern moves memory out of Markdown and into a
+    small local runtime. The point is easy to misunderstand: writing memory in
+    Rust does not by itself reduce token use. Tokens are saved only when the
+    runtime filters, ranks, summarizes, enforces access policy, and returns a
+    compact memory object instead of dumping whole transcripts into context.
+    Rust is interesting because it is a strong fit for that runtime layer:
+    fast local search, low background overhead, strong typing, safe concurrency,
+    durable append-only logs, and hard permission boundaries.
+  </p>
+
+  <p>
+    The WeChat article the user pointed to appears to be part of a broader move
+    toward treating memory as code rather than notes. The nearest public
+    examples include <a href="https://github.com/cogniplex/codemem"><code>codemem</code></a>,
+    which presents itself as a standalone Rust memory engine for coding agents,
+    <a href="https://github.com/fork-demon/smriti"><code>Smriti</code></a>,
+    a Rust-based experimental memory engine that combines graph ranking and
+    vector-style recall, and systems such as
+    <a href="https://sediment.sh/"><code>Sediment</code></a>, which stores
+    agent memory as structured SQLite-backed context layers rather than loose
+    prose. These are not proof that Rust is the only correct language; they are
+    evidence that memory is becoming an executable subsystem.
+  </p>
+
+  <table>
+    <thead><tr><th>Implementation style</th><th>Strength</th><th>Risk</th><th>Best role in this report</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Markdown / AGENTS.md</b></td>
+        <td>Human-readable rules, team conventions, and durable narrative decisions.</td>
+        <td>Weak concurrency, weak schema enforcement, and easy drift between prose and behavior.</td>
+        <td>Keep stable team policy and human-reviewable summaries here.</td>
+      </tr>
+      <tr>
+        <td><b>JSONL / YAML ledgers</b></td>
+        <td>Append-only traces, receipts, node records, and reproducible diffs.</td>
+        <td>Still passive unless a runtime validates and queries them.</td>
+        <td>Use for exploration DAG nodes, evidence receipts, and consolidation logs.</td>
+      </tr>
+      <tr>
+        <td><b>Python / TypeScript services</b></td>
+        <td>Fast iteration, broad AI ecosystem, simple MCP and web integration.</td>
+        <td>Dependency weight, process overhead, and weaker guarantees under many concurrent agents.</td>
+        <td>Good for prototypes, dashboards, and memory-policy experiments.</td>
+      </tr>
+      <tr>
+        <td><b>Rust local runtime</b></td>
+        <td>Low-latency daemon, strong typed schema, safe concurrent writes, compact retrieval, and hard access-control paths.</td>
+        <td>Higher implementation cost and less flexibility for rapidly changing prompt logic.</td>
+        <td>Use as the memory control plane: query, redact, promote, reject, hash, and return compact context.</td>
+      </tr>
+      <tr>
+        <td><b>Managed memory platforms</b><br/>Mem0, Zep, Letta, LangMem, LangGraph stores</td>
+        <td>Production APIs, graph or temporal memory, observability, and ecosystem integration.</td>
+        <td>External service dependency and the need to map generic memory abstractions onto scientific evidence status.</td>
+        <td>Use when deployment speed matters, but preserve local receipts and exportable project DAG state.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    The practical architecture is therefore hybrid. Markdown should hold what a
+    human must read. JSONL and YAML should hold append-only evidence. A Rust or
+    similarly strict runtime should decide what a given agent may recall, which
+    private memories may be promoted into shared project memory, which memories
+    conflict, and how much context to return. The API exposed to the agent can
+    stay small: <code>remember</code>, <code>search_memory</code>,
+    <code>get_memory</code>, <code>promote_to_shared</code>,
+    <code>attach_receipt</code>, <code>mark_refuted</code>, and
+    <code>render_team_path</code>. This is where token savings actually happen:
+    the model receives a typed, scoped answer, not the database.
+  </p>
+
+  <figure class="diagram"><code>memory runtime contract
+  input:
+    actor: reviewer-agent
+    task: "check whether H-003 is supported"
+    scope: project + own private memory
+
+  runtime:
+    enforce access_graph.yaml
+    retrieve candidate memories
+    rank by recency · relevance · support_status · evidence_refs
+    redact private or secret fields
+    return compact records first
+
+  output to LLM:
+    - memory_id: M-184
+      summary: "H-003 was tested once; baseline missing."
+      status: tentative
+      evidence_refs: [E-008, receipts/experiments/E-008.json]
+      next_action: "verify baseline before promotion"</code>
+<figcaption>Rust does not save tokens by existing. A memory runtime saves tokens by making recall typed, scoped, permissioned, and progressively expandable.</figcaption></figure>
 
   <h3>Engineering counterpart: GStack</h3>
   <p>
@@ -1969,7 +2189,10 @@ promotion gate
     checks the OpenScholar article in <em>Nature</em>, the GStack /
     OpenClaw docs, the LLM-as-a-Verifier project materials, Claude-Mem, Codex
     Memories, OpenClaw memory, Cloak, Cline task history, Mem0, Zep, Letta, LangMem,
-    and the May 2026 arXiv warning on continuously consolidated LLM memories.
+    the May 2026 arXiv warning on continuously consolidated LLM memories,
+    Generative Agents, Collaborative Memory, MIRIX, Intrinsic Memory Agents,
+    Graph-based Agent Memory, Mesh Memory Protocol, Memory Sandbox, codemem,
+    Smriti, and Sediment.
     A plain-text mirror of this essay would be a reasonable thing to produce on request.
   </p>
 </footer>
