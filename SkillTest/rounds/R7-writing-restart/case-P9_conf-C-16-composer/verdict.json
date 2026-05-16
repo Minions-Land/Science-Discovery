@@ -1,0 +1,6 @@
+{
+  "winner": "BLUE",
+  "reasoning": "RED has only 3 prose paragraphs (below the 4-5 minimum) and includes implementation-level dataset sizes in the intro prose ('450k PDB chains', '50k-chain PDB subset'). BLUE meets the paragraph-count requirement, correctly abstracts dataset sizes ('large corpus', 'curated PDB subset'), uses proper NeurIPS noun-phrase contribution bullets, and adds a motivation paragraph separating background from the two research directions.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "high"
+}

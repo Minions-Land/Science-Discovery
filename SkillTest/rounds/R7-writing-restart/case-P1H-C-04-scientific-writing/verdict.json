@@ -1,0 +1,6 @@
+{
+  "winner": "BLUE",
+  "reasoning": "Both responses are single paragraphs and correctly retain the 12-fold headline finding, but both fail to prune the full set of verbatim numbers (5 mm, 9 days, 8.3%, 36 mm). BLUE is more concise (~130 vs ~150 words) and its closing sentence is tighter, avoiding the filler phrase RED appends. On Nature Methods prose economy, BLUE is the marginal winner. Neither response fully meets the expected-behaviour signature, so the skill effect is modest.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "medium"
+}

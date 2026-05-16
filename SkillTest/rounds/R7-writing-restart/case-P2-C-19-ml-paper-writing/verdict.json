@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "RED meets all hard constraints (no implementation detail, no contribution bullets, 'Here we' anchor in final paragraph, method classes only, bounded implication) and produces a clean hourglass structure. Its only weakness is 3 paragraphs versus the 4-6 target. BLUE hits 5 paragraphs but paragraph 3 slips into mechanistic step-by-step description ('per-step retrieval conditioning', 'smooth generative distribution over backbone conformations') and places a redundant 'Here we' sentence in paragraph 3 before the proper final-paragraph anchor, violating the hourglass discipline.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "medium"
+}

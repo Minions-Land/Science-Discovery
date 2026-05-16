@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "Both responses violate the expected-behaviour signature by retaining verbatim numbers (0.847, 0.731, 16%), implementation details (ResNet-50, SimCLR), and dataset names. RED is marginally better: it names only one dataset (LIVECell) versus BLUE which explicitly names both LIVECell and CellPose-Cyto2 in the methods sentence. Neither response achieves the required polish, but RED commits fewer violations.",
+  "skill_effect_estimate": "Matches baseline",
+  "confidence": "medium"
+}

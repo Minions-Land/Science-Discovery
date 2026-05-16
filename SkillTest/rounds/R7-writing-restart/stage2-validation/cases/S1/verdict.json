@@ -1,0 +1,6 @@
+{
+  "winner": "BLUE",
+  "reasoning": "Both responses correctly strip numbers, citations, and dataset names. BLUE edges ahead on CNS register: 'multiscale dynamics inherent in video data' is more evocative, and the closing — 'principled and efficient framework for learning dynamic visual representations' — frames a conceptual contribution in the Nature house style. RED's closing ('effective and efficient pathway for advancing video understanding systems') is vaguer and slightly redundant. BLUE's language is tighter and more consistent with high-impact journal abstracts.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "medium"
+}

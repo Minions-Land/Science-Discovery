@@ -1,0 +1,6 @@
+{
+  "winner": "BLUE",
+  "reasoning": "Both responses fail major requirements: they keep numerical results, training-scale details, LIVECell, SimCLR, and an overbroad applications closer. RED is worse because it also retains both dataset names and the ResNet-50 backbone, adding more implementation detail explicitly ruled out by the expected signature. BLUE at least generalizes one dataset reference to public datasets and omits the backbone, so it is marginally closer to the requested Nature-style abstraction.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "medium"
+}

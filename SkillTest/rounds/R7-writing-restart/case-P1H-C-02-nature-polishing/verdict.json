@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "RED removes the reagent recipe (4% SDS, 0.5% Triton) and refractive-index value (n=1.466), which CNS abstracts never contain. BLUE preserves all of these verbatim, making it little more than a copyedit. Both responses retain more quantitative detail than Nature Methods style strictly requires, but RED's excision of the chemistry specifics represents a meaningfully better polish. The 12-fold headline finding is correctly kept by both.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "high"
+}

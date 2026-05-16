@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "RED better follows Nature Methods constraints. BLUE violates the no-specific-numbers rule in Abstract (TM-score 0.71 vs 0.73, 30-fold) and Conclusion (near-state-of-the-art). RED maintains appropriate hedging ('comparable', 'substantially less') throughout. Both have good CNS coordination, but RED's adherence to journal style constraints is superior. BLUE's Introduction is slightly more focused, but the Abstract/Conclusion violations are disqualifying for Nature Methods submission.",
+  "skill_effect_estimate": "Prevents real failure",
+  "confidence": "high"
+}

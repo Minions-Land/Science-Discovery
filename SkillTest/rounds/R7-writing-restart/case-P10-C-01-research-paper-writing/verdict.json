@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "RED better satisfies the expected-behaviour signature. BLUE violates the constraint by including specific numbers and dataset names in the Abstract ('CASP15', 'AlphaFold-2'). BLUE's Introduction has 5 paragraphs but the 4th is weak filler about 'practical implications' that doesn't advance the argument. RED's Abstract avoids dataset names, maintains cleaner flow, and the Introduction's 4 paragraphs are all substantive. Both maintain consistent main claims across sections and avoid forbidden patterns like contribution bullets.",
+  "skill_effect_estimate": "Prevents real failure",
+  "confidence": "high"
+}

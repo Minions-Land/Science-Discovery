@@ -1,0 +1,6 @@
+{
+  "winner": "BLUE",
+  "reasoning": "Both responses retain wrong-pattern numbers (5 mm, 9 days, 8.3%, 36 mm) and neither fully meets CNS norms. However, RED commits the more serious violation by preserving verbatim reagent details (4% SDS + 0.5% Triton X-100, n=1.466), which Nature Methods abstracts never include. BLUE abstracts these away to 'charged surfactant cocktail with a refractive-index-matched immersion medium', demonstrating the key editorial restraint the fixture demands.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "medium"
+}

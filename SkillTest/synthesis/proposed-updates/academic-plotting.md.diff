@@ -1,0 +1,130 @@
+# Proposed Update — academic-plotting.md
+
+**Source:** SkillTest R1.A (3 cases) + R1.B (3 cases) + visual review by user.
+**Status:** Draft only. Do not apply to
+`/Users/mjm/MinionsOS/minions/roles/writer/skills/academic-plotting.md` until
+the user explicitly approves the R1 synthesis port plan.
+
+## What to add
+
+The current `academic-plotting.md` covers venue-standard styling, colourblind-
+safe palette, vector + raster outputs. Add the following hard rules at the
+top of the Procedure section.
+
+### Add Rule: rcParams discipline (FIRST move in any plotting script)
+
+Every plotting script for a paper figure must lead with:
+
+```python
+import matplotlib as mpl
+mpl.rcParams.update({
+    "font.family": "sans-serif",
+    "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans", "Liberation Sans"],
+    "svg.fonttype": "none",     # editable text in SVG (NOT rasterised paths)
+    "pdf.fonttype": 42,         # editable TrueType in PDF
+    "axes.spines.right": False,
+    "axes.spines.top": False,
+    "axes.linewidth": 0.8,
+    "legend.frameon": False,
+})
+```
+
+Why: SkillTest R1.A and R1.B baselines (no skill loaded) emitted SVGs with
+0 `<text>` nodes — text was rasterised to path geometry, which is
+not editable by venue copy-editors. Both candidates emitted 18 to 62
+`<text>` nodes with explicit `font-family`. This is a HARD submission
+requirement for Nature-family vector artwork.
+
+### Add Rule: PALETTE-dict pattern
+
+Define a single PALETTE dict at the top of any multi-panel plot script;
+thread it through every panel:
+
+```python
+PALETTE = {
+    "signal": "#0F4D92",       # the intervention / treatment / KO direction
+    "signal_soft": "#B4C0E4",  # subordinate signal
+    "neutral": "#767676",      # control / WT / non-direction
+    "neutral_light": "#D8D8D8",
+    "accent": "#E4CCD8",       # secondary discriminator
+    "accent_dark": "#9A4D8E",
+    "black": "#272727",
+}
+```
+
+With the constraint:
+
+> **Reserve green and red for directional signals only** (gain / loss / up /
+> down). Use neutrals (grey, single-blue family, faint pink, faint purple)
+> for non-directional categorical labels. Do NOT use a saturated 3-or-4
+> hue cycle for a cluster sidebar or category labels — it burns the
+> green/red pair on labels that don't carry direction.
+
+Why: SkillTest R1.A case-heatmap baseline used a saturated `#4C72B0 /
+#55A868 / #C44E52` cluster bar that fought the RdBu_r diverging body.
+Both candidates used neutral / signal-blue / faint-pink and the user
+approved.
+
+### Add Rule: Default figsize in inches, NOT mm
+
+Default sizes:
+- single panel: `figsize=(6, 4)` inches
+- 2-panel side-by-side: `figsize=(10, 4)`
+- 4-panel hero: `figsize=(11, 6)` (see [[figure-layout-defaults]])
+
+Compress to exact mm only at submission packaging stage, AFTER the layout
+has been visually confirmed in PNG preview. Do NOT lead with
+`figsize=(width_mm/25.4, height_mm/25.4)` — that produced unreadable
+cramming in SkillTest R1.A case-bar.
+
+### Add Rule: TwoSlopeNorm for diverging colormaps
+
+For any heatmap that uses a diverging colormap (RdBu_r, BrBG, PiYG, etc),
+explicitly centre the norm at zero:
+
+```python
+import matplotlib as mpl
+norm = mpl.colors.TwoSlopeNorm(vmin=-vmax, vcenter=0, vmax=vmax)
+im = ax.imshow(data, cmap="RdBu_r", norm=norm)
+```
+
+Do NOT rely on `vmin/vmax` symmetry by data luck — the zero line on a
+z-score or log-fold-change heatmap is load-bearing.
+
+### Add Rule: Outside tick discipline
+
+```python
+ax.tick_params(direction="out", length=2.2, width=0.6)
+```
+
+Inside ticks fight the data; outside ticks read as instrument-style
+chrome and stay out of the way.
+
+## What to leave unchanged
+
+- The colourblind-safe palette intent.
+- The vector + raster outputs requirement.
+- The diagram-vs-numerical-axes split.
+
+## What NOT to add (handled by sibling skill)
+
+Multi-panel layout (4-panel hero default, no empty quadrants, no over-
+stretched panels, layout-budget triage) belongs in
+[[figure-layout-defaults]], not here. `academic-plotting.md` covers
+content discipline (palette, fonts, ticks, vector output); the layout
+discipline lives separately.
+
+## Why these are the right additions
+
+Five additions justified by R1 cross-skill evidence:
+
+| Rule | R1.A nature-figure evidence | R1.B scientific-figure-making evidence |
+|---|---|---|
+| rcParams editable text | All 3 cases: 0→18-60 `<text>` | All 3 cases: 0→18-62 `<text>` |
+| PALETTE-dict | case-multi-panel +2 dim | case-multi-panel +2 dim (palette user-approved) |
+| figsize in inches | case-bar fail (mm cramming) | case-bar OK (lighter rule set) |
+| TwoSlopeNorm | case-heatmap +1 dim | case-heatmap +1 dim |
+| Outside ticks | All 3 cases | All 3 cases |
+
+Every rule has evidence from at least 2 cases (across the two skills).
+None is a one-shot.

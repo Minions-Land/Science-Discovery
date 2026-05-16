@@ -1,0 +1,10 @@
+subset,n,response_rate,ci_lo,ci_hi
+All patients,240,0.42,0.36,0.48
+Age <60,120,0.5,0.41,0.59
+Age >=60,120,0.34,0.26,0.43
+BRAF mut,80,0.62,0.51,0.73
+BRAF wt,160,0.32,0.25,0.4
+PD-L1 high,100,0.55,0.45,0.65
+PD-L1 low,140,0.32,0.25,0.4
+Prior therapy,105,0.3,0.22,0.4
+Treatment-naive,135,0.51,0.43,0.6

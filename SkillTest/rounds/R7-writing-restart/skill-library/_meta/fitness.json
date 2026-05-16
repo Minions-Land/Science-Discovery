@@ -1,0 +1,373 @@
+{
+  "abstract-discipline": {
+    "R3": {
+      "won": [
+        "case-P1-C-01-research-paper-writing",
+        "case-P10-C-01-research-paper-writing",
+        "case-P10-C-13-paper-write",
+        "case-P1H-C-19-ml-paper-writing"
+      ],
+      "lost": [
+        "case-P1-C-17-strategist",
+        "case-P1-C-19-ml-paper-writing",
+        "case-P10-C-02-nature-polishing",
+        "case-P1H-C-02-nature-polishing",
+        "case-P1H-C-04-scientific-writing",
+        "case-P1H-C-13-paper-write"
+      ],
+      "tied": [
+        "case-P1-C-03-scientific-writing",
+        "case-P1-C-04-scientific-writing",
+        "case-P1-C-13-paper-write",
+        "case-P1-C-16-composer"
+      ]
+    },
+    "R4": {
+      "won": [
+        "case-P1-C-01-research-paper-writing",
+        "case-P1-C-21-abstract",
+        "case-P10-C-01-research-paper-writing",
+        "case-P10-C-13-paper-write"
+      ],
+      "lost": [
+        "case-P1-C-17-strategist",
+        "case-P1-C-19-ml-paper-writing"
+      ],
+      "tied": [
+        "case-P1-C-03-scientific-writing",
+        "case-P1-C-04-scientific-writing",
+        "case-P1-C-13-paper-write",
+        "case-P1-C-16-composer"
+      ]
+    },
+    "R1": {
+      "won": [
+        "case-P1H-C-19-ml-paper-writing"
+      ],
+      "lost": [
+        "case-P1H-C-04-scientific-writing",
+        "case-P1H-C-13-paper-write"
+      ],
+      "tied": [
+        "case-P1-C-13-paper-write"
+      ]
+    },
+    "R2": {
+      "won": [
+        "case-P10-C-13-paper-write",
+        "case-P1H-C-19-ml-paper-writing"
+      ],
+      "lost": [],
+      "tied": []
+    },
+    "_general": {
+      "won": [],
+      "lost": [
+        "case-P1H-C-21-abstract"
+      ],
+      "tied": []
+    }
+  },
+  "introduction-discipline": {
+    "R3": {
+      "won": [
+        "case-P10-C-01-research-paper-writing",
+        "case-P2-C-16-composer"
+      ],
+      "lost": [
+        "case-P2-C-02-nature-polishing",
+        "case-P2-C-17-strategist",
+        "case-P2-C-19-ml-paper-writing",
+        "case-P9_conf-C-01-research-paper-writing",
+        "case-P9_conf-C-13-paper-write",
+        "case-P9_conf-C-16-composer"
+      ],
+      "tied": []
+    },
+    "R4": {
+      "won": [
+        "case-P10-C-01-research-paper-writing",
+        "case-P2-C-16-composer"
+      ],
+      "lost": [
+        "case-P2-C-13-paper-write",
+        "case-P2-C-17-strategist",
+        "case-P2-C-19-ml-paper-writing"
+      ],
+      "tied": []
+    },
+    "_general": {
+      "won": [
+        "case-P10-C-13-paper-write"
+      ],
+      "lost": [
+        "case-P10-C-02-nature-polishing",
+        "case-P9_conf-C-02-nature-polishing"
+      ],
+      "tied": []
+    },
+    "R1": {
+      "won": [
+        "case-P2-C-16-composer",
+        "case-P9_conf-C-19-ml-paper-writing"
+      ],
+      "lost": [
+        "case-P2-C-02-nature-polishing",
+        "case-P2-C-17-strategist",
+        "case-P2-C-19-ml-paper-writing",
+        "case-P9_conf-C-01-research-paper-writing",
+        "case-P9_conf-C-13-paper-write",
+        "case-P9_conf-C-16-composer"
+      ],
+      "tied": []
+    },
+    "R2": {
+      "won": [
+        "case-P9_conf-C-19-ml-paper-writing"
+      ],
+      "lost": [
+        "case-P2-C-19-ml-paper-writing",
+        "case-P9_conf-C-01-research-paper-writing",
+        "case-P9_conf-C-13-paper-write"
+      ],
+      "tied": []
+    }
+  },
+  "related-work-discipline": {
+    "R2": {
+      "won": [
+        "case-P3-C-13-paper-write",
+        "case-P3-C-16-composer"
+      ],
+      "lost": [
+        "case-P3-C-01-research-paper-writing"
+      ],
+      "tied": [
+        "case-P3-C-19-ml-paper-writing"
+      ]
+    },
+    "R5": {
+      "won": [],
+      "lost": [
+        "case-P3-C-01-research-paper-writing"
+      ],
+      "tied": []
+    },
+    "R3": {
+      "won": [
+        "case-P3-C-13-paper-write",
+        "case-P3-C-16-composer"
+      ],
+      "lost": [],
+      "tied": [
+        "case-P3-C-19-ml-paper-writing"
+      ]
+    }
+  },
+  "experiments-completeness": {
+    "_general": {
+      "won": [],
+      "lost": [
+        "case-P4-C-01-research-paper-writing"
+      ],
+      "tied": []
+    },
+    "R2": {
+      "won": [
+        "case-P4-C-13-paper-write",
+        "case-P4-C-19-ml-paper-writing"
+      ],
+      "lost": [
+        "case-P4-C-02-nature-polishing"
+      ],
+      "tied": []
+    },
+    "R3": {
+      "won": [
+        "case-P4-C-19-ml-paper-writing"
+      ],
+      "lost": [],
+      "tied": []
+    }
+  },
+  "citation-zero-hallucination": {
+    "R1": {
+      "won": [
+        "case-P4-C-13-paper-write",
+        "case-P4-C-19-ml-paper-writing",
+        "case-P8-C-02-nature-polishing"
+      ],
+      "lost": [
+        "case-P4-C-01-research-paper-writing",
+        "case-P4-C-02-nature-polishing"
+      ],
+      "tied": [
+        "case-P8-C-01-research-paper-writing",
+        "case-P8-C-05-citation-management"
+      ]
+    },
+    "R2": {
+      "won": [
+        "case-P4-C-13-paper-write",
+        "case-P4-C-19-ml-paper-writing"
+      ],
+      "lost": [],
+      "tied": [
+        "case-P8-C-01-research-paper-writing",
+        "case-P8-C-05-citation-management"
+      ]
+    },
+    "R4": {
+      "won": [
+        "case-P4-C-13-paper-write"
+      ],
+      "lost": [],
+      "tied": []
+    },
+    "R3": {
+      "won": [
+        "case-P8-C-02-nature-polishing"
+      ],
+      "lost": [],
+      "tied": [
+        "case-P8-C-01-research-paper-writing",
+        "case-P8-C-05-citation-management"
+      ]
+    }
+  },
+  "figure-table-analysis": {
+    "R1": {
+      "won": [],
+      "lost": [
+        "case-P5-C-01-research-paper-writing"
+      ],
+      "tied": []
+    },
+    "R3": {
+      "won": [],
+      "lost": [
+        "case-P5-C-01-research-paper-writing",
+        "case-P5-C-02-nature-polishing"
+      ],
+      "tied": []
+    },
+    "R2": {
+      "won": [],
+      "lost": [
+        "case-P5-C-02-nature-polishing",
+        "case-P5-C-06-scientific-critical-thinking",
+        "case-P5-C-19-ml-paper-writing"
+      ],
+      "tied": []
+    },
+    "R4": {
+      "won": [
+        "case-P5-C-13-paper-write"
+      ],
+      "lost": [
+        "case-P5-C-06-scientific-critical-thinking",
+        "case-P5-C-19-ml-paper-writing"
+      ],
+      "tied": []
+    },
+    "R5": {
+      "won": [],
+      "lost": [
+        "case-P5-C-06-scientific-critical-thinking"
+      ],
+      "tied": []
+    }
+  },
+  "latex-typography": {
+    "R1": {
+      "won": [
+        "case-P6-C-01-research-paper-writing"
+      ],
+      "lost": [
+        "case-P6H_conf-C-02-nature-polishing"
+      ],
+      "tied": [
+        "case-P6-C-13-paper-write"
+      ]
+    },
+    "R2": {
+      "won": [
+        "case-P6-C-01-research-paper-writing",
+        "case-P6H_conf-C-01-research-paper-writing",
+        "case-P6H_conf-C-13-paper-write",
+        "case-P6H_conf-C-19-ml-paper-writing"
+      ],
+      "lost": [
+        "case-P6H_conf-C-02-nature-polishing",
+        "case-P9_conf-C-01-research-paper-writing",
+        "case-P9_conf-C-13-paper-write",
+        "case-P9_conf-C-16-composer"
+      ],
+      "tied": [
+        "case-P6-C-13-paper-write"
+      ]
+    },
+    "R3": {
+      "won": [
+        "case-P6-C-01-research-paper-writing",
+        "case-P6H_conf-C-01-research-paper-writing",
+        "case-P6H_conf-C-19-ml-paper-writing"
+      ],
+      "lost": [
+        "case-P6H_conf-C-02-nature-polishing"
+      ],
+      "tied": [
+        "case-P6-C-13-paper-write"
+      ]
+    },
+    "R6": {
+      "won": [
+        "case-P6H_conf-C-01-research-paper-writing",
+        "case-P6H_conf-C-19-ml-paper-writing"
+      ],
+      "lost": [
+        "case-P6H_conf-C-02-nature-polishing"
+      ],
+      "tied": []
+    },
+    "R4": {
+      "won": [],
+      "lost": [
+        "case-P9_conf-C-02-nature-polishing"
+      ],
+      "tied": []
+    },
+    "_general": {
+      "won": [
+        "case-P9_conf-C-19-ml-paper-writing"
+      ],
+      "lost": [],
+      "tied": []
+    }
+  },
+  "abbreviation-discipline": {
+    "R1": {
+      "won": [
+        "case-P7-C-13-paper-write"
+      ],
+      "lost": [
+        "case-P7-C-01-research-paper-writing",
+        "case-P7-C-04-scientific-writing",
+        "case-P7-C-21-abstract"
+      ],
+      "tied": []
+    },
+    "R2": {
+      "won": [
+        "case-P7-C-02-nature-polishing",
+        "case-P7-C-13-paper-write"
+      ],
+      "lost": [
+        "case-P7-C-01-research-paper-writing",
+        "case-P7-C-04-scientific-writing",
+        "case-P7-C-21-abstract"
+      ],
+      "tied": []
+    }
+  }
+}

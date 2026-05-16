@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "RED produces a single continuous paragraph (correct CNS format) and strips reagent-formulation details. BLUE fails on two explicit wrong patterns: it uses three paragraphs instead of one, and it retains reagent specifics (4% SDS + 0.5% Triton X-100, n=1.466). Both retain excess numerical detail, but RED's structural conformance and omission of reagent details make it materially closer to the expected-behaviour signature.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "high"
+}

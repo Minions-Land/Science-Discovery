@@ -1,0 +1,6 @@
+{
+  "winner": "tie",
+  "reasoning": "Both RED and BLUE retain the same critical violations against the expected-behaviour signature: specific numerical results (0.847, 0.731, 0.802, 16%), dataset names (LIVECell, CellPose-Cyto2), and implementation details (SimCLR, ResNet-50, 2.3 million patches). Neither response strips these elements as required. The only distinguishing difference is BLUE uses the correct 'Here we' anchor (no comma) versus RED's 'Here, we', but this is insufficient to award a winner given equivalent substantive failures.",
+  "skill_effect_estimate": "Matches baseline",
+  "confidence": "high"
+}

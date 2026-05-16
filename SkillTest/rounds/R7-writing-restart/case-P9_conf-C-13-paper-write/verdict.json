@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "RED correctly delivers a NeurIPS LaTeX introduction for RetroDiff: 4 prose paragraphs + contribution bullets, method classes named at high level, no implementation details in prose, clear CASP15 TM-score claim (0.71 vs 0.73, 30x GPU reduction). BLUE is entirely off-topic, writing about agent systems and empirical research methodologies with no RetroDiff content, no CASP15 results, no LaTeX, and no contribution bullets — a complete task failure.",
+  "skill_effect_estimate": "Prevents real failure",
+  "confidence": "high"
+}

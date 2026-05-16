@@ -1,0 +1,26 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>R6.A 9-panel A/B</title>
+<style>
+body{font-family:-apple-system,Helvetica,Arial,sans-serif;background:#f4f4f0;margin:0;padding:24px;color:#1a1a1a}
+h1{font-size:20px;margin:0 0 18px}
+h2{font-size:15px;margin:24px 0 8px;border-bottom:1px solid #d0c8b8;padding-bottom:4px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{background:#fff;padding:10px;border:1px solid #d8d2c2;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.card h3{margin:0 0 8px;font-size:11px;font-weight:600;color:#444;letter-spacing:0.05em;text-transform:uppercase}
+.card img{max-width:100%;display:block}
+.note{font-size:11px;color:#666;margin-top:6px;font-family:monospace}
+</style></head>
+<body>
+<h1>R6.A — 9-panel · baseline vs candidate(figure-layout-defaults)</h1>
+<h2>Case 9-panel pharma pipeline</h2>
+<div class="row">
+<div class="card"><h3>BASELINE</h3>
+  <img src="case-9panel/baseline.png">
+  <p class="note">grid 4×4. A=gs[0:2,0:2] (4-cell hero), B,C,D,E=top-right 4 cells, F,G=row 3 (2-cell wide each), H,I=row 4 (2-cell wide each). figsize=(10.2,12.3) inches.</p>
+</div>
+<div class="card"><h3>CANDIDATE — figure-layout-defaults</h3>
+  <img src="case-9panel/candidate.png">
+  <p class="note">SAME grid topology as baseline. figsize=(10.5,12.5) inches. Both have 147 editable text nodes + Arial.</p>
+</div>
+</div>
+</body></html>

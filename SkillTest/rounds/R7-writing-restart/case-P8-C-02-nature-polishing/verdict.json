@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "RED correctly removes the unverified '30%' figure and replaces it with qualitative language ('modulate'), retaining the citation key — matching the expected-behaviour signature. BLUE commits two explicit wrong-pattern failures: it substitutes the author's hinted '12%' without verification (fabrication), and drops the \\citep{meng2022locating} key from the polished paragraph. Under Cell's zero-tolerance policy, BLUE's approach introduces a different unverified claim. RED's conservative removal is the only editorially safe choice.",
+  "skill_effect_estimate": "Prevents real failure",
+  "confidence": "high"
+}

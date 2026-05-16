@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "RED produces 4 paragraphs (within the 4-6 bound); BLUE produces only 3, falling below the minimum. Both avoid contribution bullets and implementation detail. RED's final paragraph leads with 'Here we' and closes with a bounded implication sentence, matching the hourglass pattern. BLUE also opens its final paragraph with 'Here we' but appends a trailing validation sentence that weakens the close. RED better satisfies the expected-behaviour signature on paragraph count and structural discipline.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "medium"
+}

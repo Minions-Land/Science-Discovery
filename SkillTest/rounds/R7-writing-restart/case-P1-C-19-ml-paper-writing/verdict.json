@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "Both responses fail the expected-behaviour signature by retaining dataset names (LIVECell, CellPose-Cyto2), implementation details (ResNet-50, SimCLR, 2.3 M patches), and specific numerical results. However, BLUE is marginally worse: it adds a computed metric (5.6% improvement over Cellpose) not present in the draft, increasing numerical clutter beyond RED. RED is the lesser violation, making it the narrow winner.",
+  "skill_effect_estimate": "Matches baseline",
+  "confidence": "medium"
+}

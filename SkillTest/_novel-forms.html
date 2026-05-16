@@ -1,0 +1,85 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>SkillTest — novel-form exemplars for human grading</title>
+<style>
+body{font-family:-apple-system,Helvetica,Arial,sans-serif;background:#f4f4f0;margin:0;padding:24px;color:#1a1a1a}
+h1{font-size:20px;margin:0 0 12px}
+.intro{font-size:13px;color:#555;margin-bottom:24px;max-width:900px;line-height:1.5}
+h2{font-size:14px;margin:24px 0 6px;color:#333;border-bottom:1px solid #d0c8b8;padding-bottom:4px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px}
+.card{background:#fff;padding:12px;border:1px solid #d8d2c2;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.card h3{margin:0 0 4px;font-size:13px;font-weight:600;color:#333}
+.card .src{font-size:10px;color:#999;font-family:monospace;margin-bottom:8px}
+.card img{max-width:100%;display:block}
+.card .palette{font-size:10px;color:#666;font-family:monospace;margin-top:8px;background:#fafaf6;padding:4px;border-left:2px solid #d8d2c2}
+.tag{display:inline-block;background:#406ac0;color:#fff;font-size:10px;padding:2px 6px;border-radius:2px;margin-right:4px}
+</style></head>
+<body>
+<h1>SkillTest R-future-2 — novel-form exemplar grading</h1>
+<p class="intro">Six exemplars from <code>figures4papers</code> + <code>nature-skills/chart-atlas</code>
+covering forms beyond bar/line/heatmap/box. Per your feedback: 形式要新颖 + 信息量要保证 + 配色色调一致 + 饱和度淡 + 排版有效面积。
+Please grade each on (a) 形式新颖度, (b) 配色一致性, (c) 信息密度（单位面积承载的信息）, (d) 是否接近"超越人类"。</p>
+
+<h2>1. Manifold visualisations — 数据本身的几何形状成为视觉主体</h2>
+<div class="row">
+<div class="card">
+  <h3>diffusion_swiss_roll <span class="tag">manifold</span></h3>
+  <div class="src">figures4papers Cflows</div>
+  <img src="synthesis/proposed-skills/figure-aesthetic-exemplars/gallery/diffusion_swiss_roll.png">
+  <div class="palette">extracted: pure cyan-teal family (#15c0c0/#15eac0/#15c095) — Principle 1 strict 色调一致</div>
+</div>
+<div class="card">
+  <h3>manifold_holes <span class="tag">manifold</span></h3>
+  <div class="src">figures4papers RNAGenScape</div>
+  <img src="synthesis/proposed-skills/figure-aesthetic-exemplars/gallery/manifold_holes.png">
+  <div class="palette">extracted: mint #c0eac0 + cyan #c0eaea + grey — Principle 2 strict 低饱和</div>
+</div>
+</div>
+
+<h2>2. Hybrid composite — 多种形式融合到单 panel</h2>
+<div class="row">
+<div class="card">
+  <h3>cellsplicenet_ablation <span class="tag">heatmap+bar+scatter</span></h3>
+  <div class="src">figures4papers CellSpliceNet</div>
+  <img src="synthesis/proposed-skills/figure-aesthetic-exemplars/gallery/cellsplicenet_ablation.png">
+  <div class="palette">extracted: deep blue #154095 + mint #c0eac0 + cyan #c0eaea — cool family unified</div>
+</div>
+<div class="card">
+  <h3>atlas-network-matrix <span class="tag">network+matrix</span></h3>
+  <div class="src">nature-skills chart-atlas</div>
+  <img src="synthesis/proposed-skills/figure-aesthetic-exemplars/gallery/atlas-network-matrix.png">
+  <div class="palette">extracted: teal #95c0c0 + #409595 + signal red #c04040 — coordinated cool + 1 directional accent</div>
+</div>
+</div>
+
+<h2>3. Polar / image-plate — non-Cartesian forms</h2>
+<div class="row">
+<div class="card">
+  <h3>comparison_radar <span class="tag">polar/radar</span></h3>
+  <div class="src">figures4papers VIGIL</div>
+  <img src="synthesis/proposed-skills/figure-aesthetic-exemplars/gallery/comparison_radar.png">
+  <div class="palette">extracted: 70% grey-foreground + soft mint/red/cyan accents — high coherence</div>
+</div>
+<div class="card">
+  <h3>atlas-image-plates <span class="tag">microscopy plate</span></h3>
+  <div class="src">nature-skills chart-atlas</div>
+  <img src="synthesis/proposed-skills/figure-aesthetic-exemplars/gallery/atlas-image-plates.png">
+  <div class="palette">extracted: dark plate #404040/#151515 = 28% — high-contrast image-data aesthetic</div>
+</div>
+</div>
+
+<h2>For grading reference: known previously-rated</h2>
+<div class="row">
+<div class="card">
+  <h3>fig3-in-vivo-efficacy-rich (用户:色彩最丰富，A 部分小不合群)</h3>
+  <div class="src">nature-skills gallery</div>
+  <img src="synthesis/proposed-skills/figure-aesthetic-exemplars/gallery/fig3-in-vivo-efficacy-rich.png">
+  <div class="palette">extracted: 52% grey + signal red #c04040 (~6%) — current "色彩最丰富" baseline</div>
+</div>
+<div class="card">
+  <h3>R-future aesthetic-polished (用户:色彩最漂亮，但有 bar bug)</h3>
+  <div class="src">rounds/R-future-aesthetic-validation/case-7panel-redo</div>
+  <img src="rounds/R-future-aesthetic-validation/case-7panel-redo/aesthetic_polished.png">
+  <div class="palette">extracted: grey-dominant + #c04040 signal — this is what we already produced</div>
+</div>
+</div>
+</body></html>

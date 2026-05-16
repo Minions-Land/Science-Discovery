@@ -1,0 +1,3 @@
+# Table 2 Analysis: Method Comparison
+
+Our method achieves 0.881 mAP and 0.89 F1, substantially outperforming the 2024 SOTA baseline (DiffSeg-XL: 0.847 mAP, 0.87 F1) while reducing latency from 412 ms to 96 ms. The ablation study (no module Z: 0.853 mAP, 0.86 F1) demonstrates that the topology-aware refinement head is the load-bearing component, contributing ~0.028 mAP and ~0.03 F1 gain at a modest 8 ms cost. DiffSeg-XL's latency penalty stems from its 4-step diffusion process at inference; our direct refinement approach avoids this bottleneck. The historical 1990 baseline (0.412 mAP) contextualizes the field's progress and validates our evaluation protocol. These results indicate that topology-aware refinement is both effective and efficient for segmentation tasks.

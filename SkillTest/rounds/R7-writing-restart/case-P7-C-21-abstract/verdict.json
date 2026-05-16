@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "RED correctly polishes the manuscript per the brief: it introduces 'Convolutional Neural Network (CNN)', 'Adversarial Robustness Score (ARS)', and 'Mean Average Precision at IoU 0.5 (mAP@0.5)' on first use, then consistently uses the abbreviations throughout all five paragraphs — exactly matching the expected-behaviour signature. BLUE produces an entirely different document (an abstract about BDNF and memory consolidation) that is completely unrelated to the task. BLUE is a total task failure.",
+  "skill_effect_estimate": "Prevents real failure",
+  "confidence": "high"
+}

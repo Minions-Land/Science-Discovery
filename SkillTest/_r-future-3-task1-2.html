@@ -1,0 +1,60 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>R-future-3 Task 1+2 — form-choice validation</title>
+<style>
+body{font-family:-apple-system,Helvetica,Arial,sans-serif;background:#f4f4f0;margin:0;padding:24px;color:#1a1a1a}
+h1{font-size:20px;margin:0 0 12px}
+.intro{font-size:13px;color:#555;margin-bottom:24px;max-width:900px;line-height:1.5}
+h2{font-size:14px;margin:24px 0 6px;color:#333;border-bottom:1px solid #d0c8b8;padding-bottom:4px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px}
+.card{background:#fff;padding:12px;border:1px solid #d8d2c2;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.card h3{margin:0 0 4px;font-size:13px;font-weight:600;color:#333}
+.card .src{font-size:10px;color:#999;font-family:monospace;margin-bottom:8px}
+.card img{max-width:100%;display:block}
+.card .note{font-size:11px;color:#666;margin-top:6px;font-style:italic}
+.tag{display:inline-block;background:#406ac0;color:#fff;font-size:10px;padding:2px 6px;border-radius:2px;margin-right:4px}
+.tag-bad{background:#9c3b16}
+</style></head>
+<body>
+<h1>R-future-3 — Task 1 (manifold) + Task 2 (radar) form-choice validation</h1>
+<p class="intro">Hypothesis: when data has natural manifold or N×M comparison structure,
+candidate (skill loaded) picks the right FORM (manifold / radar) while baseline
+defaults to conventional scatter / bar. This validates that the
+figure-aesthetic-exemplars skill encodes form-novelty as a portable rule, not
+just colour discipline.</p>
+
+<h2>Task 1: Manifold form — single-cell trajectory data</h2>
+<div class="row">
+<div class="card"><h3><span class="tag tag-bad">BASELINE</span> baseline_plot.py</h3>
+  <div class="src">conventional 2D embedding scatter coloured by cluster (default approach)</div>
+  <img src="rounds/R-future-3-form-validation/case-manifold/baseline.png">
+</div>
+<div class="card"><h3><span class="tag">CANDIDATE</span> candidate_plot.py (skill loaded)</h3>
+  <div class="src">manifold trajectory + pseudotime gradient + bifurcation marker + inline terminal labels</div>
+  <img src="rounds/R-future-3-form-validation/case-manifold/candidate.png">
+</div>
+</div>
+
+<h2>Task 2: Radar form — 5 methods × 6 metrics</h2>
+<div class="row">
+<div class="card"><h3><span class="tag tag-bad">BASELINE</span> baseline_plot.py</h3>
+  <div class="src">grouped bar chart, 5 methods × 6 metric panels (default approach)</div>
+  <img src="rounds/R-future-3-form-validation/case-radar/baseline.png">
+</div>
+<div class="card"><h3><span class="tag">CANDIDATE</span> candidate_plot.py (skill loaded)</h3>
+  <div class="src">polar / radar with 5 polygons; soft pastels + bumped strokes per Principle 6</div>
+  <img src="rounds/R-future-3-form-validation/case-radar/candidate.png">
+</div>
+</div>
+
+<h2>Reference exemplars (you already graded)</h2>
+<div class="row">
+<div class="card"><h3>(REFERENCE) diffusion_swiss_roll</h3>
+  <div class="src">你说: 非常好看, 螺旋图画得挺好看</div>
+  <img src="synthesis/proposed-skills/figure-aesthetic-exemplars/gallery/diffusion_swiss_roll.png">
+</div>
+<div class="card"><h3>(REFERENCE) comparison_radar</h3>
+  <div class="src">你说: 非常漂亮! 真的太漂亮了, 看起来非常正规</div>
+  <img src="synthesis/proposed-skills/figure-aesthetic-exemplars/gallery/comparison_radar.png">
+</div>
+</div>
+</body></html>

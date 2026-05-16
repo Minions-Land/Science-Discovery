@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "RED is cleaner on the critical Nature constraint: no implementation detail leaks into the Intro. BLUE introduces '450,000 PDB chains' and '50,000-chain subset' — numbers explicitly flagged as Methods-only in the brief. BLUE's final paragraph also echoes a prose-ized contribution list, a stated wrong pattern. RED's only flaw is three paragraphs (below the 4-6 target), but it correctly uses the hourglass structure and 'Here we' anchor without violating discipline rules.",
+  "skill_effect_estimate": "Prevents real failure",
+  "confidence": "medium"
+}

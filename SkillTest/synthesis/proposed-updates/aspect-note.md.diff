@@ -1,0 +1,88 @@
+# Proposed Update — code-validity-review.md (or sibling reviewer skill)
+
+**Source:** SkillTest R1.C case-overclaim evaluation of nature-polishing.
+**Status:** Draft only. Do not apply to
+`/Users/mjm/MinionsOS/minions/roles/reviewer/skills/code-validity-review.md`
+(or the appropriate sibling skill) until the user explicitly approves the
+R1 synthesis port plan. The exact target file is up to the user — this
+proposal lists candidates.
+
+## Target file (user decides)
+
+The boundary-specificity rule applies to *prose criticism quality*, not
+specifically to code-validity review. Candidate target files in
+`minions/roles/reviewer/skills/`:
+
+- `aspect-note.md` — covers per-aspect criticism format
+- `code-validity-review.md` — currently scoped to experiments / reproducibility
+- A new file `criticism-quality.md` — if the rule is general enough to
+  warrant its own skill
+
+**Recommendation:** add to `aspect-note.md` if the user prefers a single
+quality-of-criticism rule; create `criticism-quality.md` if the user
+prefers a dedicated skill.
+
+## What to add
+
+### Rule: Name the specific missing experiment, not the design class
+
+Add as a hard rule for any reviewer-side criticism that flags missing
+evidence:
+
+> **When criticising a Discussion / clinical-implication / mechanism claim
+> for missing evidence, name the SPECIFIC missing experiment, not the
+> experimental design class.**
+>
+> Example (weak): "The data are observational and cannot establish
+> causation."
+>
+> Example (strong): "The study is observational and does not include
+> bacterial transfer experiments to germ-free recipients (or equivalent
+> intervention design); this experiment would be required to establish
+> the protective effect."
+>
+> The strong form is reviewer-proof: the author either runs the named
+> experiment or accepts the boundary. The weak form invites the author
+> to argue about whether observational designs can ever establish anything.
+
+Evidence: SkillTest R1.C case-overclaim. Source claimed "this organism
+is protective" from observational microbiome data. Baseline criticism
+softened to "do not support a clinical recommendation" (correct but
+generic). Candidate criticism named the gap: "did not include transfer
+experiments." User-equivalent rubric scored candidate +2 on
+claim-evidence completeness because the named experiment is verifiable
+and arguable.
+
+### Optional Rule: Tier the limitation by what would close it
+
+For any limitation paragraph in a Discussion section:
+
+> **Each limitation should pair with a concrete next step that would
+> close it.** "Larger cohorts are required" alone is throat-clearing.
+> "Larger cohorts (n ≥ 200) with a second-site replication and
+> matching for the three confounders X / Y / Z would close this gap"
+> is actionable.
+
+Evidence: same case. Candidate explicitly named "prospective and
+mechanistic studies" rather than "future studies will address this."
+
+## What to leave unchanged
+
+The existing reviewer-skill pass structure (Pass A independent →
+Pass B history → Pass C consolidation) is unaffected by this rule.
+The boundary-specificity rule applies inside any single criticism note,
+not to pass orchestration.
+
+## Why this is a single-rule update
+
+R1.C had only one case where this rule fired (case-overclaim, +4 → bucket
+Calibrates). A single-case update is generally not enough evidence for
+a port; this rule survives because:
+1. It maps to a well-known reviewer-quality dimension that holds across
+   manuscript types (not specific to microbiome / IBD).
+2. It compounds with the existing MinionsOS evidence-first EACN
+   communication convention (every claim either evidence-backed,
+   speculation, or derived).
+3. R2 is expected to test `nature-response` which has its own
+   reviewer-criticism quality rules — this update should be re-checked
+   against R2 evidence before final port.

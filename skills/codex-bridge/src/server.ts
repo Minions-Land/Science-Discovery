@@ -36,7 +36,7 @@ const InputSchema = {
     .min(10)
     .max(3600)
     .optional()
-    .describe("Timeout in seconds (default: 600, max: 3600)"),
+    .describe("Timeout in seconds (default: 900, max: 3600)"),
 };
 
 const OutputSchema = {
@@ -69,7 +69,7 @@ Args:
   - sandbox ('read-only' | 'workspace-write' | 'danger-full-access'): Permission level (default: danger-full-access)
   - reasoning_effort ('low' | 'medium' | 'high' | 'xhigh'): Reasoning depth (default: xhigh)
   - skip_git_check (boolean): Skip git repo validation for non-git directories
-  - timeout_seconds (number): Execution timeout, 10-3600 (default: 600)
+  - timeout_seconds (number): Execution timeout, 10-3600 (default: 900)
 
 Returns:
   Structured result with:
@@ -115,7 +115,7 @@ Error Handling:
       };
     }
 
-    const timeout = Math.min((params.timeout_seconds || 600) * 1000, 3_600_000);
+    const timeout = Math.min((params.timeout_seconds || 900) * 1000, 3_600_000);
 
     try {
       const result = await runCodexAgent({

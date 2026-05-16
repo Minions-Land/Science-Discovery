@@ -1,0 +1,218 @@
+{
+  "case-P1-C-01-research-paper-writing": {
+    "swap": true,
+    "probe": "P1"
+  },
+  "case-P1-C-03-scientific-writing": {
+    "swap": false,
+    "probe": "P1"
+  },
+  "case-P1-C-04-scientific-writing": {
+    "swap": true,
+    "probe": "P1"
+  },
+  "case-P1-C-13-paper-write": {
+    "swap": true,
+    "probe": "P1"
+  },
+  "case-P1-C-16-composer": {
+    "swap": false,
+    "probe": "P1"
+  },
+  "case-P1-C-17-strategist": {
+    "swap": false,
+    "probe": "P1"
+  },
+  "case-P1-C-19-ml-paper-writing": {
+    "swap": true,
+    "probe": "P1"
+  },
+  "case-P1-C-21-abstract": {
+    "swap": false,
+    "probe": "P1"
+  },
+  "case-P10-C-01-research-paper-writing": {
+    "swap": false,
+    "probe": "P10"
+  },
+  "case-P10-C-02-nature-polishing": {
+    "swap": true,
+    "probe": "P10"
+  },
+  "case-P10-C-13-paper-write": {
+    "swap": false,
+    "probe": "P10"
+  },
+  "case-P1H-C-01-research-paper-writing": {
+    "swap": true,
+    "probe": "P1H"
+  },
+  "case-P1H-C-02-nature-polishing": {
+    "swap": true,
+    "probe": "P1H"
+  },
+  "case-P1H-C-04-scientific-writing": {
+    "swap": false,
+    "probe": "P1H"
+  },
+  "case-P1H-C-13-paper-write": {
+    "swap": true,
+    "probe": "P1H"
+  },
+  "case-P1H-C-19-ml-paper-writing": {
+    "swap": true,
+    "probe": "P1H"
+  },
+  "case-P1H-C-21-abstract": {
+    "swap": false,
+    "probe": "P1H"
+  },
+  "case-P2-C-02-nature-polishing": {
+    "swap": true,
+    "probe": "P2"
+  },
+  "case-P2-C-13-paper-write": {
+    "swap": false,
+    "probe": "P2"
+  },
+  "case-P2-C-16-composer": {
+    "swap": false,
+    "probe": "P2"
+  },
+  "case-P2-C-17-strategist": {
+    "swap": true,
+    "probe": "P2"
+  },
+  "case-P2-C-19-ml-paper-writing": {
+    "swap": true,
+    "probe": "P2"
+  },
+  "case-P3-C-01-research-paper-writing": {
+    "swap": true,
+    "probe": "P3"
+  },
+  "case-P3-C-13-paper-write": {
+    "swap": false,
+    "probe": "P3"
+  },
+  "case-P3-C-16-composer": {
+    "swap": true,
+    "probe": "P3"
+  },
+  "case-P3-C-19-ml-paper-writing": {
+    "swap": true,
+    "probe": "P3"
+  },
+  "case-P4-C-01-research-paper-writing": {
+    "swap": true,
+    "probe": "P4"
+  },
+  "case-P4-C-02-nature-polishing": {
+    "swap": true,
+    "probe": "P4"
+  },
+  "case-P4-C-13-paper-write": {
+    "swap": false,
+    "probe": "P4"
+  },
+  "case-P4-C-19-ml-paper-writing": {
+    "swap": true,
+    "probe": "P4"
+  },
+  "case-P5-C-01-research-paper-writing": {
+    "swap": false,
+    "probe": "P5"
+  },
+  "case-P5-C-02-nature-polishing": {
+    "swap": false,
+    "probe": "P5"
+  },
+  "case-P5-C-06-scientific-critical-thinking": {
+    "swap": false,
+    "probe": "P5"
+  },
+  "case-P5-C-13-paper-write": {
+    "swap": true,
+    "probe": "P5"
+  },
+  "case-P5-C-19-ml-paper-writing": {
+    "swap": true,
+    "probe": "P5"
+  },
+  "case-P6-C-01-research-paper-writing": {
+    "swap": true,
+    "probe": "P6"
+  },
+  "case-P6-C-13-paper-write": {
+    "swap": false,
+    "probe": "P6"
+  },
+  "case-P6H_conf-C-01-research-paper-writing": {
+    "swap": false,
+    "probe": "P6H_conf"
+  },
+  "case-P6H_conf-C-02-nature-polishing": {
+    "swap": false,
+    "probe": "P6H_conf"
+  },
+  "case-P6H_conf-C-13-paper-write": {
+    "swap": true,
+    "probe": "P6H_conf"
+  },
+  "case-P6H_conf-C-19-ml-paper-writing": {
+    "swap": true,
+    "probe": "P6H_conf"
+  },
+  "case-P7-C-01-research-paper-writing": {
+    "swap": false,
+    "probe": "P7"
+  },
+  "case-P7-C-02-nature-polishing": {
+    "swap": false,
+    "probe": "P7"
+  },
+  "case-P7-C-04-scientific-writing": {
+    "swap": true,
+    "probe": "P7"
+  },
+  "case-P7-C-13-paper-write": {
+    "swap": true,
+    "probe": "P7"
+  },
+  "case-P7-C-21-abstract": {
+    "swap": true,
+    "probe": "P7"
+  },
+  "case-P8-C-01-research-paper-writing": {
+    "swap": true,
+    "probe": "P8"
+  },
+  "case-P8-C-02-nature-polishing": {
+    "swap": false,
+    "probe": "P8"
+  },
+  "case-P8-C-05-citation-management": {
+    "swap": false,
+    "probe": "P8"
+  },
+  "case-P9_conf-C-01-research-paper-writing": {
+    "swap": false,
+    "probe": "P9_conf"
+  },
+  "case-P9_conf-C-02-nature-polishing": {
+    "swap": true,
+    "probe": "P9_conf"
+  },
+  "case-P9_conf-C-13-paper-write": {
+    "swap": true,
+    "probe": "P9_conf"
+  },
+  "case-P9_conf-C-16-composer": {
+    "swap": false,
+    "probe": "P9_conf"
+  },
+  "case-P9_conf-C-19-ml-paper-writing": {
+    "swap": true,
+    "probe": "P9_conf"
+  }
+}

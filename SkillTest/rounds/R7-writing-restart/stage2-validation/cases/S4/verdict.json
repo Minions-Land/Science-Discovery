@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "Both responses correctly replace all unverified numbers with [INSERT VALUE] and convert the '30%' estimate to qualitative language. The sole distinguishing feature is RED's citation flag: [VERIFY: Regev et al., 2017] retains the suspect reference text alongside the flag, giving the author a direct pointer to check. BLUE's bare [VERIFY] loses that context. This is a minor but real editorial improvement in citation integrity handling.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "medium"
+}

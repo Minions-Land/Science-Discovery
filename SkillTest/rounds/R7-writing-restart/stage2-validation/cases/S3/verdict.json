@@ -1,0 +1,6 @@
+{
+  "winner": "BLUE",
+  "reasoning": "Both responses correctly replace \\paragraph, define \\methodname, integrate the itemize into prose, and preserve math. The decisive difference is the final sentence: RED retains 'significantly lower computational complexity' (the vague intensifier survives, just without \\textit{}), while BLUE removes it entirely, writing 'lower computational complexity'. BLUE also uses a cleaner parallel pipeline structure ('takes... processes... outputs') in the beamforming paragraph. BLUE more fully satisfies the 'remove random bold/italic' rule.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "high"
+}

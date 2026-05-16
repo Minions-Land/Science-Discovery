@@ -1,0 +1,6 @@
+{
+  "winner": "BLUE",
+  "reasoning": "RED completely ignores the fixture, producing a generic conference-welcome document with no LaTeX, no RetroDiff content, no CASP15 results, and no contribution bullets — a total task failure. BLUE delivers correct LaTeX with 4 prose paragraphs, a contribution itemize block, method classes named at the right abstraction level, the headline CASP15 result (TM-score 0.71 vs 0.73, 30x GPU reduction), and no implementation details in the Introduction. BLUE satisfies every constraint; RED satisfies none.",
+  "skill_effect_estimate": "Prevents real failure",
+  "confidence": "high"
+}

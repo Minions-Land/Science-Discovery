@@ -1,0 +1,6 @@
+{
+  "winner": "BLUE",
+  "reasoning": "Both responses correctly apply abbreviation discipline for all three terms (CNN, ARS, mAP@0.5) with proper parenthetical first introduction and consistent subsequent use. However, RED silently alters 'epsilon = 8/255' to 'epsilon = 0.031', substituting the standard ML fraction notation with a decimal approximation. The task explicitly requires maintaining technical content unchanged. BLUE preserves 'epsilon = 8/255' exactly as in the original draft, making it the more faithful and accurate revision.",
+  "skill_effect_estimate": "Prevents real failure",
+  "confidence": "high"
+}

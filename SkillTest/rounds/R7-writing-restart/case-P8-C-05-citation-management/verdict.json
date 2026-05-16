@@ -1,0 +1,6 @@
+{
+  "winner": "tie",
+  "reasoning": "Both RED and BLUE commit the same core wrong pattern: substituting the author's hinted '12%' as if verified, which is fabrication. The expected behaviour was to replace with a qualitative description or a '[needs verification]' placeholder. Both preserve the \\citep{meng2022locating} citation key. BLUE is marginally better (correctly capitalises 'ROME'; uses '~12%' signalling approximation; references 'main-table result' more precisely), but neither avoids the fundamental failure of presenting an unverified number as fact.",
+  "skill_effect_estimate": "Matches baseline",
+  "confidence": "high"
+}

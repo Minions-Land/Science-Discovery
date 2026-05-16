@@ -1,0 +1,284 @@
+[
+  {
+    "name": "abbreviation-discipline",
+    "description": "全称/简写规范：第一次出现用\"全称（简写）\"，之后统一用简写。",
+    "scope": {
+      "section": [
+        "global"
+      ],
+      "paper_type": [
+        "CNS",
+        "conference"
+      ]
+    },
+    "triggers": [
+      "简写规范",
+      "abbreviation",
+      "task == polish",
+      {
+        "contains_pattern": "repeated full form after first definition"
+      }
+    ],
+    "rule_count": 4,
+    "path": "skills/abbreviation-discipline/SKILL.md"
+  },
+  {
+    "name": "abstract-discipline",
+    "description": "撰写或润色论文 Abstract 与 Conclusion 时，确保单段、无引用、无具体数字、无数据集名。CNS 严格执行；会议论文推荐执行。",
+    "scope": {
+      "section": [
+        "abstract",
+        "conclusion"
+      ],
+      "paper_type": [
+        "CNS",
+        "conference"
+      ]
+    },
+    "triggers": [
+      "写 abstract",
+      "polish abstract",
+      "润色摘要",
+      "draft_section in [abstract, conclusion]"
+    ],
+    "rule_count": 4,
+    "path": "skills/abstract-discipline/SKILL.md"
+  },
+  {
+    "name": "citation-zero-hallucination",
+    "description": "引用必须真实：不编造 BibTeX、不把作者记忆中的\"~12%\"当成已验证数字、不凭空加引用。",
+    "scope": {
+      "section": [
+        "global"
+      ],
+      "paper_type": [
+        "CNS",
+        "conference"
+      ]
+    },
+    "triggers": [
+      "citation",
+      "引用",
+      "bib",
+      "task in [draft, polish]",
+      {
+        "contains_pattern": "\\[VERIFY\\]|~\\d+%|approximately \\d+"
+      }
+    ],
+    "rule_count": 5,
+    "path": "skills/citation-zero-hallucination/SKILL.md"
+  },
+  {
+    "name": "conclusion-limitation",
+    "description": "撰写 Conclusion 和 Limitation section 时，确保单段 conclusion + 诚实 limitation + 具体 future work。",
+    "scope": {
+      "section": [
+        "conclusion",
+        "limitation"
+      ],
+      "paper_type": [
+        "CNS",
+        "conference"
+      ]
+    },
+    "triggers": [
+      "写结论",
+      "draft conclusion",
+      "写 limitation",
+      "draft_section in [conclusion, limitation]"
+    ],
+    "rule_count": 6,
+    "path": "skills/conclusion-limitation/SKILL.md"
+  },
+  {
+    "name": "experiments-completeness",
+    "description": "撰写 Experiments section 时，确保主实验 + 消融 + 超参 + Case Study + 每图每表配分析。",
+    "scope": {
+      "section": [
+        "experiments"
+      ],
+      "paper_type": [
+        "CNS",
+        "conference"
+      ]
+    },
+    "triggers": [
+      "写实验",
+      "draft experiments",
+      "draft_section == experiments"
+    ],
+    "rule_count": 6,
+    "path": "skills/experiments-completeness/SKILL.md"
+  },
+  {
+    "name": "figure-table-analysis",
+    "description": "撰写图表分析段落时，确保不只报数字，而是分析 WHY（设计原因 vs 数据原因），对比经典和 SOTA 的表现。",
+    "scope": {
+      "section": [
+        "experiments",
+        "results"
+      ],
+      "paper_type": [
+        "CNS",
+        "conference"
+      ]
+    },
+    "triggers": [
+      "分析这个表",
+      "写 figure analysis",
+      "per-figure paragraph",
+      "task == figure_table_analysis"
+    ],
+    "rule_count": 5,
+    "path": "skills/figure-table-analysis/SKILL.md"
+  },
+  {
+    "name": "introduction-discipline",
+    "description": "撰写或润色论文 Introduction 时，确保只写背景 + 方法类描述（不写实现细节），末尾带 contribution itemize，4–6 段 hourglass 结构。",
+    "scope": {
+      "section": [
+        "introduction"
+      ],
+      "paper_type": [
+        "CNS",
+        "conference"
+      ]
+    },
+    "triggers": [
+      "写 introduction",
+      "draft intro",
+      "润色引言",
+      "draft_section == intro"
+    ],
+    "rule_count": 5,
+    "path": "skills/introduction-discipline/SKILL.md"
+  },
+  {
+    "name": "latex-typography",
+    "description": "LaTeX 排版规范：模型名用 \\newcommand 宏、避免 itemize（Intro contribution 除外）、不用 \\paragraph{} 短头、不乱加粗/斜体。",
+    "scope": {
+      "section": [
+        "global"
+      ],
+      "paper_type": [
+        "CNS",
+        "conference"
+      ]
+    },
+    "triggers": [
+      "排版",
+      "LaTeX polish",
+      "typography",
+      "task in [polish, latex_review]"
+    ],
+    "rule_count": 6,
+    "path": "skills/latex-typography/SKILL.md"
+  },
+  {
+    "name": "methodology-discipline",
+    "description": "撰写 Method / Approach section 时，确保符号定义在前、算法伪代码、模块化描述、claim-evidence 对齐。",
+    "scope": {
+      "section": [
+        "method",
+        "approach"
+      ],
+      "paper_type": [
+        "CNS",
+        "conference"
+      ]
+    },
+    "triggers": [
+      "写方法",
+      "draft method",
+      "写 methodology",
+      "draft_section in [method, approach]"
+    ],
+    "rule_count": 5,
+    "path": "skills/methodology-discipline/SKILL.md"
+  },
+  {
+    "name": "preliminary-problem-definition",
+    "description": "撰写 Preliminary / Problem Definition / Setup section 时，确保形式化定义清晰、假设显式列出、与 Method 衔接自然。",
+    "scope": {
+      "section": [
+        "preliminary",
+        "problem_definition",
+        "setup"
+      ],
+      "paper_type": [
+        "conference"
+      ]
+    },
+    "triggers": [
+      "写 preliminary",
+      "写 problem definition",
+      "draft setup",
+      "draft_section in [preliminary, problem_definition, setup]"
+    ],
+    "rule_count": 5,
+    "path": "skills/preliminary-problem-definition/SKILL.md"
+  },
+  {
+    "name": "related-work-discipline",
+    "description": "撰写 Related Work 时，按方法类组织（非逐篇综述），每段含 model + algorithm + implementation + 与本文的关系。最少 1 整页。",
+    "scope": {
+      "section": [
+        "related_work"
+      ],
+      "paper_type": [
+        "CNS",
+        "conference"
+      ]
+    },
+    "triggers": [
+      "写 related work",
+      "draft related work",
+      "draft_section == related_work"
+    ],
+    "rule_count": 5,
+    "path": "skills/related-work-discipline/SKILL.md"
+  },
+  {
+    "name": "theoretical-justification",
+    "description": "撰写理论推导 / Theoretical Analysis section 时，确保 theorem-proof 结构、proof sketch 在正文、完整证明在 appendix。",
+    "scope": {
+      "section": [
+        "theory",
+        "theoretical_analysis"
+      ],
+      "paper_type": [
+        "conference"
+      ]
+    },
+    "triggers": [
+      "写理论",
+      "draft theory section",
+      "理论推导",
+      "draft_section in [theory, theoretical_analysis, analysis]"
+    ],
+    "rule_count": 5,
+    "path": "skills/theoretical-justification/SKILL.md"
+  },
+  {
+    "name": "writing-style",
+    "description": "去除 AI 翻译腔 / AI 写作腔，确保学术散文自然、精准、无冗余。适用于全文所有 section。",
+    "scope": {
+      "section": [
+        "global"
+      ],
+      "paper_type": [
+        "CNS",
+        "conference"
+      ]
+    },
+    "triggers": [
+      "去翻译腔",
+      "de-AI",
+      "polish style",
+      "润色风格",
+      "task == polish"
+    ],
+    "rule_count": 9,
+    "path": "skills/writing-style/SKILL.md"
+  }
+]

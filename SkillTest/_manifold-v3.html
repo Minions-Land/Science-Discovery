@@ -1,0 +1,31 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Manifold v3 vs v2 + reference</title>
+<style>
+body{font-family:-apple-system,Helvetica,Arial,sans-serif;background:#f4f4f0;margin:0;padding:24px}
+h1{font-size:18px;margin:0 0 12px}
+.row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.card{background:#fff;padding:10px;border:1px solid #d8d2c2}
+.card h3{margin:0 0 4px;font-size:12px;font-weight:600}
+.card .src{font-size:10px;color:#999;margin-bottom:8px;font-family:monospace}
+.card img{max-width:100%}
+.tag{background:#406ac0;color:#fff;font-size:10px;padding:2px 6px;border-radius:2px}
+.tag-old{background:#9c3b16}
+.tag-ref{background:#404040}
+</style></head>
+<body>
+<h1>Manifold v3 — solving "点太小+散" feedback</h1>
+<div class="row">
+<div class="card"><h3><span class="tag tag-old">v2</span> 点太小+散</h3>
+  <div class="src">s=12, axis loose, no hull shading</div>
+  <img src="rounds/R-future-3-form-validation/case-manifold/candidate_v2.png">
+</div>
+<div class="card"><h3><span class="tag">v3</span> P3 sub-rule applied</h3>
+  <div class="src">s=28 + 4-cluster convex-hull translucent shading + tight axes (5% pad) + equal aspect</div>
+  <img src="rounds/R-future-3-form-validation/case-manifold/candidate_v3.png">
+</div>
+<div class="card"><h3><span class="tag tag-ref">ref</span> diffusion_swiss_roll</h3>
+  <div class="src">用户曾说"非常好看"</div>
+  <img src="synthesis/proposed-skills/figure-aesthetic-exemplars/gallery/diffusion_swiss_roll.png">
+</div>
+</div>
+</body></html>

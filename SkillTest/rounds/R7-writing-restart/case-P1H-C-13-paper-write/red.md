@@ -1,0 +1,5 @@
+Tissue clearing enables whole-organ imaging but existing protocols remain limited in depth. Current methods such as CLARITY and iDISCO achieve imaging depths of approximately 3–4 mm in adult mouse brain, insufficient for primate and human samples.
+
+We developed Hydrolipid-Permeation Clearing (HPC), a single-step protocol combining a charged surfactant cocktail (4% SDS + 0.5% Triton X-100) with a refractive-index-matched immersion medium (n=1.466). HPC processes a 5 mm mouse brain hemisphere in 9 days—compared to 14–21 days for CLARITY—while preserving endogenous fluorescent-protein signal with only 8.3% mean intensity loss versus 31.7% for CLARITY. On adult mouse brain, HPC achieves a 12-fold increase in imaging depth relative to CLARITY, reaching 36 mm in a single light-sheet acquisition.
+
+These results demonstrate that HPC enables deep imaging of large mammalian organs and is compatible with standard fluorescent probes and confocal microscopes, offering a practical advance for whole-organ imaging applications.

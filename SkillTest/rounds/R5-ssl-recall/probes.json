@@ -1,0 +1,36 @@
+[
+  {
+    "id": "P1-cn-en-polish",
+    "scenario": "I'm a Chinese-speaking PhD student. My PI wrote the introduction in Chinese-influenced English with some sentences over 30 words, em-dashes inside English clauses, and AI-trace vocabulary like 'crucial' and 'delve into'. The logic is fine but the prose reads as translation. I want a polished version suitable for Nature Communications submission.",
+    "expected": [
+      "cn-en-academic-polish",
+      "abstract-writing",
+      "apply-revisions"
+    ]
+  },
+  {
+    "id": "P2-figure-layout",
+    "scenario": "I need to make a 4-panel composite figure for a Nature paper. Panel A is a hero (dose-response), B is a scatter plot, C is a time-course, D is a bar chart by genotype. I want the layout to look professional, with a dominant hero panel and subordinate B/C/D arranged sensibly. The data is in CSVs.",
+    "expected": [
+      "figure-layout-defaults",
+      "academic-plotting",
+      "figure-spec"
+    ]
+  },
+  {
+    "id": "P3-rebuttal-author-input",
+    "scenario": "I got reviewer comments on my Nature Methods minor revision. There are 4 reviewer comments. The PI is travelling for 48 hours so I have author position only on 2 of them; the other 2 require PI judgement that I can't supply. I need to draft a response letter that flags these properly to the editor without inventing positions.",
+    "expected": [
+      "prepare-rebuttal",
+      "apply-revisions",
+      "aspect-note"
+    ]
+  },
+  {
+    "id": "P4-data-availability",
+    "scenario": "I'm writing the Data Availability statement for a Nature Cardiovascular Research submission. The study has: ECG data from 482 patients (consortium-restricted), RNA-seq from 38 patients (consent-restricted), reused UK Biobank and MIMIC-IV-ECG public data, and a custom peak-detection model that's patent-pending. I need a Nature-policy-compliant statement.",
+    "expected": [
+      "data-availability-statement"
+    ]
+  }
+]

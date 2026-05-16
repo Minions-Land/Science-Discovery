@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "RED better adheres to Nature conventions by avoiding implementation detail entirely. BLUE violates the constraint by including '350 M-parameter denoising score model' and '50 k-chain curated subset' with specific numbers that belong in Methods. RED maintains appropriate abstraction ('learned denoising score model', 'curated subset') throughout. Both use the 'Here we' anchor correctly and avoid contribution bullets, but RED's discipline on detail-level makes it the clear winner.",
+  "skill_effect_estimate": "Prevents real failure",
+  "confidence": "high"
+}

@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "BLUE violates the explicit constraint that implementation details belong in Method, not Introduction: its third paragraph names 350M parameters, 450k PDB chains, 50k-chain retrieval index, FAISS HNSW, ESM-2 embeddings, and 50 reverse-diffusion steps. RED correctly names methods at the abstraction level required ('diffusion U-Net', 'learned embeddings') and reserves all such details for later sections. This is a clear, brief-specified wrong pattern.",
+  "skill_effect_estimate": "Prevents real failure",
+  "confidence": "high"
+}

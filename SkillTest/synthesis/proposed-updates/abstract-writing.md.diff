@@ -1,0 +1,65 @@
+# Proposed Update — abstract-writing.md
+
+**Source:** SkillTest R1.C case-abstract evaluation of nature-polishing.
+**Status:** Draft only. Do not apply to
+`/Users/mjm/MinionsOS/minions/roles/writer/skills/abstract-writing.md` until
+the user explicitly approves the R1 synthesis port plan.
+
+## What to add
+
+The current `abstract-writing.md` already has the six-rung ladder. Add two
+hard rules under the Procedure section.
+
+### Add Rule: Explicit "Here, we show" main-result anchor
+
+Current state (paraphrased from existing skill): "State the main result
+(1 sentence, 'here we show' or equivalent)."
+
+Proposed sharpening: Make this an explicit *required formula*, not an
+"or equivalent." Specifically:
+
+> **Main-result rung must use a direct verb formula** — `Here, we show`,
+> `Here, we report`, `Here, we introduce` (for methods papers), or
+> `In this work we ...` (last-resort alternative). The narrative
+> formulation `We developed ...` / `We performed ...` is not acceptable
+> for the main-result sentence; it reads as throat-clearing to a venue
+> editor.
+
+Evidence: SkillTest R1.C case-abstract. Baseline polished `We developed a
+lipid nanoparticle ...` Candidate polished `Here, we show that a lipid
+nanoparticle ...` User-equivalent rubric scored candidate higher on
+claim-evidence completeness because the formula is venue convention.
+
+### Add Rule: Bounded-implication closer
+
+Add at the end of the rung 6 (broader context) procedure step:
+
+> **Bounded implication.** Closing implication must name the species,
+> scope, and system actually tested. A mouse preclinical demonstration
+> closes with "establishes a non-viral route for CNS genome editing in
+> mice and defines a platform for further preclinical evaluation," NOT
+> "supports further evaluation in neurological disease models" — the
+> latter implies disease-utility evidence the paper doesn't have.
+
+Evidence: SkillTest R1.C case-abstract. Baseline closer slipped "in
+neurological disease models" without disease evidence. Candidate closer
+"defines a platform for further preclinical evaluation" stayed bounded.
+
+## What to leave unchanged
+
+- The six-rung ladder structure (broad context → technical background →
+  study problem → main result → knowledge delta → broader context).
+- The traceability requirement.
+- The word-budget allocation.
+
+## Why these are the only two changes
+
+R1.C case-abstract showed the candidate beat baseline by +3 points (18 →
+21 / 22) on three dimensions:
+- Argument clarity / paper-type fit (paper type diagnosed first)
+- Hedging calibration (bounded closer)
+- Claim-evidence completeness (explicit "Here, we show")
+
+The first one (paper-type-first) is in `apply-revisions` (covered in a
+separate update proposal). The other two are local to abstract-writing
+and warrant the rule additions above.

@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "RED outperforms BLUE across all five criteria. On Nature/Science style, RED's opening ('Protein structure prediction has undergone a revolution.') is a punchier, more assertive hook than BLUE's passive-voice equivalent. RED's paragraph 2 closes with a standalone sentence — 'Neither paradigm alone is sufficient.' — a classic high-impact-journal rhetorical device; BLUE's equivalent ('Each paradigm therefore captures only part of the solution') is wordier and less forceful. RED employs bolder, more specific diction throughout: 'transforms structural biology from an experimental bottleneck into a computational commodity' is vivid and precise, while BLUE relies on the cliché 'paradigm shift.' RED's final paragraph concludes with confident assertion ('establishing it as a practical tool'), whereas BLUE hedges with 'illustrating its potential.' BLUE introduces a mild AI tell ('Notably') that RED avoids. Both preserve technical fidelity equivalently. The aggregate advantage clearly belongs to RED.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "high"
+}

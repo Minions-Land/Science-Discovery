@@ -1,0 +1,6 @@
+{
+  "winner": "BLUE",
+  "reasoning": "RED includes a heading ('Table 2 Analysis: Method Comparison') violating the explicit constraint to return only the paragraph with no heading. BLUE is a clean, pasteable paragraph. Content quality is comparable — both acknowledge DiffSeg-XL strength, name Module Z, reference the ablation row, and note latency — but BLUE's narrative flows more naturally for a Cell manuscript, leading with DiffSeg-XL's genuine strength before pivoting to the advantage. The heading violation alone makes RED non-compliant.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "high"
+}

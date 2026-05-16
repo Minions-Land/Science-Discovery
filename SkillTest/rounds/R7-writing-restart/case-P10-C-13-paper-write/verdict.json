@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "RED adheres strictly to all constraints: Abstract ≤200 words with specific numbers (TM-score 0.71 vs 0.73, 30-fold reduction), Introduction has exactly 5 paragraphs with 'Here we show' anchor in paragraph 1 and 'We developed' in paragraph 3, Conclusion ≤150 words (actual: 101) with no citations/numbers/datasets. BLUE violates multiple constraints: Abstract exceeds 200 words and includes dataset name 'PDB', Introduction has only 5 paragraphs but 'Here we show' anchor appears in paragraph 5 instead of Abstract-matching position, and uses vague 'substantially less' instead of specific claim. RED maintains consistent main-result claim across all three sections.",
+  "skill_effect_estimate": "Prevents real failure",
+  "confidence": "high"
+}

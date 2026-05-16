@@ -1,0 +1,6 @@
+{
+  "winner": "BLUE",
+  "reasoning": "BLUE addresses the expected-behaviour signature by giving informative paragraph labels (\"Step 1: Preprocessing\") and removing the redundant itemize block by integrating details into prose. RED keeps empty 1-line bodies under generic \"Step N.\" headers and retains the redundant itemize. Both fail to define a macro for OurNet. BLUE's substantive paragraph bodies and elimination of redundancy make it meaningfully better for CNS-grade typography.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "high"
+}

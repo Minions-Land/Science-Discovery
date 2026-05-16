@@ -1,0 +1,307 @@
+{
+  "fitness_score": 16.7,
+  "generation": 200,
+  "active_rules": [
+    "abstract-discipline/R2",
+    "abstract-discipline/R4",
+    "citation-zero-hallucination/R1",
+    "citation-zero-hallucination/R2",
+    "citation-zero-hallucination/R3",
+    "citation-zero-hallucination/R4",
+    "experiments-completeness/R2",
+    "experiments-completeness/R3",
+    "latex-typography/R3",
+    "latex-typography/R6",
+    "latex-typography/_general",
+    "related-work-discipline/R2",
+    "related-work-discipline/R3"
+  ],
+  "inactive_rules": [
+    "abbreviation-discipline/R1",
+    "abbreviation-discipline/R2",
+    "abstract-discipline/R1",
+    "abstract-discipline/R3",
+    "abstract-discipline/_general",
+    "experiments-completeness/_general",
+    "figure-table-analysis/R1",
+    "figure-table-analysis/R2",
+    "figure-table-analysis/R3",
+    "figure-table-analysis/R4",
+    "figure-table-analysis/R5",
+    "introduction-discipline/R1",
+    "introduction-discipline/R2",
+    "introduction-discipline/R3",
+    "introduction-discipline/R4",
+    "introduction-discipline/_general",
+    "latex-typography/R1",
+    "latex-typography/R2",
+    "latex-typography/R4",
+    "related-work-discipline/R5"
+  ],
+  "rule_scores": {
+    "abstract-discipline/R3": {
+      "won": 4,
+      "lost": 6,
+      "tied": 4,
+      "net": -2,
+      "total": 14,
+      "win_rate": 0.4
+    },
+    "abstract-discipline/R4": {
+      "won": 4,
+      "lost": 2,
+      "tied": 4,
+      "net": 2,
+      "total": 10,
+      "win_rate": 0.6666666666666666
+    },
+    "abstract-discipline/R1": {
+      "won": 1,
+      "lost": 2,
+      "tied": 1,
+      "net": -1,
+      "total": 4,
+      "win_rate": 0.3333333333333333
+    },
+    "abstract-discipline/R2": {
+      "won": 2,
+      "lost": 0,
+      "tied": 0,
+      "net": 2,
+      "total": 2,
+      "win_rate": 1.0
+    },
+    "abstract-discipline/_general": {
+      "won": 0,
+      "lost": 1,
+      "tied": 0,
+      "net": -1,
+      "total": 1,
+      "win_rate": 0.0
+    },
+    "introduction-discipline/R3": {
+      "won": 2,
+      "lost": 6,
+      "tied": 0,
+      "net": -4,
+      "total": 8,
+      "win_rate": 0.25
+    },
+    "introduction-discipline/R4": {
+      "won": 2,
+      "lost": 3,
+      "tied": 0,
+      "net": -1,
+      "total": 5,
+      "win_rate": 0.4
+    },
+    "introduction-discipline/_general": {
+      "won": 1,
+      "lost": 2,
+      "tied": 0,
+      "net": -1,
+      "total": 3,
+      "win_rate": 0.3333333333333333
+    },
+    "introduction-discipline/R1": {
+      "won": 2,
+      "lost": 6,
+      "tied": 0,
+      "net": -4,
+      "total": 8,
+      "win_rate": 0.25
+    },
+    "introduction-discipline/R2": {
+      "won": 1,
+      "lost": 3,
+      "tied": 0,
+      "net": -2,
+      "total": 4,
+      "win_rate": 0.25
+    },
+    "related-work-discipline/R2": {
+      "won": 2,
+      "lost": 1,
+      "tied": 1,
+      "net": 1,
+      "total": 4,
+      "win_rate": 0.6666666666666666
+    },
+    "related-work-discipline/R5": {
+      "won": 0,
+      "lost": 1,
+      "tied": 0,
+      "net": -1,
+      "total": 1,
+      "win_rate": 0.0
+    },
+    "related-work-discipline/R3": {
+      "won": 2,
+      "lost": 0,
+      "tied": 1,
+      "net": 2,
+      "total": 3,
+      "win_rate": 1.0
+    },
+    "experiments-completeness/_general": {
+      "won": 0,
+      "lost": 1,
+      "tied": 0,
+      "net": -1,
+      "total": 1,
+      "win_rate": 0.0
+    },
+    "experiments-completeness/R2": {
+      "won": 2,
+      "lost": 1,
+      "tied": 0,
+      "net": 1,
+      "total": 3,
+      "win_rate": 0.6666666666666666
+    },
+    "experiments-completeness/R3": {
+      "won": 1,
+      "lost": 0,
+      "tied": 0,
+      "net": 1,
+      "total": 1,
+      "win_rate": 1.0
+    },
+    "citation-zero-hallucination/R1": {
+      "won": 3,
+      "lost": 2,
+      "tied": 2,
+      "net": 1,
+      "total": 7,
+      "win_rate": 0.6
+    },
+    "citation-zero-hallucination/R2": {
+      "won": 2,
+      "lost": 0,
+      "tied": 2,
+      "net": 2,
+      "total": 4,
+      "win_rate": 1.0
+    },
+    "citation-zero-hallucination/R4": {
+      "won": 1,
+      "lost": 0,
+      "tied": 0,
+      "net": 1,
+      "total": 1,
+      "win_rate": 1.0
+    },
+    "citation-zero-hallucination/R3": {
+      "won": 1,
+      "lost": 0,
+      "tied": 2,
+      "net": 1,
+      "total": 3,
+      "win_rate": 1.0
+    },
+    "figure-table-analysis/R1": {
+      "won": 0,
+      "lost": 1,
+      "tied": 0,
+      "net": -1,
+      "total": 1,
+      "win_rate": 0.0
+    },
+    "figure-table-analysis/R3": {
+      "won": 0,
+      "lost": 2,
+      "tied": 0,
+      "net": -2,
+      "total": 2,
+      "win_rate": 0.0
+    },
+    "figure-table-analysis/R2": {
+      "won": 0,
+      "lost": 3,
+      "tied": 0,
+      "net": -3,
+      "total": 3,
+      "win_rate": 0.0
+    },
+    "figure-table-analysis/R4": {
+      "won": 1,
+      "lost": 2,
+      "tied": 0,
+      "net": -1,
+      "total": 3,
+      "win_rate": 0.3333333333333333
+    },
+    "figure-table-analysis/R5": {
+      "won": 0,
+      "lost": 1,
+      "tied": 0,
+      "net": -1,
+      "total": 1,
+      "win_rate": 0.0
+    },
+    "latex-typography/R1": {
+      "won": 1,
+      "lost": 1,
+      "tied": 1,
+      "net": 0,
+      "total": 3,
+      "win_rate": 0.5
+    },
+    "latex-typography/R2": {
+      "won": 4,
+      "lost": 4,
+      "tied": 1,
+      "net": 0,
+      "total": 9,
+      "win_rate": 0.5
+    },
+    "latex-typography/R3": {
+      "won": 3,
+      "lost": 1,
+      "tied": 1,
+      "net": 2,
+      "total": 5,
+      "win_rate": 0.75
+    },
+    "latex-typography/R6": {
+      "won": 2,
+      "lost": 1,
+      "tied": 0,
+      "net": 1,
+      "total": 3,
+      "win_rate": 0.6666666666666666
+    },
+    "latex-typography/R4": {
+      "won": 0,
+      "lost": 1,
+      "tied": 0,
+      "net": -1,
+      "total": 1,
+      "win_rate": 0.0
+    },
+    "latex-typography/_general": {
+      "won": 1,
+      "lost": 0,
+      "tied": 0,
+      "net": 1,
+      "total": 1,
+      "win_rate": 1.0
+    },
+    "abbreviation-discipline/R1": {
+      "won": 1,
+      "lost": 3,
+      "tied": 0,
+      "net": -2,
+      "total": 4,
+      "win_rate": 0.25
+    },
+    "abbreviation-discipline/R2": {
+      "won": 2,
+      "lost": 3,
+      "tied": 0,
+      "net": -1,
+      "total": 5,
+      "win_rate": 0.4
+    }
+  }
+}

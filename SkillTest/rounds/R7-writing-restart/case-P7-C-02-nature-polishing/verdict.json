@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "Both responses correctly apply abbreviation discipline for all three terms. RED is superior on stylistic grounds: lowercases technical terms per modern scientific convention, uses the ε symbol (cleaner typography), employs an en-dash for the compound modifier, and achieves crisper phrasing ('adversarially trained CNN' vs 'CNN trained adversarially'). BLUE's preservation of original capitalization is overly conservative and its hyphen less precise than RED's en-dash. Both meet the ≤350-word constraint.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "medium"
+}

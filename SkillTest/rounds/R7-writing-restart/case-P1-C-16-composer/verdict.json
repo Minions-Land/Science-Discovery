@@ -1,0 +1,6 @@
+{
+  "winner": "tie",
+  "reasoning": "Both RED and BLUE fail the expected-behaviour signature in identical ways: both retain specific numerical results (0.847, 0.731, 0.802, 16%), both retain dataset names (LIVECell, CellPose-Cyto2), and both retain implementation details (ResNet-50, SimCLR). RED additionally introduces a computed figure (5.6%) absent from the draft, making it marginally worse, but neither response meets the polish standard. No winner can be declared.",
+  "skill_effect_estimate": "Matches baseline",
+  "confidence": "high"
+}

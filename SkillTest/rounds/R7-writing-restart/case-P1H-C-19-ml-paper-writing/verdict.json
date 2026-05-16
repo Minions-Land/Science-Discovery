@@ -1,0 +1,6 @@
+{
+  "winner": "BLUE",
+  "reasoning": "Both responses are single paragraphs without citations and correctly retain '12-fold'. Both equally violate the restraint rule by keeping excess numerics (5 mm, 9 days, 8.3%, 36 mm). BLUE is marginally superior: it omits the non-CNS 'Here we present' opener and avoids RED's editorializing closing clause ('making it a practical tool for whole-organ visualization'), yielding a slightly cleaner, more restrained Nature Methods register.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "medium"
+}

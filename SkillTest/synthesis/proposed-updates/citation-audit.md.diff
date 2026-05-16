@@ -1,0 +1,107 @@
+# Proposed Update — citation-audit.md
+
+**Source:** SkillTest R3.B case-mixed-claims (no-network) + R6.B
+case-real-crossref (with network).
+**Status:** Draft only. Do not apply to
+`/Users/mjm/MinionsOS/minions/roles/writer/skills/citation-audit.md`
+until the user explicitly approves.
+
+## What to add
+
+The current `citation-audit.md` already enforces the three-layer check
+(existence, metadata, context) and names canonical sources. Add the
+following hard rules under the Procedure section.
+
+### Add Rule: Never trust Crossref query.title rank-1 without sanity check
+
+> **Crossref `query.title` rank-1 is polluted for famous papers.**
+> Verify all three of:
+> - **Year**: matches the year the paper was actually published.
+> - **Container**: matches the expected journal / conference name.
+> - **First author family name**: matches the canonical first author.
+>
+> If ANY check fails, fall back to direct DOI lookup (e.g.
+> `10.18653/v1/N19-1423` for BERT) or to the venue's own bibliographic
+> page. Do NOT accept rank-1 just because it's the top result.
+
+Evidence: SkillTest R6.B case-real-crossref. Two of four famous-paper
+queries returned non-canonical rank-1 records:
+- Vaswani 2017 → `10.65215/r5bs2d54` → 2025 Shenzhen Medical Academy.
+- Devlin 2019 BERT → `10.1080/10598650.2014.11510796` → 2014 Journal of
+  Museum Education paper.
+
+Without the sanity check, a Writer that "trusts the API" emits two
+fabricated citations confidently. With the sanity check, the failure
+is caught and the fallback (direct DOI lookup) succeeds.
+
+### Add Rule: `[needs verification]` placeholder is the right output when blocked
+
+> **When existence cannot be verified — no canonical source resolves,
+> no DOI returns sanity-check-passing metadata — emit
+> `[needs verification]` rather than fabricating.** This is a valid
+> output. Author / next-pass reviewer fills it before submission.
+
+Evidence: SkillTest R3.B (no-network). Both baseline and candidate
+correctly used `[needs verification]` placeholders for all citations
+when no network was available; the discipline transferred to the
+network-enabled R6.B case where placeholders were used only when
+sanity checks failed.
+
+### Add Rule: Aggregator pages are not canonical
+
+> **ResearchGate, Academia.edu, Semantic Scholar's surface page,
+> Google Scholar's snippet, and similar aggregators are NOT canonical
+> sources for verification.** Use:
+> - DOI resolver (`https://doi.org/<DOI>`)
+> - Publisher venue page (e.g. `nature.com/articles/<id>`)
+> - arXiv (`arxiv.org/abs/<id>`) — for preprints only; check for the
+>   accepted-version DOI separately
+> - DBLP (`dblp.org/...`) — for CS conferences
+> - ACL Anthology (`aclanthology.org/...`)
+> - OpenReview (`openreview.net/forum?id=<id>`)
+
+(Already in the current skill — kept for emphasis.)
+
+### Add Rule: Watch for arXiv → conference version drift
+
+> **arXiv v1 vs accepted-conference-version drift** can change the
+> title, abstract, and even the year of a paper. When citing, prefer
+> the accepted-version DOI. If only the arXiv version exists, mark
+> the entry `arXiv preprint` explicitly.
+
+Evidence: SkillTest R3.B. Baseline accepted titles from arXiv pages
+even when the published version had a different title.
+
+## What to leave unchanged
+
+- The three-layer check (existence, metadata, context).
+- The per-entry verdict format (`OK / DRIFT / MISSING / WRONG_CONTEXT`).
+- The output structure (`CITATION_AUDIT.md` + `CITATION_AUDIT.json`).
+- The procedure ordering (gate timing → extract pairs → existence →
+  metadata → context → record verdicts).
+- The pitfalls list.
+
+## Why these are the right additions
+
+R3.B + R6.B cross-validate the network-on / network-off failure modes:
+
+| Round | Network | Failure mode | Skill action |
+|---|---|---|---|
+| R3.B | off | Cannot verify | `[needs verification]` placeholder |
+| R6.B | on | Crossref rank-1 polluted | Sanity check (year + container + first author) → fallback to DOI lookup |
+
+Without the R6.B rule, a network-enabled Writer can emit fabricated
+citations at scale (R6.B baseline emitted two within a single 4-citation
+batch). With the rule, the failure is caught.
+
+The R3.B placeholder rule is already implicit in the current skill's
+"unresolvable → MISSING" handling; this update makes the placeholder
+the explicit allowed output rather than treating MISSING as a hard
+failure that demands removal.
+
+## Bucket upgrade
+
+R3.B verdict was `Calibrates response`; R6.B verdict is **`Prevents real
+failure`** (rank-1 trust without sanity check is a hard fabrication
+path). For MinionsOS Writer in production with network access, this
+update is load-bearing.

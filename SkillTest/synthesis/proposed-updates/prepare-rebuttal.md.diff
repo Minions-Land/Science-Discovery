@@ -1,0 +1,129 @@
+# Proposed Update — prepare-rebuttal.md
+
+**Source:** SkillTest R2 case-mixed-severity + R4.A case-author-input-needed.
+**Status:** Draft only. Do not apply to
+`/Users/mjm/MinionsOS/minions/roles/writer/skills/prepare-rebuttal.md` until
+the user explicitly approves.
+
+## What to add
+
+The current `prepare-rebuttal.md` covers issue grouping, response-type
+classification, evidence coordination via EACN, and honest drafting.
+Add the following hard rules under the Procedure section.
+
+### Add Rule: Stable comment IDs (R<N>.C<M>)
+
+> **Label every reviewer comment with a stable ID** of the form
+> `R<reviewer-number>.C<comment-number>` (e.g. R1.C2, R2.C1). Use these
+> IDs in the response letter, in the revisions checklist, in EACN tasks,
+> and in commit messages. Do NOT label by paraphrased prose ("the
+> reviewer's third concern about the GPU acceleration question") because
+> identical paraphrases creep across letters and break the cross-link.
+
+Evidence: SkillTest R2 case-mixed-severity. Stable IDs let the editor,
+the rebuttal author, the experimenter, and the citation auditor all
+refer to the same thing without rebuilding the mapping every time.
+
+### Add Rule: Action-label FSM per comment
+
+> **Classify every comment with an explicit action label**, not prose
+> mood. Allowed labels (composite allowed where applicable):
+> - `ACCEPT_TEXT` — concession by edit.
+> - `ACCEPT_ANALYSIS` — concession by added analysis on existing data.
+> - `ACCEPT_EXPERIMENT` — concession by new experiment / new data.
+> - `ACCEPT_FIGURE` — concession by figure regeneration / addition.
+> - `ADD_CITATION` — missing-citation fix.
+> - `SOFTEN_CLAIM` — narrow scope, hedge, or qualify.
+> - `DISAGREE_WITH_JUSTIFICATION` — hold the line, justify with
+>   citation or derivation.
+> - `PARTIAL` — accept part, disagree with part.
+> - `AUTHOR_INPUT_NEEDED` — author position is partial / unconfirmed
+>   and the response cannot be drafted without further author input.
+>
+> Composite labels (`DISAGREE + SOFTEN`, `ACCEPT_EXPERIMENT + SOFTEN_CLAIM`)
+> are allowed when one comment legitimately spans two responses.
+
+Evidence: SkillTest R2 + R4.A. The full FSM is empirically exercised
+across both rounds (10 distinct comment archetypes, no orphan archetype).
+
+### Add Rule: AUTHOR_INPUT_NEEDED flag at top of letter
+
+> **When ANY comment is `AUTHOR_INPUT_NEEDED`, flag this in the
+> opening paragraph of the response letter** (visible to the editor on
+> first read). Do NOT bury unresolved-author-input flags inside the
+> per-comment section — editors triage cover letters; an unresolved
+> point hidden in the body is a submission-quality failure.
+
+Evidence: SkillTest R4.A case-author-input-needed. Baseline buried
+2-of-4 unresolved comments inside the comment-by-comment section;
+candidate flagged this in the cover-letter opening. Editor experience
+on a real submission would catch the flag immediately rather than
+discovering it mid-read.
+
+### Add Rule: PI question list as a separate section
+
+> **For any `AUTHOR_INPUT_NEEDED` comment, emit 2-4 specific questions
+> the corresponding author can paste into an email to the PI** as a
+> dedicated section at the end of the response packet. Status updates
+> ("R2.C1 remains unresolved until the PI confirms whether GPU
+> acceleration was attempted") are NOT acceptable substitutes — the
+> author needs an actionable question to send.
+
+Evidence: SkillTest R4.A. Baseline produced status updates only;
+candidate emitted 6 specific questions (3 per unresolved comment) as a
+separate "Questions for the PI" section.
+
+### Add Rule: `[X]` placeholder discipline
+
+> **Use `[X]` placeholders (or `[page/line/section X]`) for
+> manuscript locations the rebuttal author cannot verify at draft
+> time.** Do NOT fabricate page numbers ("page 12, lines 310-324")
+> when the manuscript hasn't been recompiled with the rebuttal edits.
+> The placeholder gets filled at the apply-revisions stage when the
+> compiled PDF is in hand.
+
+Evidence: SkillTest R2 case-mixed-severity. Baseline fabricated
+specific page / line numbers; candidate used `[X]` and `[page/line]`
+placeholders. Fabricated locations break the editor's spot-check.
+
+### Add Rule: Disagreement pattern (acknowledge → narrow → justify → soften)
+
+> **For any `DISAGREE_WITH_JUSTIFICATION`, follow the pattern:**
+> 1. Acknowledge the reviewer's concern in their own framing.
+> 2. Narrow the disagreement to a specific sub-claim.
+> 3. Justify with citation, derivation, or experimental evidence.
+> 4. Soften the residual claim if the justification is partial.
+>
+> A bare "we disagree because [reason]" without acknowledgement reads
+> as defensive; a bare acknowledgement without justification reads as
+> capitulation.
+
+Evidence: SkillTest R2. Composite `DISAGREE + SOFTEN` was the
+candidate's most successful response shape on borderline reviewer
+asks.
+
+## What to leave unchanged
+
+- The issue-grouping discipline (cluster by topic, rank by severity +
+  breadth, top priority = shared concerns).
+- The EACN coordination rule (open targeted task to Experimenter or
+  Expert with exact question + deadline).
+- The honesty audit (no "will do in camera-ready" promises the team
+  cannot deliver, no silent scope expansion).
+- The pitfalls list.
+
+## Why these are the right additions
+
+R2 + R4.A cross-validate every rule:
+
+| Rule | R2 evidence | R4.A evidence |
+|---|---|---|
+| Stable IDs | +1 dim | +1 dim |
+| Action labels (full FSM) | 6 archetypes | 4 archetypes (incl. AUTHOR_INPUT_NEEDED) |
+| Top-of-letter unresolved flag | n/a | +2 dims (decisive) |
+| PI question list | n/a | +2 dims |
+| `[X]` placeholders | +2 dims | confirmed |
+| Disagreement pattern | confirmed | confirmed |
+
+Every rule has evidence from at least one round; the high-leverage
+ones (action labels, top-of-letter flag) are independently confirmed.

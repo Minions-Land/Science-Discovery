@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "Both responses fail major requirements. RED is incorrectly split into three paragraphs and keeps key numbers, LIVECell, SimCLR-style detail and an overbroad implication. However, BLUE preserves substantially more forbidden specificity: LIVECell and CellPose-Cyto2, ResNet-50, IoU threshold, all accuracy numbers, 16%, 2.3 million patches and 100 cells. BLUE does satisfy the one-paragraph and anchor requirements, but overall it is less transformed from the draft and less Nature-polished.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "medium"
+}

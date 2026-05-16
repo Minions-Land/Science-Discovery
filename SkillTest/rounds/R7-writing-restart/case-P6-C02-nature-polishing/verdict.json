@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "RED is closer to the expected CNS-style polish: it collapses the trivial step headers into informative paragraph labels and gives each step a substantive prose sentence. BLUE keeps the empty \"Step 1.\" through \"Step 4.\" headers with one-line bodies, which is exactly the weak pattern to avoid. Both still overuse \texttt{OurNet}, but RED avoids the more serious structural problem.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "high"
+}

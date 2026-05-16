@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "Both responses correctly apply abbreviation discipline for all three terms (CNN, ARS, mAP@0.5) with parenthetical first-introduction and consistent short-form thereafter, meeting the core expected-behaviour signature. The distinguishing difference is capitalisation: RED preserves title case for the full terms on first introduction ('Convolutional Neural Network', 'Adversarial Robustness Score'), exactly matching the expected-behaviour signature, while BLUE lowercases them. Both are ≤350 words. RED is a marginally closer match to the spec.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "medium"
+}

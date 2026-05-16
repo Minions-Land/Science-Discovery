@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "Both responses satisfy the 3-paragraph method-class structure and include model + algorithm + implementation properties as required. RED returns only clean prose as the brief explicitly requires ('Return ONLY the prose text — no commentary'). BLUE appends a self-review checklist and claim-evidence map after the prose, violating the output-format constraint. On artefact quality the responses are nearly equivalent, but RED's strict compliance with the format instruction makes it the clear winner.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "high"
+}

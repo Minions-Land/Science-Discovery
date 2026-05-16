@@ -1,0 +1,6 @@
+{
+  "seed_note": "Mapping the FILE labels (red.md vs blue.md) to the JUDGE prompt label (RED vs BLUE). 'swap=true' means red.md is shown to Codex as BLUE.",
+  "P1-C02-nature-polishing": {"swap": false, "red.md_is_skill": true, "blue.md_is_skill": false},
+  "P6-C02-nature-polishing": {"swap": true,  "red.md_is_skill": true, "blue.md_is_skill": false},
+  "P8-C19-ml-paper-writing": {"swap": true,  "red.md_is_skill": true, "blue.md_is_skill": false}
+}

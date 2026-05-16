@@ -1,0 +1,3 @@
+Recent work has begun to characterise how transformer-based language models encode factual associations in their MLP weight matrices. In particular, the ROME procedure of Meng et al. (2022) demonstrated that editing a single MLP layer can substantially change a model's factual recall, suggesting that factual knowledge is highly localised. This finding has motivated a new line of work on targeted knowledge editing.
+
+[Removed the "30%" figure because the author flagged a discrepancy with the source (likely ~12%), and *Cell*'s zero-tolerance policy on misattributed claims requires either verified accuracy or removal; the core insight about localization remains intact.]

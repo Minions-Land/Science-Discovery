@@ -1,0 +1,35 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>R5.C 6/7-panel A/B</title>
+<style>
+body{font-family:-apple-system,Helvetica,Arial,sans-serif;background:#f4f4f0;margin:0;padding:24px;color:#1a1a1a}
+h1{font-size:20px;margin:0 0 18px}
+h2{font-size:15px;margin:24px 0 8px;border-bottom:1px solid #d0c8b8;padding-bottom:4px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:8px}
+.card{background:#fff;padding:10px;border:1px solid #d8d2c2;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.card h3{margin:0 0 8px;font-size:11px;font-weight:600;color:#444;letter-spacing:0.05em;text-transform:uppercase}
+.card img{max-width:100%;display:block}
+.note{font-size:11px;color:#666;margin-top:6px;font-family:monospace}
+</style></head>
+<body>
+<h1>R5.C — 6/7-panel · baseline vs figure-layout-defaults candidate</h1>
+<h2>Case 1 — 6-panel pharma pipeline</h2>
+<div class="row">
+<div class="card"><h3>BASELINE</h3>
+  <img src="case-6panel/baseline.png">
+  <p class="note">grid 3×4. A=gs[0:2,0:2] (4-cell hero), B,C=top right 2 cells, D=bottom-left 2 cells, E,F=bottom-right single cells.</p>
+</div>
+<div class="card"><h3>CANDIDATE — figure-layout-defaults</h3>
+  <img src="case-6panel/candidate.png">
+  <p class="note">same topology + skill-driven width_ratios=[1.15,1.15,1.0,1.0] height_ratios=[1.15,1.15,1.0]. A ~34% canvas.</p>
+</div>
+</div>
+<h2>Case 2 — 7-panel (6-panel + clinical correlate G)</h2>
+<div class="row">
+<div class="card"><h3>BASELINE</h3>
+  <img src="case-7panel/baseline.png">
+</div>
+<div class="card"><h3>CANDIDATE — figure-layout-defaults</h3>
+  <img src="case-7panel/candidate.png">
+</div>
+</div>
+</body></html>

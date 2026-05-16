@@ -1,0 +1,6 @@
+{
+  "winner": "tie",
+  "reasoning": "Both RED and BLUE violate every constraint in the expected-behaviour signature: both retain specific numerical results (0.847, 0.731, 16%), dataset names (LIVECell, CellPose-Cyto2), and implementation details (ResNet-50, SimCLR). Neither polishes the draft to Nature Methods style as specified. The differences between them are trivial rephrasings with no impact on conformance to the required signature.",
+  "skill_effect_estimate": "Matches baseline",
+  "confidence": "high"
+}

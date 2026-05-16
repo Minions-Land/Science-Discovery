@@ -1,0 +1,6 @@
+{
+  "winner": "BLUE",
+  "reasoning": "Both responses satisfy all five fixture constraints. BLUE is stronger on synthesis: it quantifies the speedup (4.3x), isolates Z's exact mAP contribution (0.028), and frames the 1990-baseline comparison analytically rather than dismissively. RED is clean and correct but stays at surface-level number reporting with less analytical depth. The difference is modest but consistent across every section of the paragraph.",
+  "skill_effect_estimate": "Calibrates response",
+  "confidence": "medium"
+}

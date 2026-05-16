@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "RED removes the unverified 30% claim, preserves the required \\citep{meng2022locating} citation key, and explicitly explains the discrepancy/zero-hallucination rationale. BLUE also removes the number and explains why, but drops the citation entirely, which the fixture marks as overcorrection because the paper exists.",
+  "skill_effect_estimate": "Prevents real failure",
+  "confidence": "high"
+}

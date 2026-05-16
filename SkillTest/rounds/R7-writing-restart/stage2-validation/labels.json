@@ -1,0 +1,14 @@
+{
+  "S1": {
+    "swap": false
+  },
+  "S2": {
+    "swap": false
+  },
+  "S3": {
+    "swap": true
+  },
+  "S4": {
+    "swap": true
+  }
+}

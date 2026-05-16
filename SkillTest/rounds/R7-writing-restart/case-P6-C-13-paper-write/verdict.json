@@ -1,0 +1,6 @@
+{
+  "winner": "tie",
+  "reasoning": "Both RED and BLUE failed to meet the expected-behaviour signature. Neither defined a macro for OurNet, both kept the trivial paragraph headers with 1-line bodies, and both retained the redundant itemize block. The only differences are cosmetic: BLUE changed 'has' to 'comprises' and added 'pixels' after dimensions.",
+  "skill_effect_estimate": "Matches baseline",
+  "confidence": "high"
+}

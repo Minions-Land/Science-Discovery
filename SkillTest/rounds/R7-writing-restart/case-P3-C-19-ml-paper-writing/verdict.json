@@ -1,0 +1,6 @@
+{
+  "winner": "tie",
+  "reasoning": "Both responses satisfy the expected-behaviour signature: three method-class paragraphs, each naming model + algorithm + key architectural/implementation property. RED is slightly tighter prose; BLUE adds year citations and explicit bridge sentences to RetroDiff, minor plusses but not required by spec. Neither exhibits the wrong patterns (bibliography dump, chronological order, missing properties). Quality difference is marginal and within normal variation.",
+  "skill_effect_estimate": "Matches baseline",
+  "confidence": "medium"
+}

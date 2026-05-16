@@ -1,0 +1,27 @@
+{
+  "_doc": "Manual overrides to judge verdicts based on USER_WRITING_RUBRIC.md. Each entry's 'override_winner' replaces verdict.json winner for analysis (not the file).",
+  "case-P6H_conf-C-01-research-paper-writing": {
+    "original_winner": "BLUE",
+    "override_winner": "RED",
+    "swap": false,
+    "why_override": "Judge rewarded baseline for preserving \\paragraph{The reasoning gap.} headers. Rubric §3.1: \\paragraph{} short labels are bad."
+  },
+  "case-P6H_conf-C-13-paper-write": {
+    "original_winner": "RED",
+    "override_winner": "BLUE",
+    "swap": true,
+    "why_override": "Same as C-01: judge rewarded baseline (RED here per swap) for preserving \\paragraph{} headers; skill (BLUE) correctly removed them."
+  },
+  "case-P6H_conf-C-19-ml-paper-writing": {
+    "original_winner": "RED",
+    "override_winner": "BLUE",
+    "swap": true,
+    "why_override": "Judge framed skill's deletion of \\paragraph{} as over-aggressive. Rubric: deletion was correct."
+  },
+  "case-P9_conf-C-19-ml-paper-writing": {
+    "original_winner": "RED",
+    "override_winner": "BLUE",
+    "swap": true,
+    "why_override": "User explicit: skill version sharply explains why both prior directions fall short and places implementation details (350M params, 450k chains, FAISS HNSW) reasonably for a NeurIPS Intro. Baseline is vaguer."
+  }
+}

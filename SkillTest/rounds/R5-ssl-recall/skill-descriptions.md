@@ -1,0 +1,37 @@
+# All available skills (n=35)
+
+- **package-submission** [writer]: Assemble the final camera-ready / submission bundle — clean PDF, standalone-compilable source archive, supplementary, reproducible code snapshot, venue-specific checklist.
+- **paper-work-boundaries** [writer]: Open when about to spawn a paper-* subagent — ten-slot boundary map plus required final report sections; subagents do not auto-inherit Writer's state.
+- **figure-spec** [writer]: Structured FigureSpec format for formal architecture / workflow / pipeline figures — JSON description (canvas, nodes, edges, groups) is source of truth, rendered SVG/PDF is byte-stable from the spec.
+- **coding-methodology** [common]: Three-phase coding pipeline — Plan → Review → Simplify — each gated by a fixed smoke test. Open for changes touching shared state, public APIs, lifecycle, ≥2 files, or adding a public function/class.
+- **think-then-act** [common]: Think then act — toolkit of four cognitive postures for structured planning. Use any combination of unstated-premises audit, first-principles derivation, dialectical synthesis, and goal-setting before dispatching execution.
+- **delegate-heavy-task** [common]: Delegate complex coding tasks to Codex GPT-5.5 via codex-bridge MCP; falls back to Claude subagent if Codex unavailable.
+- **goal-setting** [common]: Open before dispatching any execution — define sensor, metric, feedback period, and stopping rule so every task has a closed verification loop.
+- **publish-review-result** [reviewer]: Open after consolidated.md is complete (called by run-review-round) to publish the review packet via Local EACN as one self-contained markdown deliverable.
+- **eacn3-mcp** [common]: Open first when any next action touches EACN3. Routes intent to one of 12 procedure files under common/skills/eacn3/; on later wakes, only this file plus the matching procedure.
+- **eacn-network-collaboration** [common]: MinionsOS-specific rules for using EACN3 inside a project Role; defers the tool reference to eacn3-mcp.
+- **aspect-review** [reviewer]: Open when spawned by simulate-reviewer-instance, or when Reviewer main is asked for one narrow-aspect inspection; produce evidence-backed notes with one assigned stance.
+- **paper-compile** [writer]: Compile the LaTeX paper cleanly — run latexmk, fix the small auto-fixable errors, iterate at most 3 attempts, verify submission-shaped output.
+- **paper-literature-search** [writer]: Focused literature search for paper writing — claim-first queries via the MinionsOS paper-search MCP tools (arxiv / pubmed / biorxiv / medrxiv / scholar), with verify-before-cite discipline.
+- **eacn3-state-machines** [common]: Open before any task-mutating tool call, or when debugging a 400 state-machine error; shows Task and Bid FSM transitions and which recovery step gets you to a legal state.
+- **make-latex-model** [writer]: Scaffold a clean LaTeX paper project under branches/writer/paper/ matching the target venue's style — minimal, compilable skeleton ready for prose.
+- **simulate-reviewer-instance** [reviewer]: Open during run-review-round Pass A to build one independent reviewer report by composing aspect subagents with mixed stances; outputs reviewer-i.md with one decision label.
+- **role-skill-design** [common]: Open when adding or revising a MinionsOS role skill, or when a role makes the same mistake in 2+ sessions — author a small Markdown skill at the right ownership layer.
+- **imported-paper-skill-catalog** [writer]: Map imported claude_write paper-writing skill names onto Writer's local workflow — prefer local skills, treat external names as task categories.
+- **eacn3-error-recovery** [common]: Open when an eacn3_* tool returns a non-400 error (timeout, 503, plugin crash) — decide retry / reconnect / escalate without losing in-flight work.
+- **abstract-writing** [writer]: Layered scientific abstract from broad context to result, knowledge delta, and significance — every claim traceable to the manuscript or to Expert.
+- **cn-en-academic-polish** [PROPOSED]: Reconstruct logic before translating clauses for Chinese-influenced English; hourglass introduction order, sentence-length cap, AI-trace blacklist, stable terminology.
+- **prepare-rebuttal** [writer]: Turn a batch of reviewer feedback into a clear, evidence-backed, well-packaged response — group issues, classify response type, coordinate evidence via EACN, draft concise blocks.
+- **run-review-round** [reviewer]: Execute one formal review round as Area Chair / journal Editor — 3-5 independent reviewer reports before any history, independent revision-delta pass, meta-review packet, EACN publish.
+- **apply-revisions** [writer]: Open after rebuttal acceptance or a Reviewer Weak Accept / Borderline decision requiring revisions — incorporate reviewer-requested changes into the manuscript before package-submission.
+- **unstated-premises** [common]: Open when a task arrives with unstated constraints, or when the team is about to act on premises nobody examined — inventory premises, classify each as explicit/implicit/smuggled, expose what is NOT said.
+- **first-principles** [common]: Open when "everyone does it that way" is the strongest argument, or when a baseline / metric / benchmark may be the wrong proxy — re-derive from primitives, name the smuggled assumption.
+- **cognitive-checkpoint** [common]: Persist cognitive state to the Exploration DAG before calling mos_reset or when finishing a line of investigation.
+- **citation-audit** [writer]: Verify every \cite{...} is a real work, correctly attributed, and used in a context the cited paper actually supports — three-layer check (existence, metadata, context).
+- **dialectical-synthesis** [common]: Open before publishing a confident claim, or when two positions conflict with evidence — thesis/antithesis/synthesis discipline that forces new predictions, not bland trade-offs.
+- **end-to-end-paper-workflow** [writer]: Open when the user asked for a manuscript (not just section drafts) — seven-phase pipeline from project inputs to compiled PDF, with hard blockers preventing premature "done".
+- **figure-layout-defaults** [PROPOSED]: Default 4-panel hero is width_ratios=[2,1,1] + bottom-spanning D; figsize in inches first, mm only at submission; no empty quadrants, no over-stretched panels, no constrained_layout collapse.
+- **code-validity-review** [reviewer]: Deep-trace zoom of the experiments / reproducibility aspects — open when aspect-review must walk code paths to decide whether implementation invalidates a paper claim. Not a parallel review type.
+- **revision-delta** [reviewer]: Run the independent Pass B / Pass C revision check — one dedicated local subagent reads only the previous rolling summary, then checks current submission and rebuttal against it.
+- **academic-plotting** [writer]: Standards for publication-quality figures — matplotlib for numerical axes, diagram tools for structure, venue-standard styling, colorblind-safe palette, vector + raster outputs.
+- **interactive-figure-prototype** [writer]: Prototype paper figures with a local interactive HTML explorer before committing to a static plot — for figures with many visual degrees of freedom.

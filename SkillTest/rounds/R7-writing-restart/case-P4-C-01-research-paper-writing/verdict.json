@@ -1,0 +1,6 @@
+{
+  "winner": "RED",
+  "reasoning": "Both responses correctly tag unrun experiments and include all required outline sections. However, BLUE's results paragraph fabricates a statistical significance claim ('paired t-test, p < 0.01 confirms...') that the author has not run—a critical integrity failure that BLUE's own Claim-Evidence Map flags as 'Needs experiment.' RED's paragraph reports only available main-comparison numbers without inventing downstream tests. RED's restraint on the statistical claim is the decisive differentiator.",
+  "skill_effect_estimate": "Prevents real failure",
+  "confidence": "high"
+}

@@ -44,7 +44,7 @@ export async function runCodexAgent(options: CodexExecOptions): Promise<CodexExe
     model = "gpt-5.5",
     reasoningEffort = "xhigh",
     skipGitCheck = false,
-    timeout = 600_000,
+    timeout = 900_000,
     ephemeral = true,
   } = options;
 

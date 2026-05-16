@@ -1,0 +1,80 @@
+# Proposed Update — apply-revisions.md
+
+**Source:** SkillTest R1.C case-results, case-overclaim evaluations of
+nature-polishing.
+**Status:** Draft only. Do not apply to
+`/Users/mjm/MinionsOS/minions/roles/writer/skills/apply-revisions.md` until
+the user explicitly approves the R1 synthesis port plan.
+
+## What to add
+
+The current `apply-revisions.md` covers reviewer-requested-change
+incorporation. Add two cross-cutting rules at the start of the Procedure
+section.
+
+### Add Rule: Paper-type diagnosis as first move
+
+Add as the first numbered step of the Procedure section:
+
+> **Diagnose paper type before any sentence-level edit.** Identify whether
+> this is a research / methods / hypothesis-based / algorithmic / device
+> paper. Different paper types require different narrative logic:
+> - Research paper: phenomenon → mechanism → significance
+> - Methods paper: existing methods' limits → new method → fair comparison
+> - Hypothesis-based: testable claim → support → boundary
+> - Algorithmic / device: procedure → reliability + advantage demonstration
+>
+> Do NOT use one narrative logic across paper types. A Discussion-tense
+> sentence in a methods-paper Results section is the most common
+> register-mixing failure.
+
+Evidence: SkillTest R1.C case-results. Candidate emitted an explicit
+"Diagnosed paper type / failure mode" footer ("Research paper, Results
+paragraph; main failure mode was Results / Discussion mixing") that bound
+its sentence-level decisions to a register. Baseline did the right thing
+by reflex but didn't articulate the diagnosis; in edge cases (mixed-type
+manuscripts, methods-paper Results sections) the reflex breaks down.
+
+### Add Rule: Results vs Discussion verb taxonomy
+
+Add as a hard rule under sentence-level discipline:
+
+> **Results sentences use observation verbs:** was detected, increased,
+> decreased, showed, enabled, achieved, abolished, replicated.
+>
+> **Discussion sentences use interpretive verbs:** may reflect, suggests,
+> could indicate, is likely due to, may facilitate, would support, is
+> consistent with.
+>
+> A Results paragraph drifting into Discussion syntax (and vice versa)
+> is a register failure that no amount of polish can fix at the sentence
+> level — the paragraph needs to be re-anchored to the right section
+> first.
+
+Evidence: SkillTest R1.C case-results. Source paragraph mixed
+`we believe / may reflect / likely due to / strongly indicates` (all
+Discussion verbs) with `was observed / 3.2-fold / p=0.011` (Results
+content). Both baseline and candidate cleaned this up; candidate's
+extra discipline came from naming the verb family it was downgrading
+to ("linking the co-activator to the measured expression change" — pure
+observation, no claim about necessity).
+
+## What to NOT add
+
+The "diagnosis footer" emitted in candidate's revision notes is useful
+during reviewer-coach mode but should NOT appear in production manuscript
+prose. The skill should distinguish:
+- Production output: polished prose only.
+- Revision-coach output: polished prose + revision notes + diagnosis footer.
+
+## Why these are the right additions
+
+R1.C had:
+- case-results +2 (Calibrates) — paper-type diagnosis + verb taxonomy
+- case-overclaim +4 (Calibrates) — boundary specificity (covered in
+  `aspect-note.md.diff`, separate update)
+
+The verb taxonomy is the highest-leverage cross-section rule from R1.C;
+the paper-type diagnosis is the highest-leverage process rule. Both
+belong in `apply-revisions.md` because that's the skill that fires when a
+reviewer has asked for revisions and the writer is about to start editing.
