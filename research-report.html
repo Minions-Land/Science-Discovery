@@ -954,11 +954,63 @@
     representation, acquisition, retrieval, and evolution.
   </p>
 
+  <h3>Production check &mdash; Addy Osmani's Agent Skills</h3>
   <p>
-    That board is the <em>lifecycle of a skill</em>. Not a metaphor — a literal
-    sequence of operations the library must support, each of which has now
-    accumulated a distinct literature. Borrowing the database vocabulary and
-    extending it by one verb, the sequence is:
+    A useful practitioner check comes from
+    <a href="https://github.com/addyosmani/agent-skills"><code>addyosmani/agent-skills</code></a>,
+    an MIT-licensed skill pack by Addy Osmani. It should be read as a
+    Google-influenced engineering methodology, not as a scientific-discovery
+    benchmark and not as evidence that skills automatically improve research.
+    Its value is operational: the repository packages production software
+    discipline into reusable skills, slash-command workflows, optional personas,
+    and reference checklists. The included
+    <a href="https://github.com/addyosmani/agent-skills/blob/main/docs/skill-anatomy.md">
+    skill anatomy guide</a> makes the contract explicit: a skill should declare
+    when it applies, name the triggers that activate it, state the criteria for
+    success, expose red flags, and point to deeper references only when needed.
+  </p>
+
+  <table>
+    <thead><tr><th>Agent Skills pattern</th><th>Engineering purpose</th><th>Scientific-discovery translation</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Lifecycle commands</b><br/><code>/spec</code>, <code>/plan</code>, <code>/build</code>, <code>/review</code>, <code>/test</code>, <code>/ship</code></td>
+        <td>Move an agent through gated stages rather than letting it jump from a vague request to a patch.</td>
+        <td>Mirror this as question &rarr; hypothesis &rarr; experiment &rarr; verification &rarr; artifact, with a receipt at each transition.</td>
+      </tr>
+      <tr>
+        <td><b>Meta-skill routing</b><br/><code>using-agent-skills</code></td>
+        <td>Teach the agent to select, combine, and sequence skills instead of treating the library as a flat menu.</td>
+        <td>Research teams need an orchestration skill that chooses memory, citation, experiment, verifier, and writing skills by project state.</td>
+      </tr>
+      <tr>
+        <td><b>Source-driven and doubt-driven habits</b></td>
+        <td>Prefer primary sources, surface uncertainty, and resist confident rationalization after the fact.</td>
+        <td>Aligns directly with zero-hallucination citations and with the exploration DAG rule that unsupported claims remain tentative.</td>
+      </tr>
+      <tr>
+        <td><b>Persona and reference packs</b></td>
+        <td>Keep senior-review taste, checklists, and domain detail outside the hot path until the task requires them.</td>
+        <td>Use progressive disclosure for PI, reviewer, statistician, and experiment-engineer perspectives without bloating every prompt.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    The design lesson is that a serious skill library is not a pile of helpful
+    prompts. It is a governed operating layer: routing rules, stage gates,
+    anti-rationalization checks, reference material, and review personas that
+    make the agent slower at the moments where speed would create risk. For
+    autonomous science, this reinforces a conservative direction: skills should
+    not merely help an agent write faster; they should constrain what it is
+    allowed to claim.
+  </p>
+
+  <p>
+    Together, the survey literature and production skill packs make the
+    <em>lifecycle of a skill</em> visible. This is not a metaphor, but a literal
+    sequence of operations a library must support. Borrowing the database
+    vocabulary and extending it by one verb, the sequence is:
   </p>
 
   <figure class="diagram"><code>ADD      write a skill down        &larr;  when is an experience worth codifying?
@@ -1326,6 +1378,11 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
       <tr>
         <td>Role-gated sprint workflows improve AI-assisted engineering discipline.</td>
         <td>GStack organizes Think &rarr; Plan &rarr; Build &rarr; Review &rarr; Test &rarr; Ship &rarr; Reflect, with stage-specific skills, browser QA, PR checks, and retrospective learning.</td>
+        <td><span class="status supported">Supported</span></td>
+      </tr>
+      <tr>
+        <td>Production skill libraries need routing rules, stage gates, reference packs, and anti-rationalization checks.</td>
+        <td><a href="https://github.com/addyosmani/agent-skills"><code>addyosmani/agent-skills</code></a> packages coding-agent work into lifecycle commands, a meta-skill for skill selection, optional personas, and source- or doubt-driven practices.</td>
         <td><span class="status supported">Supported</span></td>
       </tr>
       <tr>
@@ -1794,9 +1851,9 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
   </p>
 
   <p>
-    The WeChat article the user pointed to appears to be part of a broader move
-    toward treating memory as code rather than notes. The nearest public
-    examples include <a href="https://github.com/cogniplex/codemem"><code>codemem</code></a>,
+    This implementation pattern is part of a broader move toward treating
+    memory as code rather than as notes. The nearest public examples include
+    <a href="https://github.com/cogniplex/codemem"><code>codemem</code></a>,
     which presents itself as a standalone Rust memory engine for coding agents,
     <a href="https://github.com/fork-demon/smriti"><code>Smriti</code></a>,
     a Rust-based experimental memory engine that combines graph ranking and
@@ -1877,9 +1934,9 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
       next_action: "verify baseline before promotion"</code>
 <figcaption>Rust does not save tokens by existing. A memory runtime saves tokens by making recall typed, scoped, permissioned, and progressively expandable.</figcaption></figure>
 
-  <h3>Engineering counterpart: GStack</h3>
+  <h3>Engineering counterparts: GStack and Agent Skills</h3>
   <p>
-    The closest software-engineering analogue I found is
+    A close software-engineering analogue is
     <a href="https://github.com/garrytan/gstack"><code>gstack</code></a>,
     Garry Tan&rsquo;s Claude Code setup. It is not a scientific-discovery
     framework; it is a sprint controller for AI-assisted product and code
@@ -1889,11 +1946,12 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
   <p>
     GStack defines a seven-step sprint &mdash; Think &rarr; Plan &rarr; Build
     &rarr; Review &rarr; Test &rarr; Ship &rarr; Reflect &mdash; and binds each
-    stage to a concrete skill. `/office-hours` forces a six-question problem
-    interview; `/autoplan` runs CEO, design, engineering, and DX reviews;
-    `/review` and `/qa` catch bugs and add regression tests; `/ship` syncs main,
-    audits coverage, and opens the PR; `/retro` and `/learn` capture what should
-    be reused next time. The OpenClaw integration makes the architecture even
+    stage to a concrete skill. <code>/office-hours</code> forces a six-question problem
+    interview; <code>/autoplan</code> runs CEO, design, engineering, and DX reviews;
+    <code>/review</code> and <code>/qa</code> catch bugs and add regression tests;
+    <code>/ship</code> syncs main, audits coverage, and opens the PR;
+    <code>/retro</code> and <code>/learn</code> capture what should be reused next time.
+    The OpenClaw integration makes the architecture even
     clearer: GStack treats itself as a methodology source, while ClawHub acts as
     the public registry where the four native OpenClaw methodology skills live.
   </p>
@@ -1940,13 +1998,26 @@ EVOLVE   differentiate per context &larr;  one skill, many forks, one per expert
   </table>
 
   <p>
+    Addy Osmani&rsquo;s
+    <a href="https://github.com/addyosmani/agent-skills"><code>agent-skills</code></a>
+    plays a complementary role. GStack is a sprint controller; Agent Skills is
+    a portable discipline library. Its lifecycle commands, source-driven
+    implementation guidance, doubt-driven review habits, and optional reviewer
+    personas show how to package senior engineering judgment without loading all
+    detail up front. In autonomous science, the analogous package would bind
+    citation verification, experiment execution, verifier selection, and paper
+    assembly into the same gated operating layer.
+  </p>
+
+  <p>
     The important lesson is not that software engineering equals science. It is
     that both domains need the same control discipline once AI agents start doing
     real work: role separation, stage gates, explicit receipts, and a human owner
-    who decides what gets promoted. GStack is the engineering proof that a fast
-    agent team can stay honest without becoming sluggish. That makes it a useful
-    analog for autonomous scientific discovery, where the final object is not a
-    deployable app but a claim graph that must stay faithful to the evidence.
+    who decides what gets promoted. These engineering systems are useful analogs
+    for autonomous scientific discovery because they preserve speed while
+    forcing the agent to pass through explicit checks. The final scientific
+    object is not a deployable app but a claim graph that must stay faithful to
+    the evidence.
   </p>
 
   <h3>Verification counterpart: LLM-as-a-Verifier</h3>
@@ -2174,8 +2245,9 @@ promotion gate
   <p>
     Set in Iowan Old Style for the body text and SF Mono for code, on a 680-pixel measure
     chosen for about 65 characters per line. A Nobel-style white-and-gold visual treatment
-    carries the four-posture panel in Section IX. All numbers current as of 2026-05-13. This
-    document is a single HTML file; the four portrait images are loaded from Wikimedia Commons.
+    carries the four-posture panel in Section IX. Star-count numbers were last verified on
+    2026-05-13, with later source additions checked directly where cited. This document is a
+    single HTML file; the four portrait images are loaded from Wikimedia Commons.
   </p>
   <p>
     For the primary sources, follow the hyperlinks in the text above. GitHub star counts
@@ -2185,7 +2257,8 @@ promotion gate
     through arXiv's rendered HTML mirror. Section XI additionally checks local vendored
     skill files for <code>AI-Research-SKILLs</code>, <code>claude-scholar</code>, and
     RebuttalStudio. Section VII adds Perplexity's production skill-design guide,
-    the public Agent Skills specification, and SkillsBench. Section XI additionally
+    the public Agent Skills specification, Addy Osmani's Agent Skills repository,
+    and SkillsBench. Section XI additionally
     checks the OpenScholar article in <em>Nature</em>, the GStack /
     OpenClaw docs, the LLM-as-a-Verifier project materials, Claude-Mem, Codex
     Memories, OpenClaw memory, Cloak, Cline task history, Mem0, Zep, Letta, LangMem,
