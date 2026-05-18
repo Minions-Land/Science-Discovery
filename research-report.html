@@ -156,8 +156,9 @@
     <li><a href="#four-postures"><span class="num">IX</span>Four thinking postures</a></li>
     <li><a href="#evidence-ledger"><span class="num">X</span>What is supported, and what is new</a></li>
     <li><a href="#zero-citation"><span class="num">XI</span>Zero-hallucination evidence</a></li>
-    <li><a href="#open"><span class="num">XII</span>Open questions</a></li>
-    <li><a href="#colophon"><span class="num">XIII</span>About this report</a></li>
+    <li><a href="#long-horizon"><span class="num">XII</span>The long-horizon problem</a></li>
+    <li><a href="#open"><span class="num">XIII</span>Open questions</a></li>
+    <li><a href="#colophon"><span class="num">XIV</span>About this report</a></li>
   </ol>
 </nav>
 
@@ -2151,14 +2152,264 @@ promotion gate
 
 <p class="sep-ornament">❧</p>
 
+<section id="long-horizon">
+  <h2><span class="roman">XII</span>The long-horizon problem</h2>
+  <p class="deck">When a research task takes days, not minutes, every architectural assumption about agents breaks. Here is what breaks, and what the field is building to fix it.</p>
+
+  <p class="drop">
+    Most agent benchmarks give a system minutes or hours. A real research project
+    gives it weeks. The gap between these two regimes is not merely quantitative &mdash;
+    it is architectural. An agent that can write a function in three minutes may be
+    entirely unable to coordinate a month-long experiment campaign, because the
+    failure modes of long-horizon work are categorically different from those of
+    short tasks. This section maps those failure modes and the emerging solutions.
+  </p>
+
+  <h3>What breaks at long horizons</h3>
+  <p>
+    Five failure modes dominate when agent tasks stretch beyond a single context window:
+  </p>
+  <p>
+    <strong>Context drift.</strong> The agent&rsquo;s working memory fills, compacts, and
+    loses detail. Decisions made in hour one become invisible by hour four. The agent
+    re-derives them, sometimes differently, creating internal contradictions that
+    compound silently. Every context-window-limited system &mdash; Claude, GPT, Gemini &mdash;
+    suffers this; the question is only how gracefully it degrades.
+  </p>
+  <p>
+    <strong>Goal forgetting.</strong> A subtask absorbs all attention. The agent optimises
+    locally (make this test pass) while losing the global objective (ship the feature
+    that the test was supposed to verify). In multi-agent systems this is worse: each
+    agent remembers its own subgoal but nobody holds the top-level acceptance criterion.
+  </p>
+  <p>
+    <strong>Error cascading.</strong> A wrong assumption in step 3 of 40 propagates silently
+    until step 38, where the system produces a confident but wrong result. Backtracking
+    cost grows superlinearly with horizon length because intermediate state was never
+    checkpointed.
+  </p>
+  <p>
+    <strong>Coordination overhead.</strong> In multi-agent setups, the cost of keeping N agents
+    aligned grows faster than the work they produce. Messages, handoffs, shared-state
+    locks, and conflict resolution consume an increasing fraction of total compute.
+    The system becomes a bureaucracy.
+  </p>
+  <p>
+    <strong>Stale plans.</strong> A plan written at the start becomes wrong as the environment
+    changes (new data arrives, a dependency breaks, a collaborator publishes first).
+    Agents that cannot revise their own plans mid-execution either follow dead plans
+    or abandon planning entirely and become reactive.
+  </p>
+
+  <h3>Planning architectures for long tasks</h3>
+  <p>
+    The field has converged on a small number of patterns for sustaining coherent
+    behaviour across long horizons:
+  </p>
+
+  <h4>Hierarchical task decomposition</h4>
+  <p>
+    The dominant pattern in 2025&ndash;2026 is <strong>plan &rarr; decompose &rarr; dispatch &rarr;
+    verify</strong>. A coordinator agent holds the global plan and decomposes it into
+    subtasks small enough for a single context window. Each subtask is dispatched to
+    a worker agent (or the same agent in a fresh context), executed, and its result
+    verified against acceptance criteria before the coordinator advances.
+    <a href="https://arxiv.org/abs/2308.00352">AutoGen</a> (Microsoft, 2023; v0.4 rewrite 2025),
+    <a href="https://github.com/langchain-ai/langgraph">LangGraph</a> (LangChain, 2024&ndash;2026),
+    and <a href="https://github.com/crewAIInc/crewAI">CrewAI</a> (2024&ndash;2026) all implement
+    variants of this. Claude Code&rsquo;s <code>Agent</code> tool and OpenAI Codex&rsquo;s
+    background-task model are production instances.
+  </p>
+
+  <h4>Plan persistence and revision</h4>
+  <p>
+    A plan that lives only in the context window dies on compaction. The fix is to
+    <strong>write the plan to disk</strong> and treat it as a living document. MinionsOS&rsquo;s
+    <code>plan-persistence</code> skill writes plans to
+    <code>branches/&lt;role&gt;/plans/&lt;role&gt;-&lt;slug&gt;.md</code> with YAML frontmatter
+    (plan-id, owner, status, parent task). On context reset, the agent reads its own
+    plan file and resumes. Google&rsquo;s <a href="https://google.github.io/adk-docs/">Agent
+    Development Kit</a> (ADK, 2025) takes a similar approach with its session-state
+    persistence layer. The key insight: <em>the plan is not a prompt &mdash; it is an artifact
+    that outlives any single invocation</em>.
+  </p>
+
+  <h4>Exploration DAGs over linear logs</h4>
+  <p>
+    Linear conversation logs are the wrong data structure for branching research.
+    An <strong>exploration DAG</strong> (directed acyclic graph) records hypotheses,
+    experiments, results, and dead ends as nodes with typed edges. When an agent
+    wakes into a new context, it queries the DAG for its frontier rather than
+    re-reading thousands of lines of chat history. MinionsOS implements this as
+    <code>dag.json</code> with <code>mos_dag_append</code> / <code>mos_dag_query</code>;
+    the ARA protocol&rsquo;s <code>trace/exploration_tree.yaml</code> is a static
+    cousin designed for publication rather than runtime navigation.
+  </p>
+
+  <h3>Multi-agent coordination patterns</h3>
+  <p>
+    Three coordination topologies have emerged for long-horizon research:
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Pattern</th><th>Topology</th><th>Best for</th><th>Failure mode</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Orchestrator + workers</strong></td>
+        <td>Star: one coordinator dispatches to N specialists</td>
+        <td>Well-decomposable tasks (write paper = plan + lit-review + experiments + draft + review)</td>
+        <td>Coordinator becomes bottleneck; single point of failure</td>
+      </tr>
+      <tr>
+        <td><strong>Pipeline / relay</strong></td>
+        <td>Chain: output of agent A feeds agent B feeds agent C</td>
+        <td>Sequential workflows (data &rarr; analysis &rarr; figure &rarr; caption)</td>
+        <td>Error in early stage propagates; no backpressure</td>
+      </tr>
+      <tr>
+        <td><strong>Swarm / peer</strong></td>
+        <td>Mesh: agents communicate via shared bus, bid on tasks</td>
+        <td>Exploratory work where the decomposition is unknown upfront</td>
+        <td>Coordination overhead; duplicated work; consensus cost</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Production systems increasingly <strong>mix topologies</strong>. MinionsOS uses
+    orchestrator+workers (Gru dispatches to Coder/Writer/Experimenter) but the
+    workers communicate peer-to-peer via EACN3 when they need to coordinate
+    without Gru&rsquo;s involvement. Google&rsquo;s <a href="https://google.github.io/A2A/">Agent-to-Agent
+    (A2A) protocol</a> (April 2025) standardises the peer communication layer
+    so that agents from different vendors can interoperate on shared tasks.
+  </p>
+
+  <h3>Context management at scale</h3>
+  <p>
+    The practical ceiling on agent horizon length is not intelligence &mdash; it is
+    <strong>memory architecture</strong>. Four mechanisms now exist in production:
+  </p>
+  <p>
+    <strong>Automatic compaction.</strong> Claude Code, Gemini 2.5, and GPT-4.1 all
+    implement conversation summarisation when context approaches limits. The agent
+    continues working from a compressed history. Quality degrades gracefully but
+    detail is irreversibly lost.
+  </p>
+  <p>
+    <strong>Structured external memory.</strong> Systems like
+    <a href="https://github.com/mem0ai/mem0">Mem0</a>,
+    <a href="https://github.com/getzep/zep">Zep</a>,
+    <a href="https://github.com/letta-ai/letta">Letta</a> (formerly MemGPT), and
+    <a href="https://github.com/langchain-ai/langmem">LangMem</a> provide
+    vector-indexed long-term memory that agents can write to and query from.
+    The agent&rsquo;s &ldquo;working set&rdquo; is whatever it retrieves, not whatever
+    fits in the window.
+  </p>
+  <p>
+    <strong>Artifact-based state.</strong> Rather than remembering everything, the agent
+    writes intermediate results to files (plans, reports, data tables) and reads them
+    back when needed. This is the approach taken by Claude Code&rsquo;s task system,
+    Devin&rsquo;s workspace, and MinionsOS&rsquo;s branch-per-role model. The filesystem
+    <em>is</em> the memory.
+  </p>
+  <p>
+    <strong>Cognitive checkpoints.</strong> At defined intervals, the agent pauses to
+    write a structured self-summary: what has been accomplished, what remains, what
+    assumptions are active. This checkpoint survives compaction and serves as a
+    &ldquo;save point&rdquo; for resumption. MinionsOS&rsquo;s <code>cognitive-checkpoint</code>
+    skill and the ARA protocol&rsquo;s <code>pending_plan</code> DAG nodes both implement
+    this pattern.
+  </p>
+
+  <h3>The dispatch rule: thinking vs. doing</h3>
+  <p>
+    A recurring lesson from 2025&ndash;2026 production systems is that <strong>the agent
+    that plans should not be the agent that executes</strong>. When a single agent both
+    thinks and acts, its context fills with execution debris (error logs, file contents,
+    test output) and its planning quality degrades. The fix is role separation:
+  </p>
+  <p>
+    Claude Code&rsquo;s <code>Agent</code> tool spawns disposable sub-agents for execution
+    while the main agent stays clean for coordination. OpenAI Codex runs tasks in
+    isolated cloud sandboxes, returning only a summary. MinionsOS&rsquo;s
+    <code>think-then-act</code> skill enforces this as a hard rule: once invoked, the
+    main agent becomes a pure dispatcher and all execution goes through sub-agents,
+    with Codex GPT-5.5 as the preferred delegate.
+  </p>
+  <p>
+    This separation has a direct analogue in human research: the PI who designs the
+    study is not the same person who runs every PCR. The insight is that
+    <em>context separation is not a limitation to work around &mdash; it is a feature
+    to design for</em>.
+  </p>
+
+  <h3>What the benchmarks say about long horizons</h3>
+  <p>
+    The benchmarks that specifically stress long-horizon capability tell a consistent
+    story: agents plateau or regress as task duration increases.
+  </p>
+
+  <div class="aside">
+    <span class="k">The RE-Bench finding</span>
+    On RE-Bench (METR, 2024), human researchers given 8 hours significantly outperform
+    agents given the same budget. But the gap is not in raw capability &mdash; it is in
+    <strong>recovery from errors</strong>. Humans backtrack efficiently; agents repeat
+    failed approaches or abandon promising directions after a single failure. The
+    authors estimate that 90.2% of total agent cost goes to failed runs that a human
+    would have abandoned earlier.
+  </div>
+
+  <p>
+    <a href="https://doi.org/10.48550/arxiv.2504.01848"><strong>PaperBench</strong></a>
+    (OpenAI, 2025) is the most demanding long-horizon benchmark: reproducing an ICML
+    paper from scratch requires coordinating literature review, environment setup,
+    implementation, experimentation, and write-up across many hours. The ARA protocol
+    improved scores from 72.4% to 93.7% on this benchmark &mdash; and the gain came
+    almost entirely from <em>reducing repeated work</em> via the exploration tree and
+    structured evidence layer, not from better raw coding.
+  </p>
+
+  <p>
+    <a href="https://doi.org/10.48550/arxiv.2310.06770"><strong>SWE-bench</strong></a>
+    (Princeton, 2023; Verified subset 2024) tests multi-file bug fixing in real
+    repositories. The task horizon is shorter (minutes to hours) but the coordination
+    challenge is real: the agent must understand a codebase, locate the bug, fix it,
+    and verify the fix passes existing tests. Top scores have risen from 12% (2023)
+    to over 70% (2026) as planning and tool-use architectures improved.
+  </p>
+
+  <h3>An open question: when does more time help?</h3>
+  <p>
+    The most provocative finding from recent scaling work is that <strong>giving agents
+    more compute time does not always help</strong>. On RE-Bench, doubling the time
+    budget from 2 hours to 8 hours improved human scores substantially but improved
+    agent scores only marginally. The bottleneck is not compute &mdash; it is the
+    ability to maintain coherent plans, learn from failures within a single run, and
+    know when to abandon a dead end.
+  </p>
+  <p>
+    This suggests that the next frontier is not longer context windows or faster
+    inference, but better <strong>intra-task learning</strong>: the ability to update
+    beliefs, revise plans, and accumulate evidence within a single extended session.
+    The exploration DAG, the cognitive checkpoint, and the dispatch rule are all
+    attempts at this. Whether they compose into a system that genuinely scales with
+    time &mdash; the way a human researcher scales with months of focused work &mdash;
+    remains the defining open question for autonomous scientific discovery.
+  </p>
+</section>
+
+<p class="sep-ornament">❧</p>
+
 <section id="open">
-  <h2><span class="roman">XII</span>Six open questions</h2>
-  <p class="deck">Six concrete problems that inherit directly from Sections III through XI, and where small teams can still make a first move.</p>
+  <h2><span class="roman">XIII</span>Seven open questions</h2>
+  <p class="deck">Seven concrete problems that inherit directly from Sections III through XIII, and where small teams can still make a first move.</p>
 
   <p>
     An essay that ends &ldquo;and now the future is bright&rdquo; is not worth reading. The six
     questions below are not speculative; each one is a direct descendant of something left
-    unresolved in Sections III through XI, and each one is at a stage where evidence is
+    unresolved in Sections III through XIII, and each one is at a stage where evidence is
     still thin enough that a modest study can move the consensus.
   </p>
 
@@ -2234,6 +2485,19 @@ promotion gate
     failed work. If the web becomes a museum of logs that nobody queries, it fails. If it lets
     a new agent resume a project without inventing citations, rerunning dead ends, or overstating
     evidence, it becomes the operating substrate for autonomous science.
+  </p>
+
+  <h3>Does intra-task learning scale with time?</h3>
+  <p>
+    Section XII showed that giving agents more time does not reliably improve outcomes.
+    The open question is whether any combination of plan persistence, exploration DAGs,
+    cognitive checkpoints, and dispatch separation can produce a system where
+    performance genuinely scales with allocated time &mdash; the way a human PI&rsquo;s
+    output scales with months of focused attention. If the answer is yes, the
+    mechanism will likely involve structured forgetting (discarding low-value branches)
+    as much as structured remembering. If the answer is no, autonomous science hits
+    a ceiling that no amount of compute can lift, and the field pivots to
+    human-agent collaboration rather than full autonomy.
   </p>
 </section>
 
