@@ -156,9 +156,10 @@
     <li><a href="#four-postures"><span class="num">IX</span>Four thinking postures</a></li>
     <li><a href="#evidence-ledger"><span class="num">X</span>What is supported, and what is new</a></li>
     <li><a href="#zero-citation"><span class="num">XI</span>Zero-hallucination evidence</a></li>
-    <li><a href="#long-horizon"><span class="num">XII</span>The long-horizon problem</a></li>
-    <li><a href="#open"><span class="num">XIII</span>Open questions</a></li>
-    <li><a href="#colophon"><span class="num">XIV</span>About this report</a></li>
+    <li><a href="#web-search"><span class="num">XII</span>Web search as a tool</a></li>
+    <li><a href="#long-horizon"><span class="num">XIII</span>The long-horizon problem</a></li>
+    <li><a href="#open"><span class="num">XIV</span>Open questions</a></li>
+    <li><a href="#colophon"><span class="num">XV</span>About this report</a></li>
   </ol>
 </nav>
 
@@ -2152,8 +2153,465 @@ promotion gate
 
 <p class="sep-ornament">❧</p>
 
+<section id="web-search">
+  <h2><span class="roman">XII</span>Web search as a tool &mdash; what an agent calls when memory ends</h2>
+  <p class="deck">When agent memory ends and the open web begins, the choice of MCP server stops being cosmetic. Three layers, three generations, thirteen tools, and three picks for an academic workflow that is allergic to new subscriptions.</p>
+
+  <p class="drop">
+    Section VII asked how an agent finds the right skill in its own library. This section asks
+    the older question &mdash; what the agent does when none of its skills hold the answer. Skill
+    retrieval is the inward problem: which procedure to run. Web retrieval is the outward one:
+    what does the open web know, and how do I make it citable. Two years ago the answer was a
+    line of code that called Bing. As of mid-2026 it is a sub-ecosystem of MCP servers, hosted
+    research agents, and academic-source connectors, and the choice between them matters
+    because they return materially different things &mdash; sometimes a list of links, sometimes
+    clean Markdown, sometimes a finished report with footnotes &mdash; at price points that span
+    four orders of magnitude.
+  </p>
+
+  <h3>Three problems hidden in one verb</h3>
+  <p>
+    &ldquo;Search the web&rdquo; sounds atomic, but every working agent system splits it into
+    three jobs that fail in different ways and want different infrastructure.
+  </p>
+
+  <p>
+    <strong>Query.</strong> Translate a natural-language intent into a ranked list of candidate
+    URLs and snippets. This is the historical search-engine problem; what changes when an LLM
+    is the customer is that snippet quality and citation completeness matter more than ranking
+    depth, because the agent will only inspect the top few results before deciding whether to
+    fetch. Tavily, Brave, Bing, Kagi, and Exa are query-layer providers in this sense, even
+    when their pitch deck says otherwise.
+  </p>
+
+  <p>
+    <strong>Fetch.</strong> Pull a target page&rsquo;s body, render dynamic content if needed,
+    strip ads and chrome, and produce something the model can read. The output format is
+    decisive. Raw HTML is unusable; cleaned Markdown is the de facto standard; structured
+    extractions (title + authors + publication date + main body) are what citation-grade
+    workflows actually need. A search backend that returns ten URLs and a fetch backend that
+    turns each URL into clean Markdown are not the same product, and conflating them is the
+    most common mistake when picking a tool. Firecrawl, Jina&rsquo;s Reader (<code>r.jina.ai</code>),
+    and Tavily-extract live here.
+  </p>
+
+  <p>
+    <strong>Synthesize.</strong> Take many fetches and produce a multi-source answer with
+    attributable claims. This is the most expensive step and the one that LLM vendors have
+    begun to commoditise: Perplexity&rsquo;s <code>sonar-deep-research</code>, Exa&rsquo;s
+    <code>/research</code>, Linkup&rsquo;s research endpoint, OpenAI&rsquo;s Deep Research mode,
+    Anthropic&rsquo;s Research connectors. They are not search engines; they are agents-as-a-service
+    that bill per task and return a write-up with footnotes. Whether to use one depends on
+    whether the agent doing the calling trusts the synthesizer&rsquo;s reasoning more than its
+    own.
+  </p>
+
+  <p>
+    The taxonomy is not pedantry. A research workflow needs at least one provider for each
+    layer. Tavily can do all three but does the synthesize layer poorly; Firecrawl does layer
+    two well and layer one as an afterthought; <code>arxiv-mcp-server</code> does layer one but
+    only over arXiv. Treating them as substitutes is the source of most &ldquo;this MCP is not
+    very good&rdquo; complaints &mdash; usually the agent was sent to a query-layer tool when
+    what it needed was synthesis, or vice versa.
+  </p>
+
+  <h3>Three generations, and what each one fixed</h3>
+  <p>
+    The current zoo reads more legibly chronologically. Three generations of tooling have
+    appeared in the last twenty-four months, and each one solves a problem the previous one
+    made visible.
+  </p>
+
+  <p>
+    <strong>First generation: search APIs in MCP clothing.</strong> Bing, Brave, Tavily, Kagi,
+    and Exa already had developer APIs. Wrapping them in an MCP server was the obvious first
+    move once Anthropic published the Model Context Protocol in late 2024. The 2.0k-star
+    Tavily MCP and 1.0k-star Brave Search MCP are the canonical exemplars: they accept a
+    query and return JSON with title/url/snippet, often with a synthesised answer string for
+    clients that do not want to read snippets. They are cheap, fast, and unopinionated. They
+    also leave the hard parts unsolved &mdash; the agent still has to fetch, clean, and decide
+    which result to trust.
+  </p>
+
+  <p>
+    <strong>Second generation: fetch and crawl as first-class tools.</strong>
+    <a href="https://github.com/firecrawl/firecrawl-mcp-server"><code>Firecrawl</code></a>
+    (6.3k&nbsp;&star;, the highest-starred web-tool MCP on GitHub) and Jina AI&rsquo;s Reader
+    (<code>r.jina.ai</code>, exposed as part of the 685-star
+    <a href="https://github.com/jina-ai/MCP"><code>jina-ai/MCP</code></a> server) recognised
+    that an agent reading the web needs Markdown more than it needs URLs. They built fetchers
+    that handle JavaScript rendering, ad removal, PDF extraction, and the occasional anti-bot
+    challenge, and they exposed those as MCP tools alongside a thin search layer. This is the
+    generation that made it feasible for agents to read the web at all, rather than guessing
+    from snippets.
+  </p>
+
+  <p>
+    <strong>Third generation: research agents on the other end of an API.</strong>
+    Perplexity&rsquo;s <code>sonar-deep-research</code> model, Exa&rsquo;s <code>/research</code>
+    endpoint, and Linkup&rsquo;s research API took the full query-fetch-synthesize loop, ran
+    it on their infrastructure, and exposed the result as a single tool call. The agent says
+    &ldquo;research X for fifteen minutes&rdquo;; the service comes back with a report and
+    citations. This generation is the most expensive (Linkup&rsquo;s deep-research tier runs
+    $0.25 to $2.50 per request as of May 2026; Exa Deep Reasoning is $15 per thousand requests)
+    and the most opinionated. It is the right tool when the question is bounded and the agent
+    has no good reason to interleave its own reasoning with the search. It is the wrong tool
+    when the search is one move in a longer chain.
+  </p>
+
+  <p>
+    <a href="https://github.com/anysearch-ai/anysearch-mcp-server"><code>AnySearch</code></a>,
+    the newcomer that prompted this section, is not a fourth generation. It is an attempt to
+    package generations one and two behind a single brand &mdash; a unified connector with
+    general search, twenty-three vertical &ldquo;domains&rdquo; (finance, academic, legal,
+    code, security, IP, energy, geo, and more), parallel batch search, and URL-to-Markdown
+    extraction in one MCP. Whether that bundling is a real differentiator is a question we
+    return to two subsections down.
+  </p>
+
+  <h3>The current zoo, in one table</h3>
+  <p>
+    Thirteen tools that an agent can actually call as of mid-May 2026. Pricing and license
+    information were verified against each project&rsquo;s GitHub README and pricing page on
+    2026-05-19; numbers reset frequently and any cell marked &ldquo;not published&rdquo; was
+    not findable on a primary source today.
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Tool</th><th>Layer</th><th>Free tier</th><th>Paid (May 2026)</th><th>Citations</th><th>Academic fit</th><th>License</th><th>Pick when</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Anthropic <code>web_search</code></b><br/>(built into Claude Code)</td>
+        <td>1</td>
+        <td>Bundled with Claude usage</td>
+        <td>$10 / 1k searches on the API</td>
+        <td>URL + title</td>
+        <td>generalist</td>
+        <td>proprietary</td>
+        <td>Already inside Claude Code; you do not want extra wiring</td>
+      </tr>
+      <tr>
+        <td><b>Tavily MCP</b><br/><code>tavily-ai/tavily-mcp</code> &middot; 2.0k&nbsp;&star;</td>
+        <td>1+2</td>
+        <td>1,000 credits / month, no card</td>
+        <td>$0.008 / credit pay-as-you-go</td>
+        <td>search results, extracted page</td>
+        <td>good for general web; weak for paywalled academic</td>
+        <td>MIT (server), commercial API</td>
+        <td>The default no-extra-cost choice for search + extract</td>
+      </tr>
+      <tr>
+        <td><b>Exa MCP</b><br/><code>exa-labs/exa-mcp-server</code> &middot; 4.4k&nbsp;&star;</td>
+        <td>1+2+3</td>
+        <td>Free MCP tier (capped Feb 2026)</td>
+        <td>$7 / 1k search; $12&ndash;15 / 1k for Deep / Reasoning</td>
+        <td>results with highlights and similar-page links</td>
+        <td>good for English web; weak for paywalled</td>
+        <td>MIT (server), commercial API</td>
+        <td>Semantic / similarity search, &ldquo;find papers like this&rdquo;, code context</td>
+      </tr>
+      <tr>
+        <td><b>Perplexity MCP</b> (official)<br/><code>perplexityai/modelcontextprotocol</code> &middot; 2.2k&nbsp;&star;</td>
+        <td>3 (also 1)</td>
+        <td>None &mdash; Sonar API key required</td>
+        <td>Sonar / sonar-pro / sonar-deep-research / sonar-reasoning-pro, per-request</td>
+        <td>answer paragraph with sources</td>
+        <td>good &mdash; reads paywalled summaries via Sonar</td>
+        <td>MIT (server), commercial API</td>
+        <td>The answer should already be a paragraph with footnotes</td>
+      </tr>
+      <tr>
+        <td><b>Linkup MCP</b><br/><code>LinkupPlatform/linkup-mcp-server</code></td>
+        <td>1+2+3</td>
+        <td>4,000 free queries on signup</td>
+        <td>$0.005&ndash;0.006 / search; $0.25&ndash;2.50 / research call</td>
+        <td>sources for every claim</td>
+        <td>good for SimpleQA-style factual answers</td>
+        <td>MIT (server), commercial API</td>
+        <td>Factual single-question answers needed in 1&ndash;3s with sources</td>
+      </tr>
+      <tr>
+        <td><b>Jina AI MCP</b><br/><code>jina-ai/MCP</code> &middot; 685&nbsp;&star;</td>
+        <td>1+2</td>
+        <td>Many tools work without an API key (rate-limited)</td>
+        <td>Token-metered Jina API</td>
+        <td>Markdown, BibTeX, structured PDF extracts</td>
+        <td>very good &mdash; only candidate with native arXiv + SSRN + BibTeX + PDF-extract</td>
+        <td>Apache-2.0 (server), commercial API</td>
+        <td>Academic search and PDF / figure extraction in one MCP</td>
+      </tr>
+      <tr>
+        <td><b>Firecrawl MCP</b><br/><code>firecrawl/firecrawl-mcp-server</code> &middot; 6.3k&nbsp;&star;</td>
+        <td>2</td>
+        <td>Trial credits on signup</td>
+        <td>Credit-metered (cloud and self-hosted)</td>
+        <td>URL &rarr; clean Markdown; structured extraction</td>
+        <td>good for grey literature, lab pages, conference sites</td>
+        <td>MIT (server), commercial API</td>
+        <td>Dead-link recovery; JS-rendered pages; deep crawl of one site</td>
+      </tr>
+      <tr>
+        <td><b>Brave Search MCP</b><br/><code>brave/brave-search-mcp-server</code> &middot; 1.0k&nbsp;&star;</td>
+        <td>1</td>
+        <td>2,000 queries / month on the Brave free plan</td>
+        <td>CPM tiers above the free plan</td>
+        <td>URLs + AI-summary key (Pro)</td>
+        <td>generalist; privacy posture is irrelevant for cited research</td>
+        <td>MIT (server), commercial API</td>
+        <td>Privacy-respecting fallback when the primary search is rate-limited</td>
+      </tr>
+      <tr>
+        <td><b>Kagi MCP</b><br/><code>kagisearch/kagimcp</code></td>
+        <td>1 (premium)</td>
+        <td>None &mdash; needs Kagi subscription</td>
+        <td>Per-Kagi-plan; FastGPT-with-citations metered</td>
+        <td>FastGPT answer with citations</td>
+        <td>good if already paying for Kagi</td>
+        <td>MIT (server), commercial</td>
+        <td>You already subscribe and want Kagi Goggles re-ranking</td>
+      </tr>
+      <tr>
+        <td><b>AnySearch MCP</b><br/><code>anysearch-ai/anysearch-mcp-server</code> &middot; 311&nbsp;&star;</td>
+        <td>1+2</td>
+        <td>Anonymous tier; no signup needed</td>
+        <td>Not published as of 2026-05-19</td>
+        <td>search results + extracted Markdown</td>
+        <td>unknown &mdash; academic is one of 23 verticals</td>
+        <td>NONE (no LICENSE file)</td>
+        <td>Exploration / play; not for citation-bearing publication today</td>
+      </tr>
+      <tr>
+        <td><b>spences10/mcp-omnisearch</b><br/>308&nbsp;&star;</td>
+        <td>meta</td>
+        <td>Bring your own API keys</td>
+        <td>Inherits provider costs</td>
+        <td>inherits</td>
+        <td>depends on which provider</td>
+        <td>MIT</td>
+        <td>One MCP that fans out to Tavily / Brave / Kagi / Exa / Linkup / Firecrawl</td>
+      </tr>
+      <tr>
+        <td><b>arxiv-mcp-server</b><br/><code>blazickjp/arxiv-mcp-server</code> &middot; 2.7k&nbsp;&star;</td>
+        <td>1 (academic)</td>
+        <td>Free (uses public arXiv API)</td>
+        <td>$0</td>
+        <td>DOI, abstract, downloadable PDF</td>
+        <td>excellent for arXiv; flags prompt-injection risk in retrieved text</td>
+        <td>Apache-2.0</td>
+        <td>arXiv-only paper retrieval; offline cache of PDFs</td>
+      </tr>
+      <tr>
+        <td><b>paper-search-mcp</b><br/><code>openags/paper-search-mcp</code> &middot; 1.5k&nbsp;&star;</td>
+        <td>1 (academic)</td>
+        <td>Free; optional API keys for stability</td>
+        <td>$0</td>
+        <td>structured <code>Paper</code> class with DOI</td>
+        <td>excellent &mdash; arXiv, PubMed, bioRxiv, medRxiv, Semantic Scholar, OpenAlex, Crossref, CORE, Europe PMC, dblp, Zenodo, HAL, SSRN, IACR ePrint, with Unpaywall fallback</td>
+        <td>MIT</td>
+        <td>One-shot multi-source academic search and download</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Two patterns become visible once the table is laid out. First, the layer column is more
+    informative than the brand. Three of the thirteen rows do all three layers; six do only
+    one or two. Picking layer-three when you need layer-one is more wasteful than picking the
+    wrong brand inside a layer. Second, license is the field most often skipped in tool
+    reviews and the one that decides whether a project can ship a vendored copy of the
+    server. Two of the thirteen are not safely redistributable as of today: AnySearch (no
+    LICENSE) and any tool whose &ldquo;commercial API&rdquo; clause is more restrictive than
+    the MIT-licensed wrapper around it.
+  </p>
+
+  <h3>AnySearch &mdash; what &ldquo;unify&rdquo; actually means</h3>
+  <p>
+    AnySearch is younger than thirty days at time of writing. The repository
+    (<code>anysearch-ai/anysearch-mcp-server</code>) was created on 2026-04-30 and last pushed
+    on 2026-05-07, with 311 stars, 33 forks, no <code>LICENSE</code> file, and no
+    <code>/about</code> page on the company website. The README is technically credible: it
+    documents Streamable HTTP transport (MCP spec 2025-03-26), an anonymous tier alongside
+    bearer-token authentication, four tools
+    (<code>search</code>&nbsp;/&nbsp;<code>list_domains</code>&nbsp;/&nbsp;<code>batch_search</code>&nbsp;/&nbsp;<code>extract</code>),
+    a discipline of calling <code>list_domains</code> before any vertical search to discover
+    the per-domain query format and parameter schema, and twenty-two named verticals (the
+    project description says twenty-three &mdash; a small inconsistency that has not yet been
+    reconciled in the README). Its claimed differentiator versus
+    <code>mcp-omnisearch</code> is real: omnisearch is a fan-out router that requires the
+    user to bring API keys for Tavily, Brave, Kagi, Exa, Linkup, and Firecrawl; AnySearch
+    presents itself as a single backend that owns its own indexes. Whether that backend is a
+    proprietary crawl or a re-export of someone else&rsquo;s data is not disclosed in the
+    README, and the pricing page (<code>anysearch.com/pricing</code>) returns 404 today. The
+    LICENSE=NONE matters more than it sounds: the server code is not legally redistributable,
+    so a research collection that tries to vendor it for reproducibility cannot. The right
+    read for a research artefact that may have to compile years from now: technically
+    plausible, momentum-watch, do not vendor yet.
+  </p>
+
+  <h3>Three picks for Claude Code in an academic workflow</h3>
+  <p>
+    The selection constraints are explicit: (i)&nbsp;no new paid SaaS subscription required
+    &mdash; a free tier or pay-per-call API key against an account the project would have
+    anyway is acceptable, (ii)&nbsp;returns structured citations the agent can hand to
+    RebuttalStudio&rsquo;s verifier, (iii)&nbsp;plugs into the existing skill stack at
+    <code>/Users/mjm/Skill</code> &mdash; <code>deep-research</code>,
+    <code>academic-paper</code>, <code>rigor-reviewer</code>, and the citation skills
+    surveyed in &sect;&nbsp;XI. Three tools meet all three at once and, taken together, cover
+    layers one and two of the taxonomy without a layer-three dependency.
+  </p>
+
+  <p>
+    <strong>1. <a href="https://github.com/openags/paper-search-mcp"><code>paper-search-mcp</code></a></strong>
+    (1.5k&nbsp;&star;, MIT, free). The clearest fit. It is a single MCP that searches arXiv,
+    PubMed, bioRxiv, medRxiv, Semantic Scholar, OpenAlex, Crossref, CORE, Europe PMC, PubMed
+    Central, dblp, OpenAIRE, CiteSeerX, DOAJ, BASE, Zenodo, HAL, SSRN, and IACR ePrint, with
+    Unpaywall fallback for DOI resolution and an open-access-first download chain. Output is
+    a standardised <code>Paper</code> class carrying DOI, authors, abstract, and PDF link.
+    This is exactly what <code>rigor-reviewer</code> was built to verify against &mdash; a
+    structured citation, not a snippet. Trade-off versus Jina&rsquo;s
+    <code>search_arxiv</code>&nbsp;/&nbsp;<code>search_ssrn</code>: Jina covers two indices
+    and is metered; <code>paper-search-mcp</code> covers nineteen and is free. Trade-off
+    versus <code>blazickjp/arxiv-mcp-server</code> (2.7k&nbsp;&star;): the arXiv-only server
+    is more polished as a single-source tool but does not federate. Use
+    <code>paper-search-mcp</code> as the default for the <code>deep-research</code>
+    skill&rsquo;s literature-canvas step.
+  </p>
+
+  <p>
+    <em>Install caveat &mdash; this matters in practice.</em> The PyPI release is
+    <code>v0.1.3</code> from 2025-04-29 and has not been re-cut in over thirteen months,
+    while <code>main</code> has shipped fixes for arXiv relevance-sort
+    (<a href="https://github.com/openags/paper-search-mcp/issues/73">#73</a>; the PyPI
+    <code>search_arxiv</code> still hardcodes <code>sortBy='submittedDate'</code>, so
+    canonical papers like ReAct or CoT never surface in the top-10), Semantic Scholar
+    NoneType crashes (#68), Zenodo isoformat crashes (#69), and the missing
+    <code>uvx</code> entry-point (#64). The right install path is therefore
+    <em>not</em> <code>uvx paper-search-mcp</code> or <code>pip install paper-search-mcp</code>;
+    it is what the project&rsquo;s own README lists first &mdash; clone the repo and load it
+    as a Claude Code skill that runs from source via
+    <code>uv run --directory &lt;REPO_PATH&gt; paper-search ...</code>. Two further
+    real-world ceilings are worth knowing before relying on a comprehensive run: Google
+    Scholar reliably rate-limits after about ten queries per session unless a proxy is set
+    (<a href="https://github.com/openags/paper-search-mcp/issues/74">#74</a>), and only
+    seven of the nineteen sources are full-text-reliable in the project&rsquo;s own
+    capability matrix (arXiv, bioRxiv, medRxiv, IACR, Zenodo, HAL, plus Semantic Scholar
+    and PMC for OA-only); the rest are either metadata-only (PubMed, Crossref, OpenAlex,
+    dblp, OpenAIRE) or unstable (SSRN, CiteSeerX, BASE) or skeleton-only (IEEE, ACM).
+    None of this disqualifies the recommendation; it changes the install command and
+    means a serious literature canvas should treat <code>paper-search-mcp</code> as
+    arXiv-plus-bioRxiv-plus-Semantic-Scholar with metadata-enrichment, not as a
+    no-asterisks unified academic search.
+  </p>
+
+  <p>
+    <strong>2. <a href="https://github.com/tavily-ai/tavily-mcp"><code>Tavily MCP</code></a></strong>
+    (2.0k&nbsp;&star;, MIT server, generous free tier). The general-web complement.
+    <code>paper-search-mcp</code> covers the academic indices but cannot read a lab website,
+    a workshop call-for-papers, or a preprint announcement that is only on Twitter. Tavily
+    can &mdash; at 1,000 credits per month with no credit card required, with first-class
+    Claude Code installation
+    (<code>claude mcp add --transport http tavily https://mcp.tavily.com/mcp</code>), and
+    four tools (<code>search</code>&nbsp;/&nbsp;<code>extract</code>&nbsp;/&nbsp;<code>map</code>&nbsp;/&nbsp;<code>crawl</code>)
+    that cover layers one and two. Trade-off versus Exa: Exa&rsquo;s neural ranking is
+    genuinely better on English-language semantic queries and its <code>findSimilar</code> is
+    unique, but Exa&rsquo;s free MCP tier was capped in February 2026 and its $7&nbsp;/&nbsp;1k
+    pricing is harder to justify on day-zero exploration. Trade-off versus Anthropic&rsquo;s
+    built-in <code>web_search</code>: that tool is already wired into Claude Code (no MCP to
+    install) but charges $10&nbsp;/&nbsp;1k on the API and returns less structured output
+    than Tavily&rsquo;s <code>extract</code>.
+  </p>
+
+  <p>
+    <strong>3. <a href="https://github.com/jina-ai/MCP"><code>Jina AI MCP</code></a></strong>
+    (685&nbsp;&star;, Apache-2.0). The fetcher and the academic enricher. Three tools matter
+    for our stack: <code>read_url</code> and <code>parallel_read_url</code>
+    (URL-to-Markdown via <code>r.jina.ai</code>, often free even without an API key),
+    <code>extract_pdf</code> (figures, tables, and equations from arXiv PDFs or any
+    PDF URL &mdash; directly relevant to <code>figures4papers</code> and
+    <code>nature-figure</code>), and <code>search_bibtex</code> (academic papers returned as
+    BibTeX from DBLP plus Semantic Scholar &mdash; directly relevant to the citation skills
+    discussed in &sect;&nbsp;XI). It is the only candidate in the table that has all of arXiv
+    search, SSRN search, BibTeX, PDF extraction, and a reranker in one MCP. Trade-off versus
+    Firecrawl: Firecrawl&rsquo;s <code>scrape</code> and <code>crawl</code> are more mature
+    for non-academic JavaScript-heavy sites; Jina is leaner per page and academic-aware.
+    Trade-off versus Tavily-extract: Tavily extracts cleaner narrative HTML but has no PDF
+    or BibTeX path.
+  </p>
+
+  <p>
+    The composition is intentional. <code>paper-search-mcp</code> does the academic query
+    layer; Tavily does the general-web query and basic extract; Jina does the citation-bearing
+    fetch and the PDF/BibTeX work that the existing skill stack already references. None of
+    the three forces a paid subscription on the user. Each one returns citations in a
+    structure <code>rigor-reviewer</code> can verify. Together they supply layer one
+    (<code>paper-search</code> + Tavily search) and layer two (Tavily-extract + Jina-read +
+    Jina-extract-pdf) without a layer-three dependency, which is the right default for an
+    academic agent that wants to keep synthesis local rather than outsourcing it to a hosted
+    research model.
+  </p>
+
+  <h3>What to avoid (and why)</h3>
+  <p>
+    Three categories of tool look attractive in marketing copy and fail one of the three
+    constraints when actually wired in.
+  </p>
+
+  <p>
+    <strong>AnySearch, today.</strong> The technical design is plausible but
+    <code>LICENSE=NONE</code> makes the server code legally unredistributable, the company
+    has no public <code>/about</code> page, and the pricing page returns 404. For a research
+    artefact that may have to compile years from now, that is too thin a foundation. Watch
+    the project; do not vendor it yet.
+  </p>
+
+  <p>
+    <strong>Hosted deep-research APIs as the default fetcher.</strong> Linkup&rsquo;s research
+    tier ($0.25&ndash;2.50 / request), Exa Deep Reasoning ($15 / 1k), and
+    Perplexity&rsquo;s <code>sonar-deep-research</code> are the right tools when a single
+    isolated question genuinely benefits from minutes of remote reasoning. They are the
+    wrong tools when the search is one move inside a longer agent loop, because each call
+    bills at enterprise prices and returns a paragraph that is not actually composable with
+    the local agent&rsquo;s state.
+  </p>
+
+  <p>
+    <strong>Privacy-first general search as the citation backbone.</strong> Brave Search and
+    Kagi are excellent products for human users but mediocre as a citation source:
+    Brave&rsquo;s free tier caps at 2,000 queries / month and returns no extract, and
+    Kagi&rsquo;s API requires a paid subscription whose value is in re-ranking rather than
+    coverage. Use them as fallbacks when <code>paper-search-mcp</code> returns nothing, not
+    as the primary.
+  </p>
+
+  <p>
+    <strong>Anthropic&rsquo;s built-in <code>web_search</code> as the only tool.</strong> It
+    is wired into Claude Code with zero configuration, which is its strength. It is also a
+    generalist search at $10&nbsp;/&nbsp;1k whose output is less structured than
+    Tavily&rsquo;s <code>extract</code> and less academic-aware than
+    <code>paper-search-mcp</code>. It is the right backstop, not the right primary.
+  </p>
+
+  <p>
+    The point is not that any of these tools is bad. It is that the three problems hidden
+    inside &ldquo;search the web&rdquo; want different products, and the cost of conflating
+    them shows up only after the agent has built a workflow on the wrong layer. Pick by
+    layer first; pick by brand second.
+  </p>
+
+  <blockquote>
+    Web search is not one tool with three brands. It is three tools with one brand each
+    &mdash; and the cheapest way to get a citation-grade research workflow today is to pick
+    a free academic-source MCP for query, a free general-web MCP for fetch, and stop before
+    the invoice for synthesis arrives.
+  </blockquote>
+</section>
+
+<p class="sep-ornament">❧</p>
+
 <section id="long-horizon">
-  <h2><span class="roman">XII</span>The long-horizon problem</h2>
+  <h2><span class="roman">XIII</span>The long-horizon problem</h2>
   <p class="deck">When a research task takes days, not minutes, every architectural assumption about agents breaks. Here is what breaks, and what the field is building to fix it.</p>
 
   <p class="drop">
@@ -2403,13 +2861,13 @@ promotion gate
 <p class="sep-ornament">❧</p>
 
 <section id="open">
-  <h2><span class="roman">XIII</span>Seven open questions</h2>
-  <p class="deck">Seven concrete problems that inherit directly from Sections III through XIII, and where small teams can still make a first move.</p>
+  <h2><span class="roman">XIV</span>Seven open questions</h2>
+  <p class="deck">Seven concrete problems that inherit directly from Sections III through XIV, and where small teams can still make a first move.</p>
 
   <p>
     An essay that ends &ldquo;and now the future is bright&rdquo; is not worth reading. The six
     questions below are not speculative; each one is a direct descendant of something left
-    unresolved in Sections III through XIII, and each one is at a stage where evidence is
+    unresolved in Sections III through XIV, and each one is at a stage where evidence is
     still thin enough that a modest study can move the consensus.
   </p>
 
@@ -2489,7 +2947,7 @@ promotion gate
 
   <h3>Does intra-task learning scale with time?</h3>
   <p>
-    Section XII showed that giving agents more time does not reliably improve outcomes.
+    Section XIII showed that giving agents more time does not reliably improve outcomes.
     The open question is whether any combination of plan persistence, exploration DAGs,
     cognitive checkpoints, and dispatch separation can produce a system where
     performance genuinely scales with allocated time &mdash; the way a human PI&rsquo;s
@@ -2522,7 +2980,8 @@ promotion gate
     skill files for <code>AI-Research-SKILLs</code>, <code>claude-scholar</code>, and
     RebuttalStudio. Section VII adds Perplexity's production skill-design guide,
     the public Agent Skills specification, Addy Osmani's Agent Skills repository,
-    and SkillsBench. Section XI additionally
+    and SkillsBench. Section XII verifies live READMEs and pricing pages for AnySearch, Tavily, Exa, Perplexity, Linkup, Jina AI, Firecrawl, Brave, Kagi, <code>mcp-omnisearch</code>, <code>arxiv-mcp-server</code>, and <code>paper-search-mcp</code> through <code>api.github.com</code>
+    and direct <code>curl</code> on each project&rsquo;s pricing page. Section XI additionally
     checks the OpenScholar article in <em>Nature</em>, the GStack /
     OpenClaw docs, the LLM-as-a-Verifier project materials, Claude-Mem, Codex
     Memories, OpenClaw memory, Cloak, Cline task history, Mem0, Zep, Letta, LangMem,
