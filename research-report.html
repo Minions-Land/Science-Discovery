@@ -158,7 +158,9 @@
     <li><a href="#zero-citation"><span class="num">XI</span>Zero-hallucination evidence</a></li>
     <li><a href="#web-search"><span class="num">XII</span>Web search as a tool</a></li>
     <li><a href="#long-horizon"><span class="num">XIII</span>Long-horizon, large-context, high-frequency</a></li>
+    <li><a href="#carriage-thesis"><span class="num">XIII-A</span>The Carriage thesis</a></li>
     <li><a href="#portable-memory"><span class="num">XIII-B</span>Portable and transferable memory</a></li>
+    <li><a href="#expert-evolution"><span class="num">XIII-C</span>When agents themselves should split or merge</a></li>
     <li><a href="#open"><span class="num">XIV</span>Open questions</a></li>
     <li><a href="#colophon"><span class="num">XV</span>About this report</a></li>
   </ol>
@@ -3063,6 +3065,424 @@ promotion gate
 
 <p class="sep-ornament">❧</p>
 
+<p class="sep-ornament">&diams;</p>
+
+<section id="carriage-thesis">
+  <h2><span class="roman">XIII-A</span>The Carriage thesis</h2>
+  <p class="deck">If a <em>harness</em> is what turns an LLM into an agent, then a <em>carriage</em> is what turns a set of agents into a multi-agent system. This section gives the term a load-bearing definition, grounded in the same first principles that gave &ldquo;harness&rdquo; its meaning, and read against the architecture of MinionsOS.</p>
+
+  <p class="drop">
+    The word <em>carriage</em> has been used loosely throughout the previous sections,
+    standing in for &ldquo;whatever it is that makes <span class="kicker">N agents</span>
+    a team rather than a crowd&rdquo;. That informality is no longer tenable. With the
+    long-horizon problem framed in Section XIII and the portable-memory problem framed
+    in Section XIII-B, the Carriage sits exactly between them &mdash; and a working
+    definition is the prerequisite for any further design discussion. The argument
+    below proceeds in four moves: it retraces how <em>harness</em> was reverse-engineered
+    by the agent-evaluation community, then applies the same construction to
+    <em>carriage</em>, then derives a sharper definition from the structural cause of
+    multi-agent failure (correlated hallucination), and finally reads MinionsOS as one
+    instance of that definition.
+  </p>
+
+  <h3>How &ldquo;harness&rdquo; was earned</h3>
+  <p>
+    &ldquo;Harness&rdquo; was not coined by a paper. It was reverse-engineered by the
+    agent-evaluation community when a stubborn empirical fact refused to go away: the
+    same model, evaluated under different scaffolding, produced wildly different
+    capability scores. METR&rsquo;s longitudinal measurement (Section XIII, the
+    seven-month doubling law) only makes sense if the model and the scaffolding are
+    measured separately. The earliest proxy term was <em>scaffolding</em> &mdash; ReAct,
+    AutoGPT, LangChain &mdash; but scaffolding implies temporary support. By 2024 the
+    field had standardised on <em>harness</em>, with three load-bearing properties:
+  </p>
+  <ol>
+    <li><strong>Irreducibility.</strong> Without a harness, an LLM cannot transform raw
+    capability into agent behaviour. Tool use, memory, reflection &mdash; none of these
+    happen inside the weights.</li>
+    <li><strong>Structural separability.</strong> The harness is external to the model and
+    can be swapped without retraining. METR demonstrates this by holding the harness
+    fixed while the model varies.</li>
+    <li><strong>Capability amplification.</strong> Same model + different harness $\Rightarrow$
+    different effective capability ceiling. The harness is a multiplier, not an additive
+    component.</li>
+  </ol>
+  <p>
+    The horse-and-harness metaphor is precise: the horse&rsquo;s power is unchanged, but
+    without the harness it cannot pull a load. The harness directs and constrains force
+    until force becomes useful work. This precision is what we want to preserve when we
+    move to the next abstraction layer.
+  </p>
+
+  <h3>Building the symmetric definition for &ldquo;carriage&rdquo;</h3>
+  <p>
+    A definition of <em>carriage</em> that lives at the same abstraction layer as
+    <em>harness</em> must satisfy three symmetric properties:
+  </p>
+  <ol>
+    <li><strong>Irreducibility.</strong> Without a carriage, $\sum$&thinsp;Agent cannot
+    transform into multi-agent behaviour. Coordination, shared state, and collective
+    decisions do not happen spontaneously inside individual agents.</li>
+    <li><strong>Structural separability.</strong> The carriage is external to any single
+    agent and can be swapped without rewriting agents. Replace EACN with another event
+    bus, replace the Library with another knowledge layer &mdash; the agents themselves
+    are unchanged.</li>
+    <li><strong>Collective amplification.</strong> Same agents + different carriage
+    $\Rightarrow$ different effective collective capability. A poor carriage produces a
+    bureaucracy whose work output decreases with team size.</li>
+  </ol>
+  <p>
+    This yields a working definition:
+  </p>
+  <div class="aside">
+    <span class="k">Working definition</span>
+    A <strong>carriage</strong> is the external structure that turns $\sum$&thinsp;Agent
+    from a set of independent individuals into a multi-agent system whose error
+    distribution is decorrelated. It is to multi-agent systems what a harness is to
+    single agents: irreducible, structurally separable, and a multiplier of effective
+    capability.
+  </div>
+
+  <h3>Three filters &mdash; what counts, and what does not</h3>
+  <p>
+    The definition is only useful if it can rule things out. Three filters apply to any
+    proposed component:
+  </p>
+  <ol>
+    <li><strong>Solo-usability filter.</strong> Can a single agent use this component on
+    its own? If yes, it belongs to the harness, not the carriage. Tool calls, retrieval,
+    and self-reflection all live inside an individual agent&rsquo;s harness.</li>
+    <li><strong>Removal filter.</strong> If this component is removed, does
+    $\sum$&thinsp;Agent regress to a set of isolated individuals? If yes, it is part of
+    the carriage. The shared state layer fails this test in the cleanest way: take it
+    away, and agents stop being able to depend on each other&rsquo;s work.</li>
+    <li><strong>Decoupling filter.</strong> Does the component require modifications
+    inside individual agents to function? If yes, it is an extension of the harness, not
+    the carriage. A carriage component must be agent-agnostic.</li>
+  </ol>
+  <p>
+    Applied to the obvious candidates:
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Component</th><th>Solo-usable?</th><th>Decouples?</th><th>Removal regresses?</th><th>Verdict</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>EACN3 protocol (event bus, AgentCard, message routing)</td>
+        <td>No</td>
+        <td>Yes</td>
+        <td>Yes</td>
+        <td><strong>Carriage</strong></td>
+      </tr>
+      <tr>
+        <td>Shared memory (Scratchpad / Library / Atlas)</td>
+        <td>No</td>
+        <td>Yes</td>
+        <td>Yes</td>
+        <td><strong>Carriage</strong></td>
+      </tr>
+      <tr>
+        <td>Signboard governance &amp; consensus gates</td>
+        <td>No (no quorum to govern)</td>
+        <td>Yes</td>
+        <td>Yes</td>
+        <td><strong>Carriage</strong></td>
+      </tr>
+      <tr>
+        <td>Project lifecycle (create / dormant / revive)</td>
+        <td>No</td>
+        <td>Yes</td>
+        <td>Yes</td>
+        <td><strong>Carriage</strong></td>
+      </tr>
+      <tr>
+        <td>MinionsVIZ observatory</td>
+        <td>Partial (single-agent logging exists)</td>
+        <td>Yes</td>
+        <td>Partial</td>
+        <td>Edge / runtime support</td>
+      </tr>
+      <tr>
+        <td>Fabric hooks (e.g. <code>bg_keepalive_nudge</code>)</td>
+        <td>Yes</td>
+        <td>Yes</td>
+        <td>No</td>
+        <td>Belongs to harness</td>
+      </tr>
+      <tr>
+        <td>Per-role skills</td>
+        <td>Yes</td>
+        <td>No (lives inside the role)</td>
+        <td>No</td>
+        <td>Belongs to harness</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>The deeper why: correlated hallucination is the failure mode</h3>
+  <p>
+    The three filters tell us <em>which</em> components are part of the carriage. They do
+    not tell us <em>why</em> a carriage is needed at all. The structural answer comes
+    from a property of the agents themselves: an LLM cannot reliably detect its own
+    hallucinations. This is now well-established:
+  </p>
+  <ul>
+    <li><a href="https://arxiv.org/abs/2310.01798"><strong>Huang <em>et al.</em>, ICLR 2024</strong></a>
+    &mdash; <em>Large Language Models Cannot Self-Correct Reasoning Yet.</em> Without an
+    external reward signal, intrinsic self-correction reliably degrades performance on
+    reasoning tasks.</li>
+    <li><a href="https://arxiv.org/abs/2311.08516"><strong>Tyen <em>et al.</em>, ACL 2024</strong></a>
+    &mdash; <em>LLMs cannot find reasoning errors, but can correct them.</em> Generators
+    and verifiers share the same parametric biases, so error <em>detection</em> requires
+    a signal from outside the model; once an error is pointed out, correction works.</li>
+    <li><a href="https://arxiv.org/abs/2207.05221"><strong>Kadavath <em>et al.</em>, 2022</strong></a>
+    &mdash; <em>Language Models (Mostly) Know What They Know.</em> Shallow calibration
+    holds at the token level but deteriorates sharply on multi-step reasoning &mdash;
+    precisely where multi-agent work lives.</li>
+    <li><a href="https://arxiv.org/abs/2310.12397"><strong>Stechly, Valmeekam, Kambhampati, 2024</strong></a>
+    &mdash; <em>On the Self-Verification Limitations of LLMs on Reasoning and Planning Tasks.</em>
+    A formal demonstration that self-verification fails on planning problems.</li>
+  </ul>
+  <p>
+    The shared lesson: an error generator and an error detector that draw from the same
+    parametric distribution will fail together. Self-correction is bounded by the same
+    biases that produced the error.
+  </p>
+  <p>
+    Now consider what happens when we run $N$ such agents in parallel. If their error
+    distributions were independent, the probability of all $N$ agents missing the same
+    mistake would fall as $\varepsilon^N$ &mdash; an exponential in team size. This is
+    the entire promise of multi-agent systems. But the premise is brittle:
+  </p>
+  <div class="aside">
+    <span class="k">The decorrelation principle</span>
+    Multi-agent systems gain reliability only to the extent that their constituent
+    agents make <em>independent</em> errors. When $N$ agents share the same model, the
+    same prompt, and the same context, the effective $N$ collapses to 1. The carriage&rsquo;s
+    primary job is not coordination &mdash; it is <strong>engineering decorrelation</strong>.
+  </div>
+  <p>
+    From this angle, design choices that previously looked like cosmetic separation of
+    concerns become load-bearing:
+  </p>
+  <ul>
+    <li><strong>Distinct roles with distinct prompts</strong> &mdash; Coder, Writer,
+    Ethics, Expert &mdash; produce conditioning that drifts the error distribution apart
+    across agents.</li>
+    <li><strong>Heterogeneous backbones</strong> &mdash; Claude alongside Codex
+    GPT-5.5 &mdash; further separates failure modes by mixing training data and RLHF
+    lineages.</li>
+    <li><strong>Raw-trajectory storage</strong> &mdash; Section XIII-B&rsquo;s argument
+    against consolidation now reads as a decorrelation argument: a summary written by
+    one agent inherits that agent&rsquo;s biases; downstream agents reading the summary
+    inherit them too. Storing the raw trajectory keeps each downstream agent&rsquo;s
+    error distribution independent of the upstream agent&rsquo;s.</li>
+    <li><strong>Independent audit channels</strong> &mdash; Ethics reads the artefact,
+    not the producing agent&rsquo;s prompt, so its judgements are not contaminated by
+    the producer&rsquo;s framing.</li>
+  </ul>
+
+  <h3>The minimal carriage and what hangs off it</h3>
+  <p>
+    With the decorrelation principle in hand, the carriage&rsquo;s structure can be stated
+    minimally:
+  </p>
+  <p style="text-align:center;font:14px/1.6 var(--mono);background:var(--card);border:1px solid var(--rule);padding:14px 12px;margin:18px 0;">
+    Carriage = Protocol &nbsp;&oplus;&nbsp; Shared&nbsp;State<br/>
+    <span style="color:var(--dim)">subject to: error&nbsp;decorrelation across $\sum$&thinsp;Agent</span>
+  </p>
+  <p>
+    <strong>Protocol</strong> is what lets agents see one another&rsquo;s outputs and
+    align beliefs at decision points. Without it, agents act on inconsistent premises
+    &mdash; <em>decision fragmentation</em>, a failure mode strictly worse than a single
+    agent acting alone.
+  </p>
+  <p>
+    <strong>Shared state</strong> is what they see in &mdash; specifically, raw trajectory
+    rather than consolidated summary, so a hallucination in one agent does not become a
+    fact for the next.
+  </p>
+  <p>
+    The decorrelation requirement is not a third structural component. It is a
+    <em>property</em> the carriage must satisfy, in the same way a harness must satisfy
+    tool grounding. Hallucination-reduction mechanisms &mdash; Noter as record-keeper,
+    Ethics as auditor, Signboard as consensus gate &mdash; are <em>implementations</em>
+    of the property, not separate pillars. Each addresses a distinct multi-agent
+    failure mode that single-agent systems do not exhibit:
+  </p>
+  <table>
+    <thead>
+      <tr><th>Multi-agent-specific failure</th><th>Mechanism</th><th>Operates on</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Reconstruction drift</strong> &mdash; an agent summarising its own
+        trajectory introduces lossy distortion that compounds downstream.</td>
+        <td>Noter (record-keeper, distinct prompt, no decision authority)</td>
+        <td>Shared state (preserves raw trajectory)</td>
+      </tr>
+      <tr>
+        <td><strong>Propagation</strong> &mdash; one agent&rsquo;s hallucination is read
+        as a premise by the next.</td>
+        <td>Ethics (independent audit, reads artefacts not prompts)</td>
+        <td>Cross-layer (reads shared state, dispatches via protocol)</td>
+      </tr>
+      <tr>
+        <td><strong>Decision fragmentation</strong> &mdash; agents acting on inconsistent
+        beliefs about the project state.</td>
+        <td>Signboard (consensus gate before phase transitions)</td>
+        <td>Protocol (forces belief alignment at named checkpoints)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>The capability formula</h3>
+  <p>
+    Putting the structure and the property together yields a more honest formula for
+    multi-agent capability than na&iuml;ve summation:
+  </p>
+  <p style="text-align:center;font:14px/1.6 var(--mono);background:var(--card);border:1px solid var(--rule);padding:14px 12px;margin:18px 0;">
+    Multi-Agent capability &asymp; $\left(\sum_i$ Agent$_i$ capability$\right)$ &times; (1 &minus; <span style="color:var(--accent)">$\rho_{\text{err}}$</span>)
+  </p>
+  <p>
+    where $\rho_{\text{err}}$ is the correlation across agents&rsquo; error distributions.
+    Two limits clarify what the carriage is for:
+  </p>
+  <ul>
+    <li>$\rho_{\text{err}} \to 1$ &mdash; perfect correlation. The team behaves as a
+    single agent that costs $N$ times as much. Most na&iuml;ve multi-agent debates land
+    here, which is consistent with AgentBench&rsquo;s finding that na&iuml;ve multi-agent
+    setups can <strong>degrade</strong> performance by up to 70&percnt; on tool-heavy
+    tasks (Section XIII).</li>
+    <li>$\rho_{\text{err}} \to 0$ &mdash; the idealised carriage. Errors compound only
+    where they overlap; reliability rises toward $\varepsilon^N$. No production system
+    has reached this regime, but every working multi-agent design is, in effect,
+    pushing toward it.</li>
+  </ul>
+  <p>
+    The formula re-explains earlier sections in a single line. The 70&percnt; degradation
+    figure for na&iuml;ve setups is what high $\rho_{\text{err}}$ looks like. The
+    Retry Storm finding is what high $\rho_{\text{err}}$ looks like under load. The
+    portable-memory work in Section XIII-B is, viewed through this lens, a study of how
+    to keep $\rho_{\text{err}}$ low <em>across projects</em> &mdash; a memory format
+    that drags one project&rsquo;s biases into the next is a decorrelation regression.
+  </p>
+
+  <h3>Reading MinionsOS as one instance</h3>
+  <p>
+    The framework lands cleanly on the architecture introduced in earlier sections, and
+    is consistent with the project layout described in
+    <a href="https://github.com/Minions-Land/MinionsOS"><code>Minions-Land/MinionsOS</code></a>.
+    MinionsOS is one realisation of Carriage = Protocol $\oplus$ Shared State plus
+    decorrelation discipline:
+  </p>
+  <table>
+    <thead>
+      <tr><th>Carriage layer</th><th>MinionsOS instantiation</th><th>Decorrelation contribution</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Protocol</strong></td>
+        <td>EACN3 event bus with AgentCard registration, message routing, health
+        monitoring, plus the Signboard consensus gate at phase transitions.</td>
+        <td>Forces belief alignment at named checkpoints; isolates routine messaging
+        from binding decisions, so a single agent&rsquo;s mistake cannot silently
+        commit the team.</td>
+      </tr>
+      <tr>
+        <td><strong>Shared state</strong></td>
+        <td>Three layers &mdash; L1 Scratchpad (raw process memory, append-only),
+        L2 Library (curated, lint-gated knowledge), L3 Atlas (structural index).
+        Cross-role writes go through <code>mos_publish_to_shared</code> with per-role
+        subdirectory policy.</td>
+        <td>Raw trajectory in L1 prevents reconstruction drift; the L1/L2 separation
+        prevents unverified state from polluting verified state; per-role subdirectory
+        policy prevents one role&rsquo;s framing from contaminating another&rsquo;s
+        worktree.</td>
+      </tr>
+      <tr>
+        <td><strong>Decorrelation mechanism &mdash; record</strong></td>
+        <td>Noter is the only role not registered on EACN3. It runs on a different
+        backbone (Sonnet), reads events and shared artefacts, and never participates
+        in decisions.</td>
+        <td>Eliminates the &ldquo;agent summarising itself&rdquo; failure mode by giving
+        record-keeping to a structurally separate observer.</td>
+      </tr>
+      <tr>
+        <td><strong>Decorrelation mechanism &mdash; audit</strong></td>
+        <td>Ethics reads artefacts (not prompts) from the shared state and publishes
+        reports through an independent channel.</td>
+        <td>Producer-consumer separation: an audit signal is uncontaminated by the
+        producer&rsquo;s framing.</td>
+      </tr>
+      <tr>
+        <td><strong>Decorrelation mechanism &mdash; consensus</strong></td>
+        <td>Signboard at <code>branches/shared/governance/signboard.json</code> requires
+        explicit agreement before a project transitions phase.</td>
+        <td>Prevents decision fragmentation: belief alignment is enforced before
+        commitments lock in.</td>
+      </tr>
+      <tr>
+        <td><strong>Backbone diversity</strong></td>
+        <td>Claude Code as the primary host; Codex GPT-5.5 reachable via the
+        <code>codex-subagent</code> MCP for high-intensity execution delegation.</td>
+        <td>Mixing model lineages reduces shared parametric biases &mdash;
+        decorrelation at the weight level, not just the prompt level.</td>
+      </tr>
+      <tr>
+        <td><strong>Lifecycle &amp; observability (support)</strong></td>
+        <td>Project create/close/dormant/revive, role-launcher tmux watchdog, MinionsVIZ
+        dashboard.</td>
+        <td>Not part of the minimal carriage, but the runtime substrate that keeps the
+        carriage continuously available across days and weeks.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    Read this way, MinionsOS is not a list of features but a carriage with a thesis: the
+    way to make a multi-agent research system reliable is to engineer error
+    decorrelation at every layer that touches shared state, and to gate every
+    irreversible decision behind explicit consensus.
+  </p>
+
+  <h3>What this framework lets us discuss</h3>
+  <p>
+    Three downstream questions become tractable once Carriage is on this footing,
+    and each is a natural successor to questions already raised in Sections XIII and
+    XIII-B:
+  </p>
+  <ol>
+    <li><strong>Measuring $\rho_{\text{err}}$.</strong> No public benchmark currently
+    measures error correlation across agents in a multi-agent system. A first cut would
+    sample paired errors across roles on a fixed task and report the conditional
+    miss-rate &mdash; a direct empirical handle on whether a carriage is doing its
+    decorrelation job.</li>
+    <li><strong>Choosing decorrelation knobs.</strong> Distinct prompts, distinct
+    skills, distinct backbones, distinct contexts. Each has a cost. The framework asks
+    which knob buys the most decorrelation per unit complexity, and the answer is almost
+    certainly task-dependent.</li>
+    <li><strong>Carriage portability.</strong> Section XIII-B&rsquo;s open question on
+    project-to-project memory transfer is, in this framework, a question about whether
+    the new project inherits the old project&rsquo;s carriage or rebuilds it. The
+    decorrelation principle suggests that some carriage state (lessons, dead-end
+    catalogues) should transfer while other state (frozen role beliefs) should not
+    &mdash; a sharper design constraint than the one Section XIII-B was able to state
+    on its own.</li>
+  </ol>
+  <p>
+    The Carriage thesis is offered here as a working frame, not a finished theory. It
+    has the right shape: it is symmetric to <em>harness</em> in construction, it has
+    a structural cause (correlated hallucination) rather than only a list of components,
+    and it generates testable predictions. The next sections continue to use the term in
+    its informal sense where the precision is not needed; the formal definition is what
+    we return to whenever a load-bearing claim is being made about multi-agent design.
+  </p>
+</section>
+
+<p class="sep-ornament">&diams;</p>
+
 <section id="portable-memory">
   <h2><span class="roman">XIII-B</span>Portable and transferable memory</h2>
   <p class="deck">If a Carriage is the coordination layer that turns agents into a team, then portable memory is what lets that team carry its experience from one project to the next. The field is converging on the problem; no one has solved it.</p>
@@ -3380,6 +3800,217 @@ raw-trajectory pattern (durable)
 
 <p class="sep-ornament">&diams;</p>
 
+<section id="expert-evolution">
+  <h2><span class="roman">XIII-C</span>When agents themselves should split or merge</h2>
+  <p class="deck">A live pilot, run on Haiku 4.5, on whether expert agents should evolve their own population at runtime &mdash; splitting one generalist into two specialists when a domain heterogeneity shows up, and merging back when one specialist starves. The mechanism works. The trigger does not fire on tasks a strong generalist can already saturate. This is the inverse of the Carriage thesis at the population layer.</p>
+
+  <p class="drop">
+    The previous two sections argued that agent ensembles benefit from a coordination
+    Carriage and from portable memory. A third, equally tempting move is to evolve
+    the <em>population itself</em>: an Expert that started life as a generalist
+    &ldquo;mathematician&rdquo; should, the intuition goes, notice when its work has
+    drifted into two distinct sub-domains and split into &ldquo;algebraist&rdquo; and
+    &ldquo;geometer.&rdquo; If a sub-domain dries up later, the two should merge back.
+    This is the population-layer analog of skill discovery: not new procedures, but
+    new role identities. We built it, ran it, and report what actually happened.
+  </p>
+
+  <h3>The hypothesis the literature has already half-answered</h3>
+  <p>
+    Five recent papers triangulate the question. AgentSpawn
+    <a href="https://arxiv.org/abs/2602.07072">(Li <em>et al.</em>, 2026)</a> reports
+    <strong>+34% completion</strong> on SWE-bench-class long-horizon code
+    generation by spawning child agents on runtime complexity signals; the
+    domain matters because cross-file context overflow is the actual
+    failure mode. EvoSkill <a href="https://arxiv.org/abs/2603.02766">(2603.02766)</a>
+    moves its specialization budget into the <em>skill layer</em> instead of
+    the agent layer, on the explicit grounds that skill libraries are cheaper
+    to grow and more transferable; +7.3% / +12.1% on two QA benchmarks, with
+    zero-shot skill transfer across tasks. SkillMAS
+    <a href="https://arxiv.org/abs/2605.09341">(2605.09341)</a> couples skill
+    evolution and multi-agent restructuring, but only restructures
+    <em>&ldquo;when retained failures and Executor Utility indicate a
+    structural mismatch&rdquo;</em> &mdash; evidence-gated, not diversity-gated.
+    The self-organisation study <a href="https://arxiv.org/abs/2603.28990">(2603.28990)</a>
+    runs a 25,000-task experiment over 8 models and 4&ndash;256 agents and
+    finds that capable models <em>spontaneously</em> form roles given just a
+    mission and a fixed ordering protocol &mdash; designed roles add little.
+    And Singh <em>et al.</em> <a href="https://arxiv.org/abs/2601.04748">(2601.04748)</a>
+    argue that a multi-agent system can usually be compiled <em>into</em>
+    a single agent plus a skill library, with a phase-transition in
+    skill-selection accuracy as the library grows past a critical
+    semantic-confusability threshold. Read together, these point in one
+    direction: <strong>error-gated, skill-first specialisation</strong>,
+    with population edits reserved for regimes where context isolation
+    actually pays off.
+  </p>
+  <p>
+    What was missing was a controlled, end-to-end execution of the
+    population-edit primitive itself, with the supervisor making the
+    decision and the worker carrying it out. That is the gap this
+    pilot fills.
+  </p>
+
+  <h3>The harness</h3>
+  <p>
+    Three policies, all running Haiku 4.5 as both worker and supervisor:
+    <strong>static-1</strong> is a single &ldquo;mathematician&rdquo; agent;
+    <strong>static-N</strong> uses 2&ndash;3 specialists with an LLM router;
+    <strong>dynamic</strong> starts as static-1, and after each problem the
+    supervisor reads a window of recent transcripts and may
+    <code>SPLIT</code> the generalist into 2&ndash;4 specialists or
+    <code>MERGE</code> two specialists back into a generalist. SPLIT
+    fires only when the window contains both heterogeneity (≥2 tasks of
+    each of ≥2 sub-domains) and at least one error; MERGE fires only when
+    a specialist has received fewer than 2 tasks in the window. The
+    supervisor authors charters and pitfalls per role &mdash; it does not
+    pick from a fixed taxonomy.
+  </p>
+  <p>
+    Six task streams, all graded against verified integer ground truth:
+    a baseline algebra/geometry mix, a depletion-drift variant designed
+    to exercise the MERGE path, a hard variant with multi-step traps,
+    a noisy variant prefixing each problem with off-domain trivia, a
+    cross-frame combinatorics-vs-probability probe with a long preamble,
+    and an ordinal-vs-inventory trap stream. Three seeds per cell where
+    feasible, 33 runs total, ~1.1M input tokens, ~46K output tokens.
+    Code, raw transcripts, and the supervisor's per-decision rationale
+    live in the project repository at
+    <code>experiments/expert_split_merge/</code>.
+  </p>
+
+  <h3>Results, in one table</h3>
+  <p>
+    Across all six streams and all seeds, on the original difficulty
+    setting (Haiku at full output budget), every policy scored 100%:
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Policy</th><th>Stream</th><th>Runs</th><th>Acc.</th><th>Input&nbsp;tok</th><th>Splits</th><th>Merges</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>static-1</td><td>mixed</td><td>2</td><td>1.000</td><td>41,974</td><td>0</td><td>0</td></tr>
+      <tr><td>static-1</td><td>hard</td><td>3</td><td>1.000</td><td>39,228</td><td>0</td><td>0</td></tr>
+      <tr><td>static-1</td><td>noisy</td><td>3</td><td>1.000</td><td>39,272</td><td>0</td><td>0</td></tr>
+      <tr><td>static-1</td><td>probe</td><td>3</td><td>1.000</td><td>33,191</td><td>0</td><td>0</td></tr>
+      <tr><td>static-1</td><td>ord_inv</td><td>2</td><td>1.000</td><td>24,231</td><td>0</td><td>0</td></tr>
+      <tr><td>static-N</td><td>mixed</td><td>2</td><td>1.000</td><td>33,942</td><td>0</td><td>0</td></tr>
+      <tr><td>static-N</td><td>noisy</td><td>1</td><td>1.000</td><td>40,463</td><td>0</td><td>0</td></tr>
+      <tr><td>static-N</td><td>ord_inv</td><td>2</td><td>1.000</td><td>42,838</td><td>0</td><td>0</td></tr>
+      <tr><td>dynamic</td><td>mixed</td><td>2</td><td>1.000</td><td>35,982</td><td>0.00</td><td>0.00</td></tr>
+      <tr><td>dynamic</td><td>probe</td><td>3</td><td>1.000</td><td>30,992</td><td>0.00</td><td>0.00</td></tr>
+      <tr><td>dynamic</td><td>ord_inv</td><td>2</td><td>1.000</td><td>32,124</td><td>0.00</td><td>0.00</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    Three observations follow from the zeros in the splits and merges
+    columns. First, the supervisor <em>never split</em>. With zero errors
+    in the recent window, its trigger condition was never satisfied, and
+    it correctly returned <code>KEEP</code>. Second, no run ever merged,
+    because no run ever split first &mdash; the depletion-drift stream's
+    MERGE branch was logically reachable but unreachable in practice.
+    Third, <strong>the routing-call tax for static-N is real</strong>:
+    on the ordinal-inventory stream it consumed 42,838 input tokens
+    against static-1's 24,231 (a +77% input-token tax) for zero
+    accuracy gain.
+  </p>
+
+  <h3>The mechanism is not the bottleneck</h3>
+  <p>
+    Because the worker never erred, we tested the supervisor directly
+    with synthetic transcripts, decoupling the meta-decision from the
+    worker's competence. All four cases produced the correct decision:
+  </p>
+
+  <table>
+    <thead><tr><th>Synthetic case</th><th>Expected</th><th>Decision</th><th>Comment</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>3 algebra + 3 geometry, 3 wrong</td>
+        <td>SPLIT</td>
+        <td><span class="status supported">SPLIT ✓</span></td>
+        <td>Proposed <em>algebra_specialist</em> and <em>geometry_specialist</em> with charters and pitfalls citing the exact failure modes (signed-root sum, diameter/radius confusion).</td>
+      </tr>
+      <tr>
+        <td>Heterogeneous, 0 wrong</td>
+        <td>KEEP</td>
+        <td><span class="status supported">KEEP ✓</span></td>
+        <td><em>"4/4 correct, generalist is strong"</em>. The supervisor would not split a working agent.</td>
+      </tr>
+      <tr>
+        <td>Geometer starves (n=1) vs algebraist (n=8)</td>
+        <td>MERGE</td>
+        <td><span class="status supported">MERGE ✓</span></td>
+        <td>Proposed unified <em>mathematician</em> with merged charter.</td>
+      </tr>
+      <tr>
+        <td>Balanced specialists (5 + 5, all correct)</td>
+        <td>KEEP</td>
+        <td><span class="status supported">KEEP ✓</span></td>
+        <td><em>"No merger criteria met."</em></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    So the meta-mechanism behaves as designed. The bottleneck is the
+    trigger condition: a strong-enough generalist on bounded tasks
+    produces no error signal at all.
+  </p>
+
+  <h3>The harder regime: when does the trigger actually fire?</h3>
+  <p>
+    To test whether the population edits ever pay off, we built a
+    second probe: 30 problems split across combinatorics, probability,
+    and number theory, each prefixed with a 2.2&nbsp;KB
+    near-noise preamble (semi-relevant math-y prose engineered to
+    bait pattern-completion). At full output budget Haiku still scored
+    30/30 as a generalist. Constraining the worker to 80 output tokens
+    &mdash; a stand-in for situations where reasoning bandwidth is
+    genuinely limited (cost caps, latency budgets, weaker models) &mdash;
+    finally produced a regime where static-1 fell to 25/30 (83%). In
+    that regime the supervisor has an error signal to react to. Whether
+    dynamic split actually <em>recovers</em> the lost accuracy is the
+    next experiment, currently in flight; the headline finding so far is
+    that the trigger condition is only met when the worker is operating
+    near, not above, its capability ceiling.
+  </p>
+
+  <h3>What this means for population-layer evolution</h3>
+  <p>
+    Putting the pilot next to the prior literature gives a coherent
+    picture. Dynamic agent populations earn their keep when one or more
+    of three conditions holds: long-horizon contexts that overflow a
+    single agent's window (AgentSpawn's regime, with cross-file state),
+    heterogeneous infrastructure that is cheaper to maintain per
+    specialist than per generalist (distinct tool allow-lists, sandboxes,
+    rate budgets), and adversarial frames where the split prevents
+    rationalisation (the structural reason MinionsOS keeps Ethics as a
+    separate role). On bounded text-only tasks with a strong generalist,
+    none of these conditions hold, and the literature's other strand
+    &mdash; specialisation at the <em>skill layer</em> rather than the
+    <em>agent layer</em> &mdash; becomes the more honest path. Skills
+    are cheaper to grow, more transferable across tasks, and
+    selectable through hierarchical routing once the library outgrows
+    a single agent's prompt.
+  </p>
+
+  <p>
+    The recommendation that follows is conservative: keep the
+    <code>SPLIT</code> / <code>MERGE</code> primitives available as
+    operator-facing tools gated on <em>observed</em> agent failure
+    logs, never on diversity-of-tasks heuristics; bias the system
+    toward growing per-role skill libraries first; and revisit the
+    population-edit case only when an Expert workload actually fails
+    in a way splitting would fix. SkillMAS-style evidence gating is
+    the right shape. Diversity-driven restructuring is the wrong one.
+  </p>
+</section>
+
+<p class="sep-ornament">&diams;</p>
+
 <section id="open">
   <h2><span class="roman">XIV</span>Seven open questions</h2>
   <p class="deck">Seven concrete problems that inherit directly from Sections III through XIV, and where small teams can still make a first move.</p>
@@ -3508,7 +4139,10 @@ raw-trajectory pattern (durable)
     the May 2026 arXiv warning on continuously consolidated LLM memories,
     Generative Agents, Collaborative Memory, MIRIX, Intrinsic Memory Agents,
     Graph-based Agent Memory, Mesh Memory Protocol, Memory Sandbox, codemem,
-    Smriti, and Sediment.
+    Smriti, and Sediment. Section XIII-A grounds the Carriage thesis on the
+    self-correction limits established by Huang <em>et al.</em> (ICLR 2024),
+    Tyen <em>et al.</em> (ACL 2024), Kadavath <em>et al.</em> (2022), and
+    Stechly, Valmeekam, and Kambhampati (2024); arXiv links are inline.
     A plain-text mirror of this essay would be a reasonable thing to produce on request.
   </p>
 </footer>
