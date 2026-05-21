@@ -157,7 +157,8 @@
     <li><a href="#evidence-ledger"><span class="num">X</span>What is supported, and what is new</a></li>
     <li><a href="#zero-citation"><span class="num">XI</span>Zero-hallucination evidence</a></li>
     <li><a href="#web-search"><span class="num">XII</span>Web search as a tool</a></li>
-    <li><a href="#long-horizon"><span class="num">XIII</span>The long-horizon problem</a></li>
+    <li><a href="#long-horizon"><span class="num">XIII</span>Long-horizon, large-context, high-frequency</a></li>
+    <li><a href="#portable-memory"><span class="num">XIII-B</span>Portable and transferable memory</a></li>
     <li><a href="#open"><span class="num">XIV</span>Open questions</a></li>
     <li><a href="#colophon"><span class="num">XV</span>About this report</a></li>
   </ol>
@@ -2612,7 +2613,7 @@ promotion gate
 
 <section id="long-horizon">
   <h2><span class="roman">XIII</span>The long-horizon problem</h2>
-  <p class="deck">When a research task takes days, not minutes, every architectural assumption about agents breaks. Here is what breaks, and what the field is building to fix it.</p>
+  <p class="deck">When a research task takes days, not minutes, every architectural assumption about agents breaks. Three axes &mdash; task horizon, context scale, and decision frequency &mdash; define the space; benchmarks now exist for each.</p>
 
   <p class="drop">
     Most agent benchmarks give a system minutes or hours. A real research project
@@ -2620,7 +2621,41 @@ promotion gate
     it is architectural. An agent that can write a function in three minutes may be
     entirely unable to coordinate a month-long experiment campaign, because the
     failure modes of long-horizon work are categorically different from those of
-    short tasks. This section maps those failure modes and the emerging solutions.
+    short tasks. This section maps those failure modes, the benchmarks that measure
+    them, and the emerging solutions &mdash; organised along three axes that together
+    define the difficulty surface for autonomous science.
+  </p>
+
+  <h3>Three axes of difficulty</h3>
+  <p>
+    The literature conflates three distinct scaling challenges under the umbrella of
+    &ldquo;hard agent tasks&rdquo;. Separating them clarifies both what breaks and what
+    to measure:
+  </p>
+  <p>
+    <strong>Long horizon</strong> &mdash; the task spans hours, days, or weeks. The agent
+    must plan, execute, recover from errors, revise plans, and maintain coherence across
+    many context windows. Failure modes: goal forgetting, error cascading, stale plans,
+    coordination overhead.
+  </p>
+  <p>
+    <strong>Large context</strong> &mdash; the input or accumulated state exceeds what the
+    model can attend to uniformly. The agent must retrieve, prioritise, and forget
+    selectively. Failure modes: lost-in-the-middle bias, context drift, detail loss on
+    compaction.
+  </p>
+  <p>
+    <strong>High frequency</strong> &mdash; the agent must make many decisions per unit time,
+    iterating rapidly through edit-test-fix cycles or parallel exploration branches.
+    Failure modes: diminishing returns on additional compute, retry storms, cascading
+    regressions.
+  </p>
+  <p>
+    A Carriage for autonomous science must handle all three simultaneously: a month-long
+    project (long horizon) accumulates millions of tokens of state (large context) while
+    each role makes dozens of tool calls per session (high frequency). The benchmarks
+    below measure each axis; the architectural patterns that follow address their
+    intersection.
   </p>
 
   <h3>What breaks at long horizons</h3>
@@ -2631,8 +2666,7 @@ promotion gate
     <strong>Context drift.</strong> The agent&rsquo;s working memory fills, compacts, and
     loses detail. Decisions made in hour one become invisible by hour four. The agent
     re-derives them, sometimes differently, creating internal contradictions that
-    compound silently. Every context-window-limited system &mdash; Claude, GPT, Gemini &mdash;
-    suffers this; the question is only how gracefully it degrades.
+    compound silently.
   </p>
   <p>
     <strong>Goal forgetting.</strong> A subtask absorbs all attention. The agent optimises
@@ -2659,155 +2693,88 @@ promotion gate
     or abandon planning entirely and become reactive.
   </p>
 
-  <h3>Planning architectures for long tasks</h3>
+  <h3>Axis 1: Long-horizon benchmarks</h3>
   <p>
-    The field has converged on a small number of patterns for sustaining coherent
-    behaviour across long horizons:
-  </p>
-
-  <h4>Hierarchical task decomposition</h4>
-  <p>
-    The dominant pattern in 2025&ndash;2026 is <strong>plan &rarr; decompose &rarr; dispatch &rarr;
-    verify</strong>. A coordinator agent holds the global plan and decomposes it into
-    subtasks small enough for a single context window. Each subtask is dispatched to
-    a worker agent (or the same agent in a fresh context), executed, and its result
-    verified against acceptance criteria before the coordinator advances.
-    <a href="https://arxiv.org/abs/2308.00352">AutoGen</a> (Microsoft, 2023; v0.4 rewrite 2025),
-    <a href="https://github.com/langchain-ai/langgraph">LangGraph</a> (LangChain, 2024&ndash;2026),
-    and <a href="https://github.com/crewAIInc/crewAI">CrewAI</a> (2024&ndash;2026) all implement
-    variants of this. Claude Code&rsquo;s <code>Agent</code> tool and OpenAI Codex&rsquo;s
-    background-task model are production instances.
-  </p>
-
-  <h4>Plan persistence and revision</h4>
-  <p>
-    A plan that lives only in the context window dies on compaction. The fix is to
-    <strong>write the plan to disk</strong> and treat it as a living document. MinionsOS&rsquo;s
-    <code>plan-persistence</code> skill writes plans to
-    <code>branches/&lt;role&gt;/plans/&lt;role&gt;-&lt;slug&gt;.md</code> with YAML frontmatter
-    (plan-id, owner, status, parent task). On context reset, the agent reads its own
-    plan file and resumes. Google&rsquo;s <a href="https://google.github.io/adk-docs/">Agent
-    Development Kit</a> (ADK, 2025) takes a similar approach with its session-state
-    persistence layer. The key insight: <em>the plan is not a prompt &mdash; it is an artifact
-    that outlives any single invocation</em>.
-  </p>
-
-  <h4>Exploration DAGs over linear logs</h4>
-  <p>
-    Linear conversation logs are the wrong data structure for branching research.
-    An <strong>exploration DAG</strong> (directed acyclic graph) records hypotheses,
-    experiments, results, and dead ends as nodes with typed edges. When an agent
-    wakes into a new context, it queries the DAG for its frontier rather than
-    re-reading thousands of lines of chat history. MinionsOS implements this as
-    <code>dag.json</code> with <code>mos_dag_append</code> / <code>mos_dag_query</code>;
-    the ARA protocol&rsquo;s <code>trace/exploration_tree.yaml</code> is a static
-    cousin designed for publication rather than runtime navigation.
-  </p>
-
-  <h3>Multi-agent coordination patterns</h3>
-  <p>
-    Three coordination topologies have emerged for long-horizon research:
+    The benchmarks that specifically stress multi-hour or multi-day agent capability
+    have matured rapidly since 2023. They share a common finding: agents plateau or
+    regress as task duration increases, and the bottleneck is recovery from errors,
+    not raw capability.
   </p>
 
   <table>
     <thead>
-      <tr><th>Pattern</th><th>Topology</th><th>Best for</th><th>Failure mode</th></tr>
+      <tr><th>Benchmark</th><th>Year</th><th>Scope</th><th>Key finding</th></tr>
     </thead>
     <tbody>
       <tr>
-        <td><strong>Orchestrator + workers</strong></td>
-        <td>Star: one coordinator dispatches to N specialists</td>
-        <td>Well-decomposable tasks (write paper = plan + lit-review + experiments + draft + review)</td>
-        <td>Coordinator becomes bottleneck; single point of failure</td>
+        <td><a href="https://arxiv.org/abs/2411.15114"><strong>RE-Bench</strong></a><br/>(METR)</td>
+        <td>2024</td>
+        <td>7 AI R&amp;D tasks, 8-hour budget, human baseline on same clock</td>
+        <td>Humans significantly outperform agents at 8h; <strong>90.2% of agent cost</strong> goes to failed runs. Gap is in error recovery, not capability.</td>
       </tr>
       <tr>
-        <td><strong>Pipeline / relay</strong></td>
-        <td>Chain: output of agent A feeds agent B feeds agent C</td>
-        <td>Sequential workflows (data &rarr; analysis &rarr; figure &rarr; caption)</td>
-        <td>Error in early stage propagates; no backpressure</td>
+        <td><a href="https://arxiv.org/abs/2504.01848"><strong>PaperBench</strong></a><br/>(OpenAI)</td>
+        <td>2025</td>
+        <td>Reproduce 20 ICML-2024 papers from scratch; <strong>8,316 rubric leaves</strong></td>
+        <td>Most demanding long-horizon benchmark. ARA protocol improved QA from 72.4% to 93.7% &mdash; gain came from reducing repeated work via exploration trees.</td>
       </tr>
       <tr>
-        <td><strong>Swarm / peer</strong></td>
-        <td>Mesh: agents communicate via shared bus, bid on tasks</td>
-        <td>Exploratory work where the decomposition is unknown upfront</td>
-        <td>Coordination overhead; duplicated work; consensus cost</td>
+        <td><a href="https://arxiv.org/abs/2310.06770"><strong>SWE-bench</strong></a><br/>(Princeton)</td>
+        <td>2023&ndash;26</td>
+        <td>Multi-file bug fixing in real repositories; Verified subset (2024)</td>
+        <td>Top scores rose from 12% (2023) to &gt;70% (2026). Planning and tool-use architectures drove the gain, not model scale alone.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2308.03688"><strong>AgentBench</strong></a><br/>(Tsinghua)</td>
+        <td>2023</td>
+        <td>8 environments (OS, DB, web, game, etc.); multi-turn open-ended</td>
+        <td>First comprehensive multi-environment benchmark. Revealed a <strong>significant gap</strong> between commercial and open-source LLMs as agents.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2601.11044"><strong>AgencyBench</strong></a></td>
+        <td>2025</td>
+        <td>Autonomous agents in <strong>1M-token</strong> real-world contexts</td>
+        <td>Tests the intersection of long horizon and large context. Highlights necessity of co-optimising model architecture with agentic frameworks.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2310.03302"><strong>MLAgentBench</strong></a><br/>(ICML 2024)</td>
+        <td>2023</td>
+        <td>13 Kaggle-style ML improvement tasks</td>
+        <td>Success rates span 100% on established datasets to 0% on recent challenges. Interpretable plans but brittle execution.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2410.07095"><strong>MLE-Bench</strong></a><br/>(OpenAI)</td>
+        <td>2024</td>
+        <td>75 Kaggle competitions, scored by medal rate vs. human percentile</td>
+        <td>Tests sustained multi-step ML engineering. Best agents achieve medal-level performance on ~30% of competitions.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2409.11363"><strong>CORE-Bench</strong></a></td>
+        <td>2024</td>
+        <td>90 computational reproducibility tasks across scientific papers</td>
+        <td>Agents struggle with environment setup and dependency resolution &mdash; the &ldquo;engineering tax&rdquo; that ARA identifies.</td>
+      </tr>
+      <tr>
+        <td><strong>WebArena</strong> / <strong>VisualWebArena</strong><br/>(CMU)</td>
+        <td>2023&ndash;24</td>
+        <td>Realistic web browsing tasks on live websites</td>
+        <td>Multi-step web navigation with real state changes. Best agents ~35% success; humans ~78%.</td>
+      </tr>
+      <tr>
+        <td><strong>OSWorld</strong></td>
+        <td>2024</td>
+        <td>Multi-application desktop tasks (file management, spreadsheets, browsers)</td>
+        <td>Tests cross-application coordination. Agents must maintain state across multiple tools simultaneously.</td>
+      </tr>
+      <tr>
+        <td><strong>&tau;-bench</strong><br/>(Sierra AI)</td>
+        <td>2024</td>
+        <td>Customer service tasks requiring policy adherence over multi-turn dialogues</td>
+        <td>Tests long-horizon constraint satisfaction: the agent must remember and apply complex policies across extended interactions.</td>
       </tr>
     </tbody>
   </table>
 
-  <p>
-    Production systems increasingly <strong>mix topologies</strong>. MinionsOS uses
-    orchestrator+workers (Gru dispatches to Coder/Writer/Experimenter) but the
-    workers communicate peer-to-peer via EACN3 when they need to coordinate
-    without Gru&rsquo;s involvement. Google&rsquo;s <a href="https://google.github.io/A2A/">Agent-to-Agent
-    (A2A) protocol</a> (April 2025) standardises the peer communication layer
-    so that agents from different vendors can interoperate on shared tasks.
-  </p>
-
-  <h3>Context management at scale</h3>
-  <p>
-    The practical ceiling on agent horizon length is not intelligence &mdash; it is
-    <strong>memory architecture</strong>. Four mechanisms now exist in production:
-  </p>
-  <p>
-    <strong>Automatic compaction.</strong> Claude Code, Gemini 2.5, and GPT-4.1 all
-    implement conversation summarisation when context approaches limits. The agent
-    continues working from a compressed history. Quality degrades gracefully but
-    detail is irreversibly lost.
-  </p>
-  <p>
-    <strong>Structured external memory.</strong> Systems like
-    <a href="https://github.com/mem0ai/mem0">Mem0</a>,
-    <a href="https://github.com/getzep/zep">Zep</a>,
-    <a href="https://github.com/letta-ai/letta">Letta</a> (formerly MemGPT), and
-    <a href="https://github.com/langchain-ai/langmem">LangMem</a> provide
-    vector-indexed long-term memory that agents can write to and query from.
-    The agent&rsquo;s &ldquo;working set&rdquo; is whatever it retrieves, not whatever
-    fits in the window.
-  </p>
-  <p>
-    <strong>Artifact-based state.</strong> Rather than remembering everything, the agent
-    writes intermediate results to files (plans, reports, data tables) and reads them
-    back when needed. This is the approach taken by Claude Code&rsquo;s task system,
-    Devin&rsquo;s workspace, and MinionsOS&rsquo;s branch-per-role model. The filesystem
-    <em>is</em> the memory.
-  </p>
-  <p>
-    <strong>Cognitive checkpoints.</strong> At defined intervals, the agent pauses to
-    write a structured self-summary: what has been accomplished, what remains, what
-    assumptions are active. This checkpoint survives compaction and serves as a
-    &ldquo;save point&rdquo; for resumption. MinionsOS&rsquo;s <code>cognitive-checkpoint</code>
-    skill and the ARA protocol&rsquo;s <code>pending_plan</code> DAG nodes both implement
-    this pattern.
-  </p>
-
-  <h3>The dispatch rule: thinking vs. doing</h3>
-  <p>
-    A recurring lesson from 2025&ndash;2026 production systems is that <strong>the agent
-    that plans should not be the agent that executes</strong>. When a single agent both
-    thinks and acts, its context fills with execution debris (error logs, file contents,
-    test output) and its planning quality degrades. The fix is role separation:
-  </p>
-  <p>
-    Claude Code&rsquo;s <code>Agent</code> tool spawns disposable sub-agents for execution
-    while the main agent stays clean for coordination. OpenAI Codex runs tasks in
-    isolated cloud sandboxes, returning only a summary. MinionsOS&rsquo;s
-    <code>think-then-act</code> skill enforces this as a hard rule: once invoked, the
-    main agent becomes a pure dispatcher and all execution goes through sub-agents,
-    with Codex GPT-5.5 as the preferred delegate.
-  </p>
-  <p>
-    This separation has a direct analogue in human research: the PI who designs the
-    study is not the same person who runs every PCR. The insight is that
-    <em>context separation is not a limitation to work around &mdash; it is a feature
-    to design for</em>.
-  </p>
-
-  <h3>What the benchmarks say about long horizons</h3>
-  <p>
-    The benchmarks that specifically stress long-horizon capability tell a consistent
-    story: agents plateau or regress as task duration increases.
-  </p>
 
   <div class="aside">
     <span class="k">The RE-Bench finding</span>
@@ -2819,46 +2786,599 @@ promotion gate
     would have abandoned earlier.
   </div>
 
+  <h3>Axis 2: Large-context benchmarks</h3>
   <p>
-    <a href="https://doi.org/10.48550/arxiv.2504.01848"><strong>PaperBench</strong></a>
-    (OpenAI, 2025) is the most demanding long-horizon benchmark: reproducing an ICML
-    paper from scratch requires coordinating literature review, environment setup,
-    implementation, experimentation, and write-up across many hours. The ARA protocol
-    improved scores from 72.4% to 93.7% on this benchmark &mdash; and the gain came
-    almost entirely from <em>reducing repeated work</em> via the exploration tree and
-    structured evidence layer, not from better raw coding.
+    A separate family of benchmarks tests whether models can actually <em>use</em> long
+    context, as opposed to merely accepting it. The distinction matters: a model with a
+    1M-token window that degrades past 128K is architecturally long-context but
+    functionally short-context. For autonomous science, where project state accumulates
+    over weeks, effective context utilisation is load-bearing.
   </p>
 
+  <table>
+    <thead>
+      <tr><th>Benchmark</th><th>Year</th><th>Scale</th><th>Key finding</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2307.03172"><strong>Lost in the Middle</strong></a><br/>(Stanford)</td>
+        <td>2023</td>
+        <td>Multi-document QA, 20 documents</td>
+        <td>The foundational result: accuracy drops ~25 percentage points when relevant info is in the middle vs. beginning/end. U-shaped degradation curve.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2402.13718"><strong>&infin;Bench</strong></a><br/>(InfiniteBench)</td>
+        <td>2024</td>
+        <td>First benchmark with average length &gt;100K tokens; English + Chinese</td>
+        <td>Synthetic and realistic tasks requiring understanding of long dependencies. Existing models &ldquo;still lag behind in effectively processing long contexts.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2402.10790"><strong>BABILong</strong></a></td>
+        <td>2024</td>
+        <td>20 reasoning tasks extended to long context (up to 10M tokens)</td>
+        <td>Tests reasoning-in-a-haystack: can the model reason over facts scattered across a long document? Most models fail beyond 32K tokens on multi-hop tasks.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2410.02694"><strong>HELMET</strong></a><br/>(Princeton, ICLR 2025)</td>
+        <td>2024</td>
+        <td>7 application-centric categories; reliable metrics; few-shot prompting</td>
+        <td>Comprehensive benchmark addressing issues in prior evaluations. Shows that synthetic tasks (NIAH) do not predict real-task performance.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2412.15204"><strong>LongBench v2</strong></a></td>
+        <td>2024</td>
+        <td>503 multiple-choice questions; contexts 8K&ndash;2M words; 6 task categories</td>
+        <td>Tests deeper understanding and reasoning on realistic long-context multitasks. Even frontier models struggle with 500K+ word contexts.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2601.02872"><strong>LongBench Pro</strong></a></td>
+        <td>2025</td>
+        <td>1,500 naturally occurring samples; bilingual; 11 primary tasks</td>
+        <td>More realistic than LongBench v2. Tests naturally occurring long documents rather than synthetic concatenations.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2601.11044"><strong>AgencyBench</strong></a></td>
+        <td>2025</td>
+        <td>Autonomous agents in 1M-token real-world contexts</td>
+        <td>Bridges context benchmarks and agent benchmarks: tests whether agents can act effectively when accumulated state reaches 1M tokens.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2404.06654"><strong>RULER</strong></a><br/>(NVIDIA, COLM 2024)</td>
+        <td>2024</td>
+        <td>Synthetic long-context evaluation with multi-hop and aggregation</td>
+        <td>Models claiming 128K+ context often degrade sharply beyond 32K on non-trivial tasks. Effective context is much shorter than advertised.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="aside note">
+    <span class="k">The context utilisation gap</span>
+    A May 2026 study (<a href="https://arxiv.org/abs/2605.02173">arXiv:2605.02173</a>)
+    evaluated 5 frontier LLMs with advertised 1M-token context windows. The finding:
+    <strong>nominal context-window length is a poor proxy for usable long-context
+    multi-hop capability</strong>. The sharpest discriminator between current 1M-context
+    flagships is performance on 512K+ token multi-hop tasks &mdash; where most models
+    degrade substantially. For a Carriage that accumulates project state over weeks,
+    external memory architecture is not optional &mdash; it is the only way to maintain
+    coherence past the effective context ceiling.
+  </div>
+
+  <h3>Axis 3: Test-time compute scaling and high-frequency iteration</h3>
   <p>
-    <a href="https://doi.org/10.48550/arxiv.2310.06770"><strong>SWE-bench</strong></a>
-    (Princeton, 2023; Verified subset 2024) tests multi-file bug fixing in real
-    repositories. The task horizon is shorter (minutes to hours) but the coordination
-    challenge is real: the agent must understand a codebase, locate the bug, fix it,
-    and verify the fix passes existing tests. Top scores have risen from 12% (2023)
-    to over 70% (2026) as planning and tool-use architectures improved.
+    A third axis asks: does giving an agent more compute <em>per decision</em> help?
+    The answer, as of mid-2026, is nuanced: it helps on reasoning tasks but hits
+    fundamental limits in agentic settings.
   </p>
+
+  <table>
+    <thead>
+      <tr><th>Paper</th><th>Year</th><th>Key finding</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2408.03314"><strong>Scaling LLM Test-Time Compute</strong></a><br/>(Snell <em>et al.</em>, DeepMind)</td>
+        <td>2024</td>
+        <td>A small model with optimal test-time scaling can match a <strong>14&times; larger</strong> model. Effectiveness varies with difficulty &mdash; easy problems benefit from best-of-N; hard problems from sequential revision.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2602.18998"><strong>Benchmark Test-Time Scaling of General LLM Agents</strong></a></td>
+        <td>2026</td>
+        <td>Sequential scaling hits a <strong>context ceiling</strong>. Parallel scaling hits a <strong>verification gap</strong>. Both axes have fundamental limits in agentic settings.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2602.12276"><strong>Agentic Test-Time Scaling for WebAgents (CATTS)</strong></a></td>
+        <td>2026</td>
+        <td>Uniform per-step compute increase <strong>quickly saturates</strong> in long-horizon environments. Confidence-aware selective scaling achieves <strong>9.1% improvement</strong> over uniform with less compute.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2506.12928"><strong>Scaling Test-time Compute for LLM Agents</strong></a></td>
+        <td>2025</td>
+        <td>First systematic exploration for agents. Parallel sampling is most effective; gains are real but task-type-dependent.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2504.13171"><strong>Sleep-time Compute</strong></a></td>
+        <td>2025</td>
+        <td>Pre-processing context before the query arrives reduces test-time compute needed by <strong>~5&times;</strong>. &ldquo;Thinking ahead&rdquo; beats &ldquo;thinking harder in the moment.&rdquo;</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2512.08296"><strong>Towards a Science of Scaling Agent Systems</strong></a><br/>(Google + MIT)</td>
+        <td>2024</td>
+        <td>180 agent configurations. Multi-agent systems can <strong>degrade performance by up to 70%</strong> vs. single agent on tool-heavy tasks.</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2602.03794"><strong>Agent Scaling via Diversity</strong></a></td>
+        <td>2026</td>
+        <td><strong>2 diverse agents can match 16 homogeneous agents.</strong> Diversity of roles/prompts/models is the key lever, not raw count.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="stats">
+    <div class="s"><div class="v">14&times;</div><div class="l">model size matched by test-time scaling</div></div>
+    <div class="s"><div class="v">70%</div><div class="l">max degradation from naive multi-agent</div></div>
+    <div class="s"><div class="v">2 = 16</div><div class="l">diverse agents match homogeneous swarm</div></div>
+    <div class="s"><div class="v">5&times;</div><div class="l">compute saved by sleep-time pre-processing</div></div>
+  </div>
+
+  <h3>Planning architectures for long tasks</h3>
+  <p>
+    The field has converged on a small number of patterns for sustaining coherent
+    behaviour across long horizons:
+  </p>
+
+  <h4>Hierarchical task decomposition</h4>
+  <p>
+    The dominant pattern is <strong>plan &rarr; decompose &rarr; dispatch &rarr;
+    verify</strong>. A coordinator holds the global plan and decomposes it into
+    subtasks small enough for a single context window.
+    <a href="https://arxiv.org/abs/2308.00352">AutoGen</a> (Microsoft, 2023),
+    <a href="https://github.com/langchain-ai/langgraph">LangGraph</a>, and
+    <a href="https://github.com/crewAIInc/crewAI">CrewAI</a> all implement variants.
+  </p>
+
+  <h4>Plan persistence and revision</h4>
+  <p>
+    A plan that lives only in the context window dies on compaction. The fix is to
+    <strong>write the plan to disk</strong> and treat it as a living document.
+    Google&rsquo;s <a href="https://google.github.io/adk-docs/">Agent Development Kit</a>
+    (ADK, 2025) takes this approach with session-state persistence.
+  </p>
+
+  <h4>Exploration DAGs over linear logs</h4>
+  <p>
+    An <strong>exploration DAG</strong> records hypotheses, experiments, results, and
+    dead ends as nodes with typed edges. The ARA protocol&rsquo;s
+    <code>trace/exploration_tree.yaml</code> is a static cousin designed for
+    publication rather than runtime navigation.
+  </p>
+
+  <h3>The METR scaling law: task horizon doubles every 7 months</h3>
+  <p>
+    The single most important empirical finding for autonomous science comes from METR&rsquo;s
+    longitudinal measurement (<a href="https://arxiv.org/abs/2503.14499">arXiv:2503.14499</a>,
+    updated January 2026). They define the <strong>50%-task-completion time horizon</strong>:
+    the length of tasks (measured in human-equivalent time) that agents can complete with
+    50% reliability. This metric has been <strong>doubling approximately every 7 months</strong>
+    for six years (2019&ndash;2025), possibly accelerating to every 4 months in 2024. As of
+    early 2026, METR reports they can &ldquo;barely measure&rdquo; Claude Mythos Preview,
+    estimating its 50% horizon at several hours of human work.
+  </p>
+  <p>
+    If this trend continues, agents will reach multi-day task horizons by late 2026 and
+    multi-week horizons by mid-2027. That is precisely the regime where a Carriage &mdash;
+    shared memory, coordination protocol, role boundaries, governance &mdash; becomes
+    load-bearing rather than optional.
+  </p>
+
+  <h3>Production findings: what actually happens at scale</h3>
+  <p>
+    Three production data points ground the benchmark story in reality:
+  </p>
+  <p>
+    <strong>Devin (Cognition):</strong> February 2025 update reports ~7.8 minutes average
+    on junior developer tasks. In production code review, catches an average of 2 bugs
+    per PR, with 58% being severe. One large organisation saved 5&ndash;10% of total
+    developer time on vulnerability remediation.
+  </p>
+  <p>
+    <strong>DX Research (400+ companies, Nov 2024&ndash;Feb 2026):</strong>
+    Despite a 65% increase in AI tool usage, median PR throughput rose only
+    <strong>7.76%</strong>. The gap between benchmark performance and production impact
+    remains large.
+  </p>
+  <p>
+    <strong>The Retry Storm:</strong> An independent analysis found a <strong>negative
+    correlation</strong> between AI agent contribution frequency and CI/CD workflow success
+    rate. Without proper coordination infrastructure (a Carriage), scaling agent output
+    can actively degrade system health.
+  </p>
+
+  <h3>Classic foundations</h3>
+  <p>
+    The patterns above recapitulate ideas from classical AI, now instantiated with LLMs:
+  </p>
+  <table>
+    <thead>
+      <tr><th>Classic system</th><th>Year</th><th>Core idea</th><th>Modern descendant</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>STRIPS</strong> (Fikes &amp; Nilsson)</td>
+        <td>1971</td>
+        <td>State-space planning with preconditions and effects</td>
+        <td>Agent tool-use planning</td>
+      </tr>
+      <tr>
+        <td><strong>HTN Planning</strong></td>
+        <td>1975+</td>
+        <td>Decompose abstract tasks into primitives via methods</td>
+        <td>Hierarchical task decomposition in CrewAI, LangGraph</td>
+      </tr>
+      <tr>
+        <td><strong>Blackboard Systems</strong> (Erman <em>et al.</em>)</td>
+        <td>1980</td>
+        <td>Shared workspace; multiple knowledge sources contribute asynchronously</td>
+        <td>Shared memory layers; EACN event bus</td>
+      </tr>
+      <tr>
+        <td><strong>SOAR</strong> (Laird, Newell, Rosenbloom)</td>
+        <td>1987</td>
+        <td>Universal subgoaling; chunking learned procedures</td>
+        <td>Skill libraries; SkillOS curator</td>
+      </tr>
+      <tr>
+        <td><strong>ACT-R</strong> (Anderson)</td>
+        <td>1993</td>
+        <td>Declarative + procedural memory with activation-based retrieval</td>
+        <td>Hot/cold memory tiers; Mem0, A-MEM</td>
+      </tr>
+      <tr>
+        <td><strong>BDI</strong> (Rao &amp; Georgeff)</td>
+        <td>1995</td>
+        <td>Beliefs, Desires, Intentions as rational agent mental state</td>
+        <td>Plan persistence; goal maintenance across context resets</td>
+      </tr>
+    </tbody>
+  </table>
 
   <h3>An open question: when does more time help?</h3>
   <p>
     The most provocative finding from recent scaling work is that <strong>giving agents
     more compute time does not always help</strong>. On RE-Bench, doubling the time
-    budget from 2 hours to 8 hours improved human scores substantially but improved
-    agent scores only marginally. The bottleneck is not compute &mdash; it is the
-    ability to maintain coherent plans, learn from failures within a single run, and
-    know when to abandon a dead end.
+    budget from 2 to 8 hours improved human scores substantially but agent scores only
+    marginally. The CATTS paper confirms: uniform per-step compute increase quickly
+    saturates in long-horizon environments because small per-step errors compound.
   </p>
   <p>
     This suggests that the next frontier is not longer context windows or faster
     inference, but better <strong>intra-task learning</strong>: the ability to update
     beliefs, revise plans, and accumulate evidence within a single extended session.
-    The exploration DAG, the cognitive checkpoint, and the dispatch rule are all
-    attempts at this. Whether they compose into a system that genuinely scales with
-    time &mdash; the way a human researcher scales with months of focused work &mdash;
-    remains the defining open question for autonomous scientific discovery.
+    The METR scaling law gives this question a deadline. If the 50%-task-completion
+    horizon continues doubling every 7 months, agents will reach the multi-week regime
+    by mid-2027. At that point, the Carriage is no longer a nice-to-have &mdash; it is
+    the difference between capable horses pulling in different directions and a team
+    that can deliver a payload across a continent.
   </p>
 </section>
 
 <p class="sep-ornament">❧</p>
+
+<section id="portable-memory">
+  <h2><span class="roman">XIII-B</span>Portable and transferable memory</h2>
+  <p class="deck">If a Carriage is the coordination layer that turns agents into a team, then portable memory is what lets that team carry its experience from one project to the next. The field is converging on the problem; no one has solved it.</p>
+
+  <p class="drop">
+    A research team that forgets everything between projects is not a team &mdash; it is a
+    rotating cast of strangers. The same is true for multi-agent systems. MinionsOS&rsquo;s
+    three-layer memory (Scratchpad / Library / Atlas) solves the within-project problem:
+    roles accumulate and share knowledge across sessions. But the between-project problem
+    &mdash; carrying lessons, procedures, and hard-won heuristics from project A to project B
+    &mdash; is architecturally unsolved. This section maps the emerging literature on
+    portable, transferable, and pluggable agent memory.
+  </p>
+
+  <h3>The portability spectrum</h3>
+  <p>
+    Not all memory is equally portable. The literature reveals a spectrum from maximally
+    portable (plain text files) to maximally coupled (model-internal representations):
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Portability level</th><th>Format</th><th>Survives model swap?</th><th>Survives framework swap?</th><th>Example</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>L1: Plain text</strong></td>
+        <td>Markdown files, JSONL logs</td>
+        <td>Yes</td>
+        <td>Yes</td>
+        <td><a href="https://arxiv.org/abs/2601.05960">Distilling Feedback into Memory-as-a-Tool</a> (Gallego, ICLR MemAgents 2026)</td>
+      </tr>
+      <tr>
+        <td><strong>L2: Structured store</strong></td>
+        <td>Vector DB, knowledge graph, typed records</td>
+        <td>Yes (if text-indexed)</td>
+        <td>Depends on API</td>
+        <td><a href="https://arxiv.org/abs/2504.19413">Mem0</a>, <a href="https://arxiv.org/abs/2502.12110">A-MEM</a>, Zep</td>
+      </tr>
+      <tr>
+        <td><strong>L3: Protocol-level</strong></td>
+        <td>Typed schema with provenance + lineage</td>
+        <td>Yes</td>
+        <td>If protocol adopted</td>
+        <td><a href="https://arxiv.org/abs/2604.19540">Mesh Memory Protocol</a> (CAT7 schema)</td>
+      </tr>
+      <tr>
+        <td><strong>L4: Role-indexed</strong></td>
+        <td>Per-agent memory tied to role identity</td>
+        <td>Yes (role is the key)</td>
+        <td>If role contract stable</td>
+        <td><a href="https://arxiv.org/abs/2508.08997">Intrinsic Memory Agents</a>, <a href="https://arxiv.org/abs/2507.07957">MIRIX</a></td>
+      </tr>
+      <tr>
+        <td><strong>L5: Procedural</strong></td>
+        <td>Executable skills / code libraries</td>
+        <td>Yes (code is code)</td>
+        <td>Yes</td>
+        <td><a href="https://arxiv.org/abs/2305.16291">Voyager</a>, <a href="https://arxiv.org/abs/2512.18950">MACLA</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Key systems and their portability story</h3>
+
+  <h4>Cross-task experience transfer</h4>
+  <p>
+    <a href="https://arxiv.org/abs/2512.11303"><strong>SMITH</strong></a> (Liu <em>et al.</em>, 2025)
+    unifies dynamic tool creation with cross-task experience sharing through a hierarchical
+    cognitive memory (procedural + semantic + episodic). Achieves 81.8% Pass@1 on GAIA by
+    retrieving successful execution patterns from prior tasks and applying them to novel ones.
+    <a href="https://arxiv.org/abs/2601.05890"><strong>StackPlanner</strong></a> (Zhang <em>et al.</em>, 2026)
+    takes this further with RL-based retrieval of reusable coordination experience across tasks
+    in a multi-agent setting.
+  </p>
+
+  <h4>Cross-model memory compatibility</h4>
+  <p>
+    <a href="https://arxiv.org/abs/2511.12997"><strong>WebCoach</strong></a> (Liu <em>et al.</em>, 2025)
+    provides the strongest empirical evidence: the same episodic memory store improves performance
+    across three different LLM backbones, with a 38B model plus WebCoach matching GPT-4o without it.
+    <a href="https://arxiv.org/abs/2502.12110"><strong>A-MEM</strong></a> (Xu <em>et al.</em>, 2025)
+    evaluates across six foundation models, showing its Zettelkasten-inspired memory network works
+    regardless of backend. <a href="https://arxiv.org/abs/2512.18950"><strong>MACLA</strong></a>
+    (Forouzandeh <em>et al.</em>, 2025) keeps the LLM frozen and puts all adaptation in external
+    procedural memory &mdash; upgrading the model doesn&rsquo;t invalidate the memory.
+  </p>
+
+  <h4>Multi-agent memory sharing protocols</h4>
+  <p>
+    <a href="https://arxiv.org/abs/2604.19540"><strong>Mesh Memory Protocol</strong></a>
+    (Xu, 2026) is the most ambitious: a protocol-level specification for cross-session,
+    cross-agent cognitive collaboration. Four primitives &mdash; CAT7 (7-field schema),
+    SVAF (per-field semantic evaluation at acceptance), inter-agent lineage (content-hash
+    provenance), and remix (store only the receiver&rsquo;s filtered understanding) &mdash;
+    address echo chambers, stale retrieval, and field-level admission. Running in production.
+  </p>
+  <p>
+    <a href="https://arxiv.org/abs/2505.18279"><strong>Collaborative Memory</strong></a>
+    (Rezazadeh <em>et al.</em>, 2025) takes the governance angle: private + shared tiers with
+    bipartite access graphs and immutable provenance. Enables safe cross-user knowledge transfer
+    while enforcing asymmetric permissions.
+  </p>
+
+  <h4>Pluggable modular architectures</h4>
+  <p>
+    <a href="https://arxiv.org/abs/2507.07957"><strong>MIRIX</strong></a> (Wang &amp; Chen, 2025)
+    is explicitly designed as a plug-and-play system: six memory components (Core, Episodic,
+    Semantic, Procedural, Resource, Knowledge Vault) managed by a multi-agent architecture.
+    Achieves 35% improvement over RAG while reducing storage 99.9%.
+    <a href="https://arxiv.org/abs/2310.08560"><strong>MemGPT/Letta</strong></a> (Packer <em>et al.</em>, 2023)
+    established the model-agnostic tiered-memory pattern that all subsequent work builds on.
+  </p>
+
+  <h3>The memory rot problem</h3>
+  <p>
+    Transferring memory is only useful if the memory is still valid. Three 2026 papers
+    directly address this:
+  </p>
+  <p>
+    <a href="https://arxiv.org/abs/2605.12978"><strong>&ldquo;Useful Memories Become Faulty&rdquo;</strong></a>
+    (Zhang <em>et al.</em>, UIUC/Tsinghua, 2026) is the most important negative result:
+    consolidated memories degrade with repeated updates &mdash; GPT-5.4 fails on <strong>54%</strong>
+    of ARC-AGI problems it previously solved after consolidating from ground-truth solutions.
+    Raw episodic traces are more robust than abstractions. Implication for transfer:
+    <em>transferring consolidated summaries may be worse than transferring raw trajectories</em>.
+  </p>
+  <p>
+    <a href="https://arxiv.org/abs/2605.06527"><strong>STALE</strong></a> (Chao <em>et al.</em>, 2026)
+    benchmarks whether agents can detect invalidated memories: best model achieves only
+    <strong>55.2%</strong> accuracy on 400 expert-validated conflict scenarios. Agents are
+    bad at knowing when their memories are wrong.
+  </p>
+  <p>
+    <a href="https://arxiv.org/abs/2604.20300"><strong>FSFM</strong></a> (Gu <em>et al.</em>, 2026)
+    and <a href="https://arxiv.org/abs/2601.18642"><strong>FadeMem</strong></a> (Wei <em>et al.</em>, 2026)
+    propose biologically-inspired forgetting: selective decay modulated by relevance, access
+    frequency, and temporal patterns. FadeMem achieves 45% storage reduction while improving
+    multi-hop reasoning. The lesson: deciding what <em>not</em> to carry is as important as
+    what to carry.
+  </p>
+
+  <h3>The raw-trajectory principle</h3>
+  <p>
+    The memory-rot finding is not just a caveat &mdash; it is a design principle, and it
+    inverts a default that has been baked into knowledge-management thinking since long
+    before the agent era. <strong>The default assumption is that conclusions are the
+    durable artifact and raw logs are archived for compliance.</strong> The Zhang
+    <em>et al.</em> result says the opposite: raw logs are durable, conclusions are not.
+    An ARC-AGI agent given its own consolidated abstractions of prior solutions fails on
+    <strong>54%</strong> of problems it had previously solved; the same agent with access
+    to raw solution traces does not exhibit this regression.
+  </p>
+  <p>
+    Why consolidation degrades is mechanical. An abstraction strips the conditions under
+    which a rule was valid &mdash; &ldquo;use strategy X&rdquo; loses the implicit
+    &ldquo;when the input has property Y.&rdquo; After several rounds of
+    summary-of-summary, the rule remembered has been dissociated from the conditions
+    that made it correct. Each application then activates in cases where the original
+    episode would have been silent. The dual-trace encoding work
+    [<a href="https://arxiv.org/abs/2604.12948">Stern &amp; Nadel 2026</a>] gives the
+    positive mirror: every stored fact paired with a &ldquo;scene trace&rdquo; &mdash;
+    a concrete reconstruction of the encoding context &mdash; achieves <strong>73.7%</strong>
+    on LongMemEval-S versus 53.5% for fact-only, with the gain concentrated in temporal
+    reasoning (+40pp), knowledge-update tracking (+25pp), and multi-session aggregation
+    (+30pp). The scene trace is the boundary condition that the abstract fact has lost.
+  </p>
+  <p>
+    The procedural fix has three parts. <strong>Episodes are the canonical store</strong>
+    &mdash; the trajectory record is what is committed and what survives across
+    migrations. <strong>Consolidation is single-pass</strong> &mdash; summaries are
+    derived from raw episodes, never from prior summaries; each round of abstraction
+    runs over the original store, not the previous round&rsquo;s output.
+    <strong>Retrieval favours raw first</strong> &mdash; when an agent asks
+    &ldquo;what do I know about X?&rdquo;, the default return is matching episodes, with
+    summaries kept as a cost-saving fallback for when the matching set is too large to
+    load. RAG-as-retrieval norms run the opposite direction; the principle reverses them.
+  </p>
+
+  <figure class="diagram"><code>conventional pattern (decays)
+  raw episodes
+    └─→ consolidate ──→ summary
+                          └─→ consolidate ──→ summary' ──→ ...
+                                                            ↓
+                                       misleads in 54% of cases
+                                       where the original episode would not
+
+raw-trajectory pattern (durable)
+  raw episodes ─────────────────────────────────────────┐
+       │                                                 │
+       ├─→ consolidate (one-pass) ──→ summary ──→ fallback only
+       │                                                 │
+       └─→ retrieve (default path) ────────────────────→ matching episodes</code>
+<figcaption>Consolidation degrades when its outputs feed the next round of consolidation. The fix is to keep raw episodes as the canonical store and run summarisation as a one-pass derivative whose output is never re-consolidated.</figcaption></figure>
+  <h3>Case-based, not rubric-based</h3>
+  <p>
+    The raw-trajectory principle has a sibling in the evaluation literature, and the
+    two reinforce each other. Where rubric-based grading asks an LLM to apply abstract
+    criteria (&ldquo;does this output show good reasoning?&rdquo;), case-based grading
+    asks the LLM to compare a candidate to a small set of concrete reference examples
+    (&ldquo;is this more like the good case A or the bad case B?&rdquo;). The pattern
+    has a long history in case-based reasoning (Schank; Aamodt &amp; Plaza, 1994) and
+    has been recently re-popularised in agent-skill evaluation harnesses, which run a
+    fixed library of behavioural cases rather than scoring against an abstract skill
+    description.
+  </p>
+  <p>
+    Both moves bet on the same thing: <em>concrete situated knowledge travels better
+    across contexts than abstract general rules</em>, because the situated form
+    preserves the boundary conditions that the abstract form drops. In the evaluation
+    layer this means a judge model walking through cases rather than applying a rubric.
+    In the memory layer it means episodic recall as the default rather than consolidated
+    summary retrieval. The same epistemic logic &mdash; that boundary conditions are
+    load-bearing and abstraction is lossy &mdash; operates in both.
+  </p>
+  <h3>Implications for cross-project transfer</h3>
+  <p>
+    The principle bites hardest at the cross-project boundary. When a project closes and
+    its memory is to be made available to a future project, the temptation is to
+    compress: produce a concise &ldquo;lessons learned&rdquo; document the next team
+    can read in five minutes. The literature suggests this is exactly the wrong move.
+    The compressed lesson is the artifact most likely to mislead, because it has been
+    stripped of precisely the conditions needed to decide whether to apply it.
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Transfer artifact</th><th>Preserves</th><th>Loses</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Episode bundle</strong><br/>events, decisions, outcomes, dead-end branches</td>
+        <td>Conditions under which decisions were made; counterfactual evidence; full provenance</td>
+        <td>Reading time; narrative coherence</td>
+      </tr>
+      <tr>
+        <td><strong>Episode index</strong><br/>typed retrieval keys, situation tags</td>
+        <td>Ability for a new project to locate similar past situations from its own context</td>
+        <td>Pre-digested conclusions</td>
+      </tr>
+      <tr>
+        <td><strong>Lesson summary</strong><br/>compressed conclusions</td>
+        <td>Read time; narrative arc</td>
+        <td>The conditions under which the lesson is actually a lesson &mdash; exactly the part the next project needs to know whether to apply it</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    The right transfer artifact is the first two: episodes plus an index, no
+    pre-compressed wisdom. The receiving project re-derives its own lessons by
+    re-reading episodes through its own situated lens; lessons are recomputed at query
+    time, never trusted as pre-digested input. This reverses the conventional
+    knowledge-management architecture, where wisdom is the durable artifact and raw
+    logs are archived for compliance &mdash; but it matches what the rot literature,
+    the dual-trace literature, and the case-based evaluation literature are all
+    separately telling us.
+  </p>
+
+  <blockquote>
+    Memory transfer is not the migration of conclusions. It is the migration of evidence.
+  </blockquote>
+
+
+  <h3>Security: memory as attack surface</h3>
+  <p>
+    <a href="https://arxiv.org/abs/2602.15654"><strong>Zombie Agents</strong></a>
+    (Yang <em>et al.</em>, 2026) demonstrates that portable memory is a security surface:
+    an attacker can implant a payload that survives across sessions and agent instances by
+    exploiting the normal memory update process. Any cross-project transfer design must
+    treat incoming memory as untrusted input.
+    <a href="https://arxiv.org/abs/2604.16548">A security survey</a> (Lin <em>et al.</em>, 2026)
+    introduces &ldquo;mnemonic sovereignty&rdquo; &mdash; verifiable governance over what may
+    be written, read, updated, and forgotten &mdash; as the framework for memory lifecycle security.
+  </p>
+
+  <h3>What the field has not solved</h3>
+  <p>
+    Four gaps remain open as of mid-2026:
+  </p>
+  <p>
+    <strong>1. No memory interchange standard.</strong> MMP&rsquo;s CAT7 schema is the most
+    concrete proposal (7 fields: content, role, timestamp, confidence, lineage, context, hash),
+    but it is a single-vendor spec. There is no equivalent of MCP for memory.
+  </p>
+  <p>
+    <strong>2. No cross-model compatibility characterisation.</strong> WebCoach, A-MEM, and Mem0
+    show empirically that the same store works across backends, but nobody has formally
+    characterised what makes memory model-agnostic vs. model-specific.
+  </p>
+  <p>
+    <strong>3. No project-to-project transfer in multi-agent systems.</strong> StackPlanner and
+    SMITH do cross-task transfer within a single system. Nobody has published on carrying
+    lessons from &ldquo;project A with team X&rdquo; to &ldquo;project B with team Y&rdquo;
+    at the organisational level.
+  </p>
+  <p>
+    <strong>4. No memory adaptation mechanism.</strong> MACLA&rsquo;s Bayesian reliability
+    tracking is the closest, but it operates within a single task distribution. How to adapt
+    memory written for one domain to a new domain without full re-collection is unsolved.
+  </p>
+
+  <div class="aside">
+    <span class="k">Implication for Carriage design</span>
+    The literature converges on a design principle: <strong>memory should be stored at the
+    highest portability level that preserves its utility</strong>. Plain text (L1) is maximally
+    portable but loses structure. Protocol-level schemas (L3) preserve structure but require
+    adoption. Role-indexed memory (L4) is the sweet spot for multi-agent systems: it survives
+    model swaps, framework swaps, and even team composition changes, as long as the role
+    contract is stable. This is exactly what MinionsOS&rsquo;s Library layer provides &mdash;
+    and the gap (project-to-project transfer) is exactly what a Carriage-level &ldquo;memory
+    export/import&rdquo; primitive would fill.
+  </div>
+</section>
+
+<p class="sep-ornament">&diams;</p>
 
 <section id="open">
   <h2><span class="roman">XIV</span>Seven open questions</h2>
