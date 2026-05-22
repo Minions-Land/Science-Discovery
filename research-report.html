@@ -3802,7 +3802,7 @@ raw-trajectory pattern (durable)
 
 <section id="expert-evolution">
   <h2><span class="roman">XIII-C</span>When agents themselves should split or merge</h2>
-  <p class="deck">A live pilot, run on Haiku 4.5, on whether expert agents should evolve their own population at runtime &mdash; splitting one generalist into two specialists when a domain heterogeneity shows up, and merging back when one specialist starves. The mechanism works. The trigger does not fire on tasks a strong generalist can already saturate. This is the inverse of the Carriage thesis at the population layer.</p>
+  <p class="deck">A live pilot, run on Haiku 4.5 across 39 task runs in two phases, on whether expert agents should evolve their own population at runtime &mdash; splitting one generalist into two specialists when domain heterogeneity shows up, and merging back when one specialist starves. The mechanism works. The single seed where it actually fired in the harder regime made accuracy <em>worse</em>, not better. Static-1 wins on accuracy and on variance.</p>
 
   <p class="drop">
     The previous two sections argued that agent ensembles benefit from a coordination
@@ -3968,14 +3968,55 @@ raw-trajectory pattern (durable)
     near-noise preamble (semi-relevant math-y prose engineered to
     bait pattern-completion). At full output budget Haiku still scored
     30/30 as a generalist. Constraining the worker to 80 output tokens
-    &mdash; a stand-in for situations where reasoning bandwidth is
-    genuinely limited (cost caps, latency budgets, weaker models) &mdash;
-    finally produced a regime where static-1 fell to 25/30 (83%). In
-    that regime the supervisor has an error signal to react to. Whether
-    dynamic split actually <em>recovers</em> the lost accuracy is the
-    next experiment, currently in flight; the headline finding so far is
-    that the trigger condition is only met when the worker is operating
-    near, not above, its capability ceiling.
+    &mdash; a stand-in for cost-capped or weaker-model regimes &mdash;
+    finally produced a regime where static-1 fell off ceiling.
+  </p>
+
+  <p>
+    Phase 2 sweep, three seeds per policy, all under the 80-token
+    output budget:
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Policy</th><th>Mean accuracy</th><th>Std (across seeds)</th><th>Splits</th><th>Merges</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>static-1</strong></td><td><strong>0.911</strong></td><td>0.069</td><td>0</td><td>0</td></tr>
+      <tr><td>dynamic</td><td>0.878</td><td>0.102</td><td>1</td><td>1</td></tr>
+      <tr><td>static-N (3 specialists)</td><td>0.833</td><td>&mdash;</td><td>0</td><td>0</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    Per-seed, the picture is sharper. On dynamic seed 2, the supervisor
+    triggered <code>SPLIT</code> at step 7 (heterogeneity ≥ 2 domains
+    with ≥ 2 tasks each, plus an early error), produced three
+    specialists, then triggered <code>MERGE</code> at step 13 because
+    <code>prob_specialist</code> had received zero tasks (the router
+    failed to route to it under the tight budget) and
+    <code>combo_specialist</code> had received one. That run scored
+    <strong>23/30</strong> &mdash; the <em>worst</em> of the three
+    dynamic runs, and well below static-1&rsquo;s 29/30 on the same
+    seed. The two dynamic runs where the supervisor correctly returned
+    <code>KEEP</code> ended at 27/30 and 29/30, indistinguishable from
+    static-1.
+  </p>
+
+  <p>
+    Three findings carry over to the policy recommendation. First,
+    <strong>static-1 is the most accurate <em>and</em> lowest-variance
+    policy</strong> &mdash; the dynamic policy&rsquo;s accuracy spread
+    is 1.5x larger across seeds. Second, <strong>the supervisor&rsquo;s
+    <code>KEEP</code> behaviour is exactly right</strong>: it
+    accurately diagnoses one error in thirty as noise, not structural
+    failure, and refuses to act. Third, <strong>when the supervisor
+    does split, accuracy drops</strong>, because routing under tight
+    budget is itself error-prone and the specialists&rsquo; tighter
+    prompts confer no advantage over a strong generalist&rsquo;s
+    flexibility. This is SkillMAS&rsquo;s evidence-gating thesis,
+    confirmed empirically: diversity-driven restructuring is not free,
+    and is sometimes negative.
   </p>
 
   <h3>What this means for population-layer evolution</h3>
