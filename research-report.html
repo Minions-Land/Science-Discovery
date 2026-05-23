@@ -163,6 +163,7 @@
     <li><a href="#expert-evolution"><span class="num">XIII-C</span>When agents themselves should split or merge</a></li>
     <li><a href="#memory-formalism"><span class="num">XIII-D</span>Formal foundations &middot; write, manage, read</a></li>
     <li><a href="#managed-runtime"><span class="num">XIII-E</span>The managed-agent runtime</a></li>
+    <li><a href="#coordination-patterns"><span class="num">XIII-F</span>Five coordination patterns, one shared substrate</a></li>
     <li><a href="#open"><span class="num">XIV</span>Open questions</a></li>
     <li><a href="#colophon"><span class="num">XV</span>About this report</a></li>
   </ol>
@@ -5092,6 +5093,261 @@ raw-trajectory pattern (durable)
 
 <p class="sep-ornament">&diams;</p>
 
+<section id="coordination-patterns">
+  <h2><span class="roman">XIII-F</span>Five coordination patterns, one shared substrate</h2>
+  <p class="deck">Section XIII-A defined a carriage; Section XIII-E disassembled the harness into a runtime; this section names the five recurring shapes that <em>actual</em> multi-agent systems take, and locates each one against the runtime interfaces it depends on. The five patterns are not invented here &mdash; they are the recurring vocabulary of the Anthropic engineering essays and the broader 2025 coordination literature, given a single nomenclature so the rest of the report can refer to them by name.</p>
+
+  <p class="drop">
+    A working vocabulary matters because the field keeps re-discovering the same five
+    shapes under different names. <em>Building Effective Agents</em> (December 2024)
+    catalogued <em>prompt chaining</em>, <em>routing</em>, <em>parallelisation</em>,
+    <em>orchestrator-workers</em>, and <em>evaluator-optimizer</em> as workflow patterns.
+    <a href="https://www.anthropic.com/engineering/multi-agent-research-system">How we built our multi-agent research system</a>
+    re-described the same orchestrator-worker shape at production scale, with token
+    economics and failure modes spelled out. Section XIII-E&rsquo;s nine essays then
+    added the runtime substrate that lets these shapes survive past a single session.
+    What is missing from any one essay is a side-by-side comparison: <em>when do you reach
+    for which shape, and what does the runtime have to provide for it to work?</em>
+    This section is that comparison.
+  </p>
+
+  <p class="callout">
+    <strong>A note on provenance.</strong> The specific five-name framing
+    &mdash; generator-verifier, orchestrator-subagent, persistent agent team, message bus,
+    shared state &mdash; circulated in Chinese-language secondary sources in mid-2026,
+    attributed to an Anthropic engineering post by Cara Phillips. We were unable to verify
+    that post on <code>anthropic.com</code> (engineering index, news index, docs/cookbook,
+    GitHub, or the Wayback Machine) at the time of writing. The five shapes themselves,
+    however, all appear under one name or another in verifiable Anthropic material
+    (<em>Building Effective Agents</em>, <em>How we built our multi-agent research system</em>,
+    and the nine harness essays reconstructed in Section XIII-E); the rest of this section
+    cites only those sources, and treats the five-name framing as a useful taxonomy rather
+    than a load-bearing claim.
+  </p>
+
+  <h3>The five shapes</h3>
+  <p>
+    Read against Section XIII-E&rsquo;s eight runtime interfaces, the five patterns are
+    differentiated by <em>how many agents share state</em>, <em>how long that state
+    persists</em>, and <em>who is allowed to write to it</em>. The table below names each
+    shape, gives its load-bearing property, points at the Anthropic essay that ships it as
+    a concrete pattern, and notes which runtime interface from Section XIII-E it actually
+    leans on.
+  </p>
+
+  <table class="data">
+    <thead>
+      <tr>
+        <th style="width:18%">Pattern</th>
+        <th style="width:30%">Load-bearing property</th>
+        <th style="width:26%">Verified source</th>
+        <th style="width:26%">Runtime interface it depends on</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Generator&ndash;verifier</strong></td>
+        <td>Two roles, asymmetric authority: one proposes, the other accepts or rejects.
+        The verifier is cheaper to run than a do-over and decorrelates from the generator
+        because it sees only the artefact, not the trajectory.</td>
+        <td><em>Building Effective Agents</em> &mdash; the &ldquo;evaluator-optimizer&rdquo;
+        loop. Section XIII-A&rsquo;s self-correction limits (Huang, Tyen, Stechly) explain
+        why <em>same-agent</em> verification fails and <em>second-agent</em> verification
+        works.</td>
+        <td>Tool Router + Trace &amp; Eval. The verifier needs to see the artefact and
+        the trace, not the generator&rsquo;s context.</td>
+      </tr>
+      <tr>
+        <td><strong>Orchestrator&ndash;subagent</strong></td>
+        <td>One lead agent decomposes a task, spawns N short-lived subagents in parallel,
+        and integrates their results. Subagents do not see each other. The orchestrator
+        owns the plan and the final synthesis.</td>
+        <td><em>How we built our multi-agent research system</em> &mdash; the lead
+        researcher dispatches parallel subagents and the orchestrator returns the
+        synthesis to the user. <em>Building Effective Agents</em> calls the same shape
+        &ldquo;orchestrator-workers&rdquo;.</td>
+        <td>Session + Sandbox per subagent; Context Builder for the orchestrator&rsquo;s
+        synthesis prompt. Subagent sessions are disposable.</td>
+      </tr>
+      <tr>
+        <td><strong>Persistent agent team</strong></td>
+        <td>A fixed cast of named agents with stable roles and (typically) stable memory
+        across sessions. The set does not change between requests; the work does.</td>
+        <td>Implicit in Section XIII-E&rsquo;s &ldquo;session is not memory&rdquo;
+        argument: the same runtime can hold a fixed team because each member&rsquo;s
+        session can be resumed across days. The pattern is described less formally in
+        the Anthropic <em>Agent Skills</em> post (skills as the team member&rsquo;s
+        durable specialisation).</td>
+        <td>Session resume + Skills Layer. The skills layer encodes each member&rsquo;s
+        role; the session is what survives a restart.</td>
+      </tr>
+      <tr>
+        <td><strong>Message bus</strong></td>
+        <td>Agents do not call each other directly. They publish events to a typed bus;
+        any subscriber can react. The bus is the only shared substrate.</td>
+        <td>Anthropic&rsquo;s <em>Managed Agents</em> exposes <code>emitEvent(sessionId,
+        event)</code> as a first-class runtime call &mdash; explicitly so that an external
+        system can wake an agent without holding its context. Section XIII-E quotes the
+        signature verbatim.</td>
+        <td>Harness + Session.<code>emitEvent</code>. Decoupling who-sends from who-receives
+        is the whole point.</td>
+      </tr>
+      <tr>
+        <td><strong>Shared state</strong></td>
+        <td>Multiple agents read and write to a common, structured store &mdash; a
+        filesystem, a database, a trajectory log &mdash; and coordinate by inspecting it.
+        No agent owns the state; everyone owns a slice.</td>
+        <td>Section XIII-A&rsquo;s Carriage definition leans on shared raw trajectory;
+        the MinionsOS evidence ledger and the ARA protocol&rsquo;s
+        <code>trace/exploration_tree.yaml</code> (Section IV.5) are both instances.
+        <em>Code execution with MCP</em> moves the shared state out of context and into
+        files for exactly this reason.</td>
+        <td>Sandbox + Context Builder. The sandbox holds the canonical state; the
+        context builder pulls the slice each agent needs.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>What the patterns do and do not share</h3>
+  <p>
+    Three observations fall out of the table and matter for how the rest of the report
+    uses these names.
+  </p>
+
+  <ol>
+    <li>
+      <strong>The shapes compose; they are not exclusive.</strong> A working multi-agent
+      system typically picks one as its primary topology and uses one or two of the
+      others locally. The MinionsOS layout in Section XIII-A is a <em>persistent agent
+      team</em> on top of a <em>shared state</em> ledger, with <em>generator-verifier</em>
+      gating every irreversible decision. The Anthropic research system is an
+      <em>orchestrator-subagent</em> tree over disposable sessions, with a final
+      <em>generator-verifier</em> pass before the user sees output.
+    </li>
+    <li>
+      <strong>The runtime interface tells you which shape is cheap.</strong> If your
+      runtime exposes <code>wake(sessionId)</code> and <code>emitEvent</code>, message
+      bus is cheap and shared state is expensive. If your runtime exposes durable
+      sessions and a sandbox filesystem, persistent agent team and shared state are
+      cheap and message bus is the one you have to build. This is why Section
+      XIII-E&rsquo;s interfaces are load-bearing: they predetermine which coordination
+      shapes will feel idiomatic.
+    </li>
+    <li>
+      <strong>Three of the five shapes assume decorrelation; two assume convergence.</strong>
+      Generator-verifier, orchestrator-subagent, and message bus all work because the
+      agents involved see <em>different</em> slices of context and reach <em>different</em>
+      conclusions. Persistent agent team and shared state, in contrast, work because
+      members see <em>the same</em> artefacts and agree on what they mean. Mixing the
+      two without thinking through which slice each agent sees is the single most
+      common cause of correlated hallucination, the same failure mode Section
+      XIII-A&rsquo;s Carriage thesis is designed to engineer around.
+    </li>
+  </ol>
+
+  <h3>Where each shape breaks</h3>
+  <p>
+    None of the five is universally correct. Each has a failure mode that the others
+    do not have, and naming them lets us state design constraints precisely.
+  </p>
+
+  <ul>
+    <li>
+      <strong>Generator-verifier</strong> degenerates if the verifier is the same model
+      as the generator with no fresh context &mdash; the self-correction literature in
+      Section XIII-A is unambiguous that this gives no lift. The fix is to give the
+      verifier <em>a different prompt and a different context window</em>, not just
+      a different role label.
+    </li>
+    <li>
+      <strong>Orchestrator-subagent</strong> degenerates into token-hungry parallelism
+      when the orchestrator does not constrain subagent scope. <em>How we built our
+      multi-agent research system</em> reports that effective subagent prompts have to
+      specify both task and budget, and that the orchestrator is responsible for
+      synthesis quality. Without that discipline, more subagents make it worse.
+    </li>
+    <li>
+      <strong>Persistent agent team</strong> degenerates into role drift if the
+      members&rsquo; skills layer is mutated mid-project. Section XI&rsquo;s
+      personal-evolution work and Section XIII-C&rsquo;s split/merge experiments
+      both bear on this: a team is stable only if each member&rsquo;s specialisation
+      is itself stable.
+    </li>
+    <li>
+      <strong>Message bus</strong> degenerates into invisibility &mdash; events fire,
+      nobody handles them, debugging requires reconstructing the event order by hand.
+      The fix is the same one Section XIII-E&rsquo;s Trace &amp; Eval interface
+      already specifies: every event written to the bus must be addressable in the
+      trace.
+    </li>
+    <li>
+      <strong>Shared state</strong> degenerates into correlated hallucination when
+      every agent reads the same prior errors as ground truth. The Carriage thesis in
+      Section XIII-A is, in effect, a study of how to engineer decorrelation around
+      this exact failure: typed schemas, append-only ledgers, role-restricted writes,
+      and explicit consensus gates.
+    </li>
+  </ul>
+
+  <h3>How this lands on the rest of the report</h3>
+  <p>
+    The five-name vocabulary is most useful as a tool for reading sections that were
+    written before it existed:
+  </p>
+
+  <ul>
+    <li>
+      Section IV&rsquo;s ARA protocol &mdash; with its <code>logic/</code>,
+      <code>src/</code>, <code>trace/</code>, <code>evidence/</code> layers and explicit
+      provenance tags &mdash; is a <em>shared state</em> pattern engineered for
+      researcher-AI co-authorship. The protocol is the substrate; the agents are the
+      readers and writers.
+    </li>
+    <li>
+      The four-posture model in Section IX is a <em>generator-verifier</em> pattern
+      lifted into a human-AI loop: Postures 1 and 2 generate, Posture 3 evaluates,
+      Posture 4 sets the verification target. The same decorrelation rule applies.
+    </li>
+    <li>
+      <a href="#carriage-thesis">Section XIII-A</a>&rsquo;s definition of a Carriage
+      as <em>protocol $\oplus$ shared state plus decorrelation engineering</em> is now
+      precisely locatable in the table: it is the row labelled <em>shared state</em>,
+      with the additional design rule that writes must decorrelate across roles.
+    </li>
+    <li>
+      <a href="#expert-evolution">Section XIII-C</a>&rsquo;s split/merge mechanism is
+      a meta-pattern: it operates on a <em>persistent agent team</em> and produces a
+      new persistent agent team. Without the persistent-team shape underneath, there
+      is nothing to split or merge.
+    </li>
+    <li>
+      <a href="#managed-runtime">Section XIII-E</a>&rsquo;s runtime is the substrate
+      that decides which of these five shapes is cheap. The closing principle of the
+      managed-agents post &mdash; <em>opinionated about the interfaces around Claude,
+      not about what runs behind them</em> &mdash; is, in this section&rsquo;s
+      vocabulary, a refusal to privilege any single coordination shape over the
+      others.
+    </li>
+  </ul>
+
+  <h3>What is still open</h3>
+  <p>
+    The cleanest open question this section raises is not which pattern is best, but
+    whether the pattern itself should be selectable at runtime. None of the verified
+    Anthropic essays argues for an explicit topology-selection interface; the runtime
+    treats coordination as something the caller arranges by composing primitives
+    (<code>emitEvent</code>, <code>wake</code>, <code>execute</code>). A separate
+    research question is whether a long-running project would benefit from
+    <em>declaring</em> its topology &mdash; team / bus / shared state &mdash; the same
+    way it declares its skills, and whether the runtime should refuse cross-topology
+    calls that violate the declaration. Section XIV picks this up under the heading of
+    long-horizon governance.
+  </p>
+
+</section>
+
+<p class="sep-ornament">&diams;</p>
+
 <section id="open">
   <h2><span class="roman">XIV</span>Seven open questions</h2>
   <p class="deck">Seven concrete problems that inherit directly from Sections III through XIV, and where small teams can still make a first move.</p>
@@ -5230,6 +5486,15 @@ raw-trajectory pattern (durable)
     citation &mdash; and the exact tool signatures, the p50 / p95 TTFT numbers,
     and the Sonnet&nbsp;4.5&nbsp;&rarr;&nbsp;Opus&nbsp;4.5 staleness example are
     quoted from those posts verbatim.
+    Section XIII-F borrows a five-name framing for coordination patterns
+    (generator-verifier, orchestrator-subagent, persistent agent team, message bus,
+    shared state) that circulated in mid-2026 Chinese-language secondary sources
+    attributing the post to Cara Phillips at Anthropic; the primary post could
+    not be located on <code>anthropic.com</code> at the time of writing, and the
+    section flags this in a callout. The five shapes themselves are cited only
+    against verifiable Anthropic material &mdash; <em>Building Effective Agents</em>,
+    <em><a href="https://www.anthropic.com/engineering/multi-agent-research-system">How we built our multi-agent research system</a></em>,
+    and the nine harness essays already used in Section XIII-E.
     A plain-text mirror of this essay would be a reasonable thing to produce on request.
   </p>
 </footer>
