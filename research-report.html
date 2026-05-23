@@ -161,6 +161,8 @@
     <li><a href="#carriage-thesis"><span class="num">XIII-A</span>The Carriage thesis</a></li>
     <li><a href="#portable-memory"><span class="num">XIII-B</span>Portable and transferable memory</a></li>
     <li><a href="#expert-evolution"><span class="num">XIII-C</span>When agents themselves should split or merge</a></li>
+    <li><a href="#memory-formalism"><span class="num">XIII-D</span>Formal foundations &middot; write, manage, read</a></li>
+    <li><a href="#managed-runtime"><span class="num">XIII-E</span>The managed-agent runtime</a></li>
     <li><a href="#open"><span class="num">XIV</span>Open questions</a></li>
     <li><a href="#colophon"><span class="num">XV</span>About this report</a></li>
   </ol>
@@ -452,6 +454,227 @@
     <a href="https://doi.org/10.18653/v1/2022.findings-acl.177"><strong>ChartQA</strong></a>
     (ACL 2022) is still the canon for chart understanding; SciCap+ and Paper2Fig100k handle the
     caption-generation and figure-reconstruction tasks respectively.
+  </p>
+
+
+  <h3>The auto-research benchmark atlas (May 2026)</h3>
+  <p>
+    The categories above are the canonical entries — they are the ones that have been
+    cited and rerun for two years now. But the field has not been still. In May 2026,
+    a 20-author team led by Lingdong Kong (NUS) posted
+    <a href="https://arxiv.org/abs/2605.18661"><em>AI for Auto-Research: Roadmap &amp;
+    User Guide</em></a>, accompanied by an open
+    <a href="https://github.com/worldbench/awesome-ai-auto-research">curated repository</a>
+    that, at the time of writing, indexes <strong>seventy-three</strong> benchmarks
+    organised against the eight stages of the research lifecycle. It is the most
+    comprehensive map the field has, and it is worth tracing in full because the
+    <em>shape</em> of the map is more revealing than any single entry.
+  </p>
+
+  <div class="aside">
+    <span class="k">The shape, in numbers</span>
+    Of the seventy-three benchmarks indexed by Kong <em>et al.</em>, twenty-five sit
+    inside <strong>Stage 1.3 Coding &amp; Experiments</strong> alone — more than the
+    next two stages combined. Six are dedicated entirely to <strong>Stage 4
+    Dissemination</strong> (Paper2Slides, Paper2Poster, Paper2Video, Paper2Web), an
+    entire pre-publication-to-public conversion pipeline that did not exist as a
+    distinct evaluation category until 2025. Stage 3.1 Peer Review has ten dedicated
+    benchmarks; <em>three of them are red-team adversarial suites</em> testing whether
+    the reviewer agent itself can be subverted.
+  </div>
+
+  <h4>Stage-by-stage</h4>
+  <p>
+    <strong>Stage 1.1 — Idea generation.</strong> The category opened with the
+    Stanford 79-researcher human study and quickly forked. <a href="https://arxiv.org/abs/2412.17596">
+    <em>LiveIdeaBench</em></a> tests creativity under minimal context;
+    <a href="https://arxiv.org/abs/2504.14191"><em>AI Idea Bench 2025</em></a>
+    standardises the four-axis novelty/feasibility/excitement/effectiveness scorecard;
+    <a href="https://arxiv.org/abs/2601.01678"><em>HeurekaBench</em></a> (ICLR 2026)
+    closes the loop by demanding the generated idea be experimentally validated;
+    <a href="https://arxiv.org/abs/2603.15164"><em>HindSight</em></a> grades ideas
+    by their measured future citation impact. The progression is clear — the field
+    moved from "did the model produce a plausible idea" to "did the idea survive
+    contact with reality".
+  </p>
+  <p>
+    <strong>Stage 1.2 — Literature review and search.</strong>
+    <a href="https://arxiv.org/abs/2407.18940"><em>LitSearch</em></a> and
+    <a href="https://arxiv.org/abs/2407.12861"><em>CiteME</em></a> are the
+    accuracy-first anchors. <a href="https://arxiv.org/abs/2508.20033">
+    <em>DeepScholar-Bench</em></a> ships an automated grader for synthesis quality;
+    <a href="https://arxiv.org/abs/2508.15804"><em>ReportBench</em></a> measures
+    deep-research agents on the academic-survey task using the four-axis rubric
+    AutoSurvey introduced. The 2026 entries — IDRBench, ScholarGym, SciNetBench —
+    decompose the literature pipeline into the steps a deep-research agent actually
+    takes (interactive clarification, retrieval-only, relation extraction).
+  </p>
+  <p>
+    <strong>Stage 1.3 — Coding and experimentation.</strong> The densest category,
+    and the one where capability has changed the most. SWE-bench, MLE-Bench, and
+    MLAgentBench are now considered the easy floor. The 2025-2026 entries —
+    <a href="https://arxiv.org/abs/2509.16941"><em>SWE-bench Pro</em></a>,
+    <a href="https://arxiv.org/abs/2512.18470"><em>SWE-EVO</em></a>,
+    <a href="https://arxiv.org/abs/2502.10517"><em>KernelBench</em></a>,
+    <a href="https://arxiv.org/abs/2502.14752"><em>TritonBench</em></a> — push agents
+    into long-horizon software evolution and into restricted programming languages
+    where the model's training distribution is thin.
+    <a href="https://arxiv.org/abs/2506.02314"><em>ResearchCodeBench</em></a> and
+    <a href="https://arxiv.org/abs/2504.00255"><em>SciReplicate-Bench</em></a> ask
+    something subtler: given a paper that proposes a novel algorithm, can the agent
+    implement <em>that algorithm specifically</em>, not a plausible substitute. The
+    distinction matters because PaperBench-style benchmarks score on rubric leaves;
+    these score on algorithmic faithfulness.
+  </p>
+  <p>
+    <strong>Stage 1.4 — Tables and figures.</strong> The newest stage to acquire its
+    own evaluation suite. <a href="https://arxiv.org/abs/2410.22360">
+    <em>ArxivDIGESTables</em></a> tests whether an agent can synthesise a comparison
+    table from multiple papers. <a href="https://arxiv.org/abs/2602.03828">
+    <em>FigureBench / AutoFigure</em></a> (ICLR 2026) tests not just generation but
+    iterative refinement of publication-quality figures. <a href="https://arxiv.org/abs/2602.09809">
+    <em>SciFlow-Bench</em></a> goes the other way, asking the agent to <em>parse</em>
+    a structural diagram back into its underlying logic. <a href="https://aclanthology.org/2025.sdp-1.2/">
+    <em>TeXpert</em></a> handles LaTeX code generation across a graded difficulty ladder.
+  </p>
+  <p>
+    <strong>Stage 2 — Paper writing.</strong> Three entries dominate.
+    <a href="https://arxiv.org/abs/2406.10252"><em>AutoSurvey</em></a> remains the
+    canonical metric for long-form scholarly generation, with its four-axis rubric.
+    <a href="https://arxiv.org/abs/2508.14273"><em>SciIG</em></a> isolates the
+    introduction-writing sub-task, and <a href="https://arxiv.org/abs/2604.05018">
+    <em>PaperWritingBench</em></a> (the 2026 multi-agent successor) bundles the full
+    drafting flow.
+  </p>
+  <p>
+    <strong>Stage 3.1 — Peer review.</strong> The category that has gained the most
+    weight in 2026, partly because real conferences started rejecting AI-reviewed
+    papers. <a href="https://aclanthology.org/N18-1149/"><em>PeerRead</em></a> is the
+    historical anchor; <a href="https://aclanthology.org/2024.emnlp-main.70/">
+    <em>AgentReview</em></a> introduces deliberately biased reviewers to test whether
+    multi-agent simulation reproduces real conference pathologies;
+    <a href="https://aclanthology.org/2025.findings-emnlp.1185/"><em>ClaimCheck</em></a>
+    measures whether a critique is actually grounded in the paper's evidence — the
+    grounded-ratio metric is becoming the de-facto standard for AI-generated reviews.
+    The red-team trio — <a href="https://arxiv.org/abs/2502.19614"><em>AI Detection</em></a>,
+    <a href="https://arxiv.org/abs/2506.11113"><em>Breaking the Reviewer</em></a>,
+    <a href="https://arxiv.org/abs/2509.10248"><em>Prompt Injection Attacks</em></a>
+    — assesses whether the reviewer agent can be detected, derailed, or hijacked.
+  </p>
+  <p>
+    <strong>Stage 3.2 — Rebuttal and revision.</strong> Newer still. <a href="https://arxiv.org/abs/2505.07920">
+    <em>Re²</em></a> measures whether an automated rebuttal moves the score upward,
+    which is the closest the field has to a real-world success criterion.
+    <a href="https://arxiv.org/abs/2601.15715"><em>RebuttalAgent</em></a> (ICLR 2026)
+    adds explicit theory-of-mind — the agent tries to model what the reviewer is
+    actually objecting to. <a href="https://arxiv.org/abs/2603.00003">
+    <em>Commitment Checklist</em></a> closes the loop by auditing whether the author's
+    rebuttal commitments were actually honoured in the revision.
+  </p>
+  <p>
+    <strong>Stage 4 — Dissemination.</strong> The category that did not exist at
+    publication time but has six dedicated benchmarks now: <a href="https://openreview.net/forum?id=JojyT9niJL">
+    <em>P2P</em></a>, <a href="https://github.com/Paper2Poster/Paper2Poster">
+    <em>Paper2Poster</em></a>, <a href="https://github.com/icip-cas/PPTAgent">
+    <em>PPTAgent / PPTEval</em></a>, <a href="https://github.com/showlab/Paper2Video">
+    <em>Paper2Video</em></a>, <a href="https://github.com/YuhangChen1/Paper2All">
+    <em>Paper2Web</em></a>, and <a href="https://aclanthology.org/2025.emnlp-demos.58/">
+    <em>PresentEval</em></a>. The convention is to feed the agent a paper PDF, ask
+    for a target media type, and grade on (a) whether the conversion preserves the
+    paper's core argument and (b) whether the output is aesthetically usable. PPTEval's
+    six-dimensional rubric — content, structure, visual design, animation flow,
+    speaker-notes faithfulness, audience-question robustness — is the most developed.
+  </p>
+  <p>
+    <strong>Cross-stage and end-to-end.</strong> <a href="https://arxiv.org/abs/2311.12983">
+    <em>GAIA</em></a> remains the entry point. <a href="https://arxiv.org/abs/2504.12516">
+    <em>BrowseComp</em></a> (1,266 hard-to-find-information queries) and
+    <a href="https://arxiv.org/abs/2411.04368"><em>SimpleQA</em></a> (4,326 short-form
+    factuality questions) cover what an agent calls when its memory ends.
+    <a href="https://github.com/centerforaisafety/hle"><em>Humanity's Last Exam</em></a>
+    raises the ceiling with 3,000+ expert-grade cross-disciplinary questions, and
+    <a href="https://arxiv.org/abs/2410.22394"><em>AAAR-1.0</em></a> bundles a
+    multi-task suite that approximates an end-to-end research workflow.
+  </p>
+  <h4>The auto-research benchmark map, distilled</h4>
+  <table>
+    <thead><tr><th>Stage</th><th>Anchors</th><th>Frontier</th><th>n</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><strong>1.1</strong> Idea generation</td>
+      <td>Stanford 2024 study, IdeaBench, AAAR-1.0</td>
+      <td>HeurekaBench, HindSight, ResearchBench</td>
+      <td class="num">6</td>
+    </tr>
+    <tr>
+      <td><strong>1.2</strong> Lit. review &amp; search</td>
+      <td>LitSearch, CiteME, PaperQA2</td>
+      <td>DeepScholar-Bench, ReportBench, IDRBench</td>
+      <td class="num">7</td>
+    </tr>
+    <tr>
+      <td><strong>1.3</strong> Coding &amp; experiments</td>
+      <td>SWE-bench, MLE-Bench, MLAgentBench, SciCode</td>
+      <td>SWE-bench Pro, KernelBench, ResearchCodeBench, EXP-Bench, MLR-Bench, FrontierScience</td>
+      <td class="num">25</td>
+    </tr>
+    <tr>
+      <td><strong>1.4</strong> Tables &amp; figures</td>
+      <td>ChartQA, AutomaTikZ, MatPlotAgent</td>
+      <td>FigureBench, SciFlow-Bench, AbGen, TeXpert</td>
+      <td class="num">7</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong> Paper writing</td>
+      <td>AutoSurvey, SciIG</td>
+      <td>PaperWritingBench / PaperOrchestra (2026)</td>
+      <td class="num">3</td>
+    </tr>
+    <tr>
+      <td><strong>3.1</strong> Peer review</td>
+      <td>PeerRead, AgentReview, Reviewer2</td>
+      <td>ClaimCheck, AI Detection, Breaking the Reviewer, Prompt Injection</td>
+      <td class="num">10</td>
+    </tr>
+    <tr>
+      <td><strong>3.2</strong> Rebuttal &amp; revision</td>
+      <td>ReviewMT</td>
+      <td>Re², RebuttalAgent, DRPG, Commitment Checklist</td>
+      <td class="num">4</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong> Dissemination (Paper2X)</td>
+      <td>DOC2PPT (2022)</td>
+      <td>P2P, Paper2Poster, PPTAgent, Paper2Video, Paper2Web, PresentEval</td>
+      <td class="num">6</td>
+    </tr>
+    <tr>
+      <td><em>End-to-end / browsing</em></td>
+      <td>GAIA, SimpleQA, BrowseComp</td>
+      <td>HLE, AAAR-1.0</td>
+      <td class="num">5</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Two regularities are worth naming. First, the entries that have aged best are
+    the ones that grade <em>against external ground truth</em> — PaperBench against
+    the original authors' rubric, MLE-Bench against Kaggle medal cutoffs, RE-Bench
+    against a real human researcher on the same budget. The entries that have aged
+    worst are the ones that grade against an LLM judge, because an LLM judge moves
+    when the underlying model improves. Second, the rate at which Stage 4
+    (Dissemination) has acquired infrastructure — six benchmarks in roughly twelve
+    months, none of which existed at the start of 2025 — tracks closely with the
+    commercial release of agentic slide and poster tools. The benchmarks are the
+    field's response to capability that already shipped.
+  </p>
+
+  <p class="meta">
+    The full inventory is mirrored, with status tags and an evaluation-flow template
+    keyed to each entry, in the working notes at
+    <code>~/MinionsOS/outline/index.html#auto-research</code>. The map is the
+    measuring stick we use against autonomous-research stacks below.
   </p>
 
   <p>
@@ -3177,7 +3400,7 @@ promotion gate
         <td><strong>Carriage</strong></td>
       </tr>
       <tr>
-        <td>Shared memory (Scratchpad / Library / Atlas)</td>
+        <td>Shared memory (Draft / Library / Atlas)</td>
         <td>No</td>
         <td>Yes</td>
         <td>Yes</td>
@@ -3393,7 +3616,7 @@ promotion gate
       </tr>
       <tr>
         <td><strong>Shared state</strong></td>
-        <td>Three layers &mdash; L1 Scratchpad (raw process memory, append-only),
+        <td>Three layers &mdash; L1 Draft (raw process memory, append-only),
         L2 Library (curated, lint-gated knowledge), L3 Atlas (structural index).
         Cross-role writes go through <code>mos_publish_to_shared</code> with per-role
         subdirectory policy.</td>
@@ -3490,7 +3713,7 @@ promotion gate
   <p class="drop">
     A research team that forgets everything between projects is not a team &mdash; it is a
     rotating cast of strangers. The same is true for multi-agent systems. MinionsOS&rsquo;s
-    three-layer memory (Scratchpad / Library / Atlas) solves the within-project problem:
+    three-layer memory (Draft / Library / Atlas) solves the within-project problem:
     roles accumulate and share knowledge across sessions. But the between-project problem
     &mdash; carrying lessons, procedures, and hard-won heuristics from project A to project B
     &mdash; is architecturally unsolved. This section maps the emerging literature on
@@ -4052,6 +4275,823 @@ raw-trajectory pattern (durable)
 
 <p class="sep-ornament">&diams;</p>
 
+<section id="memory-formalism">
+  <h2><span class="roman">XIII-D</span>Formal foundations &middot; write, manage, read</h2>
+  <p class="deck">A March 2026 CUHK-Shenzhen survey gives the agent-memory literature its first stable formalism: a partially-observed control loop with three operators, three axes of design choice, and a four-layer evaluation stack. This subsection translates that frame into the language we have been using.</p>
+
+  <p class="drop">
+    Sections XIII-B and XIII-C are about <em>artifacts</em> &mdash; what
+    carries forward between projects, what splits or merges between
+    agents. Both presupposed a vocabulary the field had not yet agreed
+    on: <em>what is a memory operation?</em> Pengfei Du&rsquo;s
+    <a href="https://arxiv.org/abs/2603.07670"><em>Memory for Autonomous
+    LLM Agents</em></a> closes that gap. It is the first survey to
+    recast the entire literature &mdash; from MemGPT-style virtual
+    context to A-MEM&rsquo;s self-organising notes to AgeMem&rsquo;s
+    learned controller &mdash; under a single POMDP-grounded formalism.
+    We treat it here as the foundation the preceding two subsections
+    were implicitly building on.
+  </p>
+
+  <h3>The write&ndash;manage&ndash;read loop</h3>
+  <p>
+    Du models an agent&rsquo;s memory as a partially-observed control
+    loop with three operators acting on a memory state
+    <em>M<sub>t</sub></em>:
+  </p>
+<figure class="diagram"><code>  observation o_t  ──▶  WRITE   ─▶  M_t   (encode + filter + admit)
+                                     │
+                            time / events
+                                     ▼
+                                   MANAGE  ─▶  M_t'  (consolidate / merge / forget)
+                                     │
+                                user query q
+                                     ▼
+                                   READ    ─▶  c_t   (retrieve + rerank + format)
+                                     │
+                                     ▼
+                              policy π(a | h_t, c_t)</code><figcaption>Du&rsquo;s formalism: every memory system, regardless of substrate, can be decomposed into three operators acting on a typed state. The interesting design questions live in <em>what fires which operator, when, and under what budget</em>.</figcaption></figure>
+
+  <p>
+    The decomposition is not new in pieces &mdash; MemGPT had paging,
+    A-MEM had write-time linking, Mem0 had a consolidation pass &mdash;
+    but treating WRITE / MANAGE / READ as the canonical primitives
+    makes incompatible systems suddenly comparable. A reflection step
+    is a MANAGE under learned control. RAG is READ with a frozen
+    policy. MemGPT&rsquo;s working-context eviction is MANAGE under
+    a heuristic threshold. Once the loop is named, the literature
+    sorts itself.
+  </p>
+
+  <h3>Three axes that classify any memory design</h3>
+  <p>
+    Du&rsquo;s second contribution is a 3-dimensional taxonomy. Any
+    memory implementation in the wild can be located on three
+    near-orthogonal axes:
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Axis</th><th>Choices</th><th>What it controls</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Temporal scope</strong></td>
+        <td>working &middot; episodic &middot; semantic &middot; procedural</td>
+        <td>Lifespan and abstraction level of an entry &mdash; how long it survives, and whether it indexes a moment, a fact, or a routine.</td>
+      </tr>
+      <tr>
+        <td><strong>Representational substrate</strong></td>
+        <td>context-resident text &middot; vector index &middot; structured store &middot; executable repo &middot; hybrid</td>
+        <td>Where the memory lives physically and what queries are cheap. A vector index is fast nearest-neighbour but type-blind; an executable repo runs but cannot be diff-summed.</td>
+      </tr>
+      <tr>
+        <td><strong>Control policy</strong></td>
+        <td>heuristic &middot; prompted self-control &middot; learned</td>
+        <td>Who decides when to write, consolidate, evict, or retrieve. Heuristics are predictable but rigid; prompted self-control is flexible but drifts; learned control is adaptive but opaque.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    The axes interact. Procedural memory in an executable repo with
+    learned control is a Voyager-style system. Episodic memory in a
+    vector index with heuristic decay is the standard chatbot memory
+    of 2023&ndash;24. Semantic memory in a structured store with
+    prompted self-control is what Mem0 actually does. Neither
+    Section XIII-B&rsquo;s portability table nor Section XIII-C&rsquo;s
+    population edits can be located on this grid without first
+    naming all three coordinates.
+  </p>
+
+  <h3>Five mechanism families &mdash; and the tradeoff each one buys</h3>
+  <p>
+    Mapping the literature onto the loop, Du finds that almost every
+    published system instantiates one of five mechanism families. The
+    families are not implementation choices &mdash; they are bets on
+    which operator deserves the most engineering effort.
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Family</th><th>Where the effort goes</th><th>What it buys</th><th>What it pays</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Context-resident compression</strong></td>
+        <td>READ + summarisation</td>
+        <td>Zero retrieval latency; coherent narrative window</td>
+        <td>Hard ceiling at the context limit; lossy summaries accumulate &ldquo;rot&rdquo;</td>
+      </tr>
+      <tr>
+        <td><strong>Retrieval-augmented stores</strong></td>
+        <td>WRITE indexing + READ retrieval</td>
+        <td>Unbounded capacity; cheap to add a new memory</td>
+        <td>Retrieval recall is the bottleneck; stale entries silently mislead</td>
+      </tr>
+      <tr>
+        <td><strong>Reflective / self-improving</strong></td>
+        <td>MANAGE under prompted self-control</td>
+        <td>Memories get cleaner over time; contradictions surface</td>
+        <td>Reflection itself can fabricate; trusts the same model that wrote the bad memory</td>
+      </tr>
+      <tr>
+        <td><strong>Hierarchical virtual context (MemGPT-style)</strong></td>
+        <td>MANAGE as paging between tiers</td>
+        <td>Effectively unbounded working memory; OS-like guarantees</td>
+        <td>Page-fault latency on every miss; eviction policy is brittle</td>
+      </tr>
+      <tr>
+        <td><strong>Policy-learned management (AgeMem)</strong></td>
+        <td>WRITE/MANAGE/READ all under a learned controller</td>
+        <td>Adapts admission, decay, and retrieval to the actual workload</td>
+        <td>Training signal is sparse; controller becomes a new failure mode and a new audit surface</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    The families are not strictly mutually exclusive &mdash; a real
+    system mixes them &mdash; but each carries a dominant character.
+    A team picking a memory architecture is, in practice, picking
+    which of the five tradeoffs they are willing to live with.
+  </p>
+
+  <h3>Three deployment patterns &mdash; what real teams ship</h3>
+  <p>
+    Du further compresses the design space into three patterns that
+    cover essentially every production agent stack today.
+    Pattern&nbsp;A is a chatbot with a long context window and no
+    external memory; Pattern&nbsp;B adds a retrieval store on the
+    side; Pattern&nbsp;C ties tiered memory to a learned or
+    self-controlled manager. The progression is not strictly more
+    capable &mdash; Pattern A often beats B on tasks that fit in
+    context, because retrieval introduces its own errors &mdash; but
+    each pattern has a regime where it dominates.
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Pattern</th><th>Shape</th><th>Wins when</th><th>Loses when</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>A &middot; Monolithic context</strong></td>
+        <td>Long context, summarise on overflow</td>
+        <td>Task fits in 200&ndash;1M tokens; one user; no cross-session continuity needed</td>
+        <td>Multi-session memory; bills scale linearly with conversation length</td>
+      </tr>
+      <tr>
+        <td><strong>B &middot; Context + retrieval store</strong></td>
+        <td>Working memory in context, episodic / semantic in vector or structured DB</td>
+        <td>Personal-assistant-style continuity; FAQ-shaped recall; clear write-time signals</td>
+        <td>Subtle multi-hop facts that retrieval can&rsquo;t triangulate; staleness without a manage step</td>
+      </tr>
+      <tr>
+        <td><strong>C &middot; Tiered memory with learned control</strong></td>
+        <td>Working &middot; episodic &middot; semantic &middot; procedural tiers, with a controller deciding write / consolidate / evict / retrieve</td>
+        <td>Long-horizon agents, multi-week projects, complex tool use; budgets matter</td>
+        <td>Hard to debug; controller can adversarially game its own reward; auditability is costly</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    The MinionsOS three-layer (Draft / Library / Atlas) sits
+    cleanly inside Pattern&nbsp;C with the controller currently
+    implemented as prompted self-control. The portable-memory
+    discussion in <a href="#portable-memory">Section&nbsp;XIII-B</a>
+    is, in this frame, the question of whether
+    <strong>Pattern&nbsp;C&rsquo;s tiered state can be exported</strong>
+    when only Pattern&nbsp;A or B is the standard at the receiving
+    end. It probably cannot, today, without losing the controller
+    &mdash; which is exactly why MMP&rsquo;s CAT7 schema and
+    MIRIX&rsquo;s role-indexed approach both flatten the controller
+    out before transferring.
+  </p>
+
+  <h3>The four-layer evaluation stack</h3>
+  <p>
+    A formalism is only as useful as the measurements it makes
+    legible. Du argues that current memory benchmarks
+    &mdash; <a href="https://arxiv.org/abs/2402.17753">LoCoMo</a> for
+    long-conversation recall, <a href="https://arxiv.org/abs/2506.00375">MemBench</a>
+    for write-quality and faithfulness, MemoryAgentBench for end-to-end
+    agent performance, MemoryArena for adversarial pressure &mdash;
+    each cover one slice of a larger stack, and that the field has been
+    confusing performance on one layer for performance on another.
+    The four layers, in order of distance from the user:
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Layer</th><th>Asks</th><th>Representative metric</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Task effectiveness</strong></td>
+        <td>Did the memory help the agent succeed at the actual task?</td>
+        <td>Pass@1, completion rate, end-to-end accuracy</td>
+      </tr>
+      <tr>
+        <td><strong>2. Memory quality</strong></td>
+        <td>Are individual memories faithful, well-typed, and free of contradictions?</td>
+        <td>Recall@k, contradiction rate, ground-truth alignment</td>
+      </tr>
+      <tr>
+        <td><strong>3. Efficiency</strong></td>
+        <td>What does the memory cost in tokens, latency, and storage?</td>
+        <td>Tokens-per-turn, p95 retrieval latency, store growth rate</td>
+      </tr>
+      <tr>
+        <td><strong>4. Governance</strong></td>
+        <td>Can a third party audit who wrote what, when, and on whose behalf? Can it be forgotten?</td>
+        <td>Provenance coverage, deletion latency, access-policy violations</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Section XIII-B&rsquo;s &ldquo;Zombie Agents&rdquo; finding
+    &mdash; portable memory as an attack surface &mdash; is exactly
+    what happens when Layer 4 is unmeasured while Layers 1&ndash;3
+    look fine. A system can have excellent recall, fast retrieval,
+    and high task accuracy while silently leaking provenance or
+    accepting payloads that survive across sessions. The four
+    layers are not redundant; they are independent.
+  </p>
+
+  <h3>Engineering realities the formalism makes visible</h3>
+  <p>
+    Du is unusually direct about the operational problems that
+    show up the moment a write&ndash;manage&ndash;read loop runs
+    in production. None of these are exotic. All of them are
+    routinely missing from the surveys that came before:
+  </p>
+
+  <ul>
+    <li><strong>Write filtering.</strong> Naive WRITE saturates the store with low-value entries; admission control is necessary, and most published systems lack it.</li>
+    <li><strong>Contradiction handling.</strong> Two episodes that disagree about the same fact need a decision rule before READ surfaces both. Reflection can fabricate a synthesis; deferring to recency is brittle.</li>
+    <li><strong>Staleness.</strong> Memories silently rot when the world they describe changes. Without an explicit MANAGE pass tied to time-or-event signals, READ keeps returning yesterday&rsquo;s answer.</li>
+    <li><strong>Latency.</strong> Every layer of indexing, reranking, and reflection is a tax on each turn. Pattern C systems frequently have worse end-to-end latency than Pattern A despite lower total tokens.</li>
+    <li><strong>Privacy and governance.</strong> Multi-user agents must distinguish whose memory is whose, and provide deletion under request. The five mechanism families above mostly do not address this.</li>
+    <li><strong>Observability.</strong> When the agent answers wrong, was it because of a missing memory, a bad memory, a bad retrieval, or a bad reasoning step? Without per-operator telemetry, debugging is guesswork.</li>
+  </ul>
+
+  <h3>Ten open challenges &mdash; an external check on Section XIV</h3>
+  <p>
+    The survey closes with ten challenges that the field has not
+    yet solved. They overlap heavily with the open questions in
+    <a href="#open">Section&nbsp;XIV</a>, which is the kind of
+    convergence that should make a reader more, not less,
+    confident in both lists. The ten:
+  </p>
+
+  <ol>
+    <li><strong>Principled consolidation.</strong> When and how should episodic memories be promoted to semantic ones? Today, mostly by ad-hoc reflection prompts.</li>
+    <li><strong>Causally grounded retrieval.</strong> Vector similarity returns lookalikes, not causes. Real reasoning needs the latter.</li>
+    <li><strong>Trustworthy reflection.</strong> Self-improving memory can self-corrupt. Detecting reflective drift is unsolved.</li>
+    <li><strong>Learning to forget.</strong> Forgetting is a first-class operation, not a side-effect. No mainstream system implements it cleanly.</li>
+    <li><strong>Multimodal memory.</strong> Most stores are text-only. Embodied agents need image, audio, and trajectory storage with comparable retrieval guarantees.</li>
+    <li><strong>Embodied memory.</strong> Spatial-temporal grounding for robots is its own subfield, only loosely connected to LLM-agent memory work.</li>
+    <li><strong>Multi-agent governance.</strong> Whose memory authoritative when two agents disagree? The literature has frameworks but no working defaults.</li>
+    <li><strong>Foundation models <em>for memory management</em>.</strong> The MANAGE policy itself is a learnable function. Du speculates that small specialised models for write filtering and consolidation will appear.</li>
+    <li><strong>Standardised evaluation.</strong> The four-layer stack above is not yet a benchmark; benchmarks measure slices.</li>
+    <li><strong>Long-tail privacy.</strong> Right-to-be-forgotten in retrieval indices, especially with derivative summaries, is a research-grade problem.</li>
+  </ol>
+
+  <p>
+    Section XIV&rsquo;s questions on memory rot, mnemonic
+    sovereignty, cross-project transfer, and evidence-based
+    reflection sit inside this list. The point of including
+    Du&rsquo;s frame is not to relitigate them but to show that
+    the agenda this report has been building &mdash; portable
+    memory, governed transfer, evidence over conclusions,
+    population-level care &mdash; aligns with the formal
+    foundations the field is now ready to write down.
+  </p>
+
+  <blockquote>
+    A memory system is not a database with prose around it. It is a
+    control loop with three operators, and the design choices that
+    matter are which operator you trust to a model, which to a
+    heuristic, and which to a human.
+  </blockquote>
+</section>
+
+<p class="sep-ornament">&diams;</p>
+
+<section id="managed-runtime">
+  <h2><span class="roman">XIII-E</span>The managed-agent runtime</h2>
+  <p class="deck">Between January and December 2025 Anthropic published nine engineering essays that, read together, move the centre of gravity for agent design from <em>how do I write a smarter loop</em> to <em>how do I design a runtime that survives the next model release</em>. This section reconstructs that argument in one place, with the load-bearing interfaces, numbers, and dated examples that the nine essays actually contain.</p>
+
+  <p class="drop">
+    The Carriage thesis in Section XIII-A took <em>harness</em> as a black box &mdash;
+    a clever scaffold that turned weights into an agent. That was tolerable when the harness
+    was, in practice, a Python loop and a tool-calling prompt. It is no longer tolerable.
+    Across nine engineering posts published on the Anthropic blog between
+    <em>Building Effective Agents</em> (December 2024) and
+    <em>Scaling Managed Agents</em> (December 2025), the harness has been disassembled into
+    a set of named, separately-replaceable interfaces, each pinned to a concrete failure mode
+    that the previous generation discovered the hard way. The result is something closer to an
+    operating system for agents than to a prompt-engineering technique. This section closes the
+    gap between Section XIII-A&rsquo;s abstract carriage and the runtime that has actually shipped.
+  </p>
+
+  <h3>How the thinking shifted, in four moves</h3>
+  <p>
+    The nine essays do not read as a single argument, but they tell one. The progression is
+    legible only when read in order, and the most useful summary is not a list of essays but
+    a list of <em>questions the field stopped asking</em> as each move landed.
+  </p>
+
+  <ol>
+    <li>
+      <strong>Long context as the primary lever (early 2024).</strong> The 100K and then
+      200K context windows let Claude carry whole books and codebases in a single call. The
+      operating assumption was that an agent&rsquo;s memory <em>was</em> its context window,
+      and prompt-engineering was the discipline. The Anthropic
+      <a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">context-engineering post</a>
+      retired that assumption explicitly: a longer window is a larger workspace, not durable
+      memory, and the same <em>context rot</em> documented by needle-in-a-haystack studies
+      makes raw length pay diminishing returns. <em>Context as finite resource</em> replaced
+      <em>context as free expansion</em>.
+    </li>
+    <li>
+      <strong>Workflow vs agent (December 2024).</strong>
+      <a href="https://www.anthropic.com/engineering/building-effective-agents">Building Effective Agents</a>
+      drew a line that is still load-bearing: a <em>workflow</em> orchestrates LLM calls
+      through predefined code paths; an <em>agent</em> lets the LLM direct its own tool use
+      in a loop. The post enumerated five composable patterns &mdash; prompt chaining, routing,
+      parallelisation, orchestrator-workers, evaluator-optimizer &mdash; and laid down the
+      governing principle: <em>find the simplest solution possible, and only increase complexity
+      when needed</em>. The corollary, repeated across every subsequent essay, is that the
+      attention paid to a human-computer interface (HCI) is now owed to the
+      <strong>agent-computer interface</strong> (ACI).
+    </li>
+    <li>
+      <strong>Tools, context, and safety as separable problems (2025).</strong> Through the
+      middle of 2025 the field stopped treating an agent as a single artefact and started
+      treating it as a stack of separable concerns.
+      <a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering</a>
+      isolated context curation from prompt design;
+      <a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills">Agent Skills</a>
+      isolated procedural domain knowledge from system prompts via
+      <em>progressive disclosure</em>;
+      <a href="https://www.anthropic.com/engineering/code-execution-with-mcp">Code execution with MCP</a>
+      and
+      <a href="https://www.anthropic.com/engineering/advanced-tool-use">advanced tool use</a>
+      isolated tool definitions and intermediate results from the model&rsquo;s context;
+      <a href="https://www.anthropic.com/engineering/claude-code-sandboxing">Claude Code sandboxing</a>
+      isolated execution from credentials. Each post is a different cut along the same seam:
+      <em>do not let things that need to change at different rates share a substrate</em>.
+    </li>
+    <li>
+      <strong>Runtime as meta-harness (December 2025).</strong>
+      <a href="https://www.anthropic.com/engineering/managed-agents">Scaling Managed Agents: Decoupling the brain from the hands</a>
+      collected the cuts into a single architecture. The harness no longer owns the session,
+      the sandbox, the credentials, or the tools; it is a stateless control plane that calls
+      them all through narrow, OS-style interfaces. The closing line of the post &mdash;
+      &ldquo;a meta-harness&hellip; opinionated about the interfaces around Claude, not about
+      what runs behind them&rdquo; &mdash; is the precise hinge from prompt engineering to
+      runtime engineering.
+    </li>
+  </ol>
+
+  <p>
+    Two companion essays sit alongside the runtime move and make it concrete in code.
+    <a href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents">Effective harnesses for long-running agents</a>
+    (Justin Young) shows the discipline at the session level: an
+    <em>initializer agent</em> writes a 200-feature <code>feature_list.json</code> for the
+    claude.ai clone build, a <em>coding agent</em> works one feature at a time, and the pair
+    leaves <code>claude-progress.txt</code> + a git log as the handoff artefact.
+    <a href="https://www.anthropic.com/engineering/harness-design-long-running-apps">Harness design for long-running application development</a>
+    (Prithvi Rajasekaran) pushes the same discipline through GAN-style separation of
+    planner, generator, and evaluator, with the candid result that the retro-game-maker
+    build cost <strong>$9 for the solo agent and $200 for the full harness</strong> &mdash;
+    a 20&times; price premium that bought a game whose play mode actually worked.
+  </p>
+
+  <h3>The cut that makes everything else possible: brain / hands / session</h3>
+  <p>
+    The single most consequential move in the Managed Agents post is a three-way
+    decomposition. The earlier Anthropic stack put session, harness, and sandbox in
+    <em>one container</em>; an engineer debugging a stuck session had to open a shell inside
+    the same container that held user data, and a container failure took the session with it.
+    That coupling is what the authors call &ldquo;adopting a pet&rdquo;. The fix was to lift
+    each component onto its own interface:
+  </p>
+
+  <div class="aside">
+    <span class="k">The three components, named explicitly</span>
+    The <strong>session</strong> is the append-only log of everything that happened.
+    The <strong>harness</strong> is the loop that calls Claude and routes Claude&rsquo;s tool
+    calls. The <strong>sandbox</strong> is the execution environment where Claude can run
+    code and edit files. Each is now an interface that makes few assumptions about the
+    others, and each can fail or be replaced independently. The metaphor the authors use is
+    <em>brain</em> (Claude + harness) and <em>hands</em> (sandboxes and tools). <em>(Martin, Cemaj, Cohen, &ldquo;Scaling Managed Agents&rdquo;, December 2025.)</em>
+  </div>
+
+  <p>
+    The interfaces are deliberately narrow. The harness calls a sandbox the same way it calls
+    any other tool, with <code>execute(name, input) &rarr; string</code>. If the sandbox dies,
+    the harness catches the failure as a tool-call error, hands it back to Claude, and Claude
+    can decide to retry with a fresh container provisioned by <code>provision({resources})</code>.
+    The harness itself became cattle the same way: because the session sits outside it, a
+    crashed harness can be replaced and reboot from <code>wake(sessionId)</code>, fetch the
+    event history with <code>getSession(id)</code>, and resume. During the loop it writes
+    every event back with <code>emitEvent(id, event)</code>. There is nothing in the harness
+    that needs to survive a crash.
+  </p>
+
+  <p>
+    The performance pay-off is measurable. When the brain lived in the container, every
+    session paid the container start-up cost before its first inference token, even if it
+    never touched the sandbox. With containers provisioned on demand through the same
+    <code>execute</code> call, Anthropic reports <strong>p50 time-to-first-token down roughly
+    60% and p95 down over 90%</strong>. That number is the kind of evidence that should make
+    any team still putting a harness inside its sandbox stop and read the post.
+  </p>
+
+  <h3>Eight interfaces, one runtime</h3>
+  <p>
+    Read across all nine essays, the runtime that emerges has eight named components. Each
+    has a single responsibility, a stable interface, and a concrete failure mode it was
+    introduced to fix. Calling them &ldquo;the eight interfaces&rdquo; is more accurate than
+    calling them &ldquo;the eight services&rdquo; &mdash; some are libraries, some are
+    network services, and the point of the abstraction is that the caller does not need to
+    know which.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Interface</th>
+        <th>Responsibility</th>
+        <th>Canonical primitive</th>
+        <th>What it replaced</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Session</strong></td>
+        <td>Durable append-only event log of every user input, model response, tool call, tool result, and error.</td>
+        <td><code>emitEvent(id, event)</code>, <code>getEvents()</code></td>
+        <td>State lost when the container died; transcript stored inside the harness.</td>
+      </tr>
+      <tr>
+        <td><strong>Harness</strong></td>
+        <td>Stateless control plane: calls the model, dispatches tool calls, schedules retries, picks what to show next.</td>
+        <td>Plain function + <code>wake(sessionId)</code> for recovery.</td>
+        <td>Bespoke <em>pet</em> loop coupled to one sandbox.</td>
+      </tr>
+      <tr>
+        <td><strong>Sandbox</strong></td>
+        <td>Isolated execution: filesystem + network boundaries; runs untrusted model-generated code.</td>
+        <td><code>execute(name, input) &rarr; string</code>; <code>provision({resources})</code></td>
+        <td>Shared container; full network and filesystem access.</td>
+      </tr>
+      <tr>
+        <td><strong>Tool router</strong></td>
+        <td>Dispatches a named tool call to the right hand (sandbox, MCP server, phone, browser, custom tool).</td>
+        <td>Same <code>execute(name, input) &rarr; string</code> contract for every hand.</td>
+        <td>Hard-coded tool list living in the prompt.</td>
+      </tr>
+      <tr>
+        <td><strong>Credential proxy / vault</strong></td>
+        <td>Holds OAuth tokens and API keys outside the sandbox; injects them into outbound calls.</td>
+        <td>MCP proxy + per-session token; git credential proxy with scoped pushes.</td>
+        <td>Long-lived tokens inside the same container as untrusted code.</td>
+      </tr>
+      <tr>
+        <td><strong>Context builder</strong></td>
+        <td>Picks, transforms, and shapes which session events &mdash; plus skills, notes, tool results &mdash; enter the model&rsquo;s context window this turn.</td>
+        <td>Just-in-time retrieval (<code>grep</code>, <code>glob</code>, <code>head</code>, <code>tail</code>); compaction; tool-result clearing; sub-agent fan-out.</td>
+        <td>Dumping the whole transcript and hoping context rot stays mild.</td>
+      </tr>
+      <tr>
+        <td><strong>Skills layer</strong></td>
+        <td>Domain-specific procedural knowledge loaded by progressive disclosure: name + description in the system prompt, body on demand, deeper files only when referenced.</td>
+        <td><code>SKILL.md</code> + bundled <code>references/</code> + executable scripts.</td>
+        <td>Fragmented custom agents per use case; stuffed-prompt mega-instructions.</td>
+      </tr>
+      <tr>
+        <td><strong>Trace &amp; eval</strong></td>
+        <td>Replayable record of decisions, plus an explicit harness/version label so ablations are honest.</td>
+        <td>WebSocket event stream; logs keyed by session; ablation-per-component review.</td>
+        <td>Demo videos and vibes.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Three things follow from the table. First, the interfaces are deliberately
+    <em>under-specified</em>: <code>execute(name, input) &rarr; string</code> works for a Linux
+    container, a phone, a Pok&eacute;mon emulator, or another agent&rsquo;s sandbox, and the harness
+    does not need to know which. Second, the session is the only required durable component
+    &mdash; everything else can be cattle. Third, no component depends on a specific model;
+    the runtime is meant to outlast the harness strategies that run on top of it, in the same
+    way that an operating system&rsquo;s <code>read()</code> system call has outlasted both
+    spinning disks and SSDs.
+  </p>
+
+  <h3>The Sonnet 4.5 &rarr; Opus 4.5 staleness lesson</h3>
+  <p>
+    The most quoted sentence across the nine essays is also the most operationally important:
+    <em>&ldquo;harnesses encode assumptions about what Claude can&rsquo;t do on its own.
+    However, those assumptions need to be frequently questioned because they can go stale as
+    models improve.&rdquo;</em> The accompanying example is concrete enough to act on.
+  </p>
+
+  <p>
+    Claude Sonnet 4.5 exhibited what the harness-design post calls
+    <strong>context anxiety</strong>: as it sensed its context limit approaching, it would
+    wrap up tasks prematurely. The fix was a harness-level
+    <strong>context reset</strong> &mdash; clear the window entirely, start a fresh agent,
+    and carry state through a structured handoff artefact. Reset is not the same as
+    compaction: compaction summarises in place and keeps the agent going on a shortened
+    history, while a reset gives the next agent a clean slate at the cost of needing the
+    handoff to be self-sufficient. The reset was load-bearing for Sonnet 4.5&rsquo;s
+    long-running runs.
+  </p>
+
+  <p>
+    On Claude Opus 4.5 the same harness was tried again. The context-anxiety behaviour was
+    gone. <em>&ldquo;The resets had become dead weight.&rdquo;</em> Then Opus 4.6 landed with
+    further improvements in planning, agentic-task sustain, and long-context retrieval; the
+    sprint construct that had decomposed the work for Sonnet 4.5 could be deleted too, and
+    the evaluator&rsquo;s value boundary moved outward &mdash; useful only on tasks still
+    near the edge of what the generator handled solo. The same retro-game-maker spec that
+    needed a multi-sprint harness on Opus 4.5 ran as one continuous session on Opus 4.6
+    with the SDK&rsquo;s automatic compaction.
+  </p>
+
+  <div class="aside">
+    <span class="k">Operating principle, stated three different ways across the essays</span>
+    Every component in a harness encodes an assumption about what the model can&rsquo;t do
+    on its own. Those assumptions are worth stress-testing on every model release, because
+    they may have been wrong to begin with, and because they can quickly go stale.
+    Re-examine a harness when a new model lands. Strip away pieces that are no longer
+    load-bearing; add new pieces to reach capability that was previously out of reach.
+    <em>The interesting space of harness combinations does not shrink as models improve; it moves.</em>
+  </div>
+
+  <p>
+    This is the methodological complement to the &ldquo;simplest solution possible&rdquo;
+    rule from <em>Building Effective Agents</em>. The first rule says do not <em>add</em>
+    complexity prematurely; the staleness lesson says do not <em>keep</em> complexity past
+    its expiry date. Both reduce to the same engineering hygiene: ablate every harness
+    component, on every release, and delete what does not pay rent.
+  </p>
+
+  <h3>Two boundaries the runtime actually protects</h3>
+  <p>
+    Long-running agents fail in two recurrent ways that have nothing to do with the model:
+    the wrong code reaches a credential, or the wrong file reaches the network. Two of the
+    nine essays are specifically about those boundaries.
+  </p>
+
+  <p>
+    <strong>The credential boundary.</strong> In the coupled design, any untrusted code that
+    Claude generated ran in the same container as the credentials it might want to call out
+    with; a prompt injection only had to convince Claude to read its own environment. The
+    structural fix in Managed Agents is to make the tokens unreachable from the sandbox.
+    For Git, each repository&rsquo;s access token is used to clone the repo during
+    sandbox initialisation and wired into the local git remote &mdash; <code>git push</code>
+    and <code>git pull</code> work from inside the sandbox without the agent ever handling
+    the token. For custom tools, OAuth tokens live in a secure vault; Claude calls MCP tools
+    through a dedicated <em>credential proxy</em> that takes a per-session token, looks up
+    the real credential from the vault, and makes the external call.
+    <em>&ldquo;The harness is never made aware of any credentials.&rdquo;</em>
+  </p>
+
+  <p>
+    <strong>The execution boundary.</strong> The
+    <a href="https://www.anthropic.com/engineering/claude-code-sandboxing">Claude Code sandboxing</a>
+    post makes the same cut at the OS level. Effective sandboxing requires <em>both</em>
+    filesystem isolation (so a prompt-injected Claude cannot modify sensitive system files)
+    and network isolation (so a prompt-injected Claude cannot exfiltrate them). Without
+    network isolation, a compromised agent can leak SSH keys; without filesystem isolation,
+    a compromised agent can escape and gain network access. Claude Code implements both with
+    Linux bubblewrap and macOS seatbelt, plus a unix-domain-socket proxy that enforces a
+    domain allowlist on outbound HTTP. The post reports a <strong>84% reduction in permission
+    prompts</strong> in internal use &mdash; the security boundary doubles as an
+    ergonomics boundary, because the user no longer has to confirm every safe action.
+  </p>
+
+  <p>
+    Claude Code on the web extends the same idea to a hosted setting: sensitive credentials
+    such as git keys are never inside the sandbox; a proxy service authenticates each git
+    call with a custom-scoped credential, verifies the request shape (only pushing to the
+    configured branch, for example), and attaches the right token before forwarding to
+    GitHub. Decoupling brain from hands is what makes that proxy <em>possible</em>: the
+    harness no longer holds the token, so the token can live somewhere the model cannot
+    reach.
+  </p>
+
+  <h3>Why context is not session, and why session is not memory</h3>
+  <p>
+    Section XIII-B spent its budget on memory portability; this is where it meets its
+    runtime counterpart. The context-engineering post and the Managed Agents post together
+    enforce a three-way distinction that is easy to miss.
+  </p>
+
+  <ul>
+    <li>
+      <strong>The context window</strong> is the model&rsquo;s working set for one inference.
+      It is finite, subject to attention budget and context rot, and disposable between
+      turns. Good context engineering is the discipline of choosing
+      &ldquo;the smallest possible set of high-signal tokens that maximize the likelihood
+      of some desired outcome.&rdquo;
+    </li>
+    <li>
+      <strong>The session</strong> is the durable event log of everything that has happened
+      in this run. It outlives the harness, the sandbox, and any single context window; it
+      can be interrogated with <code>getEvents()</code>, replayed from any point, and used
+      to rebuild a context window from scratch. It is to a long-running agent what an
+      event-sourced database is to a long-running service.
+    </li>
+    <li>
+      <strong>Memory</strong> in the Section XIII-B sense is what the system chooses to
+      <em>keep across sessions</em>: distilled, generalisable, portable, audit-able. The
+      session is raw; memory is curated. A team that conflates them either drowns the model
+      in raw trajectories or loses the receipts when curated memory is challenged.
+    </li>
+  </ul>
+
+  <p>
+    The strategies the context-engineering post recommends &mdash; compaction,
+    structured note-taking, and sub-agent fan-out &mdash; are all <em>context builder</em>
+    operations on top of a durable session. Compaction summarises a near-full window and
+    restarts; structured note-taking lifts the parts worth keeping into a
+    <code>NOTES.md</code>-style file (the Claude-Playing-Pok&eacute;mon agent maintaining its
+    map and combat journal across thousands of game steps is the canonical demo);
+    sub-agents let a 50,000-token search run inside a fresh window and return only a
+    1,000&ndash;2,000-token distilled summary. The just-in-time pattern &mdash; cheap
+    references in context, expensive content fetched on demand by
+    <code>grep</code>, <code>glob</code>, <code>head</code>, <code>tail</code> &mdash; is the
+    same idea applied to the filesystem rather than the conversation.
+  </p>
+
+  <p>
+    The two essays on tool use bring the same discipline to tool definitions. The
+    <a href="https://www.anthropic.com/engineering/advanced-tool-use">advanced-tool-use</a>
+    post reports an internal Anthropic stack whose tool definitions alone consumed
+    <strong>134,000 tokens</strong> before optimisation; <em>Tool Search Tool</em> defers
+    most of them, exposes a single search primitive, and brings the overhead down from
+    ~55K to ~8.7K tokens &mdash; an 85% reduction &mdash; while improving MCP-benchmark
+    accuracy on Opus 4 from <strong>49% to 74%</strong> and on Opus 4.5 from
+    <strong>79.5% to 88.1%</strong>. The companion
+    <a href="https://www.anthropic.com/engineering/code-execution-with-mcp">code-execution-with-MCP</a>
+    post lifts MCP servers out of the prompt entirely: tools become files in
+    <code>./servers/&lt;name&gt;/&lt;tool&gt;.ts</code>, the agent discovers them by
+    <code>ls</code>, and a 150,000-token tool-definition load shrinks to 2,000 &mdash; a
+    98.7% reduction. Intermediate results stay in the execution environment by default, so
+    a 10,000-row spreadsheet can be filtered to five rows before the model ever sees it,
+    and a PII tokeniser at the MCP proxy can pass real emails from Google Sheets into
+    Salesforce <em>without those emails entering the context window at all</em>.
+  </p>
+
+  <h3>Research-grade vs production-grade harness</h3>
+  <p>
+    The shift from harness-as-loop to harness-as-runtime sharpens a contrast that the
+    blog series only states indirectly but that becomes unavoidable once the eight
+    interfaces are named. A research-grade harness optimises for the upper bound on
+    capability; a production-grade harness optimises for stable cost, latency, security,
+    and recovery under the constraints of real users. The axes look like this:
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Axis</th><th>Research-grade harness</th><th>Production-grade harness</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Objective</strong></td><td>Push task-success ceiling.</td><td>Maintain task-success under a $/latency/security budget.</td></tr>
+      <tr><td><strong>State</strong></td><td>Transcript, scratch files, ad-hoc progress files.</td><td>External session log, checkpointed event history, resumable across crashes.</td></tr>
+      <tr><td><strong>Context</strong></td><td>As much as the model will tolerate.</td><td>Smallest high-signal set; just-in-time retrieval; tool-result clearing.</td></tr>
+      <tr><td><strong>Tools</strong></td><td>Wire everything available.</td><td>Defer-load by default; search-then-load; tightly-budgeted ACI.</td></tr>
+      <tr><td><strong>Multi-agent</strong></td><td>Try planner / generator / evaluator on every task.</td><td>Use only where the task sits beyond what the current model does reliably solo.</td></tr>
+      <tr><td><strong>Security</strong></td><td>Human-in-the-loop approval; trust the loop.</td><td>Filesystem + network sandbox; credential proxy; vault; scoped tokens.</td></tr>
+      <tr><td><strong>Failure recovery</strong></td><td>Rerun from start or hand back to a human.</td><td><code>wake(sessionId)</code>; replay; resume from last good event.</td></tr>
+      <tr><td><strong>Evaluation</strong></td><td>Final-demo inspection.</td><td>Outcome eval + trace analysis + regression suite + ablation per release.</td></tr>
+      <tr><td><strong>Iteration cadence</strong></td><td>Add components when something fails.</td><td>Ablate components on every model release; delete what no longer pays rent.</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    The numbers from the long-running essays are the empirical legend for the bottom rows.
+    The retro-game-maker comparison &mdash; <strong>$9 in 20 minutes for the solo agent,
+    $200 over six hours for the full harness</strong> &mdash; quantifies a 20&times; price
+    premium for the production-grade discipline, and the qualitative gap (a game whose play
+    mode actually worked vs. a game whose entity wiring was silently broken) explains why
+    teams sometimes pay it. The DAW build under the simplified Opus 4.6 harness took
+    3h50min and <strong>$124.70</strong>, with the generator running coherently for over
+    two hours without the sprint decomposition that Opus 4.5 had needed &mdash; the same
+    task, the same harness <em>strategy</em>, a more capable model, and a third less spent.
+  </p>
+
+  <h3>How this lands on the rest of the report</h3>
+  <p>
+    Reading the nine essays back against Sections XIII through XIII-D gives the report
+    something it did not have before: a runtime to attach its theses to.
+  </p>
+
+  <ul>
+    <li>
+      <strong>Section XIII-A&rsquo;s carriage</strong> can now be re-read as
+      <em>the multi-agent extension of the eight-interface runtime</em>. Where a harness
+      decorrelates a model from its own short-term failure modes, a carriage decorrelates
+      a population of agents from a single shared session, a single shared tool router, a
+      single shared credential vault. The irreducibility, separability, and amplification
+      properties named there map directly onto the eight interfaces here &mdash; the harness
+      is the single-agent version of the same architectural commitment.
+    </li>
+    <li>
+      <strong>Section XIII-B&rsquo;s portable memory</strong> is what the session
+      <em>is not</em>. Sessions are durable but verbose, project-local, and contain raw
+      tool results; portable memory is what survives distillation and crosses runs. The
+      runtime gives memory a clean place to live (it is not in the harness, not in the
+      sandbox, not in the session log) and a clean way to read it (a context-builder
+      operation that fetches a memory file just-in-time, the same way it fetches a tool
+      definition or a skill body).
+    </li>
+    <li>
+      <strong>Section XIII-C&rsquo;s expert split/merge</strong> belongs above the runtime,
+      not inside it. Whether a population should re-shape itself is a control-loop question;
+      whether the new agents inherit the same session, the same tool router, the same
+      credential vault is a runtime question. The eight interfaces give the meta-controller
+      a clean handoff target.
+    </li>
+    <li>
+      <strong>Section XIII-D&rsquo;s memory formalism</strong> already separated write,
+      manage, and read. The runtime supplies the missing fourth verb: <em>govern</em>
+      &mdash; who is allowed to mutate which interface, who can replay a session, who can
+      ablate which component, and on what schedule. Without that verb, the formalism
+      describes a memory; with it, the formalism describes a system that can keep a memory
+      <em>safely</em> over years.
+    </li>
+  </ul>
+
+  <h3>What is still open</h3>
+  <p>
+    Three problems the nine essays do not solve, and that the rest of the report inherits.
+  </p>
+
+  <ol>
+    <li>
+      <strong>Cross-runtime portability.</strong> Managed Agents defines the interfaces
+      Anthropic ships, and the Agent Skills open standard (December 2025) covers the
+      skills layer. There is no comparable standard for sessions: a session log emitted
+      by one runtime is not yet replayable in another, which means an agent&rsquo;s
+      operational history is locked to its host. Section XIII-B&rsquo;s portability
+      spectrum applies here too, and the same answer probably wins &mdash;
+      vendor-neutral, raw-trajectory, content-addressed event logs.
+    </li>
+    <li>
+      <strong>Ablation cadence.</strong> The staleness lesson tells teams to re-examine
+      every harness component on every model release, but the field has no published
+      ablation harness &mdash; no equivalent to a regression test suite that runs the
+      planner-on / planner-off, evaluator-on / evaluator-off matrix against a fixed eval
+      set when a new model lands. The first team to publish one will set the de-facto
+      benchmark for what &ldquo;production-grade harness&rdquo; means.
+    </li>
+    <li>
+      <strong>Multi-tenant runtime safety.</strong> Filesystem and network isolation
+      protect a single agent from a single prompt injection. They do not yet protect a
+      multi-tenant runtime from cross-session leakage when two agents share a credential
+      proxy, a tool router, or a context builder. The credential proxy pattern is the
+      right primitive; the remaining work is to extend it to <em>information-flow control</em>
+      across the other shared interfaces.
+    </li>
+  </ol>
+
+  <p>
+    The honest summary of the nine essays is that the field has finished moving the
+    <em>boundary of the agent</em> outward. Two years ago an agent was a prompt with a
+    tool list; one year ago it was a loop with a memory file; today it is a managed
+    runtime with eight separable interfaces, each pinned to a documented failure mode and
+    each replaceable when the next model arrives. The interesting work is no longer to
+    build a smarter loop. It is to design interfaces narrow enough to outlast any single
+    loop, and to keep ablating the loop as the model underneath gets better at the work
+    the loop used to do for it.
+  </p>
+
+  <blockquote>
+    <p>
+      &mdash; the engineers building Managed Agents put the principle most plainly:
+      <em>&ldquo;Decades ago, operating systems solved this problem by virtualizing hardware
+      into abstractions&mdash;process, file&mdash;general enough for programs that didn&rsquo;t
+      exist yet. The abstractions outlasted the hardware. The <code>read()</code> command is
+      agnostic as to whether it&rsquo;s accessing a disk pack from the 1970s or a modern SSD.
+      The abstractions on top stayed stable while the implementations underneath changed
+      freely. Managed Agents follow the same pattern.&rdquo;</em>
+    </p>
+  </blockquote>
+
+</section>
+
+<p class="sep-ornament">&diams;</p>
+
 <section id="open">
   <h2><span class="roman">XIV</span>Seven open questions</h2>
   <p class="deck">Seven concrete problems that inherit directly from Sections III through XIV, and where small teams can still make a first move.</p>
@@ -4184,6 +5224,12 @@ raw-trajectory pattern (durable)
     self-correction limits established by Huang <em>et al.</em> (ICLR 2024),
     Tyen <em>et al.</em> (ACL 2024), Kadavath <em>et al.</em> (2022), and
     Stechly, Valmeekam, and Kambhampati (2024); arXiv links are inline.
+    Section XIII-E re-reads the nine Anthropic engineering essays published
+    between December 2024 (<em>Building Effective Agents</em>) and December 2025
+    (<em>Scaling Managed Agents</em>) &mdash; each linked inline at its first
+    citation &mdash; and the exact tool signatures, the p50 / p95 TTFT numbers,
+    and the Sonnet&nbsp;4.5&nbsp;&rarr;&nbsp;Opus&nbsp;4.5 staleness example are
+    quoted from those posts verbatim.
     A plain-text mirror of this essay would be a reasonable thing to produce on request.
   </p>
 </footer>
