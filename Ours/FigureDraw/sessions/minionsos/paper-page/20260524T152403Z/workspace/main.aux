@@ -1,0 +1,32 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{zhang2024retrieval}
+\citation{ho2020denoising}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Method}{1}{section.1}\protected@file@percent }
+\newlabel{sec:method}{{1}{1}{Method}{section.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Overview of \textsc  {RetroDiff}\xspace  .} \textbf  {(A)}~Conceptual diagram of the 3-stage pipeline (Encode $\to $ Reason $\to $ Decode) with Memory and Skills feedback loops. \textbf  {(B)}~Ablation study: removing attention (\texttt  {-attn}), memory (\texttt  {-mem}), residual connections (\texttt  {-residual}), or skill modules (\texttt  {-skill}) each degrades accuracy relative to the full model (64.7\%). \textbf  {(C)}~Training loss curves over 30 steps; \textsc  {RetroDiff}\xspace  converges faster and to a lower final loss than the Baseline. \textbf  {(D)}~Sensitivity sweep heatmap across five sweep parameters (S0--S4) and five probes (P0--P4); higher scores (darker blue) indicate stronger response. }}{1}{figure.caption.2}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:overview}{{1}{1}{\textbf {Overview of \methodname .} \textbf {(A)}~Conceptual diagram of the 3-stage pipeline (Encode $\to $ Reason $\to $ Decode) with Memory and Skills feedback loops. \textbf {(B)}~Ablation study: removing attention (\texttt {-attn}), memory (\texttt {-mem}), residual connections (\texttt {-residual}), or skill modules (\texttt {-skill}) each degrades accuracy relative to the full model (64.7\%). \textbf {(C)}~Training loss curves over 30 steps; \methodname converges faster and to a lower final loss than the Baseline. \textbf {(D)}~Sensitivity sweep heatmap across five sweep parameters (S0--S4) and five probes (P0--P4); higher scores (darker blue) indicate stronger response}{figure.caption.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Results}{1}{section.2}\protected@file@percent }
+\newlabel{sec:results}{{2}{1}{Results}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Benchmark Accuracy}{1}{subsection.2.1}\protected@file@percent }
+\newlabel{sec:results:benchmarks}{{2.1}{1}{Benchmark Accuracy}{subsection.2.1}{}}
+\citation{kaplan2020scaling}
+\bibstyle{plainnat}
+\bibdata{references}
+\bibcite{ho2020denoising}{{1}{2020}{{Ho et~al.}}{{Ho, Jain, and Abbeel}}}
+\bibcite{kaplan2020scaling}{{2}{2020}{{Kaplan et~al.}}{{Kaplan, McCandlish, Henighan, Brown, Chess, Child, Gray, Radford, Wu, and Amodei}}}
+\bibcite{zhang2024retrieval}{{3}{2024}{{Zhang et~al.}}{{}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Accuracy (\%) on five benchmarks (MMLU\xspace  , HumanEval\xspace  , GSM8K\xspace  , MATH\xspace  , GPQA\xspace  ) for four methods. Error bars show sample standard deviation over 5 seeds. \textsc  {RetroDiff}\xspace  achieves the highest accuracy on all benchmarks, with particularly large gains on MATH\xspace  ($+4.8$\,pp\xspace  ) and GPQA\xspace  ($+5.2$\,pp\xspace  ) over the next-best Method-B\xspace  . Methods are distinguished by both color and hatch pattern for greyscale legibility. }}{2}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:benchmarks}{{2}{2}{Accuracy (\%) on five benchmarks (\benchMMLU , \benchHE , \benchGSM , \benchMATH , \benchGPQA ) for four methods. Error bars show sample standard deviation over 5 seeds. \methodname achieves the highest accuracy on all benchmarks, with particularly large gains on \benchMATH (\gainMATH ) and \benchGPQA (\gainGPQA ) over the next-best \baselineB . Methods are distinguished by both color and hatch pattern for greyscale legibility}{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Training Efficiency}{2}{subsection.2.2}\protected@file@percent }
+\newlabel{sec:results:efficiency}{{2.2}{2}{Training Efficiency}{subsection.2.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Scaling Law}{2}{subsection.2.3}\protected@file@percent }
+\newlabel{sec:results:scaling}{{2.3}{2}{Scaling Law}{subsection.2.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Validation loss over 50 training steps for three methods (mean $\pm $\,95\% CI across $n{=}5$ seeds, log-scale $y$-axis). \textsc  {RetroDiff}\xspace  converges fastest and achieves the lowest final loss; the double-headed arrow marks the gap $\Delta {=}0.15$ between \textsc  {RetroDiff}\xspace  and Method-A\xspace  at step~49. }}{2}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:training}{{3}{2}{Validation loss over 50 training steps for three methods (mean $\pm $\,95\% CI across $n{=}5$ seeds, log-scale $y$-axis). \methodname converges fastest and achieves the lowest final loss; the double-headed arrow marks the gap $\Delta {=}0.15$ between \methodname and \baselineA at step~49}{figure.caption.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Chinchilla-style scaling law on 80 synthetic model checkpoints. Each point shows $\log _{10}(\text  {parameters})$ vs.\ $\log _{10}(\text  {validation loss})$. The red line is an OLS fit ($y = -0.0449x + 0.6209$, $R^{2}>0.9$\xspace  ), confirming a strong negative correlation between model scale and loss. The highlighted \textsc  {RetroDiff}\xspace  point (closest to the target $x{=}9.4$, $y{=}0.205$) lies at $(9.449,\,0.210)$, consistent with the fitted trend. }}{3}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:scaling}{{4}{3}{Chinchilla-style scaling law on 80 synthetic model checkpoints. Each point shows $\log _{10}(\text {parameters})$ vs.\^^M$\log _{10}(\text {validation loss})$. The red line is an OLS fit ($y = -0.0449x + 0.6209$, \scalingRsq ), confirming a strong negative correlation between model scale and loss. The highlighted \methodname point (closest to the target $x{=}9.4$, $y{=}0.205$) lies at $(9.449,\,0.210)$, consistent with the fitted trend}{figure.caption.5}{}}
+\gdef \@abspage@last{3}

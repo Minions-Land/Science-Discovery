@@ -1,0 +1,33 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{zhang2024retrieval}
+\citation{ho2020denoising}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Method}{1}{section.1}\protected@file@percent }
+\newlabel{sec:method}{{1}{1}{Method}{section.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Overview.}{1}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Retrieval conditioning.}{1}{section*.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {(A)} Three-stage pipeline (Encode $\to $ Attend+Mem $\to $ Decode) with residual-and-skill bypass. \textbf  {(B)} Ablation: removing each component degrades score relative to the full model (64.7). \textbf  {(C)} Training loss over 30\,k steps; RetroDiff\ converges faster and lower than the baseline. \textbf  {(D)} Sensitivity sweep over hyperparameters $S$ and $P$ (higher is better, scale 0--1).}}{1}{figure.1}\protected@file@percent }
+\newlabel{fig:arch}{{1}{1}{\textbf {(A)} Three-stage pipeline (Encode $\to $ Attend+Mem $\to $ Decode) with residual-and-skill bypass. \textbf {(B)} Ablation: removing each component degrades score relative to the full model (64.7). \textbf {(C)} Training loss over 30\,k steps; \methodname \ converges faster and lower than the baseline. \textbf {(D)} Sensitivity sweep over hyperparameters $S$ and $P$ (higher is better, scale 0--1)}{figure.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Ablation.}{1}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Training dynamics.}{1}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Results}{1}{section.2}\protected@file@percent }
+\newlabel{sec:results}{{2}{1}{Results}{section.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Benchmark performance.}{1}{section*.6}\protected@file@percent }
+\citation{kaplan2020scaling}
+\bibstyle{plainnat}
+\bibdata{references}
+\bibcite{ho2020denoising}{{1}{2020}{{Ho et~al.}}{{Ho, Jain, and Abbeel}}}
+\bibcite{kaplan2020scaling}{{2}{2020}{{Kaplan et~al.}}{{Kaplan, McCandlish, Henighan, Brown, Chess, Child, Gray, Radford, Wu, and Amodei}}}
+\bibcite{zhang2024retrieval}{{3}{2024}{{Zhang et~al.}}{{Zhang, Liu, and Chen}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Grouped bar chart comparing four methods across five benchmarks (MMLU, HumanEval, GSM8K, MATH, GPQA). Each bar shows mean accuracy (\%) over 5 seeds; error bars are sample standard deviation. \textbf  {RetroDiff} (green, bold outline) achieves the highest accuracy on every benchmark, with gains of $3.3$--$5.8$\,pp over the next-best Method-B. Hatching distinguishes methods for greyscale printing.}}{2}{figure.2}\protected@file@percent }
+\newlabel{fig:benchmarks}{{2}{2}{Grouped bar chart comparing four methods across five benchmarks (MMLU, HumanEval, GSM8K, MATH, GPQA). Each bar shows mean accuracy (\%) over 5 seeds; error bars are sample standard deviation. \textbf {\methodname } (green, bold outline) achieves the highest accuracy on every benchmark, with gains of $3.3$--$5.8$\,pp over the next-best Method-B. Hatching distinguishes methods for greyscale printing}{figure.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Data efficiency.}{2}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Scaling behaviour.}{2}{section*.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Summary.}{2}{section*.9}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Validation loss over 50 training steps (mean $\pm $ 95\% CI, $n{=}5$ seeds, log-scale $y$-axis). \textbf  {RetroDiff} converges fastest and achieves the lowest final loss; the double-headed arrow marks $\Delta {=}0.155$ over Method-A at step~49.}}{2}{figure.3}\protected@file@percent }
+\newlabel{fig:convergence}{{3}{2}{Validation loss over 50 training steps (mean $\pm $ 95\% CI, $n{=}5$ seeds, log-scale $y$-axis). \textbf {\methodname } converges fastest and achieves the lowest final loss; the double-headed arrow marks $\Delta {=}0.155$ over Method-A at step~49}{figure.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Chinchilla-style neural scaling law across 80 models. Axes: $\log _{10}(\text  {parameters})$ vs.\ $\log _{10}(\text  {validation loss})$. Red line: OLS fit ($y = -0.0449\,x + 0.621$, $R^{2}=0.877$), consistent with the Chinchilla power-law regime. Orange marker: RetroDiff\ at $(\log _{10}N{=}9.449,\tmspace  +\thickmuskip {.2777em}\text  {loss}{=}0.210)$.}}{3}{figure.4}\protected@file@percent }
+\newlabel{fig:scaling}{{4}{3}{Chinchilla-style neural scaling law across 80 models. Axes: $\log _{10}(\text {parameters})$ vs.\ $\log _{10}(\text {validation loss})$. Red line: OLS fit ($y = -0.0449\,x + 0.621$, $R^{2}=0.877$), consistent with the Chinchilla power-law regime. Orange marker: \methodname \ at $(\log _{10}N{=}9.449,\;\text {loss}{=}0.210)$}{figure.4}{}}
+\gdef \@abspage@last{3}

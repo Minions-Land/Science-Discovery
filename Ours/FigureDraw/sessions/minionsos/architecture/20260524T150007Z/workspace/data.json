@@ -1,0 +1,66 @@
+{
+  "system_name": "RetroDiff",
+  "stages": [
+    {
+      "id": "input",
+      "label": "Query",
+      "kind": "input"
+    },
+    {
+      "id": "retrieve",
+      "label": "Retriever",
+      "kind": "module",
+      "arrows": [
+        "input"
+      ]
+    },
+    {
+      "id": "db",
+      "label": "KB",
+      "kind": "datastore",
+      "arrows": [
+        "retrieve"
+      ]
+    },
+    {
+      "id": "diff",
+      "label": "Diffusion Decoder",
+      "kind": "module",
+      "arrows": [
+        "retrieve"
+      ]
+    },
+    {
+      "id": "prior",
+      "label": "Prior Network",
+      "kind": "module",
+      "arrows": [
+        "diff"
+      ]
+    },
+    {
+      "id": "output",
+      "label": "Generated Sample",
+      "kind": "output",
+      "arrows": [
+        "diff"
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "label": "Retrieval",
+      "node_ids": [
+        "retrieve",
+        "db"
+      ]
+    },
+    {
+      "label": "Generation",
+      "node_ids": [
+        "diff",
+        "prior"
+      ]
+    }
+  ]
+}

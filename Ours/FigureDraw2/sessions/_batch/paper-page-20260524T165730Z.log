@@ -1,0 +1,49 @@
+[ppbatch] running 8 cells, conc=6
+[ppbatch] START latex-document/paper-page-latex-document 16:57:30Z
+[ppbatch] START minionsos/paper-page-minionsos 16:57:30Z
+[ppbatch] START ml-paper-writing/paper-page-ml-paper-writing 16:57:30Z
+[ppbatch] START scientific-writing-kdense/paper-page-scientific-writing-kdense 16:57:30Z
+[ppbatch] START academic-paper-imbad/paper-page-academic-paper-imbad 16:57:30Z
+[ppbatch] START stat-writing-fuhaoda/paper-page-stat-writing-fuhaoda 16:57:30Z
+[run_cell] arm=latex-document fig=paper-page-latex-document run_id=20260524T165730Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/latex-document/paper-page-latex-document/20260524T165730Z/workspace
+[run_cell] arm=ml-paper-writing fig=paper-page-ml-paper-writing run_id=20260524T165730Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/ml-paper-writing/paper-page-ml-paper-writing/20260524T165730Z/workspace
+[run_cell] arm=scientific-writing-kdense fig=paper-page-scientific-writing-kdense run_id=20260524T165730Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/scientific-writing-kdense/paper-page-scientific-writing-kdense/20260524T165730Z/workspace
+[run_cell] arm=stat-writing-fuhaoda fig=paper-page-stat-writing-fuhaoda run_id=20260524T165730Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/stat-writing-fuhaoda/paper-page-stat-writing-fuhaoda/20260524T165730Z/workspace
+[run_cell] arm=academic-paper-imbad fig=paper-page-academic-paper-imbad run_id=20260524T165730Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/academic-paper-imbad/paper-page-academic-paper-imbad/20260524T165730Z/workspace
+[run_cell] arm=minionsos fig=paper-page-minionsos run_id=20260524T165730Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/minionsos/paper-page-minionsos/20260524T165730Z/workspace
+[finalize] 20260524T165730Z: produced=['brief.md', 'caption.tex', 'captions.json', 'claim.json', 'fig01.pdf', 'fig02.pdf', 'fig03.pdf', 'fig04.pdf', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/latex-document/paper-page-latex-document/20260524T165730Z  exit=0
+[ppbatch] DONE  latex-document/paper-page-latex-document exit=0 17:00:04Z
+[ppbatch] START composer-lishix/paper-page-composer-lishix 17:00:04Z
+[run_cell] arm=composer-lishix fig=paper-page-composer-lishix run_id=20260524T170004Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/composer-lishix/paper-page-composer-lishix/20260524T170004Z/workspace
+[finalize] 20260524T165730Z: produced=['brief.md', 'caption.tex', 'captions.json', 'claim.json', 'compile.log', 'fig01.pdf', 'fig02.pdf', 'fig03.pdf', 'fig04.pdf', 'figure.pdf', 'figure.png', 'figure_page-1.png', 'figure_page-2.png', 'figure_page-3.png', 'figure_page-4.png', 'gen_figure.py', 'main.aux', 'main.bbl', 'main.blg', 'main.log', 'main.out', 'main.pdf', 'main.tex', 'references.bib']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/academic-paper-imbad/paper-page-academic-paper-imbad/20260524T165730Z  exit=0
+[ppbatch] DONE  academic-paper-imbad/paper-page-academic-paper-imbad exit=0 17:00:55Z
+[ppbatch] START awesome-writing-prompts/paper-page-awesome-writing-prompts 17:00:55Z
+[run_cell] arm=awesome-writing-prompts fig=paper-page-awesome-writing-prompts run_id=20260524T170055Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/awesome-writing-prompts/paper-page-awesome-writing-prompts/20260524T170055Z/workspace
+[finalize] 20260524T165730Z: produced=['brief.md', 'caption.tex', 'captions.json', 'claim.json', 'compile.log', 'fig01.pdf', 'fig02.pdf', 'fig03.pdf', 'fig04.pdf', 'figure.pdf', 'figure.png', 'gen_figure.py', 'main.aux', 'main.bbl', 'main.blg', 'main.log', 'main.out', 'main.pdf', 'main.tex', 'references.bib']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/scientific-writing-kdense/paper-page-scientific-writing-kdense/20260524T165730Z  exit=0
+[ppbatch] DONE  scientific-writing-kdense/paper-page-scientific-writing-kdense exit=0 17:01:04Z
+[finalize] 20260524T165730Z: produced=['brief.md', 'caption.tex', 'captions.json', 'claim.json', 'compile.log', 'fig01.pdf', 'fig02.pdf', 'fig03.pdf', 'fig04.pdf', 'figure.pdf', 'figure.png', 'gen_figure.py', 'main.aux', 'main.bbl', 'main.blg', 'main.fdb_latexmk', 'main.fls', 'main.log', 'main.out', 'main.pdf', 'main.tex', 'references.bib']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/minionsos/paper-page-minionsos/20260524T165730Z  exit=0
+[ppbatch] DONE  minionsos/paper-page-minionsos exit=0 17:01:44Z
+[finalize] 20260524T165730Z: produced=['brief.md', 'caption.tex', 'captions.json', 'claim.json', 'compile.log', 'fig01.pdf', 'fig02.pdf', 'fig03.pdf', 'fig04.pdf', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py', 'main.aux', 'main.bbl', 'main.blg', 'main.log', 'main.out', 'main.pdf', 'main.tex', 'references.bib']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/ml-paper-writing/paper-page-ml-paper-writing/20260524T165730Z  exit=0
+[ppbatch] DONE  ml-paper-writing/paper-page-ml-paper-writing exit=0 17:02:18Z
+[finalize] 20260524T165730Z: produced=['brief.md', 'caption.tex', 'captions.json', 'claim.json', 'compile.log', 'fig01.pdf', 'fig02.pdf', 'fig03.pdf', 'fig04.pdf', 'figure.pdf', 'figure.png', 'figure_page-2.png', 'figure_page-3.png', 'figure_page-4.png', 'figure_page-5.png', 'gen_figure.py', 'main.aux', 'main.bbl', 'main.blg', 'main.log', 'main.out', 'main.pdf', 'main.tex', 'references.bib']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/stat-writing-fuhaoda/paper-page-stat-writing-fuhaoda/20260524T165730Z  exit=0
+[ppbatch] DONE  stat-writing-fuhaoda/paper-page-stat-writing-fuhaoda exit=0 17:02:35Z
+[finalize] 20260524T170004Z: produced=['brief.md', 'caption.tex', 'captions.json', 'claim.json', 'fig01.pdf', 'fig02.pdf', 'fig03.pdf', 'fig04.pdf', 'figure.pdf', 'figure.png', 'gen_figure.py', 'main.aux', 'main.bbl', 'main.blg', 'main.log', 'main.out', 'main.pdf', 'main.tex', 'references.bib']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/composer-lishix/paper-page-composer-lishix/20260524T170004Z  exit=0
+[ppbatch] DONE  composer-lishix/paper-page-composer-lishix exit=0 17:03:37Z
+[finalize] 20260524T170055Z: produced=['brief.md', 'caption.tex', 'captions.json', 'claim.json', 'compile.log', 'fig01.pdf', 'fig02.pdf', 'fig03.pdf', 'fig04.pdf', 'figure.pdf', 'figure.png', 'gen_figure.py', 'main.aux', 'main.bbl', 'main.blg', 'main.fdb_latexmk', 'main.fls', 'main.log', 'main.out', 'main.pdf', 'main.tex', 'missfont.log', 'references.bib']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/awesome-writing-prompts/paper-page-awesome-writing-prompts/20260524T170055Z  exit=0
+[ppbatch] DONE  awesome-writing-prompts/paper-page-awesome-writing-prompts exit=0 17:05:22Z

@@ -1,0 +1,104 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.2in, top=1.0in, bottom=1.0in]{geometry}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{microtype}
+\usepackage{xspace}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{parskip}
+
+% --- Macros ---
+\newcommand{\method}{\textsc{RetroDiff}\xspace}
+\newcommand{\Lobj}{\mathcal{L}}
+\newcommand{\Lelbo}{\mathcal{L}_{\mathrm{ELBO}}}
+\newcommand{\Lretro}{\mathcal{L}_{\mathrm{RetroDiff}}}
+\newcommand{\KL}{\mathrm{KL}}
+\newcommand{\Ret}{R(x)}
+\newcommand{\ptheta}{p_\theta}
+\newcommand{\Eq}[1]{\mathbb{E}_{#1}}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{center}
+  {\large\bfseries Training Objective Derivation for \method}
+\end{center}
+
+\vspace{0.5em}
+
+\noindent
+The \method training objective follows the standard evidence lower bound (ELBO) framework
+for latent-variable diffusion models, then extends it to the retrieval-augmented setting.
+We derive the three-step chain below.
+
+\medskip
+\noindent\textbf{Step 1: Variational lower bound.}
+Let $q(x_{1:T}\mid x)$ be the fixed forward (noising) process that gradually corrupts a
+clean sample $x$ over $T$ steps, and let $\ptheta(x_{0:T})$ be the learned joint
+generative model.  Because the log-likelihood $\log \ptheta(x)$ is intractable, we bound
+it from below via Jensen's inequality applied to the concave $\log$:
+
+\begin{align}
+  \log \ptheta(x)
+    \;\geq\;
+    \Eq{q(x_{1:T}|x)}\!\left[\log\frac{\ptheta(x_{0:T})}{q(x_{1:T}|x)}\right]
+    \;=\;
+    -\Lelbo
+  \label{eq:elbo}
+\end{align}
+
+\noindent
+The inequality is tight when $q$ matches the true posterior $\ptheta(x_{1:T}\mid x_0)$;
+in practice optimising $-\Lelbo$ drives the model towards high likelihood without
+evaluating an intractable normaliser.
+
+\medskip
+\noindent\textbf{Step 2: Reconstruction--KL decomposition.}
+Expanding the ELBO by Markov factorisation of both $\ptheta$ and $q$ along the diffusion
+chain yields a reconstruction term at $t\!=\!1$ plus one KL divergence per denoising step:
+
+\begin{align}
+  \Lelbo
+  \;=\;
+  \underbrace{\Eq{q}\bigl[-\log \ptheta(x_0\mid x_1)\bigr]}_{\text{reconstruction}}
+  \;+\;
+  \sum_{t=2}^{T}
+    \underbrace{\KL\!\left(q(x_{t-1}\mid x_t, x)
+               \,\big\|\,
+               \ptheta(x_{t-1}\mid x_t)\right)}_{\text{step-}t\text{ denoising}}
+  \label{eq:decomp}
+\end{align}
+
+\noindent
+Each KL term measures how well the learned reverse step $\ptheta(x_{t-1}\mid x_t)$ matches
+the tractable forward posterior $q(x_{t-1}\mid x_t, x)$.  Because the forward process has
+Gaussian transitions, both quantities are Gaussian and each KL reduces to a weighted
+$\ell_2$ loss on the predicted noise, recoverable in closed form.
+
+\medskip
+\noindent\textbf{Step 3: Retrieval-augmented objective (\method contribution).}
+Standard diffusion trains the reverse process without side information.
+\method augments each sample $x$ with a set $\Ret$ of $k$ retrieved exemplars drawn from a
+nearest-neighbour index over the training corpus.  The per-sample ELBO is conditioned on
+these exemplars, and the outer expectation averages over the data distribution
+$p_{\mathrm{data}}$:
+
+\begin{align}
+  \Lretro(\theta)
+  \;=\;
+  \Eq{x \sim p_{\mathrm{data}}}\!\left[
+      \Lelbo\!\left(x \;\big|\; \Ret\right)
+  \right]
+  \label{eq:retro}
+\end{align}
+
+\noindent
+Conditioning the ELBO on $\Ret$ propagates retrieved appearance into every denoising KL
+term in~\eqref{eq:decomp}: each reverse step $\ptheta(x_{t-1}\mid x_t, \Ret)$ now has
+access to exemplar context.  The reconstruction term in~\eqref{eq:elbo} similarly becomes
+$-\log\ptheta(x_0\mid x_1, \Ret)$.  Minimising~\eqref{eq:retro} therefore encourages the
+model to exploit retrieved structure across the entire denoising chain, rather than at a
+single conditioning step.
+
+\end{document}

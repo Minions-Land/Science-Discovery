@@ -1,0 +1,26 @@
+{
+  "run_id": "20260524T163628Z",
+  "arm": "academic-paper-imbad",
+  "fig_type": "stacked-bar",
+  "model": "claude-sonnet-4-6",
+  "effort": "max",
+  "started_utc": "2026-05-24T16:36:28Z",
+  "fixture_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/fixtures/stacked-bar",
+  "out_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/academic-paper-imbad/stacked-bar/20260524T163628Z",
+  "finished_utc": "2026-05-24T16:37:08.312705+00:00",
+  "exit_code": 0,
+  "produced": [
+    "brief.md",
+    "caption.tex",
+    "data.json",
+    "figure.pdf",
+    "figure.png",
+    "figure.svg",
+    "gen_figure.py"
+  ],
+  "has_figure_pdf": true,
+  "has_figure_png": true,
+  "has_figure_svg": true,
+  "has_caption": true,
+  "has_script": true
+}

@@ -1,0 +1,129 @@
+{
+  "methods": [
+    "Baseline",
+    "Method-A",
+    "Method-B",
+    "OursModel"
+  ],
+  "metrics": [
+    "MMLU",
+    "HumanEval",
+    "GSM8K",
+    "MATH",
+    "GPQA"
+  ],
+  "values": {
+    "Baseline": {
+      "MMLU": {
+        "mean": 65.4,
+        "std": 1.41
+      },
+      "HumanEval": {
+        "mean": 48.2,
+        "std": 1.61
+      },
+      "GSM8K": {
+        "mean": 72.1,
+        "std": 2.26
+      },
+      "MATH": {
+        "mean": 31.5,
+        "std": 1.44
+      },
+      "GPQA": {
+        "mean": 36.4,
+        "std": 1.51
+      }
+    },
+    "Method-A": {
+      "MMLU": {
+        "mean": 71.0,
+        "std": 1.66
+      },
+      "HumanEval": {
+        "mean": 55.6,
+        "std": 0.93
+      },
+      "GSM8K": {
+        "mean": 78.3,
+        "std": 1.52
+      },
+      "MATH": {
+        "mean": 37.2,
+        "std": 1.73
+      },
+      "GPQA": {
+        "mean": 41.8,
+        "std": 2.03
+      }
+    },
+    "Method-B": {
+      "MMLU": {
+        "mean": 73.5,
+        "std": 0.77
+      },
+      "HumanEval": {
+        "mean": 59.4,
+        "std": 1.15
+      },
+      "GSM8K": {
+        "mean": 80.7,
+        "std": 0.76
+      },
+      "MATH": {
+        "mean": 39.8,
+        "std": 2.06
+      },
+      "GPQA": {
+        "mean": 44.1,
+        "std": 1.85
+      }
+    },
+    "OursModel": {
+      "MMLU": {
+        "mean": 76.8,
+        "std": 0.68
+      },
+      "HumanEval": {
+        "mean": 64.7,
+        "std": 2.37
+      },
+      "GSM8K": {
+        "mean": 84.2,
+        "std": 2.34
+      },
+      "MATH": {
+        "mean": 44.6,
+        "std": 1.78
+      },
+      "GPQA": {
+        "mean": 49.3,
+        "std": 1.71
+      }
+    }
+  },
+  "n_seeds": 5,
+  "units": {
+    "MMLU": "%",
+    "HumanEval": "%",
+    "GSM8K": "%",
+    "MATH": "%",
+    "GPQA": "%"
+  },
+  "groups": [
+    {
+      "label": "baselines",
+      "members": [
+        "Baseline",
+        "Method-A",
+        "Method-B"
+      ]
+    },
+    {
+      "label": "ours",
+      "members": [
+        "OursModel"
+      ]
+    }
+  ]
+}

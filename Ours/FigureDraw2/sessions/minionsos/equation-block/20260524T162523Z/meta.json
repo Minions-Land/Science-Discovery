@@ -1,0 +1,29 @@
+{
+  "run_id": "20260524T162523Z",
+  "arm": "minionsos",
+  "fig_type": "equation-block",
+  "model": "claude-sonnet-4-6",
+  "effort": "max",
+  "started_utc": "2026-05-24T16:25:23Z",
+  "fixture_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/fixtures/equation-block",
+  "out_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/minionsos/equation-block/20260524T162523Z",
+  "finished_utc": "2026-05-24T16:27:02.066676+00:00",
+  "exit_code": 0,
+  "produced": [
+    "brief.md",
+    "caption.tex",
+    "claim.json",
+    "equations.aux",
+    "equations.log",
+    "equations.pdf",
+    "equations.tex",
+    "figure.pdf",
+    "figure.png",
+    "gen_figure.py"
+  ],
+  "has_figure_pdf": true,
+  "has_figure_png": true,
+  "has_figure_svg": false,
+  "has_caption": true,
+  "has_script": true
+}

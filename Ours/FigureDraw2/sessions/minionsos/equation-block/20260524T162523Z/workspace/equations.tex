@@ -1,0 +1,68 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{center}
+  {\large\bfseries RetroDiff: Training Objective Derivation}
+\end{center}
+
+\medskip
+
+\noindent
+Let $x$ denote a clean data sample and $x_t$ its noised counterpart at diffusion step $t \in \{1,\ldots,T\}$.
+The forward process $q(x_{1:T}|x)$ gradually corrupts $x$; the model $p_\theta$ learns to reverse it.
+Applying Jensen's inequality to the log-likelihood yields the \emph{evidence lower bound} (ELBO):
+
+\begin{align}
+  \log p_\theta(x)
+    &\;\geq\;
+    \mathbb{E}_{q(x_{1:T}|x)}\!\left[\log\frac{p_\theta(x_{0:T})}{q(x_{1:T}|x)}\right]
+    \;=\; -\mathcal{L}_{\mathrm{ELBO}}
+  \label{eq:elbo}
+\end{align}
+
+\noindent
+Because the Markov structure of the forward process allows the joint to factorise,
+the bound in \eqref{eq:elbo} decomposes into a reconstruction term at $t{=}1$
+and a sum of per-step KL divergences that penalise each denoising transition:
+
+\begin{align}
+  \mathcal{L}_{\mathrm{ELBO}}
+    &\;=\;
+    \underbrace{\mathbb{E}_q[-\log p_\theta(x_0|x_1)]}_{\text{reconstruction}}
+    \;+\;
+    \sum_{t=2}^{T}
+    \underbrace{
+      \mathrm{KL}\!\left(q(x_{t-1}|x_t,x)\,\|\,p_\theta(x_{t-1}|x_t)\right)
+    }_{\text{step-}t\text{ denoising}}
+  \label{eq:decomp}
+\end{align}
+
+\noindent
+RetroDiff's key contribution is to condition every denoising step on a set
+$R(x) = \{r_1,\ldots,r_k\}$ of exemplars retrieved from the training corpus
+at inference time.
+Substituting the conditioned ELBO from \eqref{eq:decomp} into an expectation
+over the data distribution gives the final per-parameter objective:
+
+\begin{align}
+  \mathcal{L}_{\mathrm{RetroDiff}}(\theta)
+    &\;=\;
+    \mathbb{E}_{x\sim p_{\mathrm{data}}}\!\left[
+      \mathcal{L}_{\mathrm{ELBO}}\!\left(x\,\big|\,R(x)\right)
+    \right]
+  \label{eq:retro}
+\end{align}
+
+\noindent
+Minimising \eqref{eq:retro} over $\theta$ trains the reverse process to exploit
+retrieved neighbours, reducing the effective variance of each denoising step
+without altering the ELBO's theoretical guarantees.
+
+\end{document}

@@ -1,0 +1,26 @@
+{
+  "run_id": "20260524T150816Z",
+  "arm": "nature-figure",
+  "fig_type": "grouped-bar",
+  "model": "claude-sonnet-4-6",
+  "effort": "max",
+  "started_utc": "2026-05-24T15:08:16Z",
+  "fixture_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/fixtures/grouped-bar",
+  "out_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/grouped-bar/20260524T150816Z",
+  "finished_utc": "2026-05-24T15:09:16.078712+00:00",
+  "exit_code": 0,
+  "produced": [
+    "brief.md",
+    "caption.tex",
+    "data.json",
+    "figure.pdf",
+    "figure.png",
+    "figure.svg",
+    "gen_figure.py"
+  ],
+  "has_figure_pdf": true,
+  "has_figure_png": true,
+  "has_figure_svg": true,
+  "has_caption": true,
+  "has_script": true
+}

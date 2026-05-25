@@ -1,0 +1,27 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.5in,paperwidth=7in,paperheight=3in]{geometry}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\definecolor{oursbg}{RGB}{240,248,255}
+\pagestyle{empty}
+\begin{document}
+\centering
+\begin{tabular}{lccccc}
+\toprule
+\multicolumn{1}{c}{} & \multicolumn{5}{c}{\textbf{Benchmark (\%)}} \\
+\cmidrule(lr){2-6}
+\textbf{Method} & \textbf{MMLU} & \textbf{HumanEval} & \textbf{GSM8K} & \textbf{MATH} & \textbf{GPQA} \\
+\midrule
+\multicolumn{6}{l}{\textit{Baselines}} \\
+Baseline & $65.4{\pm 1.41}$ & $48.2{\pm 1.61}$ & $72.1{\pm 2.26}$ & $31.5{\pm 1.44}$ & $36.4{\pm 1.51}$ \\
+Method-A & $71.0{\pm 1.66}$ & $55.6{\pm 0.93}$ & $78.3{\pm 1.52}$ & $37.2{\pm 1.73}$ & $41.8{\pm 2.03}$ \\
+Method-B & $73.5{\pm 0.77}$ & $59.4{\pm 1.15}$ & $80.7{\pm 0.76}$ & $39.8{\pm 2.06}$ & $44.1{\pm 1.85}$ \\
+\midrule
+\multicolumn{6}{l}{\textit{Ours}} \\
+\rowcolor{oursbg}OursModel & \textbf{76.8}${\pm 0.68}$ & \textbf{64.7}${\pm 2.37}$ & \textbf{84.2}${\pm 2.34}$ & \textbf{44.6}${\pm 1.78}$ & \textbf{49.3}${\pm 1.71}$ \\
+\bottomrule
+\end{tabular}
+\end{document}

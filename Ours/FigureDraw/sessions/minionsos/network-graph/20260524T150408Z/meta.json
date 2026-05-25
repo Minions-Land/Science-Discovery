@@ -1,0 +1,26 @@
+{
+  "run_id": "20260524T150408Z",
+  "arm": "minionsos",
+  "fig_type": "network-graph",
+  "model": "claude-sonnet-4-6",
+  "effort": "max",
+  "started_utc": "2026-05-24T15:04:08Z",
+  "fixture_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/fixtures/network-graph",
+  "out_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/network-graph/20260524T150408Z",
+  "finished_utc": "2026-05-24T15:05:37.081633+00:00",
+  "exit_code": 0,
+  "produced": [
+    "brief.md",
+    "caption.tex",
+    "data.json",
+    "figure.pdf",
+    "figure.png",
+    "figure.svg",
+    "gen_figure.py"
+  ],
+  "has_figure_pdf": true,
+  "has_figure_png": true,
+  "has_figure_svg": true,
+  "has_caption": true,
+  "has_script": true
+}

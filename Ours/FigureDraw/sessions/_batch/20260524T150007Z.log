@@ -1,0 +1,535 @@
+[batch] 20260524T150007Z -- 89 cells to run, concurrency=6
+[batch] START minionsos/line-errband 15:00:07Z
+[batch] START minionsos/scatter-fit 15:00:07Z
+[batch] START minionsos/box-violin 15:00:07Z
+[batch] START minionsos/heatmap 15:00:07Z
+[batch] START minionsos/architecture 15:00:07Z
+[batch] START minionsos/4panel-hero 15:00:07Z
+[run_cell] arm=minionsos fig=heatmap run_id=20260524T150007Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/heatmap/20260524T150007Z/workspace
+[run_cell] arm=minionsos fig=scatter-fit run_id=20260524T150007Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/scatter-fit/20260524T150007Z/workspace
+[run_cell] arm=minionsos fig=line-errband run_id=20260524T150007Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/line-errband/20260524T150007Z/workspace
+[run_cell] arm=minionsos fig=box-violin run_id=20260524T150007Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/box-violin/20260524T150007Z/workspace
+[run_cell] arm=minionsos fig=4panel-hero run_id=20260524T150007Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/4panel-hero/20260524T150007Z/workspace
+[run_cell] arm=minionsos fig=architecture run_id=20260524T150007Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/architecture/20260524T150007Z/workspace
+[finalize] 20260524T150007Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/line-errband/20260524T150007Z  exit=0
+[batch] DONE  minionsos/line-errband exit=0 15:01:55Z
+[batch] START minionsos/roc-prc 15:01:55Z
+[run_cell] arm=minionsos fig=roc-prc run_id=20260524T150155Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/roc-prc/20260524T150155Z/workspace
+[finalize] 20260524T150007Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/heatmap/20260524T150007Z  exit=0
+[batch] DONE  minionsos/heatmap exit=0 15:02:19Z
+[batch] START minionsos/ridgeline 15:02:19Z
+[run_cell] arm=minionsos fig=ridgeline run_id=20260524T150219Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/ridgeline/20260524T150219Z/workspace
+[finalize] 20260524T150007Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/4panel-hero/20260524T150007Z  exit=0
+[batch] DONE  minionsos/4panel-hero exit=0 15:02:38Z
+[batch] START minionsos/dual-axis-time 15:02:38Z
+[run_cell] arm=minionsos fig=dual-axis-time run_id=20260524T150238Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/dual-axis-time/20260524T150238Z/workspace
+[finalize] 20260524T150007Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/architecture/20260524T150007Z  exit=0
+[batch] DONE  minionsos/architecture exit=0 15:02:39Z
+[batch] START minionsos/stacked-bar 15:02:39Z
+[run_cell] arm=minionsos fig=stacked-bar run_id=20260524T150239Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/stacked-bar/20260524T150239Z/workspace
+[finalize] 20260524T150239Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/stacked-bar/20260524T150239Z  exit=0
+[batch] DONE  minionsos/stacked-bar exit=0 15:03:29Z
+[batch] START minionsos/forest-plot 15:03:29Z
+[run_cell] arm=minionsos fig=forest-plot run_id=20260524T150330Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/forest-plot/20260524T150330Z/workspace
+[finalize] 20260524T150238Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/dual-axis-time/20260524T150238Z  exit=0
+[batch] DONE  minionsos/dual-axis-time exit=0 15:03:32Z
+[batch] START minionsos/sankey 15:03:32Z
+[run_cell] arm=minionsos fig=sankey run_id=20260524T150332Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/sankey/20260524T150332Z/workspace
+[finalize] 20260524T150219Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/ridgeline/20260524T150219Z  exit=0
+[batch] DONE  minionsos/ridgeline exit=0 15:03:53Z
+[batch] START minionsos/volcano 15:03:53Z
+[run_cell] arm=minionsos fig=volcano run_id=20260524T150353Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/volcano/20260524T150353Z/workspace
+[finalize] 20260524T150155Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/roc-prc/20260524T150155Z  exit=0
+[batch] DONE  minionsos/roc-prc exit=0 15:04:08Z
+[batch] START minionsos/network-graph 15:04:08Z
+[run_cell] arm=minionsos fig=network-graph run_id=20260524T150408Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/network-graph/20260524T150408Z/workspace
+[finalize] 20260524T150007Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/box-violin/20260524T150007Z  exit=0
+[batch] DONE  minionsos/box-violin exit=0 15:04:37Z
+[batch] START figures4papers/grouped-bar 15:04:37Z
+[run_cell] arm=figures4papers fig=grouped-bar run_id=20260524T150437Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/grouped-bar/20260524T150437Z/workspace
+[finalize] 20260524T150330Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/forest-plot/20260524T150330Z  exit=0
+[batch] DONE  minionsos/forest-plot exit=0 15:04:45Z
+[batch] START figures4papers/line-errband 15:04:45Z
+[run_cell] arm=figures4papers fig=line-errband run_id=20260524T150445Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/line-errband/20260524T150445Z/workspace
+[finalize] 20260524T150353Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/volcano/20260524T150353Z  exit=0
+[batch] DONE  minionsos/volcano exit=0 15:05:14Z
+[batch] START figures4papers/scatter-fit 15:05:14Z
+[run_cell] arm=figures4papers fig=scatter-fit run_id=20260524T150514Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/scatter-fit/20260524T150514Z/workspace
+[finalize] 20260524T150408Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/network-graph/20260524T150408Z  exit=0
+[batch] DONE  minionsos/network-graph exit=0 15:05:37Z
+[batch] START figures4papers/heatmap 15:05:37Z
+[run_cell] arm=figures4papers fig=heatmap run_id=20260524T150537Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/heatmap/20260524T150537Z/workspace
+[finalize] 20260524T150437Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/grouped-bar/20260524T150437Z  exit=0
+[batch] DONE  figures4papers/grouped-bar exit=0 15:05:42Z
+[batch] START figures4papers/box-violin 15:05:42Z
+[run_cell] arm=figures4papers fig=box-violin run_id=20260524T150542Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/box-violin/20260524T150542Z/workspace
+[finalize] 20260524T150445Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/line-errband/20260524T150445Z  exit=0
+[batch] DONE  figures4papers/line-errband exit=0 15:05:54Z
+[batch] START figures4papers/4panel-hero 15:05:54Z
+[run_cell] arm=figures4papers fig=4panel-hero run_id=20260524T150554Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/4panel-hero/20260524T150554Z/workspace
+[finalize] 20260524T150332Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/sankey/20260524T150332Z  exit=0
+[batch] DONE  minionsos/sankey exit=0 15:06:19Z
+[batch] START figures4papers/architecture 15:06:19Z
+[run_cell] arm=figures4papers fig=architecture run_id=20260524T150619Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/architecture/20260524T150619Z/workspace
+[finalize] 20260524T150514Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/scatter-fit/20260524T150514Z  exit=0
+[batch] DONE  figures4papers/scatter-fit exit=0 15:06:21Z
+[batch] START figures4papers/roc-prc 15:06:21Z
+[run_cell] arm=figures4papers fig=roc-prc run_id=20260524T150621Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/roc-prc/20260524T150621Z/workspace
+[finalize] 20260524T150537Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/heatmap/20260524T150537Z  exit=0
+[batch] DONE  figures4papers/heatmap exit=0 15:06:40Z
+[batch] START figures4papers/ridgeline 15:06:40Z
+[run_cell] arm=figures4papers fig=ridgeline run_id=20260524T150640Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/ridgeline/20260524T150640Z/workspace
+[finalize] 20260524T150542Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/box-violin/20260524T150542Z  exit=0
+[batch] DONE  figures4papers/box-violin exit=0 15:06:51Z
+[batch] START figures4papers/dual-axis-time 15:06:51Z
+[run_cell] arm=figures4papers fig=dual-axis-time run_id=20260524T150651Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/dual-axis-time/20260524T150651Z/workspace
+[finalize] 20260524T150640Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/ridgeline/20260524T150640Z  exit=0
+[batch] DONE  figures4papers/ridgeline exit=0 15:07:37Z
+[batch] START figures4papers/stacked-bar 15:07:37Z
+[run_cell] arm=figures4papers fig=stacked-bar run_id=20260524T150737Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/stacked-bar/20260524T150737Z/workspace
+[finalize] 20260524T150621Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/roc-prc/20260524T150621Z  exit=0
+[batch] DONE  figures4papers/roc-prc exit=0 15:07:40Z
+[batch] START figures4papers/forest-plot 15:07:40Z
+[run_cell] arm=figures4papers fig=forest-plot run_id=20260524T150740Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/forest-plot/20260524T150740Z/workspace
+[finalize] 20260524T150007Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/minionsos/scatter-fit/20260524T150007Z  exit=0
+[batch] DONE  minionsos/scatter-fit exit=0 15:07:43Z
+[batch] START figures4papers/sankey 15:07:44Z
+[run_cell] arm=figures4papers fig=sankey run_id=20260524T150744Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/sankey/20260524T150744Z/workspace
+[finalize] 20260524T150554Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/4panel-hero/20260524T150554Z  exit=0
+[batch] DONE  figures4papers/4panel-hero exit=0 15:07:46Z
+[batch] START figures4papers/volcano 15:07:46Z
+[run_cell] arm=figures4papers fig=volcano run_id=20260524T150746Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/volcano/20260524T150746Z/workspace
+[finalize] 20260524T150619Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/architecture/20260524T150619Z  exit=0
+[batch] DONE  figures4papers/architecture exit=0 15:07:48Z
+[batch] START figures4papers/network-graph 15:07:48Z
+[run_cell] arm=figures4papers fig=network-graph run_id=20260524T150748Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/network-graph/20260524T150748Z/workspace
+[finalize] 20260524T150651Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/dual-axis-time/20260524T150651Z  exit=0
+[batch] DONE  figures4papers/dual-axis-time exit=0 15:08:16Z
+[batch] START nature-figure/grouped-bar 15:08:16Z
+[run_cell] arm=nature-figure fig=grouped-bar run_id=20260524T150816Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/grouped-bar/20260524T150816Z/workspace
+[finalize] 20260524T150748Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/network-graph/20260524T150748Z  exit=0
+[batch] DONE  figures4papers/network-graph exit=0 15:08:39Z
+[batch] START nature-figure/line-errband 15:08:39Z
+[run_cell] arm=nature-figure fig=line-errband run_id=20260524T150839Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/line-errband/20260524T150839Z/workspace
+[finalize] 20260524T150737Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/stacked-bar/20260524T150737Z  exit=0
+[batch] DONE  figures4papers/stacked-bar exit=0 15:08:43Z
+[batch] START nature-figure/scatter-fit 15:08:43Z
+[run_cell] arm=nature-figure fig=scatter-fit run_id=20260524T150843Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/scatter-fit/20260524T150843Z/workspace
+[finalize] 20260524T150746Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/volcano/20260524T150746Z  exit=0
+[batch] DONE  figures4papers/volcano exit=0 15:08:49Z
+[batch] START nature-figure/heatmap 15:08:49Z
+[run_cell] arm=nature-figure fig=heatmap run_id=20260524T150849Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/heatmap/20260524T150849Z/workspace
+[finalize] 20260524T150740Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/forest-plot/20260524T150740Z  exit=0
+[batch] DONE  figures4papers/forest-plot exit=0 15:09:03Z
+[batch] START nature-figure/box-violin 15:09:03Z
+[run_cell] arm=nature-figure fig=box-violin run_id=20260524T150903Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/box-violin/20260524T150903Z/workspace
+[finalize] 20260524T150744Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/figures4papers/sankey/20260524T150744Z  exit=0
+[batch] DONE  figures4papers/sankey exit=0 15:09:09Z
+[batch] START nature-figure/4panel-hero 15:09:09Z
+[run_cell] arm=nature-figure fig=4panel-hero run_id=20260524T150909Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/4panel-hero/20260524T150909Z/workspace
+[finalize] 20260524T150816Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/grouped-bar/20260524T150816Z  exit=0
+[batch] DONE  nature-figure/grouped-bar exit=0 15:09:16Z
+[batch] START nature-figure/architecture 15:09:16Z
+[run_cell] arm=nature-figure fig=architecture run_id=20260524T150916Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/architecture/20260524T150916Z/workspace
+[finalize] 20260524T150849Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/heatmap/20260524T150849Z  exit=0
+[batch] DONE  nature-figure/heatmap exit=0 15:09:53Z
+[batch] START nature-figure/roc-prc 15:09:53Z
+[run_cell] arm=nature-figure fig=roc-prc run_id=20260524T150953Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/roc-prc/20260524T150953Z/workspace
+[finalize] 20260524T150843Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/scatter-fit/20260524T150843Z  exit=0
+[batch] DONE  nature-figure/scatter-fit exit=0 15:09:55Z
+[batch] START nature-figure/ridgeline 15:09:55Z
+[run_cell] arm=nature-figure fig=ridgeline run_id=20260524T150955Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/ridgeline/20260524T150955Z/workspace
+[finalize] 20260524T150903Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/box-violin/20260524T150903Z  exit=0
+[batch] DONE  nature-figure/box-violin exit=0 15:10:06Z
+[batch] START nature-figure/dual-axis-time 15:10:06Z
+[run_cell] arm=nature-figure fig=dual-axis-time run_id=20260524T151006Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/dual-axis-time/20260524T151006Z/workspace
+[finalize] 20260524T150839Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/line-errband/20260524T150839Z  exit=0
+[batch] DONE  nature-figure/line-errband exit=0 15:10:12Z
+[batch] START nature-figure/stacked-bar 15:10:12Z
+[run_cell] arm=nature-figure fig=stacked-bar run_id=20260524T151012Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/stacked-bar/20260524T151012Z/workspace
+[finalize] 20260524T150916Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/architecture/20260524T150916Z  exit=0
+[batch] DONE  nature-figure/architecture exit=0 15:10:40Z
+[batch] START nature-figure/forest-plot 15:10:40Z
+[run_cell] arm=nature-figure fig=forest-plot run_id=20260524T151040Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/forest-plot/20260524T151040Z/workspace
+[finalize] 20260524T150909Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/4panel-hero/20260524T150909Z  exit=0
+[batch] DONE  nature-figure/4panel-hero exit=0 15:10:51Z
+[batch] START nature-figure/sankey 15:10:51Z
+[run_cell] arm=nature-figure fig=sankey run_id=20260524T151051Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/sankey/20260524T151051Z/workspace
+[finalize] 20260524T151006Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/dual-axis-time/20260524T151006Z  exit=0
+[batch] DONE  nature-figure/dual-axis-time exit=0 15:10:57Z
+[batch] START nature-figure/volcano 15:10:57Z
+[run_cell] arm=nature-figure fig=volcano run_id=20260524T151057Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/volcano/20260524T151057Z/workspace
+[finalize] 20260524T150955Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/ridgeline/20260524T150955Z  exit=0
+[batch] DONE  nature-figure/ridgeline exit=0 15:11:17Z
+[batch] START nature-figure/network-graph 15:11:17Z
+[run_cell] arm=nature-figure fig=network-graph run_id=20260524T151117Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/network-graph/20260524T151117Z/workspace
+[finalize] 20260524T151012Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/stacked-bar/20260524T151012Z  exit=0
+[batch] DONE  nature-figure/stacked-bar exit=0 15:11:23Z
+[batch] START research-paper-writing/grouped-bar 15:11:23Z
+[run_cell] arm=research-paper-writing fig=grouped-bar run_id=20260524T151123Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/grouped-bar/20260524T151123Z/workspace
+[finalize] 20260524T150953Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/roc-prc/20260524T150953Z  exit=0
+[batch] DONE  nature-figure/roc-prc exit=0 15:11:29Z
+[batch] START research-paper-writing/line-errband 15:11:29Z
+[run_cell] arm=research-paper-writing fig=line-errband run_id=20260524T151129Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/line-errband/20260524T151129Z/workspace
+[finalize] 20260524T151040Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/forest-plot/20260524T151040Z  exit=0
+[batch] DONE  nature-figure/forest-plot exit=0 15:11:50Z
+[batch] START research-paper-writing/scatter-fit 15:11:50Z
+[run_cell] arm=research-paper-writing fig=scatter-fit run_id=20260524T151150Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/scatter-fit/20260524T151150Z/workspace
+[finalize] 20260524T151057Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/volcano/20260524T151057Z  exit=0
+[batch] DONE  nature-figure/volcano exit=0 15:12:01Z
+[batch] START research-paper-writing/heatmap 15:12:01Z
+[run_cell] arm=research-paper-writing fig=heatmap run_id=20260524T151201Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/heatmap/20260524T151201Z/workspace
+[finalize] 20260524T151129Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/line-errband/20260524T151129Z  exit=0
+[batch] DONE  research-paper-writing/line-errband exit=0 15:12:20Z
+[batch] START research-paper-writing/box-violin 15:12:20Z
+[run_cell] arm=research-paper-writing fig=box-violin run_id=20260524T151220Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/box-violin/20260524T151220Z/workspace
+[finalize] 20260524T151117Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/network-graph/20260524T151117Z  exit=0
+[batch] DONE  nature-figure/network-graph exit=0 15:12:26Z
+[batch] START research-paper-writing/4panel-hero 15:12:26Z
+[run_cell] arm=research-paper-writing fig=4panel-hero run_id=20260524T151226Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/4panel-hero/20260524T151226Z/workspace
+[finalize] 20260524T151123Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/grouped-bar/20260524T151123Z  exit=0
+[batch] DONE  research-paper-writing/grouped-bar exit=0 15:12:35Z
+[batch] START research-paper-writing/architecture 15:12:35Z
+[run_cell] arm=research-paper-writing fig=architecture run_id=20260524T151235Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/architecture/20260524T151235Z/workspace
+[finalize] 20260524T151051Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/nature-figure/sankey/20260524T151051Z  exit=0
+[batch] DONE  nature-figure/sankey exit=0 15:12:47Z
+[batch] START research-paper-writing/roc-prc 15:12:47Z
+[run_cell] arm=research-paper-writing fig=roc-prc run_id=20260524T151247Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/roc-prc/20260524T151247Z/workspace
+[finalize] 20260524T151150Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/scatter-fit/20260524T151150Z  exit=0
+[batch] DONE  research-paper-writing/scatter-fit exit=0 15:12:54Z
+[batch] START research-paper-writing/ridgeline 15:12:54Z
+[run_cell] arm=research-paper-writing fig=ridgeline run_id=20260524T151254Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/ridgeline/20260524T151254Z/workspace
+[finalize] 20260524T151201Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/heatmap/20260524T151201Z  exit=0
+[batch] DONE  research-paper-writing/heatmap exit=0 15:13:09Z
+[batch] START research-paper-writing/dual-axis-time 15:13:09Z
+[run_cell] arm=research-paper-writing fig=dual-axis-time run_id=20260524T151309Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/dual-axis-time/20260524T151309Z/workspace
+[finalize] 20260524T151220Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/box-violin/20260524T151220Z  exit=0
+[batch] DONE  research-paper-writing/box-violin exit=0 15:13:32Z
+[batch] START research-paper-writing/stacked-bar 15:13:32Z
+[run_cell] arm=research-paper-writing fig=stacked-bar run_id=20260524T151332Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/stacked-bar/20260524T151332Z/workspace
+[finalize] 20260524T151235Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/architecture/20260524T151235Z  exit=0
+[batch] DONE  research-paper-writing/architecture exit=0 15:13:48Z
+[batch] START research-paper-writing/forest-plot 15:13:48Z
+[run_cell] arm=research-paper-writing fig=forest-plot run_id=20260524T151348Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/forest-plot/20260524T151348Z/workspace
+[finalize] 20260524T151254Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/ridgeline/20260524T151254Z  exit=0
+[batch] DONE  research-paper-writing/ridgeline exit=0 15:13:58Z
+[batch] START research-paper-writing/sankey 15:13:58Z
+[run_cell] arm=research-paper-writing fig=sankey run_id=20260524T151358Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/sankey/20260524T151358Z/workspace
+[finalize] 20260524T151226Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/4panel-hero/20260524T151226Z  exit=0
+[batch] DONE  research-paper-writing/4panel-hero exit=0 15:14:09Z
+[batch] START research-paper-writing/volcano 15:14:09Z
+[run_cell] arm=research-paper-writing fig=volcano run_id=20260524T151409Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/volcano/20260524T151409Z/workspace
+[finalize] 20260524T151247Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/roc-prc/20260524T151247Z  exit=0
+[batch] DONE  research-paper-writing/roc-prc exit=0 15:14:12Z
+[batch] START research-paper-writing/network-graph 15:14:12Z
+[run_cell] arm=research-paper-writing fig=network-graph run_id=20260524T151412Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/network-graph/20260524T151412Z/workspace
+[finalize] 20260524T151332Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/stacked-bar/20260524T151332Z  exit=0
+[batch] DONE  research-paper-writing/stacked-bar exit=0 15:14:17Z
+[batch] START academic-plotting-orchestra/grouped-bar 15:14:17Z
+[run_cell] arm=academic-plotting-orchestra fig=grouped-bar run_id=20260524T151417Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/grouped-bar/20260524T151417Z/workspace
+[finalize] 20260524T151309Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/dual-axis-time/20260524T151309Z  exit=0
+[batch] DONE  research-paper-writing/dual-axis-time exit=0 15:14:20Z
+[batch] START academic-plotting-orchestra/line-errband 15:14:20Z
+[run_cell] arm=academic-plotting-orchestra fig=line-errband run_id=20260524T151420Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/line-errband/20260524T151420Z/workspace
+[finalize] 20260524T151348Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/forest-plot/20260524T151348Z  exit=0
+[batch] DONE  research-paper-writing/forest-plot exit=0 15:14:48Z
+[batch] START academic-plotting-orchestra/scatter-fit 15:14:48Z
+[run_cell] arm=academic-plotting-orchestra fig=scatter-fit run_id=20260524T151448Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/scatter-fit/20260524T151448Z/workspace
+[finalize] 20260524T151412Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/network-graph/20260524T151412Z  exit=0
+[batch] DONE  research-paper-writing/network-graph exit=0 15:15:18Z
+[batch] START academic-plotting-orchestra/heatmap 15:15:18Z
+[run_cell] arm=academic-plotting-orchestra fig=heatmap run_id=20260524T151518Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/heatmap/20260524T151518Z/workspace
+[finalize] 20260524T151417Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/grouped-bar/20260524T151417Z  exit=0
+[batch] DONE  academic-plotting-orchestra/grouped-bar exit=0 15:15:18Z
+[batch] START academic-plotting-orchestra/box-violin 15:15:18Z
+[run_cell] arm=academic-plotting-orchestra fig=box-violin run_id=20260524T151518Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/box-violin/20260524T151518Z/workspace
+[finalize] 20260524T151420Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/line-errband/20260524T151420Z  exit=0
+[batch] DONE  academic-plotting-orchestra/line-errband exit=0 15:15:24Z
+[batch] START academic-plotting-orchestra/4panel-hero 15:15:24Z
+[run_cell] arm=academic-plotting-orchestra fig=4panel-hero run_id=20260524T151524Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/4panel-hero/20260524T151524Z/workspace
+[finalize] 20260524T151448Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/scatter-fit/20260524T151448Z  exit=0
+[batch] DONE  academic-plotting-orchestra/scatter-fit exit=0 15:15:43Z
+[batch] START academic-plotting-orchestra/architecture 15:15:43Z
+[run_cell] arm=academic-plotting-orchestra fig=architecture run_id=20260524T151543Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/architecture/20260524T151543Z/workspace
+[finalize] 20260524T151518Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/heatmap/20260524T151518Z  exit=0
+[batch] DONE  academic-plotting-orchestra/heatmap exit=0 15:16:09Z
+[batch] START academic-plotting-orchestra/roc-prc 15:16:09Z
+[run_cell] arm=academic-plotting-orchestra fig=roc-prc run_id=20260524T151609Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/roc-prc/20260524T151609Z/workspace
+[finalize] 20260524T151518Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/box-violin/20260524T151518Z  exit=0
+[batch] DONE  academic-plotting-orchestra/box-violin exit=0 15:16:29Z
+[batch] START academic-plotting-orchestra/ridgeline 15:16:29Z
+[run_cell] arm=academic-plotting-orchestra fig=ridgeline run_id=20260524T151629Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/ridgeline/20260524T151629Z/workspace
+[finalize] 20260524T151409Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/volcano/20260524T151409Z  exit=0
+[batch] DONE  research-paper-writing/volcano exit=0 15:16:39Z
+[batch] START academic-plotting-orchestra/dual-axis-time 15:16:39Z
+[run_cell] arm=academic-plotting-orchestra fig=dual-axis-time run_id=20260524T151639Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/dual-axis-time/20260524T151639Z/workspace
+[finalize] 20260524T151524Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/4panel-hero/20260524T151524Z  exit=0
+[batch] DONE  academic-plotting-orchestra/4panel-hero exit=0 15:16:44Z
+[batch] START academic-plotting-orchestra/stacked-bar 15:16:44Z
+[run_cell] arm=academic-plotting-orchestra fig=stacked-bar run_id=20260524T151644Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/stacked-bar/20260524T151644Z/workspace
+[finalize] 20260524T151358Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/research-paper-writing/sankey/20260524T151358Z  exit=0
+[batch] DONE  research-paper-writing/sankey exit=0 15:16:52Z
+[batch] START academic-plotting-orchestra/forest-plot 15:16:52Z
+[run_cell] arm=academic-plotting-orchestra fig=forest-plot run_id=20260524T151652Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/forest-plot/20260524T151652Z/workspace
+[finalize] 20260524T151644Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/stacked-bar/20260524T151644Z  exit=0
+[batch] DONE  academic-plotting-orchestra/stacked-bar exit=0 15:17:25Z
+[batch] START academic-plotting-orchestra/sankey 15:17:25Z
+[run_cell] arm=academic-plotting-orchestra fig=sankey run_id=20260524T151725Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/sankey/20260524T151725Z/workspace
+[finalize] 20260524T151609Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/roc-prc/20260524T151609Z  exit=0
+[batch] DONE  academic-plotting-orchestra/roc-prc exit=0 15:17:33Z
+[batch] START academic-plotting-orchestra/volcano 15:17:33Z
+[run_cell] arm=academic-plotting-orchestra fig=volcano run_id=20260524T151733Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/volcano/20260524T151733Z/workspace
+[finalize] 20260524T151639Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/dual-axis-time/20260524T151639Z  exit=0
+[batch] DONE  academic-plotting-orchestra/dual-axis-time exit=0 15:17:43Z
+[batch] START academic-plotting-orchestra/network-graph 15:17:43Z
+[run_cell] arm=academic-plotting-orchestra fig=network-graph run_id=20260524T151743Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/network-graph/20260524T151743Z/workspace
+[finalize] 20260524T151629Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/ridgeline/20260524T151629Z  exit=0
+[batch] DONE  academic-plotting-orchestra/ridgeline exit=0 15:17:44Z
+[batch] START pdf-vector-layout/grouped-bar 15:17:44Z
+[run_cell] arm=pdf-vector-layout fig=grouped-bar run_id=20260524T151744Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/grouped-bar/20260524T151744Z/workspace
+[finalize] 20260524T151652Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/forest-plot/20260524T151652Z  exit=0
+[batch] DONE  academic-plotting-orchestra/forest-plot exit=0 15:17:45Z
+[batch] START pdf-vector-layout/line-errband 15:17:45Z
+[run_cell] arm=pdf-vector-layout fig=line-errband run_id=20260524T151745Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/line-errband/20260524T151745Z/workspace
+[finalize] 20260524T151543Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/architecture/20260524T151543Z  exit=0
+[batch] DONE  academic-plotting-orchestra/architecture exit=0 15:17:50Z
+[batch] START pdf-vector-layout/scatter-fit 15:17:50Z
+[run_cell] arm=pdf-vector-layout fig=scatter-fit run_id=20260524T151750Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/scatter-fit/20260524T151750Z/workspace
+[finalize] 20260524T151744Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/grouped-bar/20260524T151744Z  exit=0
+[batch] DONE  pdf-vector-layout/grouped-bar exit=0 15:18:44Z
+[batch] START pdf-vector-layout/heatmap 15:18:44Z
+[run_cell] arm=pdf-vector-layout fig=heatmap run_id=20260524T151844Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/heatmap/20260524T151844Z/workspace
+[finalize] 20260524T151750Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/scatter-fit/20260524T151750Z  exit=0
+[batch] DONE  pdf-vector-layout/scatter-fit exit=0 15:18:44Z
+[batch] START pdf-vector-layout/box-violin 15:18:44Z
+[run_cell] arm=pdf-vector-layout fig=box-violin run_id=20260524T151844Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/box-violin/20260524T151844Z/workspace
+[finalize] 20260524T151743Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/network-graph/20260524T151743Z  exit=0
+[batch] DONE  academic-plotting-orchestra/network-graph exit=0 15:18:45Z
+[batch] START pdf-vector-layout/4panel-hero 15:18:45Z
+[run_cell] arm=pdf-vector-layout fig=4panel-hero run_id=20260524T151845Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/4panel-hero/20260524T151845Z/workspace
+[finalize] 20260524T151733Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/volcano/20260524T151733Z  exit=0
+[batch] DONE  academic-plotting-orchestra/volcano exit=0 15:18:52Z
+[batch] START pdf-vector-layout/architecture 15:18:52Z
+[run_cell] arm=pdf-vector-layout fig=architecture run_id=20260524T151852Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/architecture/20260524T151852Z/workspace
+[finalize] 20260524T151745Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/line-errband/20260524T151745Z  exit=0
+[batch] DONE  pdf-vector-layout/line-errband exit=0 15:18:56Z
+[batch] START pdf-vector-layout/roc-prc 15:18:56Z
+[run_cell] arm=pdf-vector-layout fig=roc-prc run_id=20260524T151856Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/roc-prc/20260524T151856Z/workspace
+[finalize] 20260524T151844Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/heatmap/20260524T151844Z  exit=0
+[batch] DONE  pdf-vector-layout/heatmap exit=0 15:19:32Z
+[batch] START pdf-vector-layout/ridgeline 15:19:32Z
+[run_cell] arm=pdf-vector-layout fig=ridgeline run_id=20260524T151932Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/ridgeline/20260524T151932Z/workspace
+[finalize] 20260524T151725Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/academic-plotting-orchestra/sankey/20260524T151725Z  exit=0
+[batch] DONE  academic-plotting-orchestra/sankey exit=0 15:19:40Z
+[batch] START pdf-vector-layout/dual-axis-time 15:19:40Z
+[run_cell] arm=pdf-vector-layout fig=dual-axis-time run_id=20260524T151940Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/dual-axis-time/20260524T151940Z/workspace
+[finalize] 20260524T151844Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/box-violin/20260524T151844Z  exit=0
+[batch] DONE  pdf-vector-layout/box-violin exit=0 15:19:49Z
+[batch] START pdf-vector-layout/stacked-bar 15:19:49Z
+[run_cell] arm=pdf-vector-layout fig=stacked-bar run_id=20260524T151949Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/stacked-bar/20260524T151949Z/workspace
+[finalize] 20260524T151852Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/architecture/20260524T151852Z  exit=0
+[batch] DONE  pdf-vector-layout/architecture exit=0 15:19:59Z
+[batch] START pdf-vector-layout/forest-plot 15:19:59Z
+[run_cell] arm=pdf-vector-layout fig=forest-plot run_id=20260524T151959Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/forest-plot/20260524T151959Z/workspace
+[finalize] 20260524T151845Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/4panel-hero/20260524T151845Z  exit=0
+[batch] DONE  pdf-vector-layout/4panel-hero exit=0 15:20:10Z
+[batch] START pdf-vector-layout/sankey 15:20:10Z
+[run_cell] arm=pdf-vector-layout fig=sankey run_id=20260524T152010Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/sankey/20260524T152010Z/workspace
+[finalize] 20260524T151856Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/roc-prc/20260524T151856Z  exit=0
+[batch] DONE  pdf-vector-layout/roc-prc exit=0 15:20:12Z
+[batch] START pdf-vector-layout/volcano 15:20:12Z
+[run_cell] arm=pdf-vector-layout fig=volcano run_id=20260524T152012Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/volcano/20260524T152012Z/workspace
+[finalize] 20260524T151940Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/dual-axis-time/20260524T151940Z  exit=0
+[batch] DONE  pdf-vector-layout/dual-axis-time exit=0 15:20:43Z
+[batch] START pdf-vector-layout/network-graph 15:20:43Z
+[run_cell] arm=pdf-vector-layout fig=network-graph run_id=20260524T152043Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/network-graph/20260524T152043Z/workspace
+[finalize] 20260524T151949Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/stacked-bar/20260524T151949Z  exit=0
+[batch] DONE  pdf-vector-layout/stacked-bar exit=0 15:20:54Z
+[finalize] 20260524T151932Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/ridgeline/20260524T151932Z  exit=0
+[batch] DONE  pdf-vector-layout/ridgeline exit=0 15:21:14Z
+[finalize] 20260524T152043Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/network-graph/20260524T152043Z  exit=0
+[batch] DONE  pdf-vector-layout/network-graph exit=0 15:21:36Z
+[finalize] 20260524T151959Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/forest-plot/20260524T151959Z  exit=0
+[batch] DONE  pdf-vector-layout/forest-plot exit=0 15:21:45Z
+[finalize] 20260524T152010Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/sankey/20260524T152010Z  exit=0
+[batch] DONE  pdf-vector-layout/sankey exit=0 15:21:49Z
+[finalize] 20260524T152012Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/sessions/pdf-vector-layout/volcano/20260524T152012Z  exit=0
+[batch] DONE  pdf-vector-layout/volcano exit=0 15:23:05Z

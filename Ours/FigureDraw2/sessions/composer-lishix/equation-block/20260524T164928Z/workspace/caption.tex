@@ -1,0 +1,11 @@
+\caption{%
+  \textbf{RetroDiff training objective derivation.}
+  Equation~\eqref{eq:elbo} states the standard diffusion ELBO obtained by
+  Jensen's inequality on $\log p_\theta(x)$.
+  Equation~\eqref{eq:decomp} expands the ELBO into a reconstruction term and a
+  sum of per-step KL divergences exploiting the Markov structure of the forward
+  process $q$.
+  Equation~\eqref{eq:retro} is RetroDiff's novel objective: the per-sample ELBO
+  is conditioned on a set $R(x)$ of $k$ exemplars retrieved from the training
+  corpus, making retrieval a first-class component of the generative process.%
+}

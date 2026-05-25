@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "All four panels (pipeline diagram, ablation bars, training curve, heatmap) clearly communicate the brief's claims; panel A reads as a scientific diagram, not decoration.",
+    "typography":            "Script explicitly sets font.sans-serif to ['DejaVu Sans'] (the matplotlib default) and does not set pdf.fonttype=42; PDF embeds Type 3 bitmap fonts instead of Type 42 (TrueType), making text non-selectable/non-editable in the PDF.",
+    "palette":               "Baseline/Ours use gray/orange (CB-safe pair); ablation uses blue/gray (CB-safe); however panel D uses RdYlGn colormap which is not colorblind-safe (red-green confusion) and uses directional red/green for a non-directional sensitivity score.",
+    "layout_density":        "gridspec(2,3,width_ratios=[2,1,1]) with full-width bottom panel matches brief exactly; panels fill space well, no gaping whitespace; value labels in panel B are tight but readable.",
+    "reviewer_readiness":    "Caption matches figure content accurately and includes the specific numerical claim (64.7%, Δ=9.6 pp); legend in panel C is inside the axes (acceptable); panel D lacks axis title disambiguation—'Hyperparameter S' vs. 'P' could confuse without the caption.",
+    "vector_fidelity":       "PDF uses Type 3 (bitmap) fonts, not Type 42 (TrueType); text is not selectable in the PDF; script never sets matplotlib.rcParams['pdf.fonttype']=42 or svg.fonttype=None.",
+    "file_format":           "All four required files exist and are non-trivial: figure.pdf (50 KB), figure.png (183 KB), figure.svg (111 KB), caption.tex (580 B), gen_figure.py (>200 lines).",
+    "caption_quality":       "Caption explains each panel with scientific detail; includes specific numerical findings (64.7% full-model accuracy, Δ=9.6 pp memory contribution, 30k training steps, 5×5 grid); bold panel labels match figure."
+  },
+  "overall_strengths": [
+    "Complete 4-panel layout matches the brief exactly (gridspec 2,3 with width_ratios [2,1,1] and full-width bottom panel), all panels are scientifically informative.",
+    "Caption is publication-quality: covers all panels, includes specific numerical claims, and uses proper LaTeX formatting with bold panel references."
+  ],
+  "overall_weaknesses": [
+    "Critical typography failure: pdf.fonttype=42 is never set, resulting in Type 3 bitmap fonts in the PDF rather than selectable/editable TrueType text—a common journal submission rejection reason.",
+    "Panel D uses the RdYlGn colormap which is not colorblind-safe (red-green deficiency affects ~8% of males); a perceptually-uniform diverging or sequential colormap (e.g., viridis, cividis, RdBu) should be used instead."
+  ]
+}

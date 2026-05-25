@@ -1,0 +1,27 @@
+{
+  "run_id": "20260525T010614Z",
+  "arm": "minionsos-v4",
+  "fig_type": "latex-table",
+  "model": "claude-sonnet-4-6",
+  "effort": "max",
+  "started_utc": "2026-05-25T01:06:14Z",
+  "fixture_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/fixtures/latex-table",
+  "out_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/latex-table/20260525T010614Z",
+  "finished_utc": "2026-05-25T01:08:54.834479+00:00",
+  "exit_code": 0,
+  "produced": [
+    "brief.md",
+    "caption.tex",
+    "data.json",
+    "figure.pdf",
+    "figure.png",
+    "gen_figure.py",
+    "missfont.log",
+    "table.tex"
+  ],
+  "has_figure_pdf": true,
+  "has_figure_png": true,
+  "has_figure_svg": false,
+  "has_caption": true,
+  "has_script": true
+}

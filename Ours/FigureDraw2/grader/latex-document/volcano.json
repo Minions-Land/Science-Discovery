@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Volcano plot correctly encodes log2FC vs -log10p, threshold dashed lines, three-class coloring, and top-5 gene labels all directly serve the brief's claim.",
+    "typography":            "No pdf.fonttype=42 or svg.fonttype='none' set; pdffonts confirms all three fonts are Type 3 (non-selectable); SVG text converted to DejaVu glyph paths; default DejaVu Sans used throughout.",
+    "palette":               "Red (#E64B35) for up and teal (#4DBBD5) for down follows directional discipline (not red/green); Nature-journal palette is reasonable for colorblind viewers but red remains problematic for protanopes.",
+    "layout_density":        "7x5.5 in figure with tight_layout(pad=1.5), scatter fills the plot area, top/right spines removed; no obvious whitespace waste or label overlap from script inspection.",
+    "reviewer_readiness":    "Caption counts (n=235 up, n=230 down, n=2535 ns) match script logic; legend placed upper-left; gene labels are generic 'GeneN' identifiers rather than real gene symbols, which a reviewer would flag.",
+    "vector_fidelity":       "pdffonts shows Type 3 fonts (not Type 42/TrueType), so text is not selectable or editable in the PDF; scatter points are correctly rasterized (rasterized=True) but axes/text should be true vector.",
+    "file_format":           "figure.pdf (191 KB), figure.png (100 KB), figure.svg (96 KB), caption.tex, and gen_figure.py all present and non-trivial; brief required pdf+png+caption.tex+gen_figure.py, all satisfied.",
+    "caption_quality":       "Caption states axes, threshold criteria, color coding with exact counts (n=235, n=230, n=2535), total n=3000, and notes top-5 labeling — a specific numerical finding is present."
+  },
+  "overall_strengths": [
+    "Complete file set with well-structured generation script; rasterized scatter points in PDF/SVG is correct practice for 3000-point datasets.",
+    "Caption is precise and self-contained with numerical claims matching the brief; directional color discipline (red/teal, not red/green) is appropriate."
+  ],
+  "overall_weaknesses": [
+    "Missing pdf.fonttype=42 and svg.fonttype='none': all text in PDF is Type 3 (non-selectable/non-editable) and SVG text is converted to glyph paths, failing the vector-text requirement.",
+    "Default DejaVu Sans font with no explicit rcParams font setting; gene labels are placeholder 'GeneN' strings rather than real identifiers, which would draw Reviewer 2 criticism."
+  ]
+}

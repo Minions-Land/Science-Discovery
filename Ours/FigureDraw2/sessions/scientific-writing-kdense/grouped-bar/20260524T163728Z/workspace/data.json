@@ -1,0 +1,109 @@
+{
+  "benchmarks": [
+    "MMLU",
+    "HumanEval",
+    "GSM8K",
+    "MATH",
+    "GPQA"
+  ],
+  "methods": [
+    "Baseline",
+    "Method-A",
+    "Method-B",
+    "OursModel"
+  ],
+  "values": {
+    "Baseline": {
+      "MMLU": {
+        "mean": 65.4,
+        "std": 1.75
+      },
+      "HumanEval": {
+        "mean": 48.2,
+        "std": 0.65
+      },
+      "GSM8K": {
+        "mean": 72.1,
+        "std": 1.1
+      },
+      "MATH": {
+        "mean": 31.5,
+        "std": 1.0
+      },
+      "GPQA": {
+        "mean": 36.4,
+        "std": 1.93
+      }
+    },
+    "Method-A": {
+      "MMLU": {
+        "mean": 71.0,
+        "std": 1.82
+      },
+      "HumanEval": {
+        "mean": 55.6,
+        "std": 2.21
+      },
+      "GSM8K": {
+        "mean": 78.3,
+        "std": 0.76
+      },
+      "MATH": {
+        "mean": 37.2,
+        "std": 1.36
+      },
+      "GPQA": {
+        "mean": 41.8,
+        "std": 0.65
+      }
+    },
+    "Method-B": {
+      "MMLU": {
+        "mean": 73.5,
+        "std": 0.99
+      },
+      "HumanEval": {
+        "mean": 59.4,
+        "std": 1.51
+      },
+      "GSM8K": {
+        "mean": 80.7,
+        "std": 0.65
+      },
+      "MATH": {
+        "mean": 39.8,
+        "std": 0.96
+      },
+      "GPQA": {
+        "mean": 44.1,
+        "std": 1.77
+      }
+    },
+    "OursModel": {
+      "MMLU": {
+        "mean": 76.8,
+        "std": 1.58
+      },
+      "HumanEval": {
+        "mean": 64.7,
+        "std": 1.0
+      },
+      "GSM8K": {
+        "mean": 84.2,
+        "std": 1.66
+      },
+      "MATH": {
+        "mean": 44.6,
+        "std": 2.06
+      },
+      "GPQA": {
+        "mean": 49.3,
+        "std": 0.61
+      }
+    }
+  },
+  "n_seeds": 5,
+  "metric": "accuracy (%)",
+  "winner_overall": "OursModel",
+  "notes": "5 seeds per cell; std is sample std. Synthetic but realistic distribution."
+}

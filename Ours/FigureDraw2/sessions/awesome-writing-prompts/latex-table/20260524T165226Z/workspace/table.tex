@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage[margin=0.5in,paperwidth=7in,paperheight=3in]{geometry}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage[T1]{fontenc}
+\pagestyle{empty}
+\begin{document}
+\centering
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+\textbf{Method} & \textbf{MMLU} (\%) & \textbf{HumanEval} (\%) & \textbf{GSM8K} (\%) & \textbf{MATH} (\%) & \textbf{GPQA} (\%) \\
+\midrule
+\multicolumn{6}{l}{\textit{Baselines}} \\[1pt]
+\quad Baseline & $65.4_{\pm 1.41}$ & $48.2_{\pm 1.61}$ & $72.1_{\pm 2.26}$ & $31.5_{\pm 1.44}$ & $36.4_{\pm 1.51}$ \\
+\quad Method-A & $71.0_{\pm 1.66}$ & $55.6_{\pm 0.93}$ & $78.3_{\pm 1.52}$ & $37.2_{\pm 1.73}$ & $41.8_{\pm 2.03}$ \\
+\quad Method-B & $73.5_{\pm 0.77}$ & $59.4_{\pm 1.15}$ & $80.7_{\pm 0.76}$ & $39.8_{\pm 2.06}$ & $44.1_{\pm 1.85}$ \\
+\midrule
+\multicolumn{6}{l}{\textit{Ours}} \\[1pt]
+\quad \textbf{OursModel} & \textbf{$76.8_{\pm 0.68}$} & \textbf{$64.7_{\pm 2.37}$} & \textbf{$84.2_{\pm 2.34}$} & \textbf{$44.6_{\pm 1.78}$} & \textbf{$49.3_{\pm 1.71}$} \\
+\bottomrule
+\end{tabular}
+\end{document}

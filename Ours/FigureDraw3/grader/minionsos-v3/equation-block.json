@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               3,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       3,
+    "file_format":           2,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "All three numbered equations (ELBO eq.1, decomposition eq.2, retrieval-augmented eq.3) present with prose cross-referencing via \\eqref; derivation chain is complete and readable.",
+    "typography":            "Latin Modern fonts (LMRoman, LMMathItalic, LMMathSymbols) used throughout — proper LaTeX math typography, no DejaVu Sans; all fonts embedded as Type 1 subsets with unicode mapping.",
+    "palette":               "No color used; appropriate for a math derivation block — no colorblind risk, no directional/categorical color misuse.",
+    "layout_density":        "Single letter-size page (612x792 pts) with equations and prose filling the space naturally; no gaping whitespace or overlapping labels.",
+    "reviewer_readiness":    "Caption \\eqref references match equation labels; equations.tex (required output per brief) is absent from the working directory.",
+    "vector_fidelity":       "PDF produced by pdfTeX-1.40.29 with all 14 font subsets embedded (emb=yes, sub=yes, uni=yes); pdftotext extracts full text confirming real vector content.",
+    "file_format":           "figure.pdf (166KB), figure.png (250KB), caption.tex, and gen_figure.py all present and non-trivial; equations.tex is missing despite being listed as a required output in the brief.",
+    "caption_quality":       "Caption identifies each equation by role (ELBO via Jensen, decomposition into reconstruction+KL, retrieval-augmented conditioning on k exemplars) with specific mechanistic claims."
+  },
+  "overall_strengths": [
+    "Excellent LaTeX math typesetting: Latin Modern fonts, proper \\mathbb{E}/\\mathcal{L}/\\mathrm{KL} distinctions, embedded Type 1 fonts, and fully selectable vector PDF.",
+    "Caption is precise and informative, cross-referencing all three equations with specific mechanistic descriptions of each derivation step."
+  ],
+  "overall_weaknesses": [
+    "equations.tex is missing from the working directory — the brief explicitly lists it as a required output alongside figure.pdf/png, caption.tex, and gen_figure.py.",
+    "No equations.tex means the derivation is not reproducible from source in the output directory; a reviewer cannot inspect or modify the raw LaTeX."
+  ]
+}

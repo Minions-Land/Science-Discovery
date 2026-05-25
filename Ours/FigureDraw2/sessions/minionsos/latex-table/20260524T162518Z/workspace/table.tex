@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage[margin=1cm]{geometry}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\pagestyle{empty}
+\begin{document}
+\begin{center}
+\begin{tabular}{lrrrrr}
+\toprule
+\multicolumn{1}{c}{} & \multicolumn{5}{c}{\textbf{Benchmark (\%)}}\\
+\cmidrule(lr){2-6}
+\textbf{Method} & \textbf{MMLU} & \textbf{HumanEval} & \textbf{GSM8K} & \textbf{MATH} & \textbf{GPQA}\\
+\midrule
+\multicolumn{6}{l}{\textit{Baselines}}\\
+Baseline & $65.4{\scriptstyle \pm1.41}$ & $48.2{\scriptstyle \pm1.61}$ & $72.1{\scriptstyle \pm2.26}$ & $31.5{\scriptstyle \pm1.44}$ & $36.4{\scriptstyle \pm1.51}$\\
+Method-A & $71.0{\scriptstyle \pm1.66}$ & $55.6{\scriptstyle \pm0.93}$ & $78.3{\scriptstyle \pm1.52}$ & $37.2{\scriptstyle \pm1.73}$ & $41.8{\scriptstyle \pm2.03}$\\
+Method-B & $73.5{\scriptstyle \pm0.77}$ & $59.4{\scriptstyle \pm1.15}$ & $80.7{\scriptstyle \pm0.76}$ & $39.8{\scriptstyle \pm2.06}$ & $44.1{\scriptstyle \pm1.85}$\\
+\midrule
+\multicolumn{6}{l}{\textit{Ours}}\\
+OursModel & \textbf{$76.8{\scriptstyle \pm0.68}$} & \textbf{$64.7{\scriptstyle \pm2.37}$} & \textbf{$84.2{\scriptstyle \pm2.34}$} & \textbf{$44.6{\scriptstyle \pm1.78}$} & \textbf{$49.3{\scriptstyle \pm1.71}$}\\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{document}

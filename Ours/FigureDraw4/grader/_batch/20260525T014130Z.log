@@ -1,0 +1,7 @@
+[gbatch] 20260525T014130Z -- 2 cells to grade, conc=2
+[gbatch] START minionsos-v4/equation-block 01:41:30Z
+[gbatch] START minionsos-v4/grouped-bar 01:41:30Z
+[grade] minionsos-v4/equation-block -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/equation-block.json  (exit 0)
+[gbatch] DONE  minionsos-v4/equation-block exit=0 01:42:59Z
+[grade] minionsos-v4/grouped-bar -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/grouped-bar.json  (exit 0)
+[gbatch] DONE  minionsos-v4/grouped-bar exit=0 01:43:08Z

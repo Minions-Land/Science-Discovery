@@ -1,0 +1,110 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.5cm,paperwidth=16cm,paperheight=20cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{parskip}
+
+\definecolor{accentblue}{RGB}{30,80,160}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{center}
+  {\large\bfseries\color{accentblue} RetroDiff: Training Objective Derivation}
+\end{center}
+
+\medskip
+\noindent
+Diffusion models are trained by maximising a variational lower bound on the log-likelihood.
+Applying Jensen's inequality to the intractable marginal $\log p_\theta(x)$ gives the
+\emph{evidence lower bound} (ELBO):
+
+\begin{align}
+  \log p_\theta(x)
+    &\;\geq\;
+    \mathbb{E}_{q(x_{1:T}|x)}\!\left[
+      \log\frac{p_\theta(x_{0:T})}{q(x_{1:T}|x)}
+    \right]
+    \;=\; -\mathcal{L}_{\mathrm{ELBO}}
+  \label{eq:elbo}
+\end{align}
+
+\noindent
+where $q$ is the fixed forward noising process,
+$p_\theta$ is the learned reverse process parameterised by $\theta$,
+and $x_{1:T}$ denotes the latent variables across all $T$ diffusion steps.
+
+\medskip
+\noindent
+Expanding the joint ratio in \eqref{eq:elbo} via the Markov structure of both
+$p_\theta$ and $q$ yields a telescoping decomposition into a reconstruction term
+and a sum of per-step KL divergences:
+
+\begin{align}
+  \mathcal{L}_{\mathrm{ELBO}}
+    &= \underbrace{\mathbb{E}_q[-\log p_\theta(x_0|x_1)]}_{\text{reconstruction}}
+    \;+\;
+    \sum_{t=2}^{T}
+    \underbrace{
+      \mathrm{KL}\!\left(
+        q(x_{t-1}|x_t, x) \,\|\, p_\theta(x_{t-1}|x_t)
+      \right)
+    }_{\text{step-}t\text{ denoising}}
+  \label{eq:decomp}
+\end{align}
+
+\noindent
+Each KL term in \eqref{eq:decomp} can be computed in closed form because the
+forward posterior $q(x_{t-1}|x_t, x)$ is Gaussian; minimising these terms trains
+the network to reverse each noising step.
+
+\medskip
+\noindent
+\textbf{RetroDiff's contribution.}
+Standard diffusion models generate $x$ from noise alone.
+RetroDiff conditions every denoising step on a set
+$R(x)=\{r_1,\ldots,r_k\}$ of $k$ exemplars retrieved from the training corpus
+based on $x$.
+Substituting $\mathcal{L}_{\mathrm{ELBO}}(x\,|\,R(x))$
+for $\mathcal{L}_{\mathrm{ELBO}}(x)$ in the per-sample objective and taking an
+expectation over the data distribution defines the full training loss:
+
+\begin{align}
+  \mathcal{L}_{\mathrm{RetroDiff}}(\theta)
+    &= \mathbb{E}_{x \sim p_{\mathrm{data}}}\!\left[
+        \mathcal{L}_{\mathrm{ELBO}}\!\left(x \,\big|\, R(x)\right)
+      \right]
+  \label{eq:retro}
+\end{align}
+
+\noindent
+Equation~\eqref{eq:retro} is the central objective: the model must learn to
+denoise $x$ given both the noisy intermediate $x_t$ and the retrieved exemplar
+context, making retrieval a first-class component of the generative process
+rather than a post-hoc conditioning signal.
+
+\bigskip
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{cl}
+  \toprule
+  \textbf{Symbol} & \textbf{Meaning} \\
+  \midrule
+  $x$ & clean data sample \\
+  $x_t$ & noised version of $x$ at diffusion step $t$ \\
+  $R(x)$ & set of $k$ retrieved exemplars conditioned on $x$ \\
+  $\theta$ & model parameters \\
+  $q$ & forward noising distribution \\
+  $p_\theta$ & learned reverse distribution \\
+  $T$ & total diffusion steps \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\end{document}

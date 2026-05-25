@@ -1,0 +1,69 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.2in, top=1in, bottom=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\begin{document}
+
+\begin{center}
+  {\large\bfseries RetroDiff: Training Objective Derivation}
+\end{center}
+
+\medskip
+
+\noindent
+Let $x$ denote a clean data sample and $x_t$ its noised counterpart at diffusion step $t \in \{1,\ldots,T\}$.
+The forward process $q(x_{1:T}|x)$ gradually corrupts $x$; the model $p_\theta$ learns to reverse it.
+Applying Jensen's inequality to $\log p_\theta(x)$ yields the variational lower bound (ELBO):
+
+\begin{align}
+  \log p_\theta(x)
+    &\;\geq\;
+    \mathbb{E}_{q(x_{1:T}|x)}\!\left[\log\frac{p_\theta(x_{0:T})}{q(x_{1:T}|x)}\right]
+    \;=\; -\mathcal{L}_{\mathrm{ELBO}}
+  \label{eq:elbo}
+\end{align}
+
+\noindent
+The bound in \eqref{eq:elbo} is tight when the variational posterior matches the true reverse process.
+Expanding the joint $p_\theta(x_{0:T})$ and the Markov structure of $q$ decomposes the ELBO into a
+reconstruction term at $t{=}1$ and a sum of per-step KL divergences:
+
+\begin{align}
+  \mathcal{L}_{\mathrm{ELBO}}
+    &\;=\;
+    \underbrace{\mathbb{E}_q\!\left[-\log p_\theta(x_0|x_1)\right]}_{\text{reconstruction}}
+    \;+\;
+    \sum_{t=2}^{T}
+    \underbrace{\mathrm{KL}\!\left(q(x_{t-1}|x_t,x)\;\|\;p_\theta(x_{t-1}|x_t)\right)}_{\text{step-}t\text{ denoising}}
+  \label{eq:decomp}
+\end{align}
+
+\noindent
+Each KL term in \eqref{eq:decomp} is tractable because the forward posterior
+$q(x_{t-1}|x_t,x)$ is Gaussian with a closed-form mean and variance.
+\textbf{RetroDiff}'s key contribution is to condition the entire objective on a set
+$R(x)$ of $k$ retrieved exemplars drawn from the training corpus at inference time,
+giving the retrieval-augmented training objective:
+
+\begin{align}
+  \mathcal{L}_{\mathrm{RetroDiff}}(\theta)
+    &\;=\;
+    \mathbb{E}_{x \sim p_{\mathrm{data}}}\!\left[
+      \mathcal{L}_{\mathrm{ELBO}}\!\left(x \;\big|\; R(x)\right)
+    \right]
+  \label{eq:retro}
+\end{align}
+
+\noindent
+Minimising \eqref{eq:retro} trains the reverse process to leverage retrieved neighbours,
+reducing the effective denoising burden and improving sample quality without altering
+the diffusion schedule.
+
+\end{document}

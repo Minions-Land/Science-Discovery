@@ -1,0 +1,26 @@
+{
+  "run_id": "20260524T162335Z",
+  "arm": "minionsos",
+  "fig_type": "ridgeline",
+  "model": "claude-sonnet-4-6",
+  "effort": "max",
+  "started_utc": "2026-05-24T16:23:35Z",
+  "fixture_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/fixtures/ridgeline",
+  "out_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/minionsos/ridgeline/20260524T162335Z",
+  "finished_utc": "2026-05-24T16:24:41.846615+00:00",
+  "exit_code": 0,
+  "produced": [
+    "brief.md",
+    "caption.tex",
+    "data.json",
+    "figure.pdf",
+    "figure.png",
+    "figure.svg",
+    "gen_figure.py"
+  ],
+  "has_figure_pdf": true,
+  "has_figure_png": true,
+  "has_figure_svg": true,
+  "has_caption": true,
+  "has_script": true
+}

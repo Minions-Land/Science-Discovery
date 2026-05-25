@@ -1,0 +1,37 @@
+[gbatch] 20260525T011006Z -- 12 cells to grade, conc=4
+[gbatch] START minionsos-v4/architecture 01:10:06Z
+[gbatch] START minionsos-v4/box-violin 01:10:06Z
+[gbatch] START minionsos-v4/dual-axis-time 01:10:06Z
+[gbatch] START minionsos-v4/equation-block 01:10:06Z
+[grade] minionsos-v4/box-violin -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/box-violin.json  (exit 0)
+[gbatch] DONE  minionsos-v4/box-violin exit=0 01:10:59Z
+[gbatch] START minionsos-v4/forest-plot 01:10:59Z
+[grade] minionsos-v4/architecture -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/architecture.json  (exit 0)
+[gbatch] DONE  minionsos-v4/architecture exit=0 01:11:12Z
+[gbatch] START minionsos-v4/grouped-bar 01:11:12Z
+[grade] minionsos-v4/forest-plot -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/forest-plot.json  (exit 0)
+[gbatch] DONE  minionsos-v4/forest-plot exit=0 01:11:58Z
+[gbatch] START minionsos-v4/heatmap 01:11:58Z
+[grade] minionsos-v4/dual-axis-time -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/dual-axis-time.json  (exit 0)
+[gbatch] DONE  minionsos-v4/dual-axis-time exit=0 01:12:01Z
+[gbatch] START minionsos-v4/latex-table 01:12:01Z
+[grade] minionsos-v4/equation-block -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/equation-block.json  (exit 0)
+[gbatch] DONE  minionsos-v4/equation-block exit=0 01:12:30Z
+[gbatch] START minionsos-v4/line-errband 01:12:30Z
+[grade] minionsos-v4/grouped-bar -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/grouped-bar.json  (exit 0)
+[gbatch] DONE  minionsos-v4/grouped-bar exit=0 01:12:54Z
+[gbatch] START minionsos-v4/roc-prc 01:12:54Z
+[grade] minionsos-v4/heatmap -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/heatmap.json  (exit 0)
+[gbatch] DONE  minionsos-v4/heatmap exit=0 01:13:10Z
+[gbatch] START minionsos-v4/sankey 01:13:10Z
+[grade] minionsos-v4/latex-table -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/latex-table.json  (exit 0)
+[gbatch] DONE  minionsos-v4/latex-table exit=0 01:13:16Z
+[gbatch] START minionsos-v4/scatter-fit 01:13:16Z
+[grade] minionsos-v4/sankey -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/sankey.json  (exit 0)
+[gbatch] DONE  minionsos-v4/sankey exit=0 01:14:13Z
+[grade] minionsos-v4/roc-prc -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/roc-prc.json  (exit 0)
+[gbatch] DONE  minionsos-v4/roc-prc exit=0 01:14:14Z
+[grade] minionsos-v4/scatter-fit -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/scatter-fit.json  (exit 0)
+[gbatch] DONE  minionsos-v4/scatter-fit exit=0 01:14:26Z
+[grade] minionsos-v4/line-errband FAILED -- stub written
+[gbatch] DONE  minionsos-v4/line-errband exit=0 01:16:28Z

@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               3,
+    "layout_density":        2,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       3,
+    "file_format":           3,
+    "caption_quality":       2
+  },
+  "evidence": {
+    "scientific_clarity":   "All three required equations (ELBO, KL decomposition, RetroDiff retrieval objective) are present with explanatory prose and \\eqref cross-references; derivation chain is complete and the RetroDiff contribution is clearly labelled.",
+    "typography":            "pdflatex produces Latin Modern Type 1 fonts (LMRoman, LMMathItalic, LMMathSymbols, MSBM) — all fully embedded and subsetted; no DejaVu Sans; fonttype=42 is not applicable to pdflatex output, which is inherently vector Type 1.",
+    "palette":               "Pure black-on-white text figure; no colour used, so no colorblind risk and no directional/categorical colour discipline issues.",
+    "layout_density":        "Content occupies rows 247–1412 of a 2200-row (letter-size) page, leaving ~47% blank at the bottom; the content block itself is well-spaced with no overlapping labels.",
+    "reviewer_readiness":    "Caption accurately describes all three equations and matches the figure; QED box is appropriate; however, the caption does not sharply articulate what makes Eq. (3) novel beyond restating the conditioning, and the large bottom margin may draw a comment.",
+    "vector_fidelity":       "pdftotext extracts fully selectable text from figure.pdf; all 14 font entries in pdffonts are Type 1, embedded and subsetted, produced by pdfTeX-1.40.29 — genuine vector PDF.",
+    "file_format":           "figure.pdf (144 KB), figure.png (316 KB, 1700×2200), caption.tex (943 B), gen_figure.py (1.4 KB) all present and non-trivial; equations.tex is absent from the work directory but is not listed in the rubric's required set.",
+    "caption_quality":       "Caption explains the role of each equation and the derivation chain, and notes the Gaussian posterior property; it lacks a specific numerical claim or concise one-sentence finding (e.g., how Eq. (3) reduces to Eq. (1) in the zero-retrieval limit)."
+  },
+  "overall_strengths": [
+    "Proper LaTeX math typesetting throughout: Latin Modern fonts, correct use of \\mathbb{E}, \\mathcal{L}, \\mathrm{KL}, underbrace annotations on Eq. (2), and a QED box — publication-ready math layout.",
+    "Complete three-equation derivation chain with explanatory prose between each step and working \\eqref cross-references, directly satisfying the brief's scientific requirements."
+  ],
+  "overall_weaknesses": [
+    "Roughly half the letter-size page is blank below the derivation block; cropping the page to content height (or using a geometry package with a tighter textheight) would eliminate the wasted space.",
+    "Caption is descriptive but lacks a sharp, quotable finding — a single sentence stating the key implication of Eq. (3) (e.g., the retrieval conditioning leaves the ELBO convergence guarantee intact) would strengthen reviewer readiness."
+  ]
+}

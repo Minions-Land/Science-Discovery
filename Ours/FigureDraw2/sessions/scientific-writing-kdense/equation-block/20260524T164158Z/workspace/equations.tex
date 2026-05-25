@@ -1,0 +1,79 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\begin{document}
+
+\begin{center}
+  {\large\bfseries RetroDiff: Deriving the Retrieval-Augmented Training Objective}
+\end{center}
+
+\medskip
+
+We derive the training objective for \textbf{RetroDiff}, a retrieval-augmented diffusion
+model. Let $x$ denote a clean data sample, $x_t$ its noised counterpart at step $t$,
+$q$ the forward noising distribution, $p_\theta$ the learned reverse distribution with
+parameters $\theta$, and $T$ the total number of diffusion steps.
+
+\paragraph{Step 1: Variational lower bound.}
+Because the marginal likelihood $p_\theta(x)$ is intractable, we lower-bound it via
+Jensen's inequality applied to the expectation over the forward process
+$q(x_{1:T}\mid x)$:
+
+\begin{align}
+  \log p_\theta(x)
+  \;\geq\;
+  \mathbb{E}_{q(x_{1:T}|x)}\!\left[\log\frac{p_\theta(x_{0:T})}{q(x_{1:T}|x)}\right]
+  \;=\;
+  -\mathcal{L}_{\mathrm{ELBO}}
+  \label{eq:elbo}
+\end{align}
+
+Maximising $\log p_\theta(x)$ is therefore equivalent to minimising
+$\mathcal{L}_{\mathrm{ELBO}}$.
+
+\paragraph{Step 2: Decomposition into tractable terms.}
+Expanding the joint $p_\theta(x_{0:T})=p(x_T)\prod_t p_\theta(x_{t-1}\mid x_t)$
+and the forward posteriors $q(x_{t-1}\mid x_t,x)$, which are Gaussian in closed form,
+yields the canonical decomposition:
+
+\begin{align}
+  \mathcal{L}_{\mathrm{ELBO}}
+  \;=\;
+  \underbrace{\mathbb{E}_q\!\left[-\log p_\theta(x_0\mid x_1)\right]}_{\text{reconstruction}}
+  \;+\;
+  \sum_{t=2}^{T}
+  \underbrace{
+    \mathrm{KL}\!\left(q(x_{t-1}\mid x_t,x)\,\|\,p_\theta(x_{t-1}\mid x_t)\right)
+  }_{\text{step-}t\text{ denoising}}
+  \label{eq:decomp}
+\end{align}
+
+The reconstruction term trains $p_\theta$ to recover $x_0$ from a single noisy
+observation $x_1$; each KL term penalises deviation of the learned reverse step from
+the tractable forward posterior.
+
+\paragraph{Step 3: Retrieval-augmented objective (RetroDiff).}
+Equations~\eqref{eq:elbo}--\eqref{eq:decomp} treat samples in isolation.
+RetroDiff's key contribution is to condition the per-sample ELBO on a set
+$R(x)$ of $k$ retrieved exemplars drawn from the training corpus.  Averaging over
+the data distribution gives the final objective:
+
+\begin{align}
+  \mathcal{L}_{\mathrm{RetroDiff}}(\theta)
+  \;=\;
+  \mathbb{E}_{x\sim p_{\mathrm{data}}}\!\left[
+    \mathcal{L}_{\mathrm{ELBO}}\!\left(x\;\big|\;R(x)\right)
+  \right]
+  \label{eq:retro}
+\end{align}
+
+By conditioning on $R(x)$, the model gains access to high-quality denoising hints at
+every diffusion step, reducing the effective complexity of each KL term in
+\eqref{eq:decomp} without modifying the model architecture.
+
+\end{document}

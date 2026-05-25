@@ -1,0 +1,67 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{microtype}
+\usepackage{parskip}
+
+\begin{document}
+
+\begin{center}
+  {\large\bfseries RetroDiff: Training Objective Derivation}
+\end{center}
+
+\medskip
+
+\noindent
+Let $x$ denote a clean data sample and $x_t$ its noised version at diffusion step $t \in \{1,\ldots,T\}$.
+The forward process $q(x_{1:T}|x)$ gradually corrupts $x$; the model $p_\theta$ learns to reverse it.
+Applying Jensen's inequality to the intractable log-likelihood yields the \emph{evidence lower bound} (ELBO):
+
+\begin{align}
+  \log p_\theta(x) \;\geq\;
+  \mathbb{E}_{q(x_{1:T}|x)}\!\left[\log\frac{p_\theta(x_{0:T})}{q(x_{1:T}|x)}\right]
+  = -\mathcal{L}_{\mathrm{ELBO}}
+  \label{eq:elbo}
+\end{align}
+
+\noindent
+Because the inequality is tight only when the variational posterior matches the true posterior,
+maximising the right-hand side of \eqref{eq:elbo} is equivalent to minimising
+$\mathcal{L}_{\mathrm{ELBO}}$.
+Expanding the joint $p_\theta(x_{0:T})$ and applying the Markov structure of the forward process
+decomposes the bound into a reconstruction term and a sum of per-step KL divergences:
+
+\begin{align}
+  \mathcal{L}_{\mathrm{ELBO}}
+  = \underbrace{\mathbb{E}_q\!\left[-\log p_\theta(x_0|x_1)\right]}_{\text{reconstruction}}
+  + \sum_{t=2}^{T}
+    \underbrace{\mathrm{KL}\!\left(q(x_{t-1}|x_t,x) \,\|\, p_\theta(x_{t-1}|x_t)\right)}_{\text{step-}t\text{ denoising}}
+  \label{eq:decomp}
+\end{align}
+
+\noindent
+Each KL term in \eqref{eq:decomp} measures how well the learned reverse step $p_\theta(x_{t-1}|x_t)$
+approximates the tractable posterior $q(x_{t-1}|x_t,x)$; both are Gaussian under the standard
+linear noise schedule, so each term admits a closed form.
+
+\medskip
+\noindent\textbf{RetroDiff extension.}\quad
+The key contribution of RetroDiff is to condition the entire objective on a set of retrieved exemplars
+$R(x)$ drawn from the training corpus at inference time.
+Concretely, the per-sample ELBO is evaluated with $R(x)$ appended to the model's context,
+and the final training objective averages over the data distribution:
+
+\begin{align}
+  \mathcal{L}_{\mathrm{RetroDiff}}(\theta)
+  = \mathbb{E}_{x \sim p_{\mathrm{data}}}\!\left[
+      \mathcal{L}_{\mathrm{ELBO}}\!\left(x \,\big|\, R(x)\right)
+    \right]
+  \label{eq:retro}
+\end{align}
+
+\noindent
+Equation~\eqref{eq:retro} reduces to the standard diffusion objective when $R(x) = \varnothing$,
+making RetroDiff a strict generalisation.
+The retrieval set $R(x)$ is frozen during the backward pass; only $\theta$ is updated.
+
+\end{document}

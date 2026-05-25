@@ -1,0 +1,12 @@
+{
+  "system_name": "RetroDiff",
+  "target_problem": "de-novo molecule generation conditioned on protein binding pocket",
+  "retrieval_mechanism": "top-k similar molecules retrieved from ChEMBL via ECFP4 fingerprint, fed as exemplars to the diffusion decoder",
+  "three_claims": [
+    "+18% binding affinity gain over baseline diffusion (vina docking score)",
+    "60% data-efficient: matches baseline final loss in 60% of training steps",
+    "scaling law R^2 > 0.9 confirmed on 5 model sizes"
+  ],
+  "headline_finding": "RetroDiff doubles hit rate over baseline diffusion at fixed compute.",
+  "venue": "Cell-tier (Cell Reports / Nat Commun / Sci Adv)"
+}

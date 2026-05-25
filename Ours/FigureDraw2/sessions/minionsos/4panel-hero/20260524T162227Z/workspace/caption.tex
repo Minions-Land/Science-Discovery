@@ -1,0 +1,5 @@
+\caption{\textbf{Method overview and empirical results.}
+\textbf{(A)}~Conceptual diagram of the three-stage pipeline: raw input passes through an attention-and-memory processing stage (which queries a Skill Bank via a learned gating mechanism) and produces the final prediction; a residual connection links Stage~1 directly to Stage~3.
+\textbf{(B)}~Ablation study showing accuracy on the held-out benchmark; removing any single component (attention, memory, residual, or skill) degrades performance, confirming each contributes independently.
+\textbf{(C)}~Training-loss curves for Baseline vs.\ Ours over 30 steps; our method converges faster and to a lower final loss.
+\textbf{(D)}~Sensitivity sweep across five values of regularisation parameter~$S$ and penalty weight~$P$; cell values are held-out accuracy (0--1 scale). The method remains robust across most of the grid, with degradation confined to low-$S$/low-$P$ corners. Data sourced from \texttt{data.json}; Panel~A is a schematic diagram constructed to match the description in \texttt{brief.md}.}

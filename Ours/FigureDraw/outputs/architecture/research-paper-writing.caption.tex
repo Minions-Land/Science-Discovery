@@ -1,0 +1,13 @@
+\caption{%
+  Architecture of \textbf{RetroDiff}.
+  A query is first processed by the \emph{Retriever}, which fetches relevant
+  context from the knowledge base~(KB) in the \emph{Retrieval} module group
+  (blue shading).
+  The retrieved representation is passed to the \emph{Diffusion Decoder},
+  whose reverse diffusion is guided by the \emph{Prior Network} via a
+  control/feedback loop (dashed arrow), all within the \emph{Generation}
+  module group (orange shading).
+  The decoder produces the final \emph{Generated Sample}.
+  Solid arrows denote forward data flow; dashed arrows denote
+  control/feedback signals.%
+}

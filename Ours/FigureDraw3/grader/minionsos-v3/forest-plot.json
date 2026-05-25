@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               3,
+    "layout_density":        3,
+    "reviewer_readiness":    3,
+    "vector_fidelity":       3,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Forest plot clearly conveys 12 study CIs, inverse-variance-weighted point estimates, diamond pooled estimate, and null-effect vertical line; positive effect is immediately readable.",
+    "typography":            "pdf.fonttype=42 and svg.fonttype='none' both set; Arial/Helvetica preferred over DejaVu Sans; pdffonts confirms embedded CID TrueType Arial fonts; font sizes are consistent at 7.5–9 pt.",
+    "palette":               "Single blue (#0F4D92) for studies, near-black (#1A1A1A) for pooled diamond; no green/red directional colour misuse; palette is colourblind-safe monochromatic scheme.",
+    "layout_density":        "Tight layout with tight_layout(); y-range set precisely around studies and pooled row; separator line cleanly separates sections; no overlapping labels or gaping whitespace.",
+    "reviewer_readiness":    "Caption matches figure exactly (N=12, pooled 0.245 [0.196, 0.294]); 'Favours control / Favours intervention' annotations present; no legend needed; no obvious Reviewer-2 nits.",
+    "vector_fidelity":       "PDF is genuine vector (35 KB, 1 page, PDF 1.4); pdffonts confirms embedded Arial CID TrueType with pdf.fonttype=42; text is fully selectable.",
+    "file_format":           "All required files present and non-trivial: figure.pdf (35 KB), figure.png (100 KB @300 dpi), figure.svg (20 KB), caption.tex (480 B), gen_figure.py (3.9 KB).",
+    "caption_quality":       "Caption states what is shown (forest plot, 12 studies, log OR), explains visual encoding (CI lines, scaled circles, diamond), and provides a precise numerical claim: pooled IV estimate 0.245 [95% CI: 0.196, 0.294], SE=0.025."
+  },
+  "overall_strengths": [
+    "Polished, publication-ready forest plot with all required elements: per-study CIs, inverse-variance-scaled markers, pooled diamond, null line, and directional annotations.",
+    "Excellent technical hygiene: embedded vector fonts (pdf.fonttype=42), colourblind-safe palette, tight layout, and all deliverable file formats present."
+  ],
+  "overall_weaknesses": [
+    "Study labels are generic (Study A, Study B, …) rather than real author/year citations, though this is expected for a fixture/synthetic dataset.",
+    "No heterogeneity statistics (I², Q-test p-value) are reported in the figure or caption, which most meta-analysis reviewers would expect."
+  ]
+}

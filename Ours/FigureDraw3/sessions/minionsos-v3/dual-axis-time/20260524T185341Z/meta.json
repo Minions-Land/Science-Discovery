@@ -1,0 +1,26 @@
+{
+  "run_id": "20260524T185341Z",
+  "arm": "minionsos-v3",
+  "fig_type": "dual-axis-time",
+  "model": "claude-sonnet-4-6",
+  "effort": "max",
+  "started_utc": "2026-05-24T18:53:41Z",
+  "fixture_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/fixtures/dual-axis-time",
+  "out_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/sessions/minionsos-v3/dual-axis-time/20260524T185341Z",
+  "finished_utc": "2026-05-24T18:55:20.087772+00:00",
+  "exit_code": 0,
+  "produced": [
+    "brief.md",
+    "caption.tex",
+    "data.json",
+    "figure.pdf",
+    "figure.png",
+    "figure.svg",
+    "gen_figure.py"
+  ],
+  "has_figure_pdf": true,
+  "has_figure_png": true,
+  "has_figure_svg": true,
+  "has_caption": true,
+  "has_script": true
+}

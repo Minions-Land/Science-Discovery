@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               3,
+    "layout_density":        3,
+    "reviewer_readiness":    3,
+    "vector_fidelity":       3,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Volcano plot clearly encodes the brief's up/down/ns classification with threshold lines, count annotations in corners, and top-5 gene labels — claim is immediately legible.",
+    "typography":            "Script sets pdf.fonttype=42, svg.fonttype='none', and font stack Arial→Helvetica→DejaVu Sans; no Type3 fonts in PDF (CIDFontType2 confirmed); axis/tick/legend text sizes are differentiated (6.5–10 pt).",
+    "palette":               "Red (#C0392B) = up, blue (#2471A3) = down, grey (#AAAAAA) = ns — directional colors reserved for direction, neutral grey for non-sig; palette is colorblind-distinguishable (red/blue/grey are Okabe–Ito-safe).",
+    "layout_density":        "6×5 in figure fills space well; legend placed below axes via bbox_to_anchor to avoid overplotting; count annotations in upper corners; y-range auto-fits data with no excessive whitespace observed in PNG.",
+    "reviewer_readiness":    "Caption matches figure content exactly (235 up, 230 down, thresholds stated); legend is outside plot area; dashed threshold lines are described; gene labels explained as index-based.",
+    "vector_fidelity":       "PDF is 54 KB with /FontDescriptor (TrueType embedding), /ToUnicode (selectable text), CIDFontType2 fonts, no Type3; scatter points rasterized per rcParams but axes/text/lines are vector.",
+    "file_format":           "figure.pdf, figure.png (300 dpi, 229 KB), figure.svg (122 KB), caption.tex, and gen_figure.py all present and non-trivial.",
+    "caption_quality":       "Caption states specific numerical findings (235 up, 230 down, n=3000), defines both axes, explains color encoding, threshold values, and notes index-based gene IDs — complete standalone description."
+  },
+  "overall_strengths": [
+    "Exemplary font handling: pdf.fonttype=42 + svg.fonttype='none' set globally, font stack prefers system sans-serif, verified no Type3 bitmap fonts in PDF output.",
+    "Caption is scientifically complete with quantitative claim (235 up, 230 down), threshold values, axis definitions, and honest caveat about index-based gene IDs."
+  ],
+  "overall_weaknesses": [
+    "Scatter points are rasterized (rasterized=True) in the PDF, so individual data points are not selectable/scalable vectors — acceptable for 3000-point density but worth noting for strict vector-only requirements.",
+    "Gene annotation offsets are fixed constants (±0.25 x, +0.18 y) which may cause label overlap for top-5 genes clustered at similar FC values; no repel logic is used."
+  ]
+}

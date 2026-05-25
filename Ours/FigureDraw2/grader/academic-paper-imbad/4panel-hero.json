@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   2,
+    "typography":            1,
+    "palette":               1,
+    "layout_density":        2,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "All four panels (pipeline diagram, ablation, training curve, sensitivity heatmap) are present and readable; Panel A reads as a real scientific schematic with labeled stages, residual arrow, and Skill Router sub-box, satisfying the brief's 'hero must read as scientific overview' requirement, but the icon glyphs (x, +, [M], y^) are cryptic without a legend.",
+    "typography":            "Script sets font.family=sans-serif but omits pdf.fonttype=42/svg.fonttype=0; PDF embeds fonts as Type3 (bitmapped outlines, not selectable TrueType), and the default system sans-serif resolves to DejaVu Sans — the exact default the rubric penalizes.",
+    "palette":               "Panel D uses RdYlGn colormap, a classic red-green colormap that fails deuteranopia/protanopia tests; Panel A's Output Head uses green (ACCENT=#10B981) alongside orange, creating another red-green adjacency; Panels B and C (blue/gray, gray/orange) are individually acceptable.",
+    "layout_density":        "GridSpec(2,3,width_ratios=[2,1,1]) with bottom panel spanning full width matches the brief exactly; hspace/wspace and margins look well-tuned in the rendered PNG with no gaping whitespace; Panel B y-axis labels are slightly tight but not overlapping.",
+    "reviewer_readiness":    "Caption accurately describes every panel with specific quantitative claims (–6.5 pp attention drop, 30 k steps, 0–1 score range); panel labels A–D are bold sans-serif at upper-left as required; legend in Panel C is inside the axes (acceptable); no data.json citation issue since a disclosure line is included in caption.",
+    "vector_fidelity":       "PDF uses Type3 (bitmapped path-based) fonts, not Type42/TrueType; text is not selectable or searchable in the PDF; script never sets matplotlib.rcParams['pdf.fonttype']=42, confirming this is a structural flaw, not just an artifact.",
+    "file_format":           "figure.pdf (51 kB), figure.png (180 kB), caption.tex (808 B), and gen_figure.py (9.1 kB) all exist and are non-trivial; bonus figure.svg also present.",
+    "caption_quality":       "Caption is structured with bold panel labels, explains what each panel shows, and includes a specific numerical finding (removing attention module causes –6.5 pp drop); covers all four panels and acknowledges data source; suitable length for a journal figure caption."
+  },
+  "overall_strengths": [
+    "Complete 4-panel hero layout following the brief's GridSpec specification exactly, with a genuinely informative conceptual pipeline diagram in Panel A rather than decorative art.",
+    "Caption is high quality with specific numerical claims (−6.5 pp ablation, 30 k training steps, 0–1 heatmap range) and clear per-panel descriptions matching the figure content."
+  ],
+  "overall_weaknesses": [
+    "PDF vector fidelity is broken: pdf.fonttype=42 is missing, so fonts are embedded as Type3 bitmapped outlines — text is not selectable and the file is not truly editable vector.",
+    "Panel D's RdYlGn colormap is a well-known colorblind accessibility failure (red-green confusion) and should be replaced with a perceptually uniform diverging palette such as RdBu or viridis."
+  ]
+}

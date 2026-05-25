@@ -1,0 +1,28 @@
+{
+  "run_id": "20260524T164120Z",
+  "arm": "scientific-writing-kdense",
+  "fig_type": "latex-table",
+  "model": "claude-sonnet-4-6",
+  "effort": "max",
+  "started_utc": "2026-05-24T16:41:20Z",
+  "fixture_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/fixtures/latex-table",
+  "out_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/scientific-writing-kdense/latex-table/20260524T164120Z",
+  "finished_utc": "2026-05-24T16:42:18.670304+00:00",
+  "exit_code": 0,
+  "produced": [
+    "brief.md",
+    "caption.tex",
+    "data.json",
+    "figure.pdf",
+    "figure.png",
+    "gen_figure.py",
+    "table.aux",
+    "table.log",
+    "table.tex"
+  ],
+  "has_figure_pdf": true,
+  "has_figure_png": true,
+  "has_figure_svg": false,
+  "has_caption": true,
+  "has_script": true
+}

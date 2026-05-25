@@ -1,0 +1,8 @@
+\caption{Training objective derivation for \textbf{RetroDiff}.
+Equation~\eqref{eq:elbo} is the standard variational lower bound (ELBO) on the log-likelihood,
+obtained by Jensen's inequality.
+Equation~\eqref{eq:decomp} decomposes the ELBO into a reconstruction term and a sum of
+per-step KL divergences between the forward posterior and the learned reverse transitions.
+Equation~\eqref{eq:retro} is RetroDiff's contribution: the per-sample ELBO is conditioned on
+a set $R(x)$ of $k$ exemplars retrieved from the training corpus, and the final objective
+averages this conditioned bound over the data distribution.}

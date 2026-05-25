@@ -1,0 +1,10 @@
+\caption{\textbf{RetroDiff system architecture.}
+Boxes-and-arrows diagram of the RetroDiff pipeline.
+Solid arrows indicate data flow; no dashed feedback arrows appear in the
+provided specification (the legend is included for completeness).
+The pipeline proceeds left to right: a \textit{Query} is passed to the
+\textbf{Retrieval} subsystem (Retriever module + knowledge base~KB), whose
+retrieved context feeds the \textbf{Generation} subsystem (Diffusion
+Decoder + Prior Network), yielding the final Generated Sample.
+Figure produced from \texttt{data.json} with \texttt{gen\_figure.py};
+no data were mocked.}

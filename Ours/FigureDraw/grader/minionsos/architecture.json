@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               3,
+    "layout_density":        3,
+    "reviewer_readiness":    3,
+    "vector_fidelity":       3,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Architecture diagram clearly communicates the RetroDiff pipeline: Query→Retriever↔KB (solid/dashed arrows)→Diffusion Decoder↔Prior Network (dashed)→Generated Sample; solid vs dashed arrow distinction for data flow vs control/feedback is visually unambiguous.",
+    "typography":            "Script explicitly sets pdf.fonttype=42 and svg.fonttype='none'; font stack is Arial→Helvetica→DejaVu Sans→Liberation Sans (Arial first, not DejaVu default); PDF confirms embedded TrueType subsets of Arial-BoldMT and ArialMT at appropriate sizes (8.5–11pt).",
+    "palette":               "Uses Wong/IBM colorblind-safe palette: #0F4D92 (blue/input), #009E73 (green/output), #E69F00 (amber/module), #56B4E9 (sky/datastore); green reserved for output (directional), no red/green conflict; group borders use blue (#0F4D92) and red-orange (#D55E00) which are both CBF-safe.",
+    "layout_density":        "Nodes fill an 11×5 inch canvas with well-distributed spacing; group bounding boxes (Retrieval, Generation) snugly wrap contained nodes; no excessive whitespace gaps; legend placed in lower-left without overlapping pipeline; y-range set to data extent.",
+    "reviewer_readiness":    "Caption matches figure exactly (solid arrows = data flow, dashed = control/feedback; Retrieval and Generation groups labeled); in-figure legend included; title present; all pipeline components named consistently between caption and figure.",
+    "vector_fidelity":       "PDF contains CIDFontType2/TrueType embedded subsets (GOFYPY+Arial-BoldMT, GOFYPY+ArialMT) confirmed via strings; script sets pdf.fonttype=42; 34 KB PDF size is consistent with real vector content plus embedded fonts.",
+    "file_format":           "All required files present and non-trivial: figure.pdf (34 KB), figure.png (130 KB, 300 dpi), caption.tex (479 B with \\caption{} content), gen_figure.py (6.7 KB); bonus figure.svg also produced.",
+    "caption_quality":       "Caption identifies system name (RetroDiff), explains arrow semantics (solid=data flow, dashed=control/feedback), names all components (Query, Retriever, KB, Diffusion Decoder, Prior Network, Generated Sample), and describes the flow path explicitly — no numerical claim (architecture diagram has none to cite), but description is complete and precise."
+  },
+  "overall_strengths": [
+    "Exemplary use of colorblind-safe palette with semantic color discipline (green=output, blue=input, amber=processing modules, sky=datastore) and group-level color coding.",
+    "Full vector pipeline: pdf.fonttype=42 and svg.fonttype='none' both set, Arial font family preferred over DejaVu Sans defaults, embedded TrueType subsets confirmed in PDF."
+  ],
+  "overall_weaknesses": [
+    "Caption contains no quantitative claim — acceptable for a pure architecture diagram, but some reviewers may ask for benchmark numbers or parameter counts to anchor the description.",
+    "The 'Prior Network → Diffusion Decoder' feedback arrow uses a curved arc that re-enters from the left side of the box rather than directly from below; this is slightly unconventional and could cause a careful reader to re-read the flow direction."
+  ]
+}

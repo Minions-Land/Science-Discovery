@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   2,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        2,
+    "reviewer_readiness":    1,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       2
+  },
+  "evidence": {
+    "scientific_clarity":   "Sankey flow is readable and conveys the 1120→1000→820→(600/120/100) pipeline; bezier bands correctly encode proportional widths, but the Reject node placement in the rightmost column conflicts with the caption's description of rejection happening at earlier stages.",
+    "typography":            "PDF uses DejaVu Sans Bold as Type 3 (bitmap) fonts; script never sets pdf.fonttype=42 or rcParams for editable text; DejaVu Sans is the matplotlib default, not a publication-quality font choice.",
+    "palette":               "Six distinct hues used; Reject node correctly uses red (#C44E52) for directional/negative meaning; other colors are distinguishable but not from a systematic colorblind-safe palette (e.g., Okabe-Ito).",
+    "layout_density":        "11x6 figure fills space reasonably; node labels with counts are positioned left/right of bars without overlap; small gap between last-column nodes could be tighter, but no major whitespace or collision issues.",
+    "reviewer_readiness":    "Caption explicitly mentions 'matplotlib fallback' which is unsuitable for publication; no standalone color legend (relies on node labels only); Reject node appears in final column inconsistently with the two-stage rejection narrative in the caption.",
+    "vector_fidelity":       "PDF confirmed present (version 1.4) but fonts are Type 3 (non-selectable/non-editable); script uses fig.savefig without pdf.fonttype=42, so text is not truly vector-selectable.",
+    "file_format":           "All required files present and non-trivial: figure.pdf, figure.png, figure.svg, caption.tex, gen_figure.py.",
+    "caption_quality":       "Caption includes specific numerical claims (1120 raw, 1000 cleaned, 820 filtered, 600/120/100 split) and describes flow widths and color coding; however, the mention of 'matplotlib fallback' is a production note inappropriate for a figure caption."
+  },
+  "overall_strengths": [
+    "All required output files are present and non-trivial; the generation script includes a robust plotly-first / matplotlib-fallback approach.",
+    "Caption provides concrete numerical claims matching the data flow, and color-coding uses red appropriately for rejected samples."
+  ],
+  "overall_weaknesses": [
+    "PDF fonts are Type 3 (bitmap) rather than Type 42 (editable vector); the script never sets pdf.fonttype=42 and defaults to DejaVu Sans, failing publication typography requirements.",
+    "The figure caption mentions 'matplotlib fallback' (an implementation detail), and the Reject node placement in the rightmost column is inconsistent with the caption's description of rejection occurring at the cleaning and filtering stages."
+  ]
+}

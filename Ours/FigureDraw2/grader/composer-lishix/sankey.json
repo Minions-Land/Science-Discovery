@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            2,
+    "palette":               1,
+    "layout_density":        2,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Sankey diagram directly addresses the brief's dataset-prep pipeline; proportional flows and node labels make the 1120→1000→820→(600/120/100) story immediately readable.",
+    "typography":            "Arial explicitly set (family='Arial', sizes 13/16) — no DejaVu Sans default — but pdf.fonttype=42 is a matplotlib concept; Plotly/kaleido rasterizes output so text is not editable in the PDF.",
+    "palette":               "Green (#55A868) for Cleaned and red (#C44E52) for Filtered are used together — classic deuteranopia/protanopia failure; these two nodes are indistinguishable for ~8% of male readers.",
+    "layout_density":        "820×480 canvas with 30 px side margins and 60 px top margin; seven-node Sankey fills the space adequately with no obvious gaping whitespace or label collisions.",
+    "reviewer_readiness":    "Caption enumerates all counts and explains flow-width encoding and link-color inheritance; node labels double as legend; no separate legend box needed, but the dual 'Reject' sink (120+60) could confuse without clarification.",
+    "vector_fidelity":       "PDF contains 28 embedded raster /Subtype /Image objects and zero BT/ET text operators or path operators — kaleido writes a raster-in-PDF, not a true vector file; text is not selectable.",
+    "file_format":           "figure.pdf (70 KB), figure.png (129 KB, 1640×960), caption.tex (384 B), gen_figure.py (2.3 KB) all present and non-trivial; bonus figure.svg also generated.",
+    "caption_quality":       "Caption states specific counts at every stage (1120, 1000, 120 rejected, 820, 60 rejected, 600/120/100 split), explains visual encoding (flow widths proportional, link colours from source), and matches the figure exactly."
+  },
+  "overall_strengths": [
+    "All required output files are present and non-trivial; the SVG bonus adds a genuinely selectable-text format.",
+    "Caption is numerically precise and self-contained, explaining both the data and the visual encoding conventions."
+  ],
+  "overall_weaknesses": [
+    "Plotly/kaleido produces a raster-in-PDF (28 embedded PNG tiles, no vector paths or selectable text), failing the vector-fidelity requirement despite the .pdf extension.",
+    "Green+red node colors (Cleaned/Filtered) are colorblind-unsafe for deuteranopia/protanopia; a blue/orange or sequential palette would be safer."
+  ]
+}

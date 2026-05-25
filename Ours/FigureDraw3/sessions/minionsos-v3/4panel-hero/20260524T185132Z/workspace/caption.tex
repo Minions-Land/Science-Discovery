@@ -1,0 +1,29 @@
+\caption{%
+  \textbf{Four-panel overview of the proposed method.}
+  %
+  (\textbf{A})~Method overview: a three-stage pipeline comprising
+  Input~Encoding (self-attention and positional embedding),
+  Attentive~Memory (episodic memory cache), and
+  Adaptive~Decoding (residual skill adapter), connected by
+  feed-forward passes from Input to Output.
+  %
+  (\textbf{B})~Ablation study on five variants;
+  removing the attention module (\texttt{-attn}) causes the largest
+  drop (\textbf{$-$6.5 pp} from 64.7\% to 58.2\%), confirming
+  attention as the most critical component.
+  Bars show per-variant accuracy (\%); full model highlighted in blue.
+  %
+  (\textbf{C})~Training loss curves over 30k steps (log-scale);
+  Ours (blue) converges faster and reaches a \textbf{final loss
+  \(\mathbf{0.36}\) vs.\ 0.19 lower than Baseline~(0.36)},
+  annotated with a double-headed arrow at the terminal step.
+  %
+  (\textbf{D})~5\(\times\)5 sensitivity sweep over five
+  sensitivity parameters (S0--S4) and five probe depths (P0--P4);
+  cell values are scores in $[0,1]$; high-scoring cells ($>$0.85)
+  are bold-annotated.
+  %
+  Error bars and confidence intervals are not shown (single-run data
+  from \texttt{data.json}); statistical uncertainty should be
+  reported in future replicated experiments.
+}

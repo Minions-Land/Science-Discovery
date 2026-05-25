@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    3,
+    "vector_fidelity":       3,
+    "file_format":           2,
+    "caption_quality":       2
+  },
+  "evidence": {
+    "scientific_clarity":   "All three required equations (ELBO, KL decomposition, retrieval-augmented objective) are present with connecting prose that explains each derivation step; matches brief exactly.",
+    "typography":            "Latin Modern Type 1 fonts (LMRoman, LMMathItalic, LMMathSymbols) throughout; no DejaVu Sans; all fonts embedded and subsetted; proper upright operators (KL, log) vs italic variables.",
+    "palette":               "Monochrome math derivation — no color used; no colorblind or directional/categorical palette concerns, but color could have highlighted the new contribution (Eq. 3).",
+    "layout_density":        "Single letter-page filled with title, three prose paragraphs, and three display equations; no gaping whitespace; underbrace annotations label reconstruction and KL terms inline.",
+    "reviewer_readiness":    "Caption labels (eq:elbo, eq:decomp, eq:retro) match \\label{} tags in the document; title present; no legend needed; cross-references resolve correctly.",
+    "vector_fidelity":       "pdfTeX 1.40.29 produces real vector PDF; all 15 font instances are Type 1 embedded+subsetted (not Type 3 bitmap); pdftotext extracts full text confirming selectable glyphs.",
+    "file_format":           "figure.pdf (180 KB), figure.png (1275x1650 px, 164 KB), caption.tex, and gen_figure.py all present and non-trivial; equations.tex (required by brief) is absent from the output directory.",
+    "caption_quality":       "Caption correctly names each equation and its role in the derivation chain, but contains no specific numerical claim or quantitative finding (e.g., value of k, convergence bound, or empirical result)."
+  },
+  "overall_strengths": [
+    "Mathematically rigorous LaTeX typesetting with Latin Modern fonts, proper operator styling, and fully embedded Type 1 fonts — publication-ready vector PDF.",
+    "Content precisely fulfils the brief: three numbered equations with explanatory prose, \\eqref cross-references, and underbrace annotations that make the decomposition self-explanatory."
+  ],
+  "overall_weaknesses": [
+    "equations.tex (the standalone .tex source) is missing from the output directory, violating the brief's explicit file-output requirements.",
+    "Caption is descriptive but purely qualitative — it lacks a concrete numerical claim or specific finding that would anchor the figure for a reader skimming the paper."
+  ]
+}

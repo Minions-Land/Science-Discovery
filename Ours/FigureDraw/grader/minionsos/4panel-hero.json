@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "All four panels (pipeline diagram, ablation bars, training curves, 5×5 heatmap) clearly convey the brief's claims; panel labels A–D are bold sans-serif; readable at publication size.",
+    "typography":            "pdf.fonttype is NOT set to 42; PDF embeds fonts as Type3 (bitmap-path) with DejaVu Sans — the matplotlib default — rather than editable TrueType/Type42 outlines; svg.fonttype also absent.",
+    "palette":               "Blue/orange/gray are colorblind-safe (IBM-style); sequential 'Blues' cmap for heatmap is appropriate; green used only for output box (directional OK), not for up/down signal, so no red/green misuse.",
+    "layout_density":        "GridSpec 2×3 with width_ratios=[2,1,1] matches brief exactly; bottom panel spans full row; hspace/wspace tuned; no gaping whitespace or label overlaps observed.",
+    "reviewer_readiness":    "Caption matches all four panels; legend in panel C is inside the axes (upper-right, no overlap); minor issue: panel A 'Memory'/'Skills' labels are small (6.5 pt) and may be hard to read in print.",
+    "vector_fidelity":       "figure.pdf is real PDF vector but fonts are embedded as Type3 (Subtype /Type3) rather than selectable TrueType (fonttype=42 not set), so text is not selectable/editable in Illustrator.",
+    "file_format":           "figure.pdf (48 KB vector), figure.png (107 KB), figure.svg (106 KB), caption.tex (696 B), and gen_figure.py (8.7 KB) all exist and are non-trivial.",
+    "caption_quality":       "Caption names all panels, describes the pipeline stages, references specific accuracy value (64.7%), mentions faster convergence for panel C, and explains heatmap encoding — specific and complete."
+  },
+  "overall_strengths": [
+    "Well-structured 4-panel hero layout exactly matching the brief's gridspec specification, with clear scientific narrative across all panels.",
+    "Caption is quantitatively specific (64.7% accuracy cited) and aligns tightly with every panel; colorblind-safe palette with semantically appropriate color choices."
+  ],
+  "overall_weaknesses": [
+    "Missing pdf.fonttype=42 / svg.fonttype=0: fonts are embedded as Type3 (non-selectable paths) instead of editable TrueType outlines, making the PDF unusable for journal production editing.",
+    "Default DejaVu Sans font family used throughout; no explicit fonttype settings in rcParams, which is a common reviewer/production red flag for vector figures."
+  ]
+}

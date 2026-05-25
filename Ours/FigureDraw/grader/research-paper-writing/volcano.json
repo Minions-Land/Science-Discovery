@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Volcano plot clearly shows up/down/non-sig genes with threshold dashed lines and top-5 labels; axes and title are informative.",
+    "typography":            "No pdf.fonttype=42 or svg.fonttype=0 set; PDF uses Type3 (bitmap) fonts with DejaVu Sans default — text is not selectable/editable.",
+    "palette":               "Uses red (#d62728) for up and blue (#1f77b4) for down with grey for non-sig — colorblind-unsafe red/green avoided, but red/blue pair has moderate CB risk; directional discipline is correct.",
+    "layout_density":        "tight_layout used, figure is 7x5.5in, scatter points sized appropriately; no obvious whitespace waste or label overlap (adjustText attempted).",
+    "reviewer_readiness":    "Caption matches figure content; legend is upper-left and clear; threshold annotation text placement uses ax.get_xlim()[1] before axes are fully set which may misplace it; overall solid but minor issues.",
+    "vector_fidelity":       "PDF contains Type3 (bitmap) fonts — text is NOT selectable. No pdf.fonttype=42 in script. SVG produced but svg.fonttype not set to 'none'.",
+    "file_format":           "figure.pdf, figure.png, figure.svg, caption.tex, gen_figure.py all present and non-trivial.",
+    "caption_quality":       "Caption explains axes, color coding, threshold lines, and top-5 labels; includes specific numerical counts (n=235 up, n=230 down, n=2535 non-sig); notes absence of gene names."
+  },
+  "overall_strengths": [
+    "Clear, well-structured volcano plot that faithfully implements the brief: 3 color classes, threshold lines, top-5 annotations, and matching caption with counts.",
+    "All required output files are present; caption is detailed and numerically specific, making the figure self-contained for a reader."
+  ],
+  "overall_weaknesses": [
+    "Missing pdf.fonttype=42 and svg.fonttype='none' means the PDF contains Type3 bitmap fonts — text is non-selectable and non-editable, a critical journal submission requirement.",
+    "Default DejaVu Sans font family is used throughout; no attempt to use a publication-quality font (e.g., Helvetica, Arial, or a serif) and no rcParams configuration for font style."
+  ]
+}

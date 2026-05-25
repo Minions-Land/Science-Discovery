@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    3,
+    "vector_fidelity":       3,
+    "file_format":           2,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Six KDE ridges clearly stacked with overlap, each cluster labelled; x-axis label and distribution shapes are immediately readable at single-column width.",
+    "typography":            "pdf.fonttype=42 and svg.fonttype='none' both set; Arial prioritised over DejaVu Sans; axis tick labels 7 pt, x-label 8 pt, cluster labels 7 pt bold — all consistent with Nature style.",
+    "palette":               "Sequential cool-to-warm palette is perceptually ordered and avoids pure red/green traffic-light coding, but colourblind safety is partial: deep blue and teal (clusters 1-3) may be hard to distinguish for deuteranopes; no explicit CVD check tool used.",
+    "layout_density":        "tight_layout used, 3.5×3.2 in single-column format, left labels offset outside plot area, no overlapping text, y-range includes 15 % padding below and 115 % above top KDE — well-utilised space.",
+    "reviewer_readiness":    "No legend needed (labels on ridges); caption matches figure content; ordering bottom-to-top stated in caption and matches plot; no extraneous whitespace or crowding visible.",
+    "vector_fidelity":       "PDF contains CID TrueType fonts (Arial-BoldMT, ArialMT) embedded and subsetted — confirms pdf.fonttype=42 worked; text is selectable in PDF.",
+    "file_format":           "figure.pdf, figure.png, figure.svg, caption.tex, and gen_figure.py all exist and are non-trivial; brief asks for figure.pdf + figure.png + caption.tex + gen_figure.py — all present, SVG is a bonus; minor: brief did not request SVG so it is fine but superfluous.",
+    "caption_quality":       "Caption names plot type, kernel, bandwidth, sample size range (n≈400-500), ordering direction, colour progression, and data source — provides specific numerical claim and describes what the reader sees."
+  },
+  "overall_strengths": [
+    "Exemplary typography: pdf.fonttype=42 confirmed via pdffonts, Arial used throughout, consistent 7-8 pt sizing suitable for single-column Nature format.",
+    "Caption is thorough and specific, citing kernel method, bandwidth choice, sample size, and ordering convention — reduces reviewer queries substantially."
+  ],
+  "overall_weaknesses": [
+    "Palette is not fully colourblind-safe: the blue-to-teal transition (clusters 1-3) poses a challenge for deuteranopia/protanopia; a CVD-tested palette (e.g. viridis or a Okabe-Ito-derived sequential ramp) would improve accessibility.",
+    "figure.svg is produced but not requested in the brief; harmless, but script could be simplified by removing the SVG save call."
+  ]
+}

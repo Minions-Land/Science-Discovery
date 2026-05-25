@@ -1,0 +1,31 @@
+{
+  "run_id": "20260525T010827Z",
+  "arm": "minionsos-v4",
+  "fig_type": "imrad-section",
+  "model": "claude-sonnet-4-6",
+  "effort": "max",
+  "started_utc": "2026-05-25T01:08:27Z",
+  "fixture_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/fixtures/imrad-section",
+  "out_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/imrad-section/20260525T010827Z",
+  "finished_utc": "2026-05-25T01:12:19.313081+00:00",
+  "exit_code": 0,
+  "produced": [
+    "brief.md",
+    "caption.tex",
+    "claim.json",
+    "figure.pdf",
+    "figure.png",
+    "gen_figure.py",
+    "main.aux",
+    "main.log",
+    "main.out",
+    "main.pdf",
+    "main.tex",
+    "outline.md"
+  ],
+  "has_figure_pdf": true,
+  "has_figure_png": true,
+  "has_figure_svg": false,
+  "has_caption": true,
+  "has_script": true
+}

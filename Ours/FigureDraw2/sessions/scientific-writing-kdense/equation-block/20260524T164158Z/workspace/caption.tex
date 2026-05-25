@@ -1,0 +1,10 @@
+\caption{Derivation of the \textbf{RetroDiff} training objective.
+Eq.\,\eqref{eq:elbo}: the evidence lower bound (ELBO) of the diffusion log-likelihood,
+obtained via Jensen's inequality over the forward process $q(x_{1:T}\!\mid\!x)$.
+Eq.\,\eqref{eq:decomp}: canonical decomposition into a reconstruction term and a
+sum of per-step KL divergences between the tractable forward posterior and the
+learned reverse step.
+Eq.\,\eqref{eq:retro}: RetroDiff's contribution---conditioning the per-sample ELBO
+on retrieved exemplars $R(x)$ and averaging over the data distribution
+$p_{\mathrm{data}}$, which provides denoising hints at every step without
+architectural changes.}

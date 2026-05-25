@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Volcano plot clearly shows NS/up/down classification with threshold lines and top-5 gene labels; scatter density communicates the ~3000-gene dataset well.",
+    "typography":            "pdffonts reports Type 3 (bitmap) DejaVu Sans fonts — not Type 42/TrueType selectable text; script never sets pdf.fonttype=42 or uses a non-default font family.",
+    "palette":               "Red/blue for directional up/down is defensible; grey for NS is fine. However red-green is not used (good), but the palette is not explicitly verified colorblind-safe (deuteranopia: red-grey distinction may be marginal); no deliberate colorblind palette (e.g. Okabe-Ito) selected.",
+    "layout_density":        "Figure fills 6×5 in canvas with tight_layout; no excessive whitespace, legend placed upper-left away from data, axis spines trimmed; y-range auto-fit to data.",
+    "reviewer_readiness":    "Caption accurately describes the figure and matches it; legend counts are embedded. Minor issue: gene labels are indices (G<idx>) not gene names, which the caption acknowledges but Reviewer 2 might still flag as unsatisfying.",
+    "vector_fidelity":       "PDF is produced but pdffonts shows Type 3 (non-selectable, raster-embedded) fonts — not true editable vector text; script does not set matplotlib.rcParams['pdf.fonttype']=42.",
+    "file_format":           "figure.pdf, figure.png, figure.svg, caption.tex, and gen_figure.py all present and non-trivial.",
+    "caption_quality":       "Caption states thresholds (|log2FC|>=1, -log10(p)>=2), describes color encoding, mentions dashed threshold lines, and notes top-5 labels — specific and informative."
+  },
+  "overall_strengths": [
+    "Clear, well-labeled volcano plot that correctly communicates the three-group classification with threshold lines and top-hit annotations.",
+    "All required output files are present; caption is precise with numerical threshold values and accurately describes what is shown."
+  ],
+  "overall_weaknesses": [
+    "PDF fonts are Type 3 (bitmapped) rather than Type 42 (TrueType/selectable); the script never sets pdf.fonttype=42, making text non-selectable and non-editable in the vector output.",
+    "Default DejaVu Sans font family is used with no explicit colorblind-safe palette (e.g., Okabe-Ito); red/blue on grey is acceptable but not rigorously validated for all color-vision deficiencies."
+  ]
+}

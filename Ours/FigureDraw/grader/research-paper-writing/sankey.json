@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   2,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        2,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Sankey flow from Raw→Cleaned→Filtered→Train/Val/Test is visible and proportional; 'Reject' node appears but the 120-rejected flow from ingestion is not clearly distinguishable as a separate rejection path, slightly obscuring the brief's claim.",
+    "typography":            "PDF uses DejaVu Sans Type3 bitmapped fonts (confirmed via 'strings figure.pdf'); no pdf.fonttype=42 set in gen_figure.py; plotly fallback used Arial but matplotlib fallback (which actually ran) defaults to DejaVu Sans Type3.",
+    "palette":               "Source-consistent flow coloring is implemented; Reject node uses red (#d62728) which is appropriate for a directional/negative meaning; palette is mostly CB-safe (blue/green/orange/purple) but red+green co-presence could trouble deuteranopes.",
+    "layout_density":        "10×5.5 inch figure with nodes and flows; layout is reasonable but y-axis range is ±750 with actual content spanning roughly ±600, leaving modest dead space top/bottom; no label overlap observed.",
+    "reviewer_readiness":    "No legend (colors explained by node labels inline); caption matches figure content; title 'Dataset Preparation Flow' duplicates caption; a reviewer might ask for explicit rejection-path annotation and CB accessibility statement.",
+    "vector_fidelity":       "figure.pdf is a real PDF (not rasterized image-in-PDF), but fonts are embedded as Type3 (bitmapped glyphs) rather than TrueType/Type42; text is not properly selectable/scalable.",
+    "file_format":           "figure.pdf (16 KB), figure.png (58 KB), figure.svg (28 KB), caption.tex (471 B), and gen_figure.py (5 KB) all exist and are non-trivial.",
+    "caption_quality":       "Caption provides specific numerical claims (1,120 raw → 1,000 cleaned, 120 rejected; 60 removed during cleaning; 820 filtered; 600/120/100 split); explains flow-width encoding and color semantics; cites generation tool and data source."
+  },
+  "overall_strengths": [
+    "Caption is detailed and numerically specific, matching the figure's data precisely and explaining visual encoding conventions.",
+    "All required output files (PDF, PNG, SVG, caption.tex, gen_figure.py) are present and non-trivial; source-consistent flow coloring clearly shows which stage each flow originates from."
+  ],
+  "overall_weaknesses": [
+    "PDF fonts are DejaVu Sans Type3 bitmaps (matplotlib fallback executed instead of plotly); pdf.fonttype=42 was never set, making text non-selectable and uneditable in vector editors.",
+    "Red (#d62728) used for 'Reject' node co-exists with green ('Cleaned'), creating a red-green pair that is inaccessible to deuteranopes; no colorblind-safe alternative was applied."
+  ]
+}

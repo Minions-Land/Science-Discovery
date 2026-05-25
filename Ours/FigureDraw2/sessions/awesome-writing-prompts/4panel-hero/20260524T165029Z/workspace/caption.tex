@@ -1,0 +1,11 @@
+\caption{\textbf{Four-panel hero figure.}
+\textbf{(A)}~Conceptual overview of the three-stage pipeline: input tokens are processed by an
+Attention+Memory module, routed through a Skill Router, and decoded to an output prediction;
+a residual skip connection bypasses the intermediate stages.
+\textbf{(B)}~Ablation study: removing attention (\texttt{-attn}), memory (\texttt{-mem}),
+the residual connection (\texttt{-residual}), or the skill router (\texttt{-skill}) each
+reduces accuracy relative to the full model (64.7\%).
+\textbf{(C)}~Training loss curves over 30\,k steps; our method (solid blue) converges
+faster and to a lower final loss than the baseline (dashed grey).
+\textbf{(D)}~Sensitivity sweep across a $5\times5$ grid of hyperparameters $S$ and $P$;
+cell values indicate normalised performance scores (0--1).}

@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               3,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       3,
+    "file_format":           2,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Five full-prose paragraphs cover all STROBE items 4-12 with specific numbers (n=1,987, κ=0.78, HR=1.5, 80% power, R 4.3.1); no bullets; claim-evidence-interpretation structure throughout.",
+    "typography":            "All fonts are Type 1 Latin Modern (LMRoman, LMMono, LMMathItalic), fully embedded and subset; no Type 3 bitmap fonts; no DejaVu Sans; standard LaTeX article sizing.",
+    "palette":               "Text-only document; no colour palette used, so no colorblind or directional/categorical violations are possible.",
+    "layout_density":        "Single A4 page, 124 KB PDF; five dense paragraphs fill the page with standard LaTeX margins; no gaping whitespace, no overlapping elements.",
+    "reviewer_readiness":    "Caption explicitly states STROBE items 4-12 and analytic n=1,987 (revised per reviewer note); however main.tex — a required output per the brief — is absent from the working directory.",
+    "vector_fidelity":       "pdfTeX-produced PDF with Type 1 embedded fonts; pdftotext extracts full text successfully; gen_figure.py explicitly checks for and rejects Type 3 fonts.",
+    "file_format":           "figure.pdf (124 KB), figure.png (637 KB), caption.tex, and gen_figure.py are all present and non-trivial; main.tex is missing despite being a required deliverable in the brief.",
+    "caption_quality":       "Caption states venue (Cell Reports Medicine), STROBE item range (4-12), analytic n (1,987), baseline n (2,412), loss to follow-up (17.6%), median follow-up (3.4 yr, IQR 2.6-4.1), primary method (Cox with time-varying covariates), imputation (m=10, mice 3.16.0), E-value, and IPW — multiple specific numerical claims."
+  },
+  "overall_strengths": [
+    "Prose quality is high: five flowing paragraphs with no bullets, full STROBE items 4-12 coverage, and reproducibility detail (R 4.3.1, survival 3.5-7, mice 3.16.0, seed-equivalent via chained equations).",
+    "Vector fidelity is exemplary: Type 1 Latin Modern fonts fully embedded, selectable text confirmed via pdftotext, and gen_figure.py enforces a hard Type-3 rejection gate."
+  ],
+  "overall_weaknesses": [
+    "main.tex is missing from the output directory — the brief explicitly lists it as a required deliverable, so the submission is incomplete for reproducibility and editorial submission.",
+    "Several rubric axes (palette, typography fonttype=42) are designed for data figures and are not meaningfully applicable to a LaTeX-compiled prose document, reducing the discriminative value of those scores for this fixture type."
+  ]
+}

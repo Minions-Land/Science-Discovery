@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Volcano plot correctly classifies ~3000 genes into up/down/NS using data.json thresholds, draws threshold lines, and annotates top-5 by -log10p — fully satisfies the brief.",
+    "typography":            "No pdf.fonttype=42 or svg.fonttype='none' set in script; pdffonts confirms Type 3 (Custom) encoding for all three DejaVu Sans variants — text is not selectable or editable.",
+    "palette":               "Red/blue for up/down direction and grey for NS shows correct directional discipline; red-blue pair is reasonably colorblind-safe (avoids red-green), but not an explicitly CB-optimised palette.",
+    "layout_density":        "tight_layout() used, 5.5×5 figsize, top/right spines removed, scatter points rasterized — space is well used with no obvious whitespace or overlap issues.",
+    "reviewer_readiness":    "Caption accurately describes all visual elements with specific threshold values; gene annotations use generic indices (g0, g1…) rather than gene symbols, which a reviewer would likely flag.",
+    "vector_fidelity":       "PDF is genuine vector output from Matplotlib PDF backend (161 KB, 1 page) but fonts are Type 3 with Custom encoding — text is not selectable; fonttype=42 was not set.",
+    "file_format":           "All required files present and non-trivial: figure.pdf (161 KB), figure.png (86 KB), figure.svg (109 KB, bonus), caption.tex (583 B), gen_figure.py.",
+    "caption_quality":       "Caption states axes, colour coding with explicit threshold numbers (log2FC > 1, -log10p > 2), describes dashed threshold lines, and notes top-5 labelling — provides a specific numerical finding."
+  },
+  "overall_strengths": [
+    "Complete file set with all required outputs plus an SVG; caption is detailed and numerically specific.",
+    "Correct scientific implementation: three-category classification, threshold lines, and top-5 annotation all match the brief."
+  ],
+  "overall_weaknesses": [
+    "Missing pdf.fonttype=42 and svg.fonttype='none' — Type 3 fonts in the PDF make text non-selectable and non-editable, a standard journal requirement.",
+    "Default DejaVu Sans font and no explicit colorblind-safe palette (e.g. IBM/Wong) — both are common reviewer complaints for publication-ready figures."
+  ]
+}

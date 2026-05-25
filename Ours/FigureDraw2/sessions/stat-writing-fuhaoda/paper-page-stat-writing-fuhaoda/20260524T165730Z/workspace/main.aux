@@ -1,0 +1,30 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{kaplan2020scaling}
+\citation{zhang2024retrieval}
+\citation{ho2020denoising}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Method}{1}{section.1}\protected@file@percent }
+\newlabel{sec:method}{{1}{1}{Method}{section.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Results}{1}{section.2}\protected@file@percent }
+\newlabel{sec:results}{{2}{1}{Results}{section.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Benchmark accuracy.}{1}{section*.2}\protected@file@percent }
+\citation{kaplan2020scaling}
+\bibstyle{plainnat}
+\bibdata{references}
+\bibcite{ho2020denoising}{{1}{2020}{{Ho et~al.}}{{Ho, Jain, and Abbeel}}}
+\bibcite{kaplan2020scaling}{{2}{2020}{{Kaplan et~al.}}{{Kaplan, McCandlish, Henighan, Brown, Chess, Child, Gray, Radford, Wu, and Amodei}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Overview of RetroDiff\ and empirical results.} \textbf  {(A)}~Conceptual diagram of the three-stage pipeline (Encode $\to $ Reason $\to $ Decode) with attention, memory, and skill-routing modules. \textbf  {(B)}~Ablation study: removing any single component (attention, memory, residual connections, or skill routing) degrades accuracy by 4.2--9.6\,pp relative to the full model (64.7\%). \textbf  {(C)}~Training loss curves over 30k steps; RetroDiff\ converges faster and to a lower final loss than the baseline. \textbf  {(D)}~Sensitivity sweep over hyperparameters $S$ and $P$ ($5{\times }5$ grid); scores range from 0.04 to 0.99, with high performance concentrated along the $S_3$--$S_4$ columns.}}{2}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:overview}{{1}{2}{\textbf {Overview of \methodname \ and empirical results.} \textbf {(A)}~Conceptual diagram of the three-stage pipeline (Encode $\to $ Reason $\to $ Decode) with attention, memory, and skill-routing modules. \textbf {(B)}~Ablation study: removing any single component (attention, memory, residual connections, or skill routing) degrades accuracy by 4.2--9.6\,pp relative to the full model (64.7\%). \textbf {(C)}~Training loss curves over 30k steps; \methodname \ converges faster and to a lower final loss than the baseline. \textbf {(D)}~Sensitivity sweep over hyperparameters $S$ and $P$ ($5{\times }5$ grid); scores range from 0.04 to 0.99, with high performance concentrated along the $S_3$--$S_4$ columns}{figure.caption.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Training efficiency.}{2}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Scaling law.}{2}{section*.6}\protected@file@percent }
+\bibcite{zhang2024retrieval}{{3}{2024}{{Zhang et~al.}}{{}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Grouped bar chart comparing four methods across five benchmarks (accuracy, \%). Error bars show sample standard deviation over 5 random seeds. \textbf  {RetroDiff} ($\bigstar $, red, cross-hatch) consistently achieves the highest accuracy on all five benchmarks, outperforming Baseline, Method-A, and Method-B by margins of 4--13 percentage points. Data are synthetic but realistic; no external sources were used.}}{3}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:benchmarks}{{2}{3}{Grouped bar chart comparing four methods across five benchmarks (accuracy, \%). Error bars show sample standard deviation over 5 random seeds. \textbf {\methodname } ($\bigstar $, red, cross-hatch) consistently achieves the highest accuracy on all five benchmarks, outperforming Baseline, Method-A, and Method-B by margins of 4--13 percentage points. Data are synthetic but realistic; no external sources were used}{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Validation loss curves for three methods over 50 training steps (5 seeds each). Shaded bands show 95\% confidence intervals ($\text  {mean} \pm \text  {CI}_{1/2}$). The $y$-axis uses a log scale. The double-headed arrow at step~49 quantifies the gap between \textbf  {RetroDiff} and Method-A at the final step; RetroDiff\ achieves the lowest validation loss throughout training.}}{4}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:loss}{{3}{4}{Validation loss curves for three methods over 50 training steps (5 seeds each). Shaded bands show 95\% confidence intervals ($\text {mean} \pm \text {CI}_{1/2}$). The $y$-axis uses a log scale. The double-headed arrow at step~49 quantifies the gap between \textbf {\methodname } and Method-A at the final step; \methodname \ achieves the lowest validation loss throughout training}{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Chinchilla-style scaling law: validation loss ($\log _{10}$) versus model size ($\log _{10}$ parameters) for 80 models. The OLS fit ($y = -0.0449x + 0.621$, $R^2 = 0.877$) confirms a strong negative scaling trend. The highlighted \textbf  {RetroDiff} point ($\log _{10}N \approx 9.45$, loss $\approx 0.210$) is the closest data point to the target coordinates $(9.4,\,0.205)$.}}{5}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:scaling}{{4}{5}{Chinchilla-style scaling law: validation loss ($\log _{10}$) versus model size ($\log _{10}$ parameters) for 80 models. The OLS fit ($y = -0.0449x + 0.621$, $R^2 = 0.877$) confirms a strong negative scaling trend. The highlighted \textbf {\methodname } point ($\log _{10}N \approx 9.45$, loss $\approx 0.210$) is the closest data point to the target coordinates $(9.4,\,0.205)$}{figure.caption.7}{}}
+\gdef \@abspage@last{5}

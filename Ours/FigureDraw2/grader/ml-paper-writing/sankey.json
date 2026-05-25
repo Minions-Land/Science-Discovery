@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   2,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        2,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           2,
+    "caption_quality":       2
+  },
+  "evidence": {
+    "scientific_clarity":   "Sankey flow from Raw→Cleaned→splits is legible and node counts are labelled, but no explicit Reject node is visible in the PNG (Reject may be missing from the rendered layout), making the 180-rejection claim hard to verify visually.",
+    "typography":            "Script never sets pdf.fonttype=42 or rcParams; PDF embeds DejaVu Sans Bold as Type3 (bitmap glyphs, non-selectable text) — default matplotlib font, not editable vector text.",
+    "palette":               "Six distinct hues used; no pure red/green directional pair; Reject is neutral grey; palette is reasonably CB-safe (blue/green/red-ish are distinguishable under deuteranopia) but not explicitly verified with a CB tool.",
+    "layout_density":        "10×6 figure with nodes spread across columns; node labels fit inside rectangles; no obvious overlapping text in PNG, though the Reject node placement and ribbon routing could crowd the middle column.",
+    "reviewer_readiness":    "Caption mentions a Reject node receiving 120+60=180 samples and a final split of 600/120/100, but the figure title says 'Dataset Preparation Flow' with no legend — a reviewer would ask for a legend and clarification of the 820→640 discrepancy stated in the caption.",
+    "vector_fidelity":       "PDF is only 12 KB and uses Type3 fonts (confirmed via strings); text is not selectable/editable; fonttype=42 was not set in gen_figure.py.",
+    "file_format":           "figure.pdf, figure.png, caption.tex, and gen_figure.py all exist and are non-trivial; figure.svg also present as a bonus; data.json dependency present.",
+    "caption_quality":       "Caption provides specific counts (1120 raw, 180 rejected, 600/120/100 splits) and describes ribbon proportionality, but contains an internal inconsistency ('820; 180 lost gives 640') that would confuse readers."
+  },
+  "overall_strengths": [
+    "Clean manual Bezier-ribbon implementation avoids matplotlib's clunky built-in Sankey and produces a visually appealing flow diagram with proportional node heights.",
+    "All required output files are present and non-trivial; caption includes concrete numerical claims matching the brief's data."
+  ],
+  "overall_weaknesses": [
+    "pdf.fonttype=42 is never set, so the PDF embeds Type3 bitmap fonts — text is non-selectable and the file is not truly vector-editable, failing a core journal submission requirement.",
+    "Caption contains an arithmetic inconsistency (820 cleaned samples, 180 rejected, yet states 640 survive) and the figure lacks a legend, both of which would draw Reviewer 2 objections."
+  ]
+}

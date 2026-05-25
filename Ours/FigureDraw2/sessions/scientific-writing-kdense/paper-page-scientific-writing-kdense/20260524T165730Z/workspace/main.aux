@@ -1,0 +1,28 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{zhang2024retrieval}
+\citation{ho2020denoising}
+\citation{kaplan2020scaling}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Method}{1}{section.1}\protected@file@percent }
+\newlabel{sec:method}{{1}{1}{Method}{section.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Results}{1}{section.2}\protected@file@percent }
+\newlabel{sec:results}{{2}{1}{Results}{section.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Benchmark accuracy.}{1}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Training efficiency.}{1}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Scaling behaviour.}{1}{section*.4}\protected@file@percent }
+\bibstyle{plainnat}
+\bibdata{references}
+\bibcite{ho2020denoising}{{1}{2020}{{Ho et~al.}}{{Ho, Jain, and Abbeel}}}
+\bibcite{kaplan2020scaling}{{2}{2020}{{Kaplan et~al.}}{{Kaplan, McCandlish, Henighan, Brown, Chess, Child, Gray, Radford, Wu, and Amodei}}}
+\bibcite{zhang2024retrieval}{{3}{2024}{{Zhang et~al.}}{{Zhang, Liu, and Chen}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Accuracy (\%) of four methods across five benchmarks (MMLU, HumanEval, GSM8K, MATH, GPQA). Error bars show the sample standard deviation over 5 random seeds. \textbf  {RetroDiff} ($\bigstar $) achieves the highest accuracy on all five benchmarks. Methods are additionally distinguished by hatch pattern for greyscale readability.}}{2}{figure.1}\protected@file@percent }
+\newlabel{fig:benchmarks}{{1}{2}{Accuracy (\%) of four methods across five benchmarks (MMLU, HumanEval, GSM8K, MATH, GPQA). Error bars show the sample standard deviation over 5 random seeds. \textbf {\methodname } ($\bigstar $) achieves the highest accuracy on all five benchmarks. Methods are additionally distinguished by hatch pattern for greyscale readability}{figure.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Validation loss over 50 training steps for three methods (mean $\pm $ 95\% CI across $n=5$ seeds, log scale). \textbf  {RetroDiff} converges faster and achieves the lowest final loss; the double-headed arrow marks the gap $\Delta =0.155$ between RetroDiff{} and Method-A at the final step.}}{2}{figure.2}\protected@file@percent }
+\newlabel{fig:loss}{{2}{2}{Validation loss over 50 training steps for three methods (mean $\pm $ 95\% CI across $n=5$ seeds, log scale). \textbf {\methodname } converges faster and achieves the lowest final loss; the double-headed arrow marks the gap $\Delta =0.155$ between \methodname {} and Method-A at the final step}{figure.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Scaling law scatter plot of 80 language models. Each point shows $\log _{10}(\text  {parameters})$ vs.\ $\log _{10}(\text  {validation loss})$. The OLS regression line ($y = -0.0449x + 0.621$, $R^{2}=0.877$) confirms a strong negative scaling trend consistent with Chinchilla-style power laws. The highlighted point (\textbf  {RetroDiff}) is located at $(\log _{10}N=9.449,\tmspace  +\thickmuskip {.2777em}\mathcal  {L}=0.210)$.}}{2}{figure.3}\protected@file@percent }
+\newlabel{fig:scaling}{{3}{2}{Scaling law scatter plot of 80 language models. Each point shows $\log _{10}(\text {parameters})$ vs.\ $\log _{10}(\text {validation loss})$. The OLS regression line ($y = -0.0449x + 0.621$, $R^{2}=0.877$) confirms a strong negative scaling trend consistent with Chinchilla-style power laws. The highlighted point (\textbf {\methodname }) is located at $(\log _{10}N=9.449,\;\mathcal {L}=0.210)$}{figure.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {4-panel hero figure.} \textbf  {(A)}~Conceptual overview of the 3-stage pipeline: an Input Encoding module feeds an Adaptive Routing stage (conditioned on a Memory Bank and Skill Library) before Skill-Gated Decoding produces the final output. \textbf  {(B)}~Ablation study: removing attention (\texttt  {-attn}), memory (\texttt  {-mem}), residual connections (\texttt  {-residual}), or the skill module (\texttt  {-skill}) each degrades the score relative to the full model (64.7). \textbf  {(C)}~Training loss curves over 30k steps; RetroDiff{} converges faster and to a lower final loss than the baseline. \textbf  {(D)}~Sensitivity sweep over a $5{\times }5$ grid of hyper-parameters $(S_i, P_j)$; colour encodes normalised score (0--1).}}{3}{figure.4}\protected@file@percent }
+\newlabel{fig:ablation}{{4}{3}{\textbf {4-panel hero figure.} \textbf {(A)}~Conceptual overview of the 3-stage pipeline: an Input Encoding module feeds an Adaptive Routing stage (conditioned on a Memory Bank and Skill Library) before Skill-Gated Decoding produces the final output. \textbf {(B)}~Ablation study: removing attention (\texttt {-attn}), memory (\texttt {-mem}), residual connections (\texttt {-residual}), or the skill module (\texttt {-skill}) each degrades the score relative to the full model (64.7). \textbf {(C)}~Training loss curves over 30k steps; \methodname {} converges faster and to a lower final loss than the baseline. \textbf {(D)}~Sensitivity sweep over a $5{\times }5$ grid of hyper-parameters $(S_i, P_j)$; colour encodes normalised score (0--1)}{figure.4}{}}
+\gdef \@abspage@last{3}

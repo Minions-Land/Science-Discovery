@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               3,
+    "layout_density":        2,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       2
+  },
+  "evidence": {
+    "scientific_clarity":   "Ridgeline KDEs for all 6 clusters are stacked with mild overlap (0.55), y-axis labels each ridge, x-axis labeled — brief's claim of progressive expression shift is directly readable.",
+    "typography":            "No pdf.fonttype=42 or svg.fonttype='none' set; PDF embeds DejaVuSans as Type3 (bitmap glyphs confirmed), SVG uses path outlines not <text> elements — text is non-editable in both vector outputs.",
+    "palette":               "ColorBrewer Blues sequential (#c6dbef→#084594) — colorblind-safe, no red/green directional confusion, appropriate for ordered sequential clusters.",
+    "layout_density":        "figsize=(7,5) with tight_layout and overlap=0.55 is reasonable; top/right/left spines removed cleanly, but no x-axis tick grid or minor visual polish to fill the plot area.",
+    "reviewer_readiness":    "Caption states the progressive shift finding and matches the figure; no legend needed (y-axis labels clusters); bandwidth parameter documented in caption — minor gap: no numerical quantification of the shift.",
+    "vector_fidelity":       "PDF confirmed Type3 (bitmap) fonts only — pdf.fonttype=42 not set, so text is not selectable/editable in the PDF; SVG likewise uses glyph path outlines instead of <text> nodes.",
+    "file_format":           "figure.pdf (47 KB), figure.png (50 KB, 1035×732 px), figure.svg (186 KB), caption.tex (343 B), gen_figure.py (1955 B) all present and non-trivial.",
+    "caption_quality":       "Caption identifies plot type, kernel, bandwidth, normalization, and the directional finding (progressive shift to higher expression); lacks a concrete numerical claim (e.g., median shift magnitude between Cluster 1 and 6)."
+  },
+  "overall_strengths": [
+    "Colorblind-safe ColorBrewer Blues sequential palette is well-matched to the ordered cluster structure.",
+    "All required output files are present and non-trivial; caption correctly describes the figure and includes methodological detail (bandwidth, normalization)."
+  ],
+  "overall_weaknesses": [
+    "pdf.fonttype=42 and svg.fonttype='none' are both missing — fonts are bitmapped Type3 glyphs in the PDF and path outlines in the SVG, making text non-selectable and non-editable in all vector outputs.",
+    "Caption lacks a specific numerical finding (e.g., 'Cluster 6 peaks ~X log-units higher than Cluster 1'), and the default DejaVu Sans font is used throughout with no publication-quality font substitution."
+  ]
+}

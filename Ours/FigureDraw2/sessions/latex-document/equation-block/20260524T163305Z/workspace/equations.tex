@@ -1,0 +1,68 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.2in, top=1in, bottom=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{microtype}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[colorlinks=true,linkcolor=black]{hyperref}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{center}
+  {\large\bfseries RetroDiff: Training Objective Derivation}
+\end{center}
+
+\medskip
+
+\noindent
+Let $x$ denote a clean data sample, $x_t$ its noised version at diffusion step $t$,
+$q$ the fixed forward noising distribution, and $p_\theta$ the learned reverse distribution
+parameterised by $\theta$.  Starting from the log-likelihood, Jensen's inequality gives the
+\emph{evidence lower bound} (ELBO):
+
+\begin{align}
+  \log p_\theta(x) \;\geq\;
+  \mathbb{E}_{q(x_{1:T}|x)}\!\left[\log\frac{p_\theta(x_{0:T})}{q(x_{1:T}|x)}\right]
+  = -\mathcal{L}_{\mathrm{ELBO}}
+  \label{eq:elbo}
+\end{align}
+
+\noindent
+Maximising the right-hand side of \eqref{eq:elbo} is equivalent to minimising
+$\mathcal{L}_{\mathrm{ELBO}}$.  Expanding the joint distributions and applying the Markov
+structure of the forward process yields the canonical decomposition into a reconstruction
+term and $T\!-\!1$ per-step KL divergences:
+
+\begin{align}
+  \mathcal{L}_{\mathrm{ELBO}}
+  &= \underbrace{\mathbb{E}_{q}\!\left[-\log p_\theta(x_0\mid x_1)\right]}_{\text{reconstruction}}
+   + \sum_{t=2}^{T}
+     \underbrace{\mathrm{KL}\!\left(
+       q(x_{t-1}\mid x_t,x)
+       \;\|\;
+       p_\theta(x_{t-1}\mid x_t)
+     \right)}_{\text{step-}t\text{ denoising}}
+  \label{eq:decomp}
+\end{align}
+
+\noindent
+Each KL term in \eqref{eq:decomp} has a tractable Gaussian form because the forward
+posterior $q(x_{t-1}|x_t,x)$ is Gaussian.  \textbf{RetroDiff}'s key contribution is to
+condition the objective on a set $R(x)$ of $k$ retrieved exemplars drawn from the training
+corpus at inference time, leading to the retrieval-augmented objective:
+
+\begin{align}
+  \mathcal{L}_{\mathrm{RetroDiff}}(\theta)
+  = \mathbb{E}_{x\sim p_{\mathrm{data}}}\!\left[
+      \mathcal{L}_{\mathrm{ELBO}}\!\left(x \;\big|\; R(x)\right)
+    \right]
+  \label{eq:retro}
+\end{align}
+
+\noindent
+Minimising \eqref{eq:retro} trains the reverse process to exploit retrieved neighbours,
+enabling sharper reconstructions without architectural changes.
+
+\end{document}

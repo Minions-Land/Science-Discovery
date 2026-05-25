@@ -1,0 +1,52 @@
+{
+  "system_name": "RetroDiff",
+  "variables": [
+    {
+      "symbol": "x",
+      "meaning": "clean data sample"
+    },
+    {
+      "symbol": "x_t",
+      "meaning": "noised version of x at diffusion step t"
+    },
+    {
+      "symbol": "R(x)",
+      "meaning": "set of k retrieved exemplars conditioned on x"
+    },
+    {
+      "symbol": "theta",
+      "meaning": "model parameters"
+    },
+    {
+      "symbol": "q",
+      "meaning": "forward noising distribution"
+    },
+    {
+      "symbol": "p_theta",
+      "meaning": "learned reverse distribution"
+    },
+    {
+      "symbol": "T",
+      "meaning": "total diffusion steps"
+    }
+  ],
+  "equations": [
+    {
+      "label": "eq:elbo",
+      "latex": "\\log p_\\theta(x) \\geq \\mathbb{E}_{q(x_{1:T}|x)}\\!\\left[\\log\\frac{p_\\theta(x_{0:T})}{q(x_{1:T}|x)}\\right] = -\\mathcal{L}_{\\mathrm{ELBO}}"
+    },
+    {
+      "label": "eq:decomp",
+      "latex": "\\mathcal{L}_{\\mathrm{ELBO}} = \\underbrace{\\mathbb{E}_q[-\\log p_\\theta(x_0|x_1)]}_{\\text{reconstruction}} + \\sum_{t=2}^{T} \\underbrace{\\mathrm{KL}\\!\\left(q(x_{t-1}|x_t,x) \\,\\|\\, p_\\theta(x_{t-1}|x_t)\\right)}_{\\text{step-}t \\text{ denoising}}"
+    },
+    {
+      "label": "eq:retro",
+      "latex": "\\mathcal{L}_{\\mathrm{RetroDiff}}(\\theta) = \\mathbb{E}_{x \\sim p_{\\mathrm{data}}}\\!\\left[\\mathcal{L}_{\\mathrm{ELBO}}\\!\\left(x \\,\\big|\\, R(x)\\right)\\right]"
+    }
+  ],
+  "prose_hints": [
+    "Equation 1 is the standard ELBO; the inequality is by Jensen.",
+    "Equation 2 is the canonical decomposition - reconstruction + per-step KL.",
+    "Equation 3 is RetroDiff's contribution: the per-sample objective is conditioned on a retrieved exemplar set R(x)."
+  ]
+}

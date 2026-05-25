@@ -1,0 +1,34 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{fontenc}
+
+\setstretch{1.15}
+
+\begin{document}
+
+\section*{Methods}
+
+\textbf{Study design and setting.}
+We conducted a prospective observational cohort study at three tertiary hepatology centers in mainland China (Beijing, Shanghai, and Guangzhou) to evaluate non-invasive prediction of liver fibrosis progression in patients with metabolic dysfunction-associated steatotic liver disease (MASLD). Recruitment spanned January 2018 through December 2022, with a median follow-up of 3.4 years (interquartile range 2.6--4.1 years). The study was approved by the institutional review boards of all three participating centers and conducted in accordance with the Declaration of Helsinki. Written informed consent was obtained from every participant before enrollment (STROBE items 4--5).
+
+\textbf{Participants.}
+Eligible participants were adults aged 18 years or older with biopsy-confirmed MASLD at baseline and no concurrent hepatitis B virus (HBV) or hepatitis C virus (HCV) infection. We excluded individuals who reported alcohol consumption exceeding 30 g/day (men) or 20 g/day (women), had a prior or current diagnosis of any malignancy, or were pregnant at the time of enrollment. A total of 2{,}412 participants were enrolled at baseline. Of these, 425 (17.6\%) were lost to follow-up before the protocol-specified second liver biopsy, yielding a final analytic sample of 1{,}987 participants (STROBE items 6--7).
+
+\textbf{Variables, data sources, and measurement.}
+The primary exposure comprised four validated baseline non-invasive fibrosis scores: the Fibrosis-4 index (FIB-4), the NAFLD Fibrosis Score (NFS), the aspartate aminotransferase-to-platelet ratio index (APRI), and liver stiffness measured by transient elastography (FibroScan\textsuperscript{\textregistered}, Echosens; performed per manufacturer guidelines). Laboratory variables were obtained from a harmonized protocol implemented identically across all three centers to minimize inter-site measurement heterogeneity. The primary outcome was fibrosis progression, defined as an increase of at least one stage on the METAVIR scoring system between the baseline and follow-up biopsy. To assess inter-rater reliability, a blinded central pathology re-read was performed for a randomly selected 20\% subsample, yielding a Cohen $\kappa$ of 0.78, indicating substantial agreement. Covariates recorded at baseline included age, sex, body mass index (BMI), presence of type 2 diabetes, self-reported alcohol intake, and baseline METAVIR fibrosis stage (STROBE items 8--9).
+
+\textbf{Bias.}
+Three potential sources of systematic error were identified a priori and addressed through pre-specified sensitivity analyses (STROBE item 9). First, healthy-volunteer bias may arise if participants who refused or were unable to undergo the follow-up biopsy differed systematically from those who completed it; this was addressed by inverse-probability weighting (IPW) using baseline covariates to re-estimate the primary association under an assumed missing-at-random mechanism. Second, inter-center misclassification of fibrosis stage was mitigated by the central pathology re-read described above. Third, residual confounding from dietary patterns---not fully captured by the self-reported alcohol intake variable---was evaluated using E-value sensitivity analysis, which quantifies the minimum strength of an unmeasured confounder required to explain away the observed hazard ratio.
+
+\textbf{Study size.}
+Sample size was pre-specified to provide 80\% power to detect a hazard ratio of 1.5 for fibrosis progression (two-tailed $\alpha = 0.05$), assuming a three-year cumulative progression rate of 30\%. Under these assumptions, a minimum of 1{,}800 participants completing follow-up was required. We therefore recruited 2{,}412 participants at baseline to allow for an anticipated 17--20\% loss to follow-up, ensuring adequate power in the final analytic sample (STROBE item 10).
+
+\textbf{Statistical methods.}
+The primary analysis used Cox proportional hazards regression with time-varying covariates to estimate the association between each baseline non-invasive fibrosis score and time to fibrosis progression. Models were adjusted for age, sex, BMI, presence of type 2 diabetes, alcohol intake, and baseline METAVIR fibrosis stage. Missing covariate data were handled by multiple imputation with chained equations (MICE), generating $m = 10$ imputed datasets; estimates were pooled using Rubin's rules. Proportional hazards assumptions were verified by Schoenfeld residual tests. For three pre-specified secondary endpoints, familywise type I error was controlled by the Bonferroni correction; all other tests were two-tailed at $\alpha = 0.05$. All analyses were performed in R version 4.3.1 using the \texttt{survival} package (version 3.5-7) for Cox models and \texttt{mice} (version 3.16.0) for multiple imputation. The complete-case analysis and IPW sensitivity analyses were conducted alongside the primary imputed analysis to evaluate robustness to missing-data assumptions (STROBE items 11--12).
+
+\end{document}

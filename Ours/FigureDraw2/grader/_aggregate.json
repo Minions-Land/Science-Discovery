@@ -1,0 +1,1717 @@
+{
+  "by_arm_total": {
+    "minionsos": 18.705882352941174,
+    "ml-paper-writing": 18.11764705882353,
+    "latex-document": 17.294117647058826,
+    "academic-paper-imbad": 17.294117647058826,
+    "scientific-writing-kdense": 17.5,
+    "stat-writing-fuhaoda": 17.941176470588236,
+    "composer-lishix": 17.470588235294116,
+    "awesome-writing-prompts": 18.23529411764706
+  },
+  "by_arm_mean": {
+    "minionsos": {
+      "scientific_clarity": 2.9411764705882355,
+      "typography": 1.5294117647058822,
+      "palette": 2.0588235294117645,
+      "layout_density": 2.6470588235294117,
+      "reviewer_readiness": 2.235294117647059,
+      "vector_fidelity": 1.588235294117647,
+      "file_format": 2.8823529411764706,
+      "caption_quality": 2.823529411764706
+    },
+    "ml-paper-writing": {
+      "scientific_clarity": 2.823529411764706,
+      "typography": 1.2941176470588236,
+      "palette": 2.235294117647059,
+      "layout_density": 2.7058823529411766,
+      "reviewer_readiness": 2.235294117647059,
+      "vector_fidelity": 1.3529411764705883,
+      "file_format": 2.764705882352941,
+      "caption_quality": 2.7058823529411766
+    },
+    "latex-document": {
+      "scientific_clarity": 2.8823529411764706,
+      "typography": 1.1764705882352942,
+      "palette": 2,
+      "layout_density": 2.588235294117647,
+      "reviewer_readiness": 2.1176470588235294,
+      "vector_fidelity": 1.2352941176470589,
+      "file_format": 2.764705882352941,
+      "caption_quality": 2.5294117647058822
+    },
+    "academic-paper-imbad": {
+      "scientific_clarity": 2.764705882352941,
+      "typography": 1.2352941176470589,
+      "palette": 2.0588235294117645,
+      "layout_density": 2.4705882352941178,
+      "reviewer_readiness": 2.0588235294117645,
+      "vector_fidelity": 1.3529411764705883,
+      "file_format": 2.8823529411764706,
+      "caption_quality": 2.4705882352941178
+    },
+    "scientific-writing-kdense": {
+      "scientific_clarity": 2.75,
+      "typography": 1.25,
+      "palette": 2.3125,
+      "layout_density": 2.375,
+      "reviewer_readiness": 2.125,
+      "vector_fidelity": 1.125,
+      "file_format": 2.875,
+      "caption_quality": 2.6875
+    },
+    "stat-writing-fuhaoda": {
+      "scientific_clarity": 2.9411764705882355,
+      "typography": 1.2941176470588236,
+      "palette": 2.235294117647059,
+      "layout_density": 2.588235294117647,
+      "reviewer_readiness": 2.235294117647059,
+      "vector_fidelity": 1.1764705882352942,
+      "file_format": 2.823529411764706,
+      "caption_quality": 2.6470588235294117
+    },
+    "composer-lishix": {
+      "scientific_clarity": 3,
+      "typography": 1.2941176470588236,
+      "palette": 2.176470588235294,
+      "layout_density": 2.4705882352941178,
+      "reviewer_readiness": 2,
+      "vector_fidelity": 1.2352941176470589,
+      "file_format": 2.823529411764706,
+      "caption_quality": 2.4705882352941178
+    },
+    "awesome-writing-prompts": {
+      "scientific_clarity": 2.9411764705882355,
+      "typography": 1.1764705882352942,
+      "palette": 2.235294117647059,
+      "layout_density": 2.823529411764706,
+      "reviewer_readiness": 2.2941176470588234,
+      "vector_fidelity": 1.1764705882352942,
+      "file_format": 2.823529411764706,
+      "caption_quality": 2.764705882352941
+    }
+  },
+  "by_arm_per_fig": {
+    "minionsos": {
+      "4panel-hero": {
+        "scientific_clarity": 3,
+        "typography": 0,
+        "palette": 1,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "architecture": {
+        "scientific_clarity": 3,
+        "typography": 3,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 3,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "box-violin": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 1,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "dual-axis-time": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "equation-block": {
+        "scientific_clarity": 3,
+        "typography": 3,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 3,
+        "file_format": 2,
+        "caption_quality": 3
+      },
+      "forest-plot": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "grouped-bar": {
+        "scientific_clarity": 3,
+        "typography": 2,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 3,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "heatmap": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "latex-table": {
+        "scientific_clarity": 3,
+        "typography": 3,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 3,
+        "file_format": 2,
+        "caption_quality": 3
+      },
+      "line-errband": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "network-graph": {
+        "scientific_clarity": 3,
+        "typography": 2,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "ridgeline": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 1,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "roc-prc": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "sankey": {
+        "scientific_clarity": 2,
+        "typography": 1,
+        "palette": 1,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "scatter-fit": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "stacked-bar": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "volcano": {
+        "scientific_clarity": 3,
+        "typography": 3,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 3,
+        "file_format": 3,
+        "caption_quality": 3
+      }
+    },
+    "ml-paper-writing": {
+      "4panel-hero": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "architecture": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "box-violin": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "dual-axis-time": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "equation-block": {
+        "scientific_clarity": 3,
+        "typography": 3,
+        "palette": 3,
+        "layout_density": 2,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 3,
+        "file_format": 2,
+        "caption_quality": 3
+      },
+      "forest-plot": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "grouped-bar": {
+        "scientific_clarity": 3,
+        "typography": 2,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 3,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "heatmap": {
+        "scientific_clarity": 2,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "latex-table": {
+        "scientific_clarity": 3,
+        "typography": 3,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 3,
+        "file_format": 1,
+        "caption_quality": 2
+      },
+      "line-errband": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "network-graph": {
+        "scientific_clarity": 2,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "ridgeline": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "roc-prc": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "sankey": {
+        "scientific_clarity": 2,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 2,
+        "caption_quality": 2
+      },
+      "scatter-fit": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "stacked-bar": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 1,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "volcano": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      }
+    },
+    "latex-document": {
+      "4panel-hero": {
+        "scientific_clarity": 2,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "architecture": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "box-violin": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 1,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "dual-axis-time": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "equation-block": {
+        "scientific_clarity": 3,
+        "typography": 3,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 3,
+        "file_format": 2,
+        "caption_quality": 2
+      },
+      "forest-plot": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "grouped-bar": {
+        "scientific_clarity": 3,
+        "typography": 2,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 3,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "heatmap": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "latex-table": {
+        "scientific_clarity": 3,
+        "typography": 3,
+        "palette": 3,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 3,
+        "file_format": 2,
+        "caption_quality": 2
+      },
+      "line-errband": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "network-graph": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "ridgeline": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "roc-prc": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "sankey": {
+        "scientific_clarity": 2,
+        "typography": 0,
+        "palette": 1,
+        "layout_density": 2,
+        "reviewer_readiness": 1,
+        "vector_fidelity": 0,
+        "file_format": 2,
+        "caption_quality": 2
+      },
+      "scatter-fit": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 2,
+        "caption_quality": 3
+      },
+      "stacked-bar": {
+        "scientific_clarity": 3,
+        "typography": 0,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 0,
+        "file_format": 3,
+        "caption_quality": 1
+      },
+      "volcano": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      }
+    },
+    "academic-paper-imbad": {
+      "4panel-hero": {
+        "scientific_clarity": 2,
+        "typography": 1,
+        "palette": 1,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "architecture": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "box-violin": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 1,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "dual-axis-time": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "equation-block": {
+        "scientific_clarity": 3,
+        "typography": 3,
+        "palette": 3,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 3,
+        "file_format": 2,
+        "caption_quality": 2
+      },
+      "forest-plot": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "grouped-bar": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 3,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "heatmap": {
+        "scientific_clarity": 2,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "latex-table": {
+        "scientific_clarity": 2,
+        "typography": 3,
+        "palette": 2,
+        "layout_density": 1,
+        "reviewer_readiness": 1,
+        "vector_fidelity": 3,
+        "file_format": 2,
+        "caption_quality": 2
+      },
+      "line-errband": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 1,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "network-graph": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "ridgeline": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "roc-prc": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "sankey": {
+        "scientific_clarity": 2,
+        "typography": 1,
+        "palette": 1,
+        "layout_density": 2,
+        "reviewer_readiness": 1,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "scatter-fit": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "stacked-bar": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 1
+      },
+      "volcano": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      }
+    },
+    "scientific-writing-kdense": {
+      "4panel-hero": {
+        "scientific_clarity": 2,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "architecture": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "box-violin": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "dual-axis-time": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "equation-block": {
+        "scientific_clarity": 3,
+        "typography": 3,
+        "palette": 3,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 3,
+        "file_format": 2,
+        "caption_quality": 2
+      },
+      "forest-plot": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "grouped-bar": {
+        "scientific_clarity": 1,
+        "typography": 2,
+        "palette": 3,
+        "layout_density": 1,
+        "reviewer_readiness": 1,
+        "vector_fidelity": 2,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "heatmap": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "line-errband": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "network-graph": {
+        "scientific_clarity": 3,
+        "typography": 2,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "ridgeline": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 1,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "roc-prc": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 0,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "sankey": {
+        "scientific_clarity": 2,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 2,
+        "caption_quality": 3
+      },
+      "scatter-fit": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "stacked-bar": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "volcano": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      }
+    },
+    "stat-writing-fuhaoda": {
+      "4panel-hero": {
+        "scientific_clarity": 3,
+        "typography": 0,
+        "palette": 1,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 0,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "architecture": {
+        "scientific_clarity": 2,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "box-violin": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "dual-axis-time": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 0,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "equation-block": {
+        "scientific_clarity": 3,
+        "typography": 3,
+        "palette": 3,
+        "layout_density": 2,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 3,
+        "file_format": 2,
+        "caption_quality": 3
+      },
+      "forest-plot": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "grouped-bar": {
+        "scientific_clarity": 3,
+        "typography": 2,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 2,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "heatmap": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "latex-table": {
+        "scientific_clarity": 3,
+        "typography": 3,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 3,
+        "file_format": 1,
+        "caption_quality": 2
+      },
+      "line-errband": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "network-graph": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 1
+      },
+      "ridgeline": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "roc-prc": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "sankey": {
+        "scientific_clarity": 3,
+        "typography": 2,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "scatter-fit": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "stacked-bar": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 1,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "volcano": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      }
+    },
+    "composer-lishix": {
+      "4panel-hero": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "architecture": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "box-violin": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 1,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "dual-axis-time": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "equation-block": {
+        "scientific_clarity": 3,
+        "typography": 3,
+        "palette": 3,
+        "layout_density": 1,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 3,
+        "file_format": 2,
+        "caption_quality": 2
+      },
+      "forest-plot": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 2,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "grouped-bar": {
+        "scientific_clarity": 3,
+        "typography": 2,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 3,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "heatmap": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "latex-table": {
+        "scientific_clarity": 3,
+        "typography": 3,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 3,
+        "file_format": 1,
+        "caption_quality": 2
+      },
+      "line-errband": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "network-graph": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "ridgeline": {
+        "scientific_clarity": 3,
+        "typography": 0,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 0,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "roc-prc": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "sankey": {
+        "scientific_clarity": 3,
+        "typography": 2,
+        "palette": 1,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "scatter-fit": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 0,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "stacked-bar": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 1,
+        "layout_density": 3,
+        "reviewer_readiness": 1,
+        "vector_fidelity": 0,
+        "file_format": 3,
+        "caption_quality": 1
+      },
+      "volcano": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      }
+    },
+    "awesome-writing-prompts": {
+      "4panel-hero": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "architecture": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "box-violin": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "dual-axis-time": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "equation-block": {
+        "scientific_clarity": 3,
+        "typography": 3,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 3,
+        "file_format": 2,
+        "caption_quality": 3
+      },
+      "forest-plot": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "grouped-bar": {
+        "scientific_clarity": 3,
+        "typography": 2,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 3,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "heatmap": {
+        "scientific_clarity": 3,
+        "typography": 0,
+        "palette": 2,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 0,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "latex-table": {
+        "scientific_clarity": 3,
+        "typography": 2,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 2,
+        "file_format": 2,
+        "caption_quality": 3
+      },
+      "line-errband": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 1,
+        "layout_density": 2,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 2,
+        "caption_quality": 3
+      },
+      "network-graph": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 2
+      },
+      "ridgeline": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "roc-prc": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "sankey": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "scatter-fit": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 2,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 0,
+        "file_format": 3,
+        "caption_quality": 3
+      },
+      "stacked-bar": {
+        "scientific_clarity": 2,
+        "typography": 1,
+        "palette": 1,
+        "layout_density": 3,
+        "reviewer_readiness": 2,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 1
+      },
+      "volcano": {
+        "scientific_clarity": 3,
+        "typography": 1,
+        "palette": 3,
+        "layout_density": 3,
+        "reviewer_readiness": 3,
+        "vector_fidelity": 1,
+        "file_format": 3,
+        "caption_quality": 3
+      }
+    }
+  },
+  "by_fig_total": {
+    "grouped-bar": {
+      "minionsos": 22,
+      "ml-paper-writing": 23,
+      "latex-document": 23,
+      "academic-paper-imbad": 19,
+      "scientific-writing-kdense": 15,
+      "stat-writing-fuhaoda": 22,
+      "composer-lishix": 22,
+      "awesome-writing-prompts": 22
+    },
+    "line-errband": {
+      "minionsos": 17,
+      "ml-paper-writing": 20,
+      "latex-document": 19,
+      "academic-paper-imbad": 17,
+      "scientific-writing-kdense": 18,
+      "stat-writing-fuhaoda": 17,
+      "composer-lishix": 18,
+      "awesome-writing-prompts": 15
+    },
+    "scatter-fit": {
+      "minionsos": 19,
+      "ml-paper-writing": 19,
+      "latex-document": 17,
+      "academic-paper-imbad": 20,
+      "scientific-writing-kdense": 19,
+      "stat-writing-fuhaoda": 18,
+      "composer-lishix": 16,
+      "awesome-writing-prompts": 18
+    },
+    "heatmap": {
+      "minionsos": 18,
+      "ml-paper-writing": 16,
+      "latex-document": 17,
+      "academic-paper-imbad": 15,
+      "scientific-writing-kdense": 18,
+      "stat-writing-fuhaoda": 18,
+      "composer-lishix": 17,
+      "awesome-writing-prompts": 15
+    },
+    "box-violin": {
+      "minionsos": 16,
+      "ml-paper-writing": 17,
+      "latex-document": 15,
+      "academic-paper-imbad": 17,
+      "scientific-writing-kdense": 16,
+      "stat-writing-fuhaoda": 18,
+      "composer-lishix": 16,
+      "awesome-writing-prompts": 19
+    },
+    "4panel-hero": {
+      "minionsos": 15,
+      "ml-paper-writing": 18,
+      "latex-document": 16,
+      "academic-paper-imbad": 15,
+      "scientific-writing-kdense": 15,
+      "stat-writing-fuhaoda": 14,
+      "composer-lishix": 18,
+      "awesome-writing-prompts": 18
+    },
+    "architecture": {
+      "minionsos": 22,
+      "ml-paper-writing": 18,
+      "latex-document": 16,
+      "academic-paper-imbad": 18,
+      "scientific-writing-kdense": 16,
+      "stat-writing-fuhaoda": 15,
+      "composer-lishix": 17,
+      "awesome-writing-prompts": 18
+    },
+    "roc-prc": {
+      "minionsos": 18,
+      "ml-paper-writing": 19,
+      "latex-document": 18,
+      "academic-paper-imbad": 18,
+      "scientific-writing-kdense": 18,
+      "stat-writing-fuhaoda": 17,
+      "composer-lishix": 17,
+      "awesome-writing-prompts": 18
+    },
+    "ridgeline": {
+      "minionsos": 15,
+      "ml-paper-writing": 18,
+      "latex-document": 18,
+      "academic-paper-imbad": 17,
+      "scientific-writing-kdense": 16,
+      "stat-writing-fuhaoda": 18,
+      "composer-lishix": 15,
+      "awesome-writing-prompts": 19
+    },
+    "dual-axis-time": {
+      "minionsos": 18,
+      "ml-paper-writing": 18,
+      "latex-document": 18,
+      "academic-paper-imbad": 19,
+      "scientific-writing-kdense": 19,
+      "stat-writing-fuhaoda": 19,
+      "composer-lishix": 19,
+      "awesome-writing-prompts": 19
+    },
+    "stacked-bar": {
+      "minionsos": 19,
+      "ml-paper-writing": 17,
+      "latex-document": 14,
+      "academic-paper-imbad": 16,
+      "scientific-writing-kdense": 18,
+      "stat-writing-fuhaoda": 17,
+      "composer-lishix": 13,
+      "awesome-writing-prompts": 14
+    },
+    "forest-plot": {
+      "minionsos": 19,
+      "ml-paper-writing": 17,
+      "latex-document": 17,
+      "academic-paper-imbad": 17,
+      "scientific-writing-kdense": 18,
+      "stat-writing-fuhaoda": 20,
+      "composer-lishix": 18,
+      "awesome-writing-prompts": 18
+    },
+    "sankey": {
+      "minionsos": 15,
+      "ml-paper-writing": 14,
+      "latex-document": 10,
+      "academic-paper-imbad": 13,
+      "scientific-writing-kdense": 15,
+      "stat-writing-fuhaoda": 18,
+      "composer-lishix": 17,
+      "awesome-writing-prompts": 18
+    },
+    "volcano": {
+      "minionsos": 23,
+      "ml-paper-writing": 18,
+      "latex-document": 18,
+      "academic-paper-imbad": 20,
+      "scientific-writing-kdense": 18,
+      "stat-writing-fuhaoda": 17,
+      "composer-lishix": 18,
+      "awesome-writing-prompts": 20
+    },
+    "network-graph": {
+      "minionsos": 20,
+      "ml-paper-writing": 15,
+      "latex-document": 17,
+      "academic-paper-imbad": 17,
+      "scientific-writing-kdense": 21,
+      "stat-writing-fuhaoda": 15,
+      "composer-lishix": 16,
+      "awesome-writing-prompts": 17
+    },
+    "latex-table": {
+      "minionsos": 20,
+      "ml-paper-writing": 19,
+      "latex-document": 20,
+      "academic-paper-imbad": 16,
+      "scientific-writing-kdense": null,
+      "stat-writing-fuhaoda": 20,
+      "composer-lishix": 21,
+      "awesome-writing-prompts": 20
+    },
+    "equation-block": {
+      "minionsos": 22,
+      "ml-paper-writing": 22,
+      "latex-document": 21,
+      "academic-paper-imbad": 20,
+      "scientific-writing-kdense": 20,
+      "stat-writing-fuhaoda": 22,
+      "composer-lishix": 19,
+      "awesome-writing-prompts": 22
+    }
+  },
+  "winners": {
+    "grouped-bar": "ml-paper-writing",
+    "line-errband": "ml-paper-writing",
+    "scatter-fit": "academic-paper-imbad",
+    "heatmap": "minionsos",
+    "box-violin": "awesome-writing-prompts",
+    "4panel-hero": "ml-paper-writing",
+    "architecture": "minionsos",
+    "roc-prc": "ml-paper-writing",
+    "ridgeline": "awesome-writing-prompts",
+    "dual-axis-time": "academic-paper-imbad",
+    "stacked-bar": "minionsos",
+    "forest-plot": "stat-writing-fuhaoda",
+    "sankey": "stat-writing-fuhaoda",
+    "volcano": "minionsos",
+    "network-graph": "scientific-writing-kdense",
+    "latex-table": "composer-lishix",
+    "equation-block": "minionsos"
+  },
+  "paper_page": {
+    "minionsos": {
+      "status": "ok",
+      "pages": 0,
+      "size_kb": 366,
+      "macros": 6,
+      "errors": 0,
+      "undefs": 1
+    },
+    "ml-paper-writing": {
+      "status": "ok",
+      "pages": 0,
+      "size_kb": 279,
+      "macros": 3,
+      "errors": 0,
+      "undefs": 0
+    },
+    "latex-document": {
+      "status": "misinterpreted_as_figure"
+    },
+    "academic-paper-imbad": {
+      "status": "ok",
+      "pages": 0,
+      "size_kb": 322,
+      "macros": 3,
+      "errors": 0,
+      "undefs": 0
+    },
+    "scientific-writing-kdense": {
+      "status": "ok",
+      "pages": 0,
+      "size_kb": 334,
+      "macros": 2,
+      "errors": 0,
+      "undefs": 0
+    },
+    "stat-writing-fuhaoda": {
+      "status": "ok",
+      "pages": 0,
+      "size_kb": 247,
+      "macros": 1,
+      "errors": 0,
+      "undefs": 0
+    },
+    "composer-lishix": {
+      "status": "ok",
+      "pages": 0,
+      "size_kb": 232,
+      "macros": 1,
+      "errors": 0,
+      "undefs": 0
+    },
+    "awesome-writing-prompts": {
+      "status": "ok",
+      "pages": 0,
+      "size_kb": 290,
+      "macros": 3,
+      "errors": 0,
+      "undefs": 0
+    }
+  },
+  "errors": [
+    "scientific-writing-kdense/latex-table: parse Invalid \\escape: line 14 column 156 (char 629)"
+  ]
+}

@@ -1,0 +1,90 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- Packages ---
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{xspace}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+
+% --- Macros ---
+\newcommand{\masld}{\textsc{MASLD}\xspace}
+\newcommand{\metavir}{\textsc{METAVIR}\xspace}
+\newcommand{\fibfour}{FIB-4\xspace}
+\newcommand{\nfs}{\textsc{NFS}\xspace}
+\newcommand{\apri}{\textsc{APRI}\xspace}
+\newcommand{\te}{transient elastography\xspace}
+\newcommand{\ipw}{\textsc{IPW}\xspace}
+\newcommand{\strobe}{\textsc{STROBE}\xspace}
+\newcommand{\pvalue}{$p$\xspace}
+\newcommand{\Rsoftware}{\texttt{R~4.3.1}\xspace}
+\newcommand{\survpkg}{\texttt{survival~3.5-7}\xspace}
+\newcommand{\micepkg}{\texttt{mice~3.16.0}\xspace}
+
+\begin{document}
+
+\section*{Methods}
+
+% [STROBE-4] Study design; [STROBE-5] Setting
+This prospective observational cohort study was conducted across three tertiary hepatology
+centres in mainland China (Beijing, Shanghai, and Guangzhou) and enrolled participants
+between January 2018 and December 2022. The study was approved by the institutional review
+boards of all three participating centres, and written informed consent was obtained from
+every participant before enrolment. Reporting follows the \strobe statement for observational
+cohort studies.
+
+% [STROBE-6] Participants; [STROBE-7] Variables (exposure/outcome)
+Eligible participants were adults aged 18 years or older with a diagnosis of \masld confirmed
+by liver biopsy at baseline. Individuals were excluded if they had concurrent hepatitis~B or
+hepatitis~C virus infection, reported alcohol consumption exceeding 30~g/day (men) or
+20~g/day (women), had a prior or current diagnosis of any malignancy, or were pregnant at
+the time of enrolment. Of 2{,}412 participants enrolled at baseline, 425 (17.6\%) were lost
+to follow-up before the protocol-specified second biopsy, yielding a final analytic sample of
+1{,}987 participants. The primary exposure comprised four non-invasive fibrosis scores
+assessed at baseline: \fibfour, \nfs, \apri, and liver stiffness measured by \te
+(FibroScan; Echosens, Paris, France) following the manufacturer's standardised protocol.
+The primary outcome was fibrosis progression, defined as an increase of at least one stage
+on the \metavir scale between the baseline and follow-up biopsies. Covariates specified
+\textit{a priori} included age, sex, body-mass index, diabetes status, alcohol intake, and
+baseline fibrosis stage.
+
+% [STROBE-8] Data sources; [STROBE-9] Bias
+Laboratory variables were obtained using harmonised protocols across all three centres to
+minimise inter-site measurement variability. Liver biopsies were scored by local pathologists
+using the \metavir system; to assess inter-rater reliability, a central pathologist
+independently re-read a random 20\% sample (Cohen's $\kappa = 0.78$, indicating substantial
+agreement). Three potential sources of bias were identified and addressed prospectively.
+First, healthy-volunteer bias arising from selective refusal of the follow-up biopsy was
+examined in a sensitivity analysis using inverse-probability weighting (\ipw), with weights
+derived from logistic regression on baseline clinical characteristics. Second, inter-centre
+misclassification of fibrosis stage was mitigated by the central re-read described above.
+Third, residual confounding from unmeasured dietary factors was quantified using the
+E-value approach.
+
+% [STROBE-10] Study size
+The target sample size was determined by a pre-specified power calculation: 1{,}800
+participants were required to achieve 80\% power to detect a hazard ratio of 1.5 for
+fibrosis progression (two-tailed $\alpha = 0.05$), assuming a 30\% three-year progression
+rate. An additional 612 participants were recruited to allow for the anticipated 17--20\%
+loss to follow-up, yielding the enrolled baseline cohort of 2{,}412.
+
+% [STROBE-11] Statistical methods; [STROBE-12] Quantitative variables
+The primary analysis used Cox proportional-hazards regression with time-varying covariates
+to estimate the association between each baseline non-invasive score and the hazard of
+fibrosis progression. All models were adjusted for age, sex, body-mass index, diabetes
+status, alcohol intake, and baseline fibrosis stage. Missing covariate data were handled by
+multiple imputation using chained equations ($m = 10$ imputed datasets; \micepkg). Estimates
+were pooled across imputed datasets using Rubin's rules. Sensitivity analyses comprised
+complete-case analysis and E-value calculation for unmeasured confounding. Three secondary
+endpoints were pre-specified; the family-wise type~I error rate for these was controlled by
+Bonferroni correction. All tests were two-tailed with a significance threshold of
+$\alpha = 0.05$. Analyses were performed in \Rsoftware using the \survpkg and \micepkg
+packages. Median follow-up was 3.4 years (interquartile range 2.6--4.1 years).
+
+\end{document}

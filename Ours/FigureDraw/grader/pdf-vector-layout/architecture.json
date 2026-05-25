@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        2,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Architecture diagram clearly shows RetroDiff pipeline: Query → Retriever/KB (Retrieval group) → Diffusion Decoder (Generation group) → Generated Sample, with dashed Prior Network feedback arrow; solid vs. dashed arrow convention is legible.",
+    "typography":            "Script does not set pdf.fonttype=42 or svg.fonttype=0; pdffonts confirms Type 3 (bitmap-rasterised) DejaVu Sans fonts embedded in the PDF, making text non-selectable/non-editable; default DejaVu Sans font family used throughout.",
+    "palette":               "Group backgrounds use light blue vs. light red which is not color-blind safe (red/green confusion axis is avoided but blue/orange standard CB palette not used); node fill colors (blue, white, yellow) are broadly distinguishable but not from a verified CB-safe palette.",
+    "layout_density":        "Five-row vertical layout uses the 5.5×6.5-inch canvas reasonably; the two-column arrangement (main nodes left, KB/Prior right) avoids overlapping labels; minor vertical whitespace between groups but no egregious gaps or clipping.",
+    "reviewer_readiness":    "Caption accurately matches figure content and describes arrow conventions; legend present at lower right; 'condition' side-label is small (font 6) and may draw a reviewer comment; no numerical claim in this architecture-only diagram is appropriate given the brief.",
+    "vector_fidelity":       "PDF is saved but fonttype=42 is NOT set, so fonts are embedded as Type 3 bitmaps (confirmed by pdffonts: EVICAO+DejaVuSans-Bold, etc., all Type 3); text is not selectable or scalable in the PDF.",
+    "file_format":           "All four required files exist and are non-trivial: figure.pdf (26 KB), figure.png (50 KB), caption.tex (481 B), gen_figure.py (5.3 KB); bonus figure.svg also present.",
+    "caption_quality":       "Caption uses bold title, explains data-flow and control-flow conventions, identifies all labelled nodes by name, and notes the dashed group boxes — appropriate detail for a structural architecture figure with no quantitative data."
+  },
+  "overall_strengths": [
+    "Clear, self-contained architecture diagram that faithfully renders the pipeline described in the brief, with correct solid/dashed arrow semantics and labelled group rectangles.",
+    "All required output files are present and non-trivial; caption is thorough and precisely matches figure content."
+  ],
+  "overall_weaknesses": [
+    "pdf.fonttype=42 (and svg.fonttype=0) are not set, so the PDF embeds Type 3 bitmap fonts — text is not selectable, searchable, or editable in the vector file.",
+    "Default DejaVu Sans font family is used without override, and the color palette (group backgrounds, node fills) is not drawn from a verified color-blind-safe set."
+  ]
+}

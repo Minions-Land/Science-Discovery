@@ -1,0 +1,11 @@
+\caption{\textbf{4-panel hero figure.}
+\textbf{(A)}~Conceptual overview of the 3-stage pipeline: an Input Encoding module feeds an
+Adaptive Routing stage (conditioned on a Memory Bank and Skill Library) before Skill-Gated
+Decoding produces the final output.
+\textbf{(B)}~Ablation study: removing attention (\texttt{-attn}), memory (\texttt{-mem}),
+residual connections (\texttt{-residual}), or the skill module (\texttt{-skill}) each degrades
+the score relative to the full model (64.7).
+\textbf{(C)}~Training loss curves over 30k steps; our method converges faster and to a lower
+final loss than the baseline.
+\textbf{(D)}~Sensitivity sweep over a $5{\times}5$ grid of hyper-parameters $(S_i, P_j)$;
+colour encodes normalised score (0--1).}

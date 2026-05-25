@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   2,
+    "typography":            1,
+    "palette":               1,
+    "layout_density":        2,
+    "reviewer_readiness":    1,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       2
+  },
+  "evidence": {
+    "scientific_clarity":   "Bezier-ribbon Sankey correctly shows Raw→Cleaned→Filtered→Train/Val/Test flow with labeled values, but all per-stage rejects collapse into one terminal node, obscuring where losses occur.",
+    "typography":            "Script explicitly sets fontfamily='DejaVu Sans' on every text call (the default the brief warns against); no rcParams pdf.fonttype=42 or svg.fonttype set.",
+    "palette":               "Red (#C44E52) assigned to the neutral 'Filtered' processing stage rather than a directional/negative concept; red+green pairing (Cleaned vs Filtered) is problematic for red-green colorblind viewers.",
+    "layout_density":        "9×5 in figure with four columns and 22-unit gaps is reasonable; last column stacks four nodes (Train/Val/Test/Reject) which may be tight but avoids overlap.",
+    "reviewer_readiness":    "Caption references '120 discarded at ingestion' with no corresponding Ingestion node in the figure; 'of which 820 enter filtering' is redundant; single Reject node hides per-stage attrition.",
+    "vector_fidelity":       "PDF confirmed to embed /Subtype /Type3 fonts (DejaVuSans, DejaVuSans-Bold) — text is not selectable or editable; fonttype=42 was never set in the script.",
+    "file_format":           "All four required outputs present and non-trivial: figure.pdf (18 KB), figure.png (43 KB), caption.tex (434 B), gen_figure.py (6.8 KB); bonus figure.svg also produced.",
+    "caption_quality":       "Provides specific numerical claims (600 train 73.2%, 120 val 14.6%, 100 test 12.2%) and cites data.json, but mentions an ingestion-discard step (120 samples) not visible in the figure."
+  },
+  "overall_strengths": [
+    "All required output files are present and non-trivial, with a bonus SVG; the Sankey layout correctly encodes flow magnitudes as ribbon widths.",
+    "Caption supplies concrete percentages and absolute counts, giving a reader a quantitative summary without needing to read the figure."
+  ],
+  "overall_weaknesses": [
+    "PDF uses Type 3 (bitmap) fonts instead of Type 42 — text is not selectable or editable, failing the vector-fidelity requirement; DejaVu Sans is used explicitly against the brief's guidance.",
+    "Red assigned to the neutral 'Filtered' node violates directional-color discipline and creates a red-green colorblind hazard; the caption describes an ingestion step absent from the figure."
+  ]
+}

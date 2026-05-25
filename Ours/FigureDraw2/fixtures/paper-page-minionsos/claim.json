@@ -1,0 +1,14 @@
+{
+  "method_name": "RetroDiff",
+  "claims": [
+    "RetroDiff outperforms strong baselines on five reasoning benchmarks, with the largest gain on MATH (+4.8pp).",
+    "RetroDiff's training is data-efficient: it matches the next-best method's final loss in 60% of the training steps.",
+    "RetroDiff scales as predicted by an OLS fit with R^2 > 0.9, supporting the proposed scaling law."
+  ],
+  "cite_keys": [
+    "zhang2024retrieval",
+    "ho2020denoising",
+    "kaplan2020scaling"
+  ],
+  "venue": "neurips"
+}

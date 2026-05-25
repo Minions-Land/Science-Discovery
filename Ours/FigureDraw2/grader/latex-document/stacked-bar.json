@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            0,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       0,
+    "file_format":           3,
+    "caption_quality":       1
+  },
+  "evidence": {
+    "scientific_clarity":   "Stacked bars correctly sum to 1, y-axis 0–100% with percent formatter, 4 classes × 5 conditions as briefed.",
+    "typography":            "No pdf.fonttype=42 or svg.fonttype set; pdffonts confirms Type 3 (bitmap) DejaVu Sans — the matplotlib default, non-editable.",
+    "palette":               "Seaborn-derived blue/green/red/yellow is mostly distinguishable, but red+green pairing risks deuteranopia confusion in a categorical chart.",
+    "layout_density":        "figsize=(6,4), tight_layout, width=0.6, top/right spines removed, y-range exactly 0–1 — no wasted space or overlap.",
+    "reviewer_readiness":    "Caption matches figure content and legend is upper-right, but 'Data sourced from data.json' is informal and no numerical finding is stated.",
+    "vector_fidelity":       "PDF contains Type 3 (bitmap) fonts — text is not selectable; script never sets matplotlib.rcParams['pdf.fonttype'] = 42.",
+    "file_format":           "figure.pdf (12 kB), figure.png (26 kB), figure.svg (31 kB), caption.tex, and gen_figure.py all present and non-trivial.",
+    "caption_quality":       "Caption describes chart type and structure but contains no numerical claim, key finding, or takeaway for the reader."
+  },
+  "overall_strengths": [
+    "Clean layout with correct stacked-bar implementation matching the brief exactly (proportions sum to 1, percent y-axis, 4 classes × 5 conditions).",
+    "All required output files are present and non-trivial; SVG is a bonus deliverable."
+  ],
+  "overall_weaknesses": [
+    "Missing pdf.fonttype=42 and svg.fonttype=0 — PDF embeds Type 3 bitmap fonts, making text non-selectable and unsuitable for journal submission.",
+    "Caption is purely structural with no numerical finding; red+green in the palette is a colorblind accessibility risk."
+  ]
+}

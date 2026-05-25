@@ -1,0 +1,26 @@
+{
+  "run_id": "20260524T165124Z",
+  "arm": "awesome-writing-prompts",
+  "fig_type": "dual-axis-time",
+  "model": "claude-sonnet-4-6",
+  "effort": "max",
+  "started_utc": "2026-05-24T16:51:25Z",
+  "fixture_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/fixtures/dual-axis-time",
+  "out_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw2/sessions/awesome-writing-prompts/dual-axis-time/20260524T165124Z",
+  "finished_utc": "2026-05-24T16:52:26.004556+00:00",
+  "exit_code": 0,
+  "produced": [
+    "brief.md",
+    "caption.tex",
+    "data.json",
+    "figure.pdf",
+    "figure.png",
+    "figure.svg",
+    "gen_figure.py"
+  ],
+  "has_figure_pdf": true,
+  "has_figure_png": true,
+  "has_figure_svg": true,
+  "has_caption": true,
+  "has_script": true
+}

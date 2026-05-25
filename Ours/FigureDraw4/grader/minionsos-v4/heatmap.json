@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    3,
+    "vector_fidelity":       3,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "10x10 confusion matrix is clearly visible with diagonal annotations in bold white and off-diagonal in grey; row normalisation shown via Blues colormap with colorbar; axes labelled 'True class' / 'Predicted class' matching the brief exactly.",
+    "typography":            "Script sets pdf.fonttype=42, svg.fonttype='none', and font family Arial/Helvetica (non-DejaVu fallback); pdffonts confirms embedded CID TrueType (GOFYPY+ArialMT / Arial-BoldMT), no Type-3 fonts; axis labels 9pt, tick labels 8pt, cell text 7.5pt – all readable.",
+    "palette":               "Uses sequential Blues colormap (perceptually uniform, colorblind-safe) which is correct for a normalised confusion matrix; no problematic red/green direction encoding; minor grid lines are white-on-blue which is legible but could clash at very low values – minor concern only.",
+    "layout_density":        "7×6 inch figure with tight_layout(); 10×10 grid fills the axes well; colorbar adds right margin cleanly; no gaping whitespace or overlapping labels observed; cell annotations skip zeros to reduce clutter.",
+    "reviewer_readiness":    "Caption matches figure content: colormap type (Blues), row-normalisation, raw counts on cells, and N=1000 are all stated; bold diagonal range (69–92) is explicitly cited; colorbar label is informative; legend is not needed here and correctly absent.",
+    "vector_fidelity":       "pdffonts shows CID TrueType embedded fonts (Arial-BoldMT, ArialMT) with no Type-3 raster fonts; script explicitly checks for /Type3 and Type-3 in pdffonts output and exits with error if found; SVG saved with svg.fonttype='none' for editability.",
+    "file_format":           "All four required artefacts present and non-trivial: figure.pdf (36 KB), figure.png (134 KB, 300 dpi), caption.tex (531 B with full caption), gen_figure.py (3.1 KB with complete generation logic); figure.svg also generated as bonus.",
+    "caption_quality":       "Caption identifies figure type, encoding scheme (row-normalised fraction via Blues), annotation convention (raw counts), specific numerical finding (diagonal range 69–92, C1 worst / C8 best), and dataset size (N=1000, 100 per class); bolded key finding aids rapid reading."
+  },
+  "overall_strengths": [
+    "Excellent typography: Arial font family, pdf.fonttype=42 enforced and verified with pdffonts, no bitmap fonts – fully editable vector PDF.",
+    "Caption is publication-ready: clearly describes encoding, highlights the specific numerical finding (diagonal 69–92), and states sample size (N=1000)."
+  ],
+  "overall_weaknesses": [
+    "Palette receives a minor deduction: while Blues is colorblind-safe and appropriate, white grid lines on very dark cells can occasionally obscure cell boundaries at the highest normalised values.",
+    "SVG is generated but was not required by the brief; the script's pdffonts check adds robustness but also a hard sys.exit(2) dependency that would fail silently if pdffonts is not installed."
+  ]
+}

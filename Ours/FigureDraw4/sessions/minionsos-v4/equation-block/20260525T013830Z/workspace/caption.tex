@@ -1,0 +1,12 @@
+\caption{\textbf{Training-objective derivation for \textsc{RetroDiff}.}
+\textbf{(Eq.~\ref{eq:elbo})}~The evidence lower bound (ELBO) lower-bounds the
+log-likelihood $\log p_\theta(x)$ via Jensen's inequality applied to the concave $\log$.
+\textbf{(Eq.~\ref{eq:decomp})}~Markov factorisation of the diffusion chain decomposes the
+ELBO into a reconstruction term at $t\!=\!1$ and a sum of per-step KL divergences between
+the forward posterior and the learned reverse kernel; each KL reduces to a weighted
+$\ell_2$ denoising loss in closed form.
+\textbf{(Eq.~\ref{eq:retro})}~\textsc{RetroDiff}'s contribution: conditioning the ELBO on
+the retrieved exemplar set $R(x)$ propagates nearest-neighbour context into every
+denoising step of the reverse chain, giving the final per-sample objective whose
+expectation over $p_{\mathrm{data}}$ defines the \textsc{RetroDiff} training loss
+$\mathcal{L}_{\mathrm{RetroDiff}}(\theta)$.}

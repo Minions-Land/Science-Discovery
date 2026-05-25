@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Volcano plot clearly shows three classes (up/down/ns) with threshold dashed lines and top-5 gene annotations; scientific claim (differential expression) is immediately readable.",
+    "typography":            "No pdf.fonttype=42 or svg.fonttype set; PDF uses Type3 (bitmap) DejaVuSans fonts, making text non-selectable/editable; default DejaVu Sans used throughout.",
+    "palette":               "Grey/red/blue palette is colorblind-safe (IBM/Wong-friendly) and directionally appropriate (blue=down, red=up, grey=ns); minor issue: red/green avoided correctly.",
+    "layout_density":        "7x5.5 inch figure uses space well; tight_layout applied; no overlapping labels (path_effects white stroke); y-range data-driven; minimal wasted space.",
+    "reviewer_readiness":    "Caption matches figure content and counts; legend placed upper-right (acceptable); gene labels are positional indices, not real names—caption acknowledges this; no major Reviewer 2 red flags.",
+    "vector_fidelity":       "PDF uses Type3 (bitmap) fonts (Subtype /Type3 in PDF stream) because fonttype=42 was not set; scatter points are rasterized=True; text is not selectable in the PDF.",
+    "file_format":           "figure.pdf, figure.png, figure.svg, caption.tex, and gen_figure.py all exist and are non-trivial (183 KB PDF, 100 KB PNG, 139 KB SVG, 563 B caption, 2.3 KB script).",
+    "caption_quality":       "Caption specifies exact counts (up n=235, down n=230, ns n=2535), threshold values, and explains the annotation strategy; complete and informative."
+  },
+  "overall_strengths": [
+    "Clear, well-structured volcano plot with correct classification logic, threshold lines, and top-5 annotation with white-stroke path effects preventing overlap.",
+    "Excellent caption quality with specific numerical claims (gene counts, threshold values) and honest disclosure about gene label provenance."
+  ],
+  "overall_weaknesses": [
+    "No pdf.fonttype=42 (or rcParams equivalent) set, so the PDF embeds DejaVu Sans as Type3 bitmap fonts—text is non-editable and the figure fails journal vector-text requirements.",
+    "Default DejaVu Sans font used throughout; no rcParams customization for a publication-quality typeface (e.g., Helvetica, Arial, or a serif option)."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               3,
+    "layout_density":        2,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       2,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "10x10 confusion matrix with row-normalised percentages, diagonal annotated with % and raw count, off-diagonal coloured by Blues sequential cmap — exactly matches brief.",
+    "typography":            "pdf.fonttype=42 and svg.fonttype=none set; Arial first in font stack (not DejaVu default); pdffonts confirms Arial TrueType fully embedded; cell text 6.5–7.5pt, axis labels 8–9pt, title 11pt.",
+    "palette":               "Blues sequential cmap for off-diagonal is colorblind-safe and perceptually uniform; diagonal uses a custom dark-blue gradient; no green/red directional colours anywhere.",
+    "layout_density":        "7×6 in figure for 100 cells with tight_layout(); off-diagonal annotation at 6.5pt is borderline small for print; no overlapping labels but whitespace around the matrix could be tighter.",
+    "reviewer_readiness":    "Caption gives specific numerical claim (C8 at 92%) and explains colour encoding, but there is no second colorbar for the diagonal scale — a reviewer would ask how to read diagonal colour intensity quantitatively.",
+    "vector_fidelity":       "Text is fully vector (Arial TrueType embedded, pdf.fonttype=42); however pdfinfo shows two raster XObject Images (508×507 and 21×431 px) — the imshow heatmap cells and colorbar gradient are rasterised, not vector paths.",
+    "file_format":           "figure.pdf (40 KB), figure.png (152 KB), figure.svg (53 KB), caption.tex (511 B), gen_figure.py (5 KB) all present and non-trivial; brief required pdf+png+caption+script — all satisfied.",
+    "caption_quality":       "Caption states row-normalised rates, identifies best-performing class with exact value (C8 at 92%), explains dual colour encoding for diagonal vs off-diagonal, and reports N=100 per class."
+  },
+  "overall_strengths": [
+    "Proper font embedding (pdf.fonttype=42, Arial TrueType) with svg.fonttype=none ensures editable, selectable text across all output formats.",
+    "Colorblind-safe Blues palette with no directional colour misuse, and a well-structured caption that includes a specific numerical finding and explains the colour encoding."
+  ],
+  "overall_weaknesses": [
+    "The heatmap cells and colorbar are rasterised XObject images inside the PDF — the colour grid is not true vector paths, limiting lossless rescaling.",
+    "No colorbar for the diagonal colour scale; readers cannot quantitatively interpret diagonal cell shading without a legend, which a reviewer would flag."
+  ]
+}

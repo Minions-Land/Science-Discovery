@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               3,
+    "layout_density":        3,
+    "reviewer_readiness":    3,
+    "vector_fidelity":       3,
+    "file_format":           3,
+    "caption_quality":       2
+  },
+  "evidence": {
+    "scientific_clarity":   "Pipeline flows left-to-right with clear node labels; Retrieval and Generation groups boxed; solid vs dashed arrows correctly encode data-flow vs feedback; all stages from data.json rendered.",
+    "typography":           "pdf.fonttype=42 and svg.fonttype='none' set in rcParams; font stack prioritises Arial/Helvetica over DejaVu Sans; 8 pt body / 7.5 pt group labels are legible.",
+    "palette":              "Pastel per-module fill colours, dark edge colours, grey for dashed control arrows; no red/green directional confusion; palette is low-saturation and distinguishable for CVD.",
+    "layout_density":       "11×5 inch canvas uses space well; groups and nodes spaced cleanly; legend placed in lower-left empty quadrant; no label overlap visible.",
+    "reviewer_readiness":   "Legend distinguishes solid/dashed arrows; group borders match caption description ('dashed border'); caption correctly describes all depicted elements; no obvious Reviewer-2 complaints.",
+    "vector_fidelity":      "PDF produced by Matplotlib pdf backend with pdf.fonttype=42 (Type-1/TrueType embeds); file is real PDF 1.4 vector at 628×292 pts with 34 KB size.",
+    "file_format":          "figure.pdf (34 KB), figure.png (44 KB), figure.svg (11 KB), caption.tex (465 B), gen_figure.py (4.8 KB) all present and non-trivial.",
+    "caption_quality":      "Caption accurately describes every component and arrow convention, but contains no quantitative claim or specific numeric finding (appropriate for a pipeline diagram, though rubric rewards a specific finding)."
+  },
+  "overall_strengths": [
+    "Clean, readable architecture diagram with correct solid/dashed arrow semantics and well-labelled group regions.",
+    "Full vector pipeline: pdf.fonttype=42 + svg.fonttype='none' ensure selectable text in all output formats."
+  ],
+  "overall_weaknesses": [
+    "Caption lacks any numerical or empirical claim; for a diagram-only figure this is expected, but the rubric penalises the absence.",
+    "DB/cylinder node rendering (polygon + two ellipses) is a reasonable approximation but leaves a small seam between the rectangle body and top cap at some zoom levels."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Two-panel ROC+PRC figure clearly shows all 4 classifiers with AUROC/AP annotations in legend; diagonal and prevalence baselines present as required by brief.",
+    "typography":            "Script uses matplotlib default font (DejaVuSans) without setting pdf.fonttype=42; pdffonts confirms Type 3 (bitmap) fonts rather than Type 42 (TrueType) selectable text.",
+    "palette":               "Colors avoid red/green directional confusion; uses grey, blue, orange, green — reasonably colorblind-safe (blue/orange distinction is OK for deuteranopia) but green (#2DB37B) vs orange (#E87A4C) can be problematic for some CVD types; no explicit CVD-safe palette like Okabe-Ito used.",
+    "layout_density":        "Square-aspect equal axes fill the 7x3.2in figure well; wspace=0.32 is appropriate; no gaping whitespace; legends fit within panels without overlap.",
+    "reviewer_readiness":    "Caption fully matches figure content; suptitle is redundant with caption title; legend entries only show AUROC on ROC panel and AP on PRC panel rather than both metrics in each legend (brief says 'AUROC and AP per method in legend').",
+    "vector_fidelity":       "PDF uses Type 3 (bitmap) fonts — pdffonts shows DejaVuSans as Type 3, not Type 42; script does not set matplotlib.rcParams['pdf.fonttype']=42, so text is not selectable/editable in the PDF.",
+    "file_format":           "figure.pdf, figure.png, figure.svg, caption.tex, and gen_figure.py all exist and are non-trivial; brief only required .pdf and .png but extras are present.",
+    "caption_quality":       "Caption clearly explains both panels, identifies reference lines with quantitative prevalence (pi=0.40, n+=120, n-=180), and reports specific numerical findings for all four classifiers with AUROC and AP values."
+  },
+  "overall_strengths": [
+    "Scientifically complete: both ROC and PRC curves with correct reference lines, four classifiers, and per-method metrics in legends matching the brief exactly.",
+    "Caption is thorough with specific numerical claims (AUROC and AP for all four methods), quantified prevalence baseline, and clear panel descriptions."
+  ],
+  "overall_weaknesses": [
+    "PDF text is not selectable/editable — script omits pdf.fonttype=42 and svg.fonttype='none', producing Type 3 bitmap fonts instead of embedded TrueType (Type 42), failing the vector fidelity requirement.",
+    "Default DejaVuSans font used without explicit font choice; legend shows AUROC only on ROC panel and AP only on PRC panel, whereas the brief requests both metrics per method in each legend entry."
+  ]
+}

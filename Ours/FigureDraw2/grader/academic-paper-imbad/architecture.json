@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Architecture diagram clearly shows RetroDiff pipeline with Retrieval (Retriever+KB) and Generation (Diffusion Decoder+Prior) groups; solid vs dashed arrow semantics correctly encode data flow vs control/feedback per brief.",
+    "typography":            "Script does not set pdf.fonttype=42 or rcParams; PDF embeds Type3 fonts (DejaVu Sans Bold, Oblique, Regular) — not selectable/editable TrueType; default DejaVu Sans font family used throughout.",
+    "palette":               "Uses blue/green/yellow/gray — no red-green confusion; palette is mostly colorblind-safe, but no explicit CB-safe palette chosen (e.g. no ColorBrewer/okabe-ito); group shading and node colors are visually distinct.",
+    "layout_density":        "Figure occupies panel space well; node positions are well-spread with no overlapping labels; legend fits cleanly at bottom; whitespace is balanced, not gaping.",
+    "reviewer_readiness":    "Caption matches figure content and explains arrow semantics; legend is functional but uses colored patch proxies that don't distinguish solid from dashed lines clearly; no numerical claim (appropriate for architecture diagram).",
+    "vector_fidelity":       "PDF uses Type3 bitmap-embedded fonts (not Type42); text is NOT selectable in PDF; script never sets matplotlib.rcParams['pdf.fonttype']=42 or backend_pdf settings.",
+    "file_format":           "figure.pdf, figure.png, figure.svg, caption.tex, and gen_figure.py all present and non-trivial; SVG is an additional bonus artifact.",
+    "caption_quality":       "Caption identifies system name, explains solid/dashed arrow semantics, describes both groups with their constituent nodes, and names the two specific dashed arrows with their functional meaning — thorough for an architecture figure."
+  },
+  "overall_strengths": [
+    "Clear, well-structured architecture diagram that faithfully represents the brief's pipeline with correct group boxes, node types, and arrow style conventions.",
+    "All required output files are present (PDF, PNG, SVG, caption, script) and the caption is detailed and accurate, explaining each architectural element."
+  ],
+  "overall_weaknesses": [
+    "pdf.fonttype=42 is not set, so the PDF embeds Type3 (bitmap) fonts instead of TrueType — text is not selectable or editable in the PDF, failing the vector fidelity requirement.",
+    "Default DejaVu Sans font is used with no colorblind-safe palette explicitly chosen; legend patch proxies do not clearly show the solid vs dashed line distinction (patch fill color differences are subtle)."
+  ]
+}

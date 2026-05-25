@@ -1,0 +1,15 @@
+\caption{%
+  \textbf{RetroDiff training objective derivation.}
+  \textbf{(1)}~The evidence lower bound (ELBO) on $\log p_\theta(x)$,
+  obtained by Jensen's inequality applied to the diffusion joint
+  $p_\theta(x_{0:T})$.
+  \textbf{(2)}~Canonical decomposition of the ELBO into a
+  reconstruction term and a sum of per-step KL divergences between the
+  tractable forward posterior $q(x_{t-1}|x_t,x)$ and the learned
+  reverse step $p_\theta(x_{t-1}|x_t)$.
+  \textbf{(3)}~RetroDiff's retrieval-augmented objective: the ELBO is
+  conditioned on a set $R(x)$ of $k$ exemplars retrieved for each
+  training sample $x$, and the result is averaged over the data
+  distribution $p_{\mathrm{data}}$.  Setting $R(x)=\varnothing$
+  recovers the standard diffusion objective.%
+}

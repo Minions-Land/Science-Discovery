@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    3,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "All 4 panels match the brief exactly (method diagram, ablation bars, training curves, 5x5 heatmap); layout follows gridspec(2,3,width_ratios=[2,1,1]) with Panel D spanning full bottom row.",
+    "typography":            "Script explicitly sets font.family='DejaVu Sans' (the default matplotlib font); no pdf.fonttype=42 or svg.fonttype=0 is set anywhere in gen_figure.py.",
+    "palette":               "Seaborn-inspired palette is mostly reasonable, but Panel A places GREEN (Stage 2) and RED (Stage 3) as adjacent categorical colors — a red-green combination that fails deuteranopia/protanopia colorblind safety.",
+    "layout_density":        "hspace=0.50/wspace=0.38 with tight margins; ablation x-range clipped to [50,68]; all panels fill their allocated space; no overlapping labels visible in code.",
+    "reviewer_readiness":    "Caption matches all four panels A–D; includes specific numerical claims (64.7% full-model accuracy, 0.04–0.99 score range, S4 column finding); legend placed upper-right with frameon=False.",
+    "vector_fidelity":       "PDF strings confirm '/Subtype /Type3' for all three font variants (DejaVuSans, DejaVuSans-Bold, DejaVuSans-Oblique) — Type3 fonts are bitmapped glyphs, not selectable/editable text; fonttype=42 was never set.",
+    "file_format":           "figure.pdf (44 KB), figure.png (115 KB), figure.svg (107 KB), caption.tex (819 B), gen_figure.py (6.2 KB) all present and non-trivial; SVG is a bonus output.",
+    "caption_quality":       "Caption names each panel, explains the pipeline stages, cites 64.7% full-model accuracy for ablation, gives 0.04–0.99 score range for heatmap, and identifies the S4 column as the high-sensitivity region."
+  },
+  "overall_strengths": [
+    "Layout faithfully implements the brief's gridspec spec with a dominant Panel A, compact B/C, and full-width D; panel labels are bold sans-serif upper-left as required.",
+    "Caption is publication-quality: every panel is described with a specific numerical finding, matching the figure content precisely."
+  ],
+  "overall_weaknesses": [
+    "No pdf.fonttype=42 (or svg.fonttype=0) set — PDF embeds Type3 (bitmapped) fonts, making text non-selectable and failing the vector-fidelity requirement for journal submission.",
+    "DejaVu Sans is used as the explicit font family (the matplotlib default), and the red-green color pairing in Panel A is not colorblind-safe for deuteranopes/protanopes."
+  ]
+}

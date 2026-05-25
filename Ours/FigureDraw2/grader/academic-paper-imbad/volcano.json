@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               3,
+    "layout_density":        3,
+    "reviewer_readiness":    3,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Volcano plot clearly shows up/down/NS classification with dashed threshold lines and top-5 gene annotations; fully addresses the brief.",
+    "typography":            "Script uses default DejaVu Sans and does NOT set pdf.fonttype=42; PDF contains Type3 (bitmap) fonts, not selectable TrueType; no rcParams override present.",
+    "palette":               "Red (#D62728) for up-regulated, blue (#1F77B4) for down-regulated, grey (#AAAAAA) for NS — all colorblind-safe; directional coding is color-appropriate (no green/red confusion).",
+    "layout_density":        "tight_layout applied, no gaping whitespace, scatter points well distributed, legend placed upper-right without overlap; y-range appears sensible.",
+    "reviewer_readiness":    "Caption accurately describes the figure including thresholds and counts; legend is inside the plot upper-right; gene-index label caveat is explained; minor: no p-value method stated.",
+    "vector_fidelity":       "PDF contains Type3 (bitmap-outline) fonts due to missing pdf.fonttype=42 setting; text is not freely selectable/editable in a vector editor; scatter points are rasterized images embedded in PDF.",
+    "file_format":           "All required files present: figure.pdf, figure.png, figure.svg, caption.tex, gen_figure.py — all non-trivial.",
+    "caption_quality":       "Caption states specific numerical findings (up n=235, down n=230, NS n=2535), threshold values (|log2FC|>1, -log10(p)>2), explains dashed lines and gene-index labels."
+  },
+  "overall_strengths": [
+    "Clear, publication-ready volcano plot with correct 3-color classification, threshold lines, and top-5 gene annotations matching the brief exactly.",
+    "Caption is thorough with specific counts and threshold values; colorblind-safe palette with appropriate directional color coding."
+  ],
+  "overall_weaknesses": [
+    "Missing pdf.fonttype=42 (and svg.fonttype setting) means PDF fonts are rendered as Type3 bitmaps rather than editable TrueType glyphs, failing vector-text editability requirements.",
+    "Default DejaVu Sans font is used throughout with no override to a publication-standard font (e.g., Helvetica, Arial, or a serif option)."
+  ]
+}

@@ -1,0 +1,271 @@
+[gbatch] 20260524T152403Z -- 90 cells to grade, conc=6
+[gbatch] START academic-plotting-orchestra/4panel-hero 15:24:03Z
+[gbatch] START academic-plotting-orchestra/architecture 15:24:03Z
+[gbatch] START academic-plotting-orchestra/box-violin 15:24:03Z
+[gbatch] START academic-plotting-orchestra/grouped-bar 15:24:03Z
+[gbatch] START academic-plotting-orchestra/forest-plot 15:24:03Z
+[gbatch] START academic-plotting-orchestra/dual-axis-time 15:24:03Z
+[grade] academic-plotting-orchestra/architecture -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/academic-plotting-orchestra/architecture.json  (exit 0)
+[gbatch] DONE  academic-plotting-orchestra/architecture exit=0 15:25:10Z
+[gbatch] START academic-plotting-orchestra/heatmap 15:25:10Z
+[grade] academic-plotting-orchestra/4panel-hero -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/academic-plotting-orchestra/4panel-hero.json  (exit 0)
+[gbatch] DONE  academic-plotting-orchestra/4panel-hero exit=0 15:25:31Z
+[gbatch] START academic-plotting-orchestra/line-errband 15:25:31Z
+[grade] academic-plotting-orchestra/dual-axis-time -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/academic-plotting-orchestra/dual-axis-time.json  (exit 0)
+[gbatch] DONE  academic-plotting-orchestra/dual-axis-time exit=0 15:25:48Z
+[gbatch] START academic-plotting-orchestra/network-graph 15:25:48Z
+[grade] academic-plotting-orchestra/grouped-bar -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/academic-plotting-orchestra/grouped-bar.json  (exit 0)
+[gbatch] DONE  academic-plotting-orchestra/grouped-bar exit=0 15:25:50Z
+[gbatch] START academic-plotting-orchestra/ridgeline 15:25:50Z
+[grade] academic-plotting-orchestra/forest-plot -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/academic-plotting-orchestra/forest-plot.json  (exit 0)
+[gbatch] DONE  academic-plotting-orchestra/forest-plot exit=0 15:26:12Z
+[gbatch] START academic-plotting-orchestra/roc-prc 15:26:12Z
+[grade] academic-plotting-orchestra/box-violin -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/academic-plotting-orchestra/box-violin.json  (exit 0)
+[gbatch] DONE  academic-plotting-orchestra/box-violin exit=0 15:26:16Z
+[gbatch] START academic-plotting-orchestra/sankey 15:26:16Z
+[grade] academic-plotting-orchestra/heatmap -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/academic-plotting-orchestra/heatmap.json  (exit 0)
+[gbatch] DONE  academic-plotting-orchestra/heatmap exit=0 15:26:31Z
+[gbatch] START academic-plotting-orchestra/scatter-fit 15:26:31Z
+[grade] academic-plotting-orchestra/line-errband -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/academic-plotting-orchestra/line-errband.json  (exit 0)
+[gbatch] DONE  academic-plotting-orchestra/line-errband exit=0 15:26:55Z
+[gbatch] START academic-plotting-orchestra/stacked-bar 15:26:55Z
+[grade] academic-plotting-orchestra/network-graph -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/academic-plotting-orchestra/network-graph.json  (exit 0)
+[gbatch] DONE  academic-plotting-orchestra/network-graph exit=0 15:26:59Z
+[gbatch] START academic-plotting-orchestra/volcano 15:26:59Z
+[grade] academic-plotting-orchestra/ridgeline -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/academic-plotting-orchestra/ridgeline.json  (exit 0)
+[gbatch] DONE  academic-plotting-orchestra/ridgeline exit=0 15:27:01Z
+[gbatch] START figures4papers/4panel-hero 15:27:01Z
+[grade] academic-plotting-orchestra/roc-prc -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/academic-plotting-orchestra/roc-prc.json  (exit 0)
+[gbatch] DONE  academic-plotting-orchestra/roc-prc exit=0 15:27:32Z
+[gbatch] START figures4papers/architecture 15:27:32Z
+[grade] academic-plotting-orchestra/volcano -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/academic-plotting-orchestra/volcano.json  (exit 0)
+[gbatch] DONE  academic-plotting-orchestra/volcano exit=0 15:27:58Z
+[gbatch] START figures4papers/box-violin 15:27:58Z
+[grade] academic-plotting-orchestra/scatter-fit -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/academic-plotting-orchestra/scatter-fit.json  (exit 0)
+[gbatch] DONE  academic-plotting-orchestra/scatter-fit exit=0 15:28:03Z
+[gbatch] START figures4papers/dual-axis-time 15:28:03Z
+[grade] figures4papers/architecture -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/figures4papers/architecture.json  (exit 0)
+[gbatch] DONE  figures4papers/architecture exit=0 15:28:31Z
+[gbatch] START figures4papers/forest-plot 15:28:31Z
+[grade] academic-plotting-orchestra/stacked-bar -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/academic-plotting-orchestra/stacked-bar.json  (exit 0)
+[gbatch] DONE  academic-plotting-orchestra/stacked-bar exit=0 15:28:32Z
+[gbatch] START figures4papers/grouped-bar 15:28:32Z
+[grade] figures4papers/box-violin -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/figures4papers/box-violin.json  (exit 0)
+[gbatch] DONE  figures4papers/box-violin exit=0 15:28:51Z
+[gbatch] START figures4papers/heatmap 15:28:51Z
+[grade] figures4papers/4panel-hero -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/figures4papers/4panel-hero.json  (exit 0)
+[gbatch] DONE  figures4papers/4panel-hero exit=0 15:28:51Z
+[gbatch] START figures4papers/line-errband 15:28:51Z
+[grade] academic-plotting-orchestra/sankey -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/academic-plotting-orchestra/sankey.json  (exit 0)
+[gbatch] DONE  academic-plotting-orchestra/sankey exit=0 15:29:09Z
+[gbatch] START figures4papers/network-graph 15:29:09Z
+[grade] figures4papers/dual-axis-time -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/figures4papers/dual-axis-time.json  (exit 0)
+[gbatch] DONE  figures4papers/dual-axis-time exit=0 15:29:18Z
+[gbatch] START figures4papers/ridgeline 15:29:18Z
+[grade] figures4papers/grouped-bar -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/figures4papers/grouped-bar.json  (exit 0)
+[gbatch] DONE  figures4papers/grouped-bar exit=0 15:29:57Z
+[gbatch] START figures4papers/roc-prc 15:29:57Z
+[grade] figures4papers/heatmap -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/figures4papers/heatmap.json  (exit 0)
+[gbatch] DONE  figures4papers/heatmap exit=0 15:30:03Z
+[gbatch] START figures4papers/sankey 15:30:03Z
+[grade] figures4papers/network-graph -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/figures4papers/network-graph.json  (exit 0)
+[gbatch] DONE  figures4papers/network-graph exit=0 15:30:08Z
+[gbatch] START figures4papers/scatter-fit 15:30:08Z
+[grade] figures4papers/line-errband -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/figures4papers/line-errband.json  (exit 0)
+[gbatch] DONE  figures4papers/line-errband exit=0 15:30:09Z
+[gbatch] START figures4papers/stacked-bar 15:30:09Z
+[grade] figures4papers/ridgeline -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/figures4papers/ridgeline.json  (exit 0)
+[gbatch] DONE  figures4papers/ridgeline exit=0 15:30:23Z
+[gbatch] START figures4papers/volcano 15:30:23Z
+[grade] figures4papers/forest-plot -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/figures4papers/forest-plot.json  (exit 0)
+[gbatch] DONE  figures4papers/forest-plot exit=0 15:31:00Z
+[gbatch] START minionsos/4panel-hero 15:31:00Z
+[grade] figures4papers/roc-prc -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/figures4papers/roc-prc.json  (exit 0)
+[gbatch] DONE  figures4papers/roc-prc exit=0 15:31:10Z
+[gbatch] START minionsos/architecture 15:31:10Z
+[grade] figures4papers/sankey -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/figures4papers/sankey.json  (exit 0)
+[gbatch] DONE  figures4papers/sankey exit=0 15:31:16Z
+[gbatch] START minionsos/box-violin 15:31:16Z
+[grade] figures4papers/stacked-bar -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/figures4papers/stacked-bar.json  (exit 0)
+[gbatch] DONE  figures4papers/stacked-bar exit=0 15:31:34Z
+[gbatch] START minionsos/dual-axis-time 15:31:34Z
+[grade] figures4papers/scatter-fit -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/figures4papers/scatter-fit.json  (exit 0)
+[gbatch] DONE  figures4papers/scatter-fit exit=0 15:31:38Z
+[gbatch] START minionsos/forest-plot 15:31:38Z
+[grade] figures4papers/volcano -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/figures4papers/volcano.json  (exit 0)
+[gbatch] DONE  figures4papers/volcano exit=0 15:31:40Z
+[gbatch] START minionsos/grouped-bar 15:31:40Z
+[grade] minionsos/4panel-hero -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/minionsos/4panel-hero.json  (exit 0)
+[gbatch] DONE  minionsos/4panel-hero exit=0 15:32:33Z
+[gbatch] START minionsos/heatmap 15:32:33Z
+[grade] minionsos/forest-plot -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/minionsos/forest-plot.json  (exit 0)
+[gbatch] DONE  minionsos/forest-plot exit=0 15:32:47Z
+[gbatch] START minionsos/line-errband 15:32:47Z
+[grade] minionsos/dual-axis-time -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/minionsos/dual-axis-time.json  (exit 0)
+[gbatch] DONE  minionsos/dual-axis-time exit=0 15:32:49Z
+[gbatch] START minionsos/network-graph 15:32:49Z
+[grade] minionsos/grouped-bar -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/minionsos/grouped-bar.json  (exit 0)
+[gbatch] DONE  minionsos/grouped-bar exit=0 15:32:54Z
+[gbatch] START minionsos/ridgeline 15:32:54Z
+[grade] minionsos/box-violin -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/minionsos/box-violin.json  (exit 0)
+[gbatch] DONE  minionsos/box-violin exit=0 15:33:03Z
+[gbatch] START minionsos/roc-prc 15:33:03Z
+[grade] minionsos/architecture -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/minionsos/architecture.json  (exit 0)
+[gbatch] DONE  minionsos/architecture exit=0 15:33:07Z
+[gbatch] START minionsos/sankey 15:33:07Z
+[grade] minionsos/heatmap -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/minionsos/heatmap.json  (exit 0)
+[gbatch] DONE  minionsos/heatmap exit=0 15:33:39Z
+[gbatch] START minionsos/scatter-fit 15:33:39Z
+[grade] minionsos/ridgeline -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/minionsos/ridgeline.json  (exit 0)
+[gbatch] DONE  minionsos/ridgeline exit=0 15:33:52Z
+[gbatch] START minionsos/stacked-bar 15:33:52Z
+[grade] minionsos/network-graph -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/minionsos/network-graph.json  (exit 0)
+[gbatch] DONE  minionsos/network-graph exit=0 15:34:01Z
+[gbatch] START minionsos/volcano 15:34:01Z
+[grade] minionsos/line-errband -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/minionsos/line-errband.json  (exit 0)
+[gbatch] DONE  minionsos/line-errband exit=0 15:34:01Z
+[gbatch] START nature-figure/4panel-hero 15:34:01Z
+[grade] minionsos/roc-prc -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/minionsos/roc-prc.json  (exit 0)
+[gbatch] DONE  minionsos/roc-prc exit=0 15:34:06Z
+[gbatch] START nature-figure/architecture 15:34:06Z
+[grade] minionsos/sankey -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/minionsos/sankey.json  (exit 0)
+[gbatch] DONE  minionsos/sankey exit=0 15:34:29Z
+[gbatch] START nature-figure/box-violin 15:34:29Z
+[grade] minionsos/stacked-bar -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/minionsos/stacked-bar.json  (exit 0)
+[gbatch] DONE  minionsos/stacked-bar exit=0 15:34:57Z
+[gbatch] START nature-figure/dual-axis-time 15:34:57Z
+[grade] minionsos/volcano -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/minionsos/volcano.json  (exit 0)
+[gbatch] DONE  minionsos/volcano exit=0 15:35:03Z
+[gbatch] START nature-figure/forest-plot 15:35:03Z
+[grade] nature-figure/4panel-hero -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/nature-figure/4panel-hero.json  (exit 0)
+[gbatch] DONE  nature-figure/4panel-hero exit=0 15:35:13Z
+[gbatch] START nature-figure/grouped-bar 15:35:13Z
+[grade] nature-figure/architecture -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/nature-figure/architecture.json  (exit 0)
+[gbatch] DONE  nature-figure/architecture exit=0 15:35:35Z
+[gbatch] START nature-figure/heatmap 15:35:35Z
+[grade] minionsos/scatter-fit -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/minionsos/scatter-fit.json  (exit 0)
+[gbatch] DONE  minionsos/scatter-fit exit=0 15:35:53Z
+[gbatch] START nature-figure/line-errband 15:35:53Z
+[grade] nature-figure/grouped-bar -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/nature-figure/grouped-bar.json  (exit 0)
+[gbatch] DONE  nature-figure/grouped-bar exit=0 15:36:14Z
+[gbatch] START nature-figure/network-graph 15:36:14Z
+[grade] nature-figure/dual-axis-time -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/nature-figure/dual-axis-time.json  (exit 0)
+[gbatch] DONE  nature-figure/dual-axis-time exit=0 15:36:21Z
+[gbatch] START nature-figure/ridgeline 15:36:21Z
+[grade] nature-figure/heatmap -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/nature-figure/heatmap.json  (exit 0)
+[gbatch] DONE  nature-figure/heatmap exit=0 15:36:27Z
+[gbatch] START nature-figure/roc-prc 15:36:27Z
+[grade] nature-figure/box-violin -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/nature-figure/box-violin.json  (exit 0)
+[gbatch] DONE  nature-figure/box-violin exit=0 15:36:41Z
+[gbatch] START nature-figure/sankey 15:36:41Z
+[grade] nature-figure/forest-plot -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/nature-figure/forest-plot.json  (exit 0)
+[gbatch] DONE  nature-figure/forest-plot exit=0 15:37:00Z
+[gbatch] START nature-figure/scatter-fit 15:37:00Z
+[grade] nature-figure/line-errband -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/nature-figure/line-errband.json  (exit 0)
+[gbatch] DONE  nature-figure/line-errband exit=0 15:37:04Z
+[gbatch] START nature-figure/stacked-bar 15:37:04Z
+[grade] nature-figure/network-graph -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/nature-figure/network-graph.json  (exit 0)
+[gbatch] DONE  nature-figure/network-graph exit=0 15:37:40Z
+[gbatch] START nature-figure/volcano 15:37:40Z
+[grade] nature-figure/scatter-fit -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/nature-figure/scatter-fit.json  (exit 0)
+[gbatch] DONE  nature-figure/scatter-fit exit=0 15:37:49Z
+[gbatch] START pdf-vector-layout/4panel-hero 15:37:49Z
+[grade] nature-figure/sankey -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/nature-figure/sankey.json  (exit 0)
+[gbatch] DONE  nature-figure/sankey exit=0 15:37:49Z
+[gbatch] START pdf-vector-layout/architecture 15:37:49Z
+[grade] nature-figure/roc-prc -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/nature-figure/roc-prc.json  (exit 0)
+[gbatch] DONE  nature-figure/roc-prc exit=0 15:37:57Z
+[gbatch] START pdf-vector-layout/box-violin 15:37:57Z
+[grade] nature-figure/ridgeline -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/nature-figure/ridgeline.json  (exit 0)
+[gbatch] DONE  nature-figure/ridgeline exit=0 15:37:57Z
+[gbatch] START pdf-vector-layout/dual-axis-time 15:37:57Z
+[grade] nature-figure/stacked-bar -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/nature-figure/stacked-bar.json  (exit 0)
+[gbatch] DONE  nature-figure/stacked-bar exit=0 15:38:22Z
+[gbatch] START pdf-vector-layout/forest-plot 15:38:22Z
+[grade] pdf-vector-layout/architecture -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/pdf-vector-layout/architecture.json  (exit 0)
+[gbatch] DONE  pdf-vector-layout/architecture exit=0 15:38:52Z
+[gbatch] START pdf-vector-layout/grouped-bar 15:38:52Z
+[grade] pdf-vector-layout/4panel-hero -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/pdf-vector-layout/4panel-hero.json  (exit 0)
+[gbatch] DONE  pdf-vector-layout/4panel-hero exit=0 15:39:05Z
+[gbatch] START pdf-vector-layout/heatmap 15:39:05Z
+[grade] nature-figure/volcano -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/nature-figure/volcano.json  (exit 0)
+[gbatch] DONE  nature-figure/volcano exit=0 15:39:05Z
+[gbatch] START pdf-vector-layout/line-errband 15:39:05Z
+[grade] pdf-vector-layout/dual-axis-time -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/pdf-vector-layout/dual-axis-time.json  (exit 0)
+[gbatch] DONE  pdf-vector-layout/dual-axis-time exit=0 15:39:09Z
+[gbatch] START pdf-vector-layout/network-graph 15:39:09Z
+[grade] pdf-vector-layout/forest-plot -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/pdf-vector-layout/forest-plot.json  (exit 0)
+[gbatch] DONE  pdf-vector-layout/forest-plot exit=0 15:39:18Z
+[gbatch] START pdf-vector-layout/ridgeline 15:39:18Z
+[grade] pdf-vector-layout/box-violin -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/pdf-vector-layout/box-violin.json  (exit 0)
+[gbatch] DONE  pdf-vector-layout/box-violin exit=0 15:39:46Z
+[gbatch] START pdf-vector-layout/roc-prc 15:39:46Z
+[grade] pdf-vector-layout/line-errband -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/pdf-vector-layout/line-errband.json  (exit 0)
+[gbatch] DONE  pdf-vector-layout/line-errband exit=0 15:40:06Z
+[gbatch] START pdf-vector-layout/sankey 15:40:06Z
+[grade] pdf-vector-layout/grouped-bar -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/pdf-vector-layout/grouped-bar.json  (exit 0)
+[gbatch] DONE  pdf-vector-layout/grouped-bar exit=0 15:40:07Z
+[gbatch] START pdf-vector-layout/scatter-fit 15:40:07Z
+[grade] pdf-vector-layout/heatmap -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/pdf-vector-layout/heatmap.json  (exit 0)
+[gbatch] DONE  pdf-vector-layout/heatmap exit=0 15:40:20Z
+[gbatch] START pdf-vector-layout/stacked-bar 15:40:20Z
+[grade] pdf-vector-layout/ridgeline -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/pdf-vector-layout/ridgeline.json  (exit 0)
+[gbatch] DONE  pdf-vector-layout/ridgeline exit=0 15:40:38Z
+[gbatch] START pdf-vector-layout/volcano 15:40:38Z
+[grade] pdf-vector-layout/network-graph -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/pdf-vector-layout/network-graph.json  (exit 0)
+[gbatch] DONE  pdf-vector-layout/network-graph exit=0 15:40:51Z
+[gbatch] START research-paper-writing/4panel-hero 15:40:51Z
+[grade] pdf-vector-layout/roc-prc -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/pdf-vector-layout/roc-prc.json  (exit 0)
+[gbatch] DONE  pdf-vector-layout/roc-prc exit=0 15:41:12Z
+[gbatch] START research-paper-writing/architecture 15:41:12Z
+[grade] pdf-vector-layout/scatter-fit -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/pdf-vector-layout/scatter-fit.json  (exit 0)
+[gbatch] DONE  pdf-vector-layout/scatter-fit exit=0 15:41:20Z
+[gbatch] START research-paper-writing/box-violin 15:41:20Z
+[grade] pdf-vector-layout/volcano -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/pdf-vector-layout/volcano.json  (exit 0)
+[gbatch] DONE  pdf-vector-layout/volcano exit=0 15:41:44Z
+[gbatch] START research-paper-writing/dual-axis-time 15:41:44Z
+[grade] pdf-vector-layout/sankey -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/pdf-vector-layout/sankey.json  (exit 0)
+[gbatch] DONE  pdf-vector-layout/sankey exit=0 15:41:45Z
+[gbatch] START research-paper-writing/forest-plot 15:41:45Z
+[grade] research-paper-writing/architecture -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/research-paper-writing/architecture.json  (exit 0)
+[gbatch] DONE  research-paper-writing/architecture exit=0 15:42:22Z
+[gbatch] START research-paper-writing/grouped-bar 15:42:22Z
+[grade] research-paper-writing/box-violin -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/research-paper-writing/box-violin.json  (exit 0)
+[gbatch] DONE  research-paper-writing/box-violin exit=0 15:42:28Z
+[gbatch] START research-paper-writing/heatmap 15:42:28Z
+[grade] research-paper-writing/dual-axis-time -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/research-paper-writing/dual-axis-time.json  (exit 0)
+[gbatch] DONE  research-paper-writing/dual-axis-time exit=0 15:42:49Z
+[gbatch] START research-paper-writing/line-errband 15:42:49Z
+[grade] research-paper-writing/4panel-hero -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/research-paper-writing/4panel-hero.json  (exit 0)
+[gbatch] DONE  research-paper-writing/4panel-hero exit=0 15:43:11Z
+[gbatch] START research-paper-writing/network-graph 15:43:11Z
+[grade] research-paper-writing/forest-plot -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/research-paper-writing/forest-plot.json  (exit 0)
+[gbatch] DONE  research-paper-writing/forest-plot exit=0 15:43:18Z
+[gbatch] START research-paper-writing/ridgeline 15:43:18Z
+[grade] pdf-vector-layout/stacked-bar -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/pdf-vector-layout/stacked-bar.json  (exit 0)
+[gbatch] DONE  pdf-vector-layout/stacked-bar exit=0 15:43:32Z
+[gbatch] START research-paper-writing/roc-prc 15:43:32Z
+[grade] research-paper-writing/grouped-bar -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/research-paper-writing/grouped-bar.json  (exit 0)
+[gbatch] DONE  research-paper-writing/grouped-bar exit=0 15:43:35Z
+[gbatch] START research-paper-writing/sankey 15:43:35Z
+[grade] research-paper-writing/heatmap -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/research-paper-writing/heatmap.json  (exit 0)
+[gbatch] DONE  research-paper-writing/heatmap exit=0 15:43:49Z
+[gbatch] START research-paper-writing/scatter-fit 15:43:49Z
+[grade] research-paper-writing/ridgeline -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/research-paper-writing/ridgeline.json  (exit 0)
+[gbatch] DONE  research-paper-writing/ridgeline exit=0 15:44:38Z
+[gbatch] START research-paper-writing/stacked-bar 15:44:38Z
+[grade] research-paper-writing/line-errband -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/research-paper-writing/line-errband.json  (exit 0)
+[gbatch] DONE  research-paper-writing/line-errband exit=0 15:44:39Z
+[gbatch] START research-paper-writing/volcano 15:44:39Z
+[grade] research-paper-writing/sankey -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/research-paper-writing/sankey.json  (exit 0)
+[gbatch] DONE  research-paper-writing/sankey exit=0 15:44:45Z
+[grade] research-paper-writing/roc-prc -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/research-paper-writing/roc-prc.json  (exit 0)
+[gbatch] DONE  research-paper-writing/roc-prc exit=0 15:44:47Z
+[grade] research-paper-writing/scatter-fit -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/research-paper-writing/scatter-fit.json  (exit 0)
+[gbatch] DONE  research-paper-writing/scatter-fit exit=0 15:45:00Z
+[grade] research-paper-writing/network-graph -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/research-paper-writing/network-graph.json  (exit 0)
+[gbatch] DONE  research-paper-writing/network-graph exit=0 15:45:41Z
+[grade] research-paper-writing/stacked-bar -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/research-paper-writing/stacked-bar.json  (exit 0)
+[gbatch] DONE  research-paper-writing/stacked-bar exit=0 15:45:49Z
+[grade] research-paper-writing/volcano -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw/grader/research-paper-writing/volcano.json  (exit 0)
+[gbatch] DONE  research-paper-writing/volcano exit=0 15:45:51Z

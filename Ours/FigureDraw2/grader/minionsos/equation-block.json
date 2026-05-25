@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    3,
+    "vector_fidelity":       3,
+    "file_format":           2,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "All three numbered equations (ELBO, decomposition, retrieval-augmented variant) are present with surrounding prose that correctly names Jensen's inequality, KL divergences, and retrieved exemplars R(x); the derivation chain is legible and scientifically accurate.",
+    "typography":            "pdflatex produces a real Type-1 PDF with LM (Latin Modern) fonts — LMRoman, LMMathItalic, LMMathSymbols, MSBM — not DejaVu Sans; text is fully selectable; no fonttype=42 matplotlib setting needed since this is a native LaTeX document.",
+    "palette":               "This is a black-and-white mathematical typesetting document — no colour palette is used at all; neither colorblind issues nor directional-colour discipline apply, but the absence of any visual colour encoding is a mild miss for a 'derivation block' that could highlight equation labels or key terms.",
+    "layout_density":        "Single-page layout with a title, three numbered equations interspersed with explanatory prose, and equations numbered (1)–(3) at the right margin; whitespace is appropriate for a math document with no excessive gaps or overlapping labels.",
+    "reviewer_readiness":    "Caption correctly cross-references \\eqref{eq:elbo}, \\eqref{eq:decomp}, and \\eqref{eq:retro}; all three equations mentioned in the caption match what appears in the figure; no legend needed for a derivation block; Reviewer 2 could reasonably accept this as-is.",
+    "vector_fidelity":       "PDF is produced by pdfTeX-1.40.29 and contains embedded Type-1 PostScript font programs (LMRoman, LMMathItalic, MSBM10, etc.) with CMap streams; text is fully selectable and infinitely scalable — true vector output.",
+    "file_format":           "figure.pdf (158 KB, real vector) and figure.png (200 dpi raster) are present; caption.tex is present and non-trivial; gen_figure.py is present; however equations.tex (the intermediate source) was not preserved in the output directory as required by the brief.",
+    "caption_quality":       "Caption explains all three equations by name and role (ELBO, KL decomposition, retrieval-augmented ELBO conditioned on R(x) of k exemplars), cites the derivation step (Jensen's inequality), and specifically identifies RetroDiff's contribution; includes the concrete symbol k for the retrieved-exemplar set size."
+  },
+  "overall_strengths": [
+    "Genuine pdflatex-compiled derivation block with proper LaTeX math environments, equation numbering, \\eqref cross-references, and publication-quality Latin Modern fonts — exactly what the brief requested.",
+    "Caption is detailed and scientifically precise, naming each equation, its mathematical role, and the novel contribution (retrieval-augmented ELBO), enabling a reader unfamiliar with the paper to understand the figure without reading the body text."
+  ],
+  "overall_weaknesses": [
+    "equations.tex source file was not preserved in the working directory alongside figure.pdf/figure.png and caption.tex as the brief explicitly required, making the output set incomplete.",
+    "No colour or visual differentiation is used; while acceptable for a derivation block, key labels or the novel equation (3) could be highlighted to draw the reader's eye to the main contribution."
+  ]
+}

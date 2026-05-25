@@ -1,0 +1,16 @@
+\caption{%
+  \textbf{\methodname{}: Retrieval-Augmented Diffusion for Data-Efficient Reasoning.}
+  The paper section presents three core results.
+  (1)~\methodname{} outperforms Baseline, Method-A, and Method-B on five reasoning
+  benchmarks (MMLU, HumanEval, GSM8K, MATH, GPQA), with the largest gain of
+  $+4.8$\,pp on MATH (Figure~1).
+  (2)~\methodname{} is data-efficient, matching the next-best method's final
+  validation loss in $60\%$ of the training steps ($\Delta{=}0.155$ at convergence;
+  Figure~2).
+  (3)~\methodname{} follows a Chinchilla-style scaling law ($y = -0.0449x + 0.621$,
+  $R^{2}=0.877$), supporting the proposed power-law relationship between model size
+  and loss (Figure~3).
+  The architecture (Figure~4) consists of an Attention+Memory module, a Skill Router,
+  and a residual-connected decoder; ablations confirm all four components are necessary.
+  Data are synthetic but realistic (see \texttt{captions.json} and \texttt{claim.json}).%
+}

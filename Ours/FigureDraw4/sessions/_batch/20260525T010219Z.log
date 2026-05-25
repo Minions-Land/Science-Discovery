@@ -1,0 +1,79 @@
+[batch] 20260525T010219Z -- 13 cells to run, concurrency=4
+[batch] START minionsos-v4/grouped-bar 01:02:19Z
+[batch] START minionsos-v4/line-errband 01:02:19Z
+[batch] START minionsos-v4/scatter-fit 01:02:19Z
+[batch] START minionsos-v4/heatmap 01:02:19Z
+[run_cell] arm=minionsos-v4 fig=grouped-bar run_id=20260525T010219Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/grouped-bar/20260525T010219Z/workspace
+[run_cell] arm=minionsos-v4 fig=scatter-fit run_id=20260525T010219Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/scatter-fit/20260525T010219Z/workspace
+[run_cell] arm=minionsos-v4 fig=line-errband run_id=20260525T010219Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/line-errband/20260525T010219Z/workspace
+[run_cell] arm=minionsos-v4 fig=heatmap run_id=20260525T010219Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/heatmap/20260525T010219Z/workspace
+[finalize] 20260525T010219Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/scatter-fit/20260525T010219Z  exit=0
+[batch] DONE  minionsos-v4/scatter-fit exit=0 01:04:10Z
+[batch] START minionsos-v4/box-violin 01:04:10Z
+[run_cell] arm=minionsos-v4 fig=box-violin run_id=20260525T010410Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/box-violin/20260525T010410Z/workspace
+[finalize] 20260525T010219Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/line-errband/20260525T010219Z  exit=0
+[batch] DONE  minionsos-v4/line-errband exit=0 01:04:12Z
+[batch] START minionsos-v4/architecture 01:04:12Z
+[run_cell] arm=minionsos-v4 fig=architecture run_id=20260525T010412Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/architecture/20260525T010412Z/workspace
+[finalize] 20260525T010219Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/heatmap/20260525T010219Z  exit=0
+[batch] DONE  minionsos-v4/heatmap exit=0 01:04:13Z
+[batch] START minionsos-v4/roc-prc 01:04:13Z
+[run_cell] arm=minionsos-v4 fig=roc-prc run_id=20260525T010413Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/roc-prc/20260525T010413Z/workspace
+[finalize] 20260525T010219Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/grouped-bar/20260525T010219Z  exit=0
+[batch] DONE  minionsos-v4/grouped-bar exit=0 01:04:20Z
+[batch] START minionsos-v4/dual-axis-time 01:04:20Z
+[run_cell] arm=minionsos-v4 fig=dual-axis-time run_id=20260525T010420Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/dual-axis-time/20260525T010420Z/workspace
+[finalize] 20260525T010413Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/roc-prc/20260525T010413Z  exit=0
+[batch] DONE  minionsos-v4/roc-prc exit=0 01:06:00Z
+[batch] START minionsos-v4/forest-plot 01:06:00Z
+[run_cell] arm=minionsos-v4 fig=forest-plot run_id=20260525T010600Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/forest-plot/20260525T010600Z/workspace
+[finalize] 20260525T010410Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/box-violin/20260525T010410Z  exit=0
+[batch] DONE  minionsos-v4/box-violin exit=0 01:06:14Z
+[batch] START minionsos-v4/latex-table 01:06:14Z
+[run_cell] arm=minionsos-v4 fig=latex-table run_id=20260525T010614Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/latex-table/20260525T010614Z/workspace
+[finalize] 20260525T010420Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/dual-axis-time/20260525T010420Z  exit=0
+[batch] DONE  minionsos-v4/dual-axis-time exit=0 01:06:18Z
+[batch] START minionsos-v4/equation-block 01:06:18Z
+[run_cell] arm=minionsos-v4 fig=equation-block run_id=20260525T010618Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/equation-block/20260525T010618Z/workspace
+[finalize] 20260525T010412Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/architecture/20260525T010412Z  exit=0
+[batch] DONE  minionsos-v4/architecture exit=0 01:07:48Z
+[batch] START minionsos-v4/cns-graphical-abstract 01:07:48Z
+[run_cell] arm=minionsos-v4 fig=cns-graphical-abstract run_id=20260525T010748Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/cns-graphical-abstract/20260525T010748Z/workspace
+[finalize] 20260525T010600Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/forest-plot/20260525T010600Z  exit=0
+[batch] DONE  minionsos-v4/forest-plot exit=0 01:08:27Z
+[batch] START minionsos-v4/imrad-section 01:08:27Z
+[run_cell] arm=minionsos-v4 fig=imrad-section run_id=20260525T010827Z
+[run_cell] workspace=/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/imrad-section/20260525T010827Z/workspace
+[finalize] 20260525T010614Z: produced=['brief.md', 'caption.tex', 'data.json', 'figure.pdf', 'figure.png', 'gen_figure.py', 'missfont.log', 'table.tex']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/latex-table/20260525T010614Z  exit=0
+[batch] DONE  minionsos-v4/latex-table exit=0 01:08:54Z
+[finalize] 20260525T010618Z: produced=['brief.md', 'caption.tex', 'claim.json', 'equations.aux', 'equations.log', 'equations.out', 'equations.pdf', 'equations.tex', 'figure.pdf', 'figure.png', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/equation-block/20260525T010618Z  exit=0
+[batch] DONE  minionsos-v4/equation-block exit=0 01:09:43Z
+[finalize] 20260525T010748Z: produced=['brief.md', 'caption.tex', 'claim.json', 'figure.pdf', 'figure.png', 'figure.svg', 'gen_figure.py']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/cns-graphical-abstract/20260525T010748Z  exit=0
+[batch] DONE  minionsos-v4/cns-graphical-abstract exit=0 01:11:02Z
+[finalize] 20260525T010827Z: produced=['brief.md', 'caption.tex', 'claim.json', 'figure.pdf', 'figure.png', 'gen_figure.py', 'main.aux', 'main.log', 'main.out', 'main.pdf', 'main.tex', 'outline.md']
+[run_cell] done -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/imrad-section/20260525T010827Z  exit=0
+[batch] DONE  minionsos-v4/imrad-section exit=0 01:12:19Z

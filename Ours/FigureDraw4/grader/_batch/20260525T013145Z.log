@@ -1,0 +1,19 @@
+[gbatch] 20260525T013145Z -- 6 cells to grade, conc=4
+[gbatch] START minionsos-v4/cns-graphical-abstract 01:31:45Z
+[gbatch] START minionsos-v4/imrad-section 01:31:45Z
+[gbatch] START minionsos-v4/line-errband 01:31:45Z
+[gbatch] START minionsos-v4/network-graph 01:31:45Z
+[grade] minionsos-v4/network-graph -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/network-graph.json  (exit 0)
+[gbatch] DONE  minionsos-v4/network-graph exit=0 01:33:05Z
+[gbatch] START minionsos-v4/sankey 01:33:05Z
+[grade] minionsos-v4/imrad-section -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/imrad-section.json  (exit 0)
+[gbatch] DONE  minionsos-v4/imrad-section exit=0 01:33:27Z
+[gbatch] START minionsos-v4/scatter-fit 01:33:27Z
+[grade] minionsos-v4/cns-graphical-abstract -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/cns-graphical-abstract.json  (exit 0)
+[gbatch] DONE  minionsos-v4/cns-graphical-abstract exit=0 01:34:14Z
+[grade] minionsos-v4/line-errband -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/line-errband.json  (exit 0)
+[gbatch] DONE  minionsos-v4/line-errband exit=0 01:34:16Z
+[grade] minionsos-v4/sankey -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/sankey.json  (exit 0)
+[gbatch] DONE  minionsos-v4/sankey exit=0 01:34:21Z
+[grade] minionsos-v4/scatter-fit -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/scatter-fit.json  (exit 0)
+[gbatch] DONE  minionsos-v4/scatter-fit exit=0 01:35:10Z

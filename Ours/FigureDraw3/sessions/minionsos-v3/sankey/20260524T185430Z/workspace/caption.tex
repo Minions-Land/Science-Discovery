@@ -1,0 +1,9 @@
+\caption{%
+  Sankey diagram of the dataset preparation pipeline, tracing 1{,}120 raw samples through
+  ingestion, cleaning, and filtering to final train/val/test splits.
+  \textbf{600 samples (54\%) reach the training set}, with 180 rejected across two
+  quality-control stages (120 at ingestion, 60 after cleaning).
+  Flow ribbon width is proportional to sample count; ribbon colour matches the source node.
+  Node labels show total throughput at each stage.
+  All counts are taken directly from \texttt{data.json}; no values were mocked or imputed.
+}

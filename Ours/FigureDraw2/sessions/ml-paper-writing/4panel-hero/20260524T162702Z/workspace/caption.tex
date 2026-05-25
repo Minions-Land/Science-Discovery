@@ -1,0 +1,13 @@
+\caption{\textbf{Method overview and empirical results.}
+\textbf{(A)} The proposed 3-stage pipeline: an encoder with self-attention (Stage~1)
+feeds a recurrent memory module (Stage~2) that supplies context to a skill-conditioned
+decoder (Stage~3), with a residual skip connection from Stage~1 to Stage~3 and an
+attention-feedback loop from Stage~2 to Stage~1.
+\textbf{(B)} Ablation study: removing any single component (attention~$-$attn,
+memory~$-$mem, residual~$-$residual, or skill decoder~$-$skill) degrades accuracy
+relative to the full model (64.7\%), with the memory module contributing the largest
+gain ($\Delta{=}9.6$ pp).
+\textbf{(C)} Training-loss curves over 30k steps showing that our method converges
+faster and to a lower final loss than the baseline.
+\textbf{(D)} Sensitivity sweep across a $5{\times}5$ grid of hyperparameters
+$\{S_0\text{--}S_4\}\times\{P_0\text{--}P_4\}$; scores in [0,\,1], higher is better.}

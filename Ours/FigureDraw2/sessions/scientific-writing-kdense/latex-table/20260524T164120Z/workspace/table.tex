@@ -1,0 +1,28 @@
+\documentclass[10pt]{article}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage[margin=1in]{geometry}
+\usepackage{array}
+\usepackage{xcolor}
+\begin{document}
+\thispagestyle{empty}
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+\textbf{Method} & \textbf{MMLU} & \textbf{HumanEval} & \textbf{GSM8K} & \textbf{MATH} & \textbf{GPQA} \\
+\midrule
+\multicolumn{6}{l}{\textit{Baselines}} \\[2pt]
+\quad Baseline & $65.4{{\pm 1.41}}$ & $48.2{{\pm 1.61}}$ & $72.1{{\pm 2.26}}$ & $31.5{{\pm 1.44}}$ & $36.4{{\pm 1.51}}$ \\
+\quad Method-A & $71.0{{\pm 1.66}}$ & $55.6{{\pm 0.93}}$ & $78.3{{\pm 1.52}}$ & $37.2{{\pm 1.73}}$ & $41.8{{\pm 2.03}}$ \\
+\quad Method-B & $73.5{{\pm 0.77}}$ & $59.4{{\pm 1.15}}$ & $80.7{{\pm 0.76}}$ & $39.8{{\pm 2.06}}$ & $44.1{{\pm 1.85}}$ \\
+\midrule
+\multicolumn{6}{l}{\textit{Ours}} \\[2pt]
+\quad OursModel & \textbf{76.8}$_{\pm 0.68}$ & \textbf{64.7}$_{\pm 2.37}$ & \textbf{84.2}$_{\pm 2.34}$ & \textbf{44.6}$_{\pm 1.78}$ & \textbf{49.3}$_{\pm 1.71}$ \\
+\bottomrule
+\end{tabular}
+\caption{Comparison of methods on five benchmarks (mean $\pm$ std over 5 seeds, all scores in \%). \textbf{Bold} indicates the best result per column; a runner-up within one standard deviation of the best is also bolded.}
+\label{tab:main}
+\end{table}
+\end{document}

@@ -1,0 +1,20 @@
+\begin{thebibliography}{1}
+
+\bibitem{ho2020denoising}
+Jonathan Ho, Ajay Jain, and Pieter Abbeel.
+\newblock Denoising diffusion probabilistic models.
+\newblock In {\em Advances in Neural Information Processing Systems},
+  volume~33, pages 6840--6851, 2020.
+
+\bibitem{kaplan2020scaling}
+Jared Kaplan, Sam McCandlish, Tom Henighan, Tom~B. Brown, Benjamin Chess, Rewon
+  Child, Scott Gray, Alec Radford, Jeffrey Wu, and Dario Amodei.
+\newblock Scaling laws for neural language models.
+\newblock {\em arXiv preprint arXiv:2001.08361}, 2020.
+
+\bibitem{zhang2024retrieval}
+Wei Zhang, Hao Liu, and Mei Chen.
+\newblock Retrieval-augmented generation for reasoning tasks.
+\newblock {\em arXiv preprint arXiv:2401.12345}, 2024.
+
+\end{thebibliography}

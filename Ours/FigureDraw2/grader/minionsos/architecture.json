@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               3,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       3,
+    "file_format":           3,
+    "caption_quality":       2
+  },
+  "evidence": {
+    "scientific_clarity":   "Left-to-right pipeline (Query → Retriever/KB → DiffDecoder/Prior → Output) is clearly conveyed with group boxes and directional arrows; brief's architecture is faithfully represented.",
+    "typography":            "pdf.fonttype=42 and svg.fonttype=none set explicitly; Arial/Helvetica font stack with DejaVu Sans only as fallback; pdffonts confirms embedded Arial TrueType fonts (CID, subsetted).",
+    "palette":               "ColorBrind-safe palette from Wong/Okabe palette family (0F4D92, 0072B2, 56B4E9, E69F00); no red/green directional misuse; categorical node types distinguished by hue and lightness.",
+    "layout_density":        "9.5×4.2 in canvas with tight_layout(pad=0.3); nodes spread across canvas with group backgrounds, no overlapping labels, and reasonable whitespace.",
+    "reviewer_readiness":    "Caption acknowledges no dashed arrows appear despite legend entry for them — reviewer may flag legend element with no corresponding visual; no quantitative claim (architecture diagram doesn't require one, but the criterion expects one).",
+    "vector_fidelity":       "PDF confirmed as version 1.4 with embedded subsetted CID TrueType fonts (Arial variants); SVG present with text glyphs (svg.fonttype=none); both are true vector formats.",
+    "file_format":           "figure.pdf, figure.png, figure.svg, caption.tex, and gen_figure.py all present and non-trivial (PDF 43 KB, PNG 72 KB, SVG 11 KB).",
+    "caption_quality":       "Caption describes pipeline flow and arrow semantics clearly, but contains no numerical claim or specific measured finding (acceptable for a pure architecture diagram, but strict rubric penalizes absence of numerical claim)."
+  },
+  "overall_strengths": [
+    "Typography is excellent: explicit pdf.fonttype=42 and svg.fonttype=none, embedded Arial fonts confirmed via pdffonts, no DejaVu Sans fallback actually used.",
+    "ColorBlind-safe palette derived from Okabe-Ito/Wong colors; solid directional arrows and group backgrounds make the pipeline unambiguous."
+  ],
+  "overall_weaknesses": [
+    "Caption includes a legend element (dashed control/feedback arrow) that has no matching arrow in the figure, which a reviewer is likely to flag as inconsistent.",
+    "Caption lacks any numerical claim or quantitative finding; while expected for a pure architecture diagram, it scores lower under a strict 'caption_quality' rubric."
+  ]
+}

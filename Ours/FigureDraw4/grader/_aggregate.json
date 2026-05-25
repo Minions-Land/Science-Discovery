@@ -1,0 +1,176 @@
+{
+  "v2_per_fig": {
+    "grouped-bar": 22,
+    "line-errband": 17,
+    "scatter-fit": 19,
+    "heatmap": 18,
+    "box-violin": 16,
+    "4panel-hero": 15,
+    "architecture": 22,
+    "roc-prc": 18,
+    "ridgeline": 15,
+    "dual-axis-time": 18,
+    "stacked-bar": 19,
+    "forest-plot": 19,
+    "sankey": 15,
+    "volcano": 23,
+    "network-graph": 20,
+    "latex-table": 20,
+    "equation-block": 22
+  },
+  "v3_per_fig": {
+    "grouped-bar": 24,
+    "line-errband": 22,
+    "scatter-fit": 24,
+    "heatmap": 21,
+    "box-violin": 21,
+    "4panel-hero": 20,
+    "architecture": 23,
+    "roc-prc": 23,
+    "ridgeline": 17,
+    "dual-axis-time": 23,
+    "stacked-bar": 17,
+    "forest-plot": 24,
+    "sankey": 23,
+    "volcano": 19,
+    "network-graph": 16,
+    "latex-table": 21,
+    "equation-block": 22,
+    "cns-graphical-abstract": 22,
+    "imrad-section": 19
+  },
+  "v4_per_fig": {
+    "grouped-bar": 24,
+    "line-errband": 24,
+    "scatter-fit": 24,
+    "heatmap": 23,
+    "box-violin": 24,
+    "4panel-hero": 23,
+    "architecture": 24,
+    "roc-prc": 23,
+    "ridgeline": 20,
+    "dual-axis-time": 24,
+    "stacked-bar": 24,
+    "forest-plot": 23,
+    "sankey": 23,
+    "volcano": 24,
+    "network-graph": 22,
+    "latex-table": 22,
+    "equation-block": 22,
+    "cns-graphical-abstract": 22,
+    "imrad-section": 22
+  },
+  "v2_avg17": 18.705882352941178,
+  "v3_avg17": 21.176470588235293,
+  "v4_avg17": 23.11764705882353,
+  "delta_v4_v3": 1.9411764705882355,
+  "delta_v4_v2": 4.4117647058823515,
+  "best_baselines_per_fig": {
+    "grouped-bar": {
+      "score": 23,
+      "arm": "latex-document"
+    },
+    "line-errband": {
+      "score": 20,
+      "arm": "ml-paper-writing"
+    },
+    "scatter-fit": {
+      "score": 20,
+      "arm": "academic-paper-imbad"
+    },
+    "heatmap": {
+      "score": 18,
+      "arm": "minionsos"
+    },
+    "box-violin": {
+      "score": 19,
+      "arm": "awesome-writing-prompts"
+    },
+    "4panel-hero": {
+      "score": 18,
+      "arm": "composer-lishix"
+    },
+    "architecture": {
+      "score": 22,
+      "arm": "minionsos"
+    },
+    "roc-prc": {
+      "score": 19,
+      "arm": "ml-paper-writing"
+    },
+    "ridgeline": {
+      "score": 19,
+      "arm": "awesome-writing-prompts"
+    },
+    "dual-axis-time": {
+      "score": 19,
+      "arm": "scientific-writing-kdense"
+    },
+    "stacked-bar": {
+      "score": 19,
+      "arm": "minionsos"
+    },
+    "forest-plot": {
+      "score": 20,
+      "arm": "stat-writing-fuhaoda"
+    },
+    "sankey": {
+      "score": 18,
+      "arm": "stat-writing-fuhaoda"
+    },
+    "volcano": {
+      "score": 23,
+      "arm": "minionsos"
+    },
+    "network-graph": {
+      "score": 21,
+      "arm": "scientific-writing-kdense"
+    },
+    "latex-table": {
+      "score": 21,
+      "arm": "composer-lishix"
+    },
+    "equation-block": {
+      "score": 22,
+      "arm": "minionsos"
+    }
+  },
+  "beat_baseline_count": 16,
+  "matched_baseline_count": 1,
+  "total_with_base": 17,
+  "v2_paper_page": {
+    "pages": 0,
+    "size_kb": 366,
+    "macros": 6,
+    "errs": 0,
+    "undefs": 1
+  },
+  "v3_paper_page": {
+    "pages": 0,
+    "size_kb": 501,
+    "macros": 8,
+    "errs": 0,
+    "undefs": 1
+  },
+  "v4_paper_page": null,
+  "v3_axis_means": {
+    "scientific_clarity": 2.9473684210526314,
+    "typography": 2.4210526315789473,
+    "palette": 2.6842105263157894,
+    "layout_density": 2.6842105263157894,
+    "reviewer_readiness": 2.3684210526315788,
+    "vector_fidelity": 2.473684210526316,
+    "file_format": 2.736842105263158,
+    "caption_quality": 2.789473684210526
+  },
+  "v4_axis_means": {
+    "scientific_clarity": 2.8947368421052633,
+    "typography": 2.9473684210526314,
+    "palette": 2.8947368421052633,
+    "layout_density": 2.789473684210526,
+    "reviewer_readiness": 2.736842105263158,
+    "vector_fidelity": 3,
+    "file_format": 2.8421052631578947,
+    "caption_quality": 2.8947368421052633
+  }
+}

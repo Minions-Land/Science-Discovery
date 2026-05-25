@@ -1,0 +1,9 @@
+\caption{%
+  \textbf{RetroDiff training objective derivation.}
+  Equation~\eqref{eq:elbo} is the variational lower bound (ELBO) obtained by Jensen's inequality.
+  Equation~\eqref{eq:decomp} decomposes the ELBO into a reconstruction term and a sum of
+  per-step KL divergences, each tractable because the forward posterior is Gaussian.
+  Equation~\eqref{eq:retro} is RetroDiff's retrieval-augmented objective: the ELBO is
+  conditioned on a set $R(x)$ of $k$ retrieved exemplars, reducing the effective denoising
+  burden without modifying the diffusion schedule.%
+}

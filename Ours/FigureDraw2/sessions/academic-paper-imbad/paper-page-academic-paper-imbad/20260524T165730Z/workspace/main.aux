@@ -1,0 +1,31 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\bibstyle{abbrvnat}
+\citation{zhang2024retrieval}
+\citation{ho2020denoising}
+\citation{kaplan2020scaling}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Method}{1}{section.1}\protected@file@percent }
+\newlabel{sec:method}{{1}{1}{Method}{section.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Attention Module.}{1}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Memory Bank and Skill Router.}{1}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Ablation.}{1}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Results}{1}{section.2}\protected@file@percent }
+\newlabel{sec:results}{{2}{1}{Results}{section.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Benchmark accuracy.}{1}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Training efficiency.}{1}{section*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Scaling behaviour.}{1}{section*.7}\protected@file@percent }
+\bibdata{references}
+\bibcite{ho2020denoising}{{1}{2020}{{Ho et~al.}}{{Ho, Jain, and Abbeel}}}
+\bibcite{kaplan2020scaling}{{2}{2020}{{Kaplan et~al.}}{{Kaplan, McCandlish, Henighan, Brown, Chess, Child, Gray, Radford, Wu, and Amodei}}}
+\bibcite{zhang2024retrieval}{{3}{2024}{{Zhang et~al.}}{{Zhang, Chen, and Wang}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Hero overview of the proposed method.} \textbf  {(A)}~Conceptual diagram of the 3-stage pipeline: input tokens pass through an Attention Module and a Memory Bank (augmented by a Skill Router) before the Output Head; a residual connection bypasses the first two stages. \textbf  {(B)}~Ablation study showing accuracy (\%) when each component is removed; removing the attention module causes the largest drop ($-6.5$\,pp). \textbf  {(C)}~Training-loss curves over 30\,k steps; our method converges faster and to a lower final loss than the baseline. \textbf  {(D)}~Sensitivity sweep over a $5{\times }5$ grid of hyperparameters $P$ and $S$; scores range from 0 to 1 (higher is better).}}{3}{figure.1}\protected@file@percent }
+\newlabel{fig:hero}{{1}{3}{\textbf {Hero overview of the proposed method.} \textbf {(A)}~Conceptual diagram of the 3-stage pipeline: input tokens pass through an Attention Module and a Memory Bank (augmented by a Skill Router) before the Output Head; a residual connection bypasses the first two stages. \textbf {(B)}~Ablation study showing accuracy (\%) when each component is removed; removing the attention module causes the largest drop ($-6.5$\,pp). \textbf {(C)}~Training-loss curves over 30\,k steps; our method converges faster and to a lower final loss than the baseline. \textbf {(D)}~Sensitivity sweep over a $5{\times }5$ grid of hyperparameters $P$ and $S$; scores range from 0 to 1 (higher is better)}{figure.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Accuracy (\%) of four methods on five benchmarks (MMLU, HumanEval, GSM8K, MATH, GPQA). Error bars show the sample standard deviation over five random seeds. \textbf  {RetroDiff} achieves the highest accuracy on every benchmark. Results are synthetic but drawn from realistic distributions.}}{4}{figure.2}\protected@file@percent }
+\newlabel{fig:accuracy}{{2}{4}{Accuracy (\%) of four methods on five benchmarks (MMLU, HumanEval, GSM8K, MATH, GPQA). Error bars show the sample standard deviation over five random seeds. \textbf {\methodname } achieves the highest accuracy on every benchmark. Results are synthetic but drawn from realistic distributions}{figure.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Validation loss over 50 training steps for three methods ($n{=}5$ seeds). Shaded bands show 95\% confidence intervals (mean $\pm $ CI half-width). \textit  {Ours} converges fastest and achieves the lowest final loss; the double-headed arrow marks the gap ($\Delta {=}0.35$) between \textit  {Baseline} and \textit  {Ours} at the final step.}}{4}{figure.3}\protected@file@percent }
+\newlabel{fig:loss}{{3}{4}{Validation loss over 50 training steps for three methods ($n{=}5$ seeds). Shaded bands show 95\% confidence intervals (mean $\pm $ CI half-width). \textit {Ours} converges fastest and achieves the lowest final loss; the double-headed arrow marks the gap ($\Delta {=}0.35$) between \textit {Baseline} and \textit {Ours} at the final step}{figure.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Scaling law: validation loss vs.\ model size (Chinchilla-style).} Each point represents a model run ($n = 80$) plotted as $\log _{10}(\text  {parameters})$ vs.\ $\log _{10}(\text  {validation loss})$. The OLS regression line (red) has slope $= -0.0449$, intercept $= 0.6209$, and $R^{2} = 0.877$, confirming a strong log-linear relationship consistent with Chinchilla scaling laws. The highlighted point (\textit  {RetroDiff}) corresponds to the closest observed run to the target operating point ($\log _{10}(N) \approx 9.45$, $\log _{10}(\mathcal  {L}) \approx 0.210$). Colorblind-safe palette (Tol qualitative) used throughout.}}{4}{figure.4}\protected@file@percent }
+\newlabel{fig:scaling}{{4}{4}{\textbf {Scaling law: validation loss vs.\ model size (Chinchilla-style).} Each point represents a model run ($n = 80$) plotted as $\log _{10}(\text {parameters})$ vs.\ $\log _{10}(\text {validation loss})$. The OLS regression line (red) has slope $= -0.0449$, intercept $= 0.6209$, and $R^{2} = 0.877$, confirming a strong log-linear relationship consistent with Chinchilla scaling laws. The highlighted point (\textit {\methodname }) corresponds to the closest observed run to the target operating point ($\log _{10}(N) \approx 9.45$, $\log _{10}(\mathcal {L}) \approx 0.210$). Colorblind-safe palette (Tol qualitative) used throughout}{figure.4}{}}
+\gdef \@abspage@last{4}
