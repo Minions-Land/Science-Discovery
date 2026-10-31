@@ -1,0 +1,24 @@
+{
+  "scores": {
+    "scientific_clarity": 3,
+    "typography": 3,
+    "palette": 3,
+    "layout_density": 3,
+    "reviewer_readiness": 3,
+    "vector_fidelity": 3,
+    "file_format": 3,
+    "caption_quality": 3
+  },
+  "evidence": {
+    "scientific_clarity": "Dual-axis layout matches brief exactly: training loss on log-scale left axis, cosine LR schedule on right axis. Both axes color-coupled to their lines. Log scale applied via ax1.set_yscale('log'). Caption confirms monotonic loss decrease (2.19\u21920.21) and LR decay (1e-3\u21920). No directional ambiguity introduced.",
+    "typography": "pdf.fonttype=42 and ps.fonttype=42 set in rcParams; svg.fonttype='none' also set. Font family is a clean sans-serif stack (Arial \u2192 Helvetica \u2192 DejaVu Sans \u2192 Liberation Sans). Font sizes are consistent: axis labels 9pt, tick labels 8pt, legend 8pt. Post-save pdffonts check in script actively validates no Type-3 fonts escaped.",
+    "palette": "COLOR_LOSS=#0F4D92 (blue) and COLOR_LR=#D55E00 (orange-red). This is the Wong/IBM colorblind-safe pair. Both lines are monotone-decreasing so directional confusion is avoided; brief hint about 'more is better' ambiguity is respected. Spine, tick, and label colors are all set to match each line.",
+    "layout_density": "figsize=(7,4), tight_layout() and bbox_inches='tight' applied. Top and right spines disabled on ax1; ax2 shows only right spine. No legend box frame (legend.frameon=False). Tick direction 'out' with minimal length (2.2). Legend placed upper-right inside axes where data is sparse. No clutter or wasted whitespace apparent.",
+    "reviewer_readiness": "Caption matches figure content precisely. Numerical claims (~2.19\u2192~0.21 loss, 1e-3\u21920 LR) are specific and verifiable from data.json. Caption explicitly states 'no values were mocked' and cites data source. Color and axis assignments described textually, removing any ambiguity for a reader seeing only the PDF.",
+    "vector_fidelity": "pdf.fonttype=42 (TrueType embedding) confirmed in rcParams. Script runs pdffonts post-save and exits with code 2 if Type-3 fonts are detected; falls back to raw byte-scan if pdffonts is unavailable. figure.svg also saved with svg.fonttype='none' (text as paths). Three-layer verification ensures no bitmap font regression.",
+    "file_format": "All four required outputs present: figure.pdf, figure.png (300 dpi), caption.tex, gen_figure.py. Script also emits figure.svg as a bonus. figure.png saved at dpi=300, suitable for print. No required file is missing.",
+    "caption_quality": "Caption is a single well-formed LaTeX \\caption{}. It names both series, their axis assignments, and scale type (log). Quantitative findings stated with appropriate precision (~2.19, ~0.21, 1e-3). Encoding strategy (color-coupled axes/spines/labels) described. Data provenance declared. No jargon or claims absent from the figure."
+  },
+  "overall_strengths": [],
+  "overall_weaknesses": []
+}

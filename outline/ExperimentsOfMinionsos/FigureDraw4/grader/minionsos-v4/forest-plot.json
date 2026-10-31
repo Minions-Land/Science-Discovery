@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               3,
+    "layout_density":        3,
+    "reviewer_readiness":    3,
+    "vector_fidelity":       3,
+    "file_format":           2,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Forest plot clearly shows 12 per-study CIs with weight-proportional squares, diamond pooled estimate, null line, and favour labels — brief's scientific claim is fully conveyed.",
+    "typography":            "pdf.fonttype=42 and svg.fonttype=none set in rcParams; pdffonts confirms CID TrueType (Arial/Arial-Italic), no Type-3 bitmap fonts; font sizes 7–9 pt are legible.",
+    "palette":               "Single-hue blue (#0F4D92) for studies, near-black for pooled diamond, grey for null line — no red/green used, no categorical confusion; colorblind-safe.",
+    "layout_density":        "figsize=(7,6) with tight_layout; y-range padded just 0.7 units beyond data; extra x-margin reserved for pooled annotation; no overlapping labels visible.",
+    "reviewer_readiness":    "Caption matches figure content exactly (12 studies, fixed-effects, pooled log OR = 0.245 [0.196, 0.294]); favour labels present; no legend needed (single series).",
+    "vector_fidelity":       "pdffonts shows embedded subsetted CID TrueType fonts (Arial); no Type-3 raster fonts; script also verifies this at runtime with fallback raw-bytes check.",
+    "file_format":           "figure.pdf (35 KB), figure.png (107 KB), caption.tex, gen_figure.py all present and non-trivial; data.json not listed but no grade.json yet — note: figure.svg also produced (bonus), but data.json absence is minor.",
+    "caption_quality":       "Caption states the finding with specific numbers (pooled log OR = 0.245, 95% CI [0.196, 0.294]), explains diamond, square-size encoding, dashed null line, and N=12."
+  },
+  "overall_strengths": [
+    "Fully vector PDF with embedded Arial (CID TrueType, fonttype=42) verified programmatically at generation time — no bitmap font risk.",
+    "Caption is publication-ready: quantitative finding stated explicitly, all visual encodings explained, matches figure exactly."
+  ],
+  "overall_weaknesses": [
+    "data.json is not present in the output directory (only referenced by the script), so the figure is not fully self-contained/reproducible from the delivered files alone.",
+    "No figure.svg is required by the brief, but the script saves one anyway — minor scope creep; more importantly, the PNG lacks a companion data.json for archival reproducibility."
+  ]
+}

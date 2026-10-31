@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               3,
+    "layout_density":        2,
+    "reviewer_readiness":    3,
+    "vector_fidelity":       3,
+    "file_format":           3,
+    "caption_quality":       2
+  },
+  "evidence": {
+    "scientific_clarity":   "Three-step derivation (ELBO → KL decomposition → retrieval-augmented objective) is clearly structured with bold step headers, underbrace labels, and explanatory prose that fully carries the RetroDiff training-objective claim.",
+    "typography":            "pdflatex with Computer Modern Type 1 fonts: inherently vector and selectable, no DejaVu Sans, appropriate title/body/math sizes; fonttype=42 is a matplotlib concept and does not apply to LaTeX-generated PDFs.",
+    "palette":               "No color used — trivially colorblind-safe and appropriate for a mathematical derivation block; underbrace labels provide categorical distinction via text.",
+    "layout_density":        "Content fills roughly 80% of the page with well-spaced equations and prose; noticeable blank whitespace at the bottom of the page reduces density.",
+    "reviewer_readiness":    "Caption cross-references eq:elbo, eq:decomp, eq:retro matching the figure's equation labels exactly; prose is publication-quality and the figure needs no legend.",
+    "vector_fidelity":       "pdflatex produces a real vector PDF (188 KB) with selectable Computer Modern Type 1 text; no raster elements embedded.",
+    "file_format":           "All four required files present and non-trivial: figure.pdf (188 KB), figure.png (514 KB), caption.tex (923 B), gen_figure.py (2.0 KB).",
+    "caption_quality":       "Caption explains all three equations with correct mathematical terminology (Jensen's inequality, Markov factorisation, weighted ℓ2 loss, retrieval conditioning) but contains no specific numerical claim or quantitative finding."
+  },
+  "overall_strengths": [
+    "Exemplary LaTeX math typesetting: align environments, underbrace annotations, proper upright operators (KL, log, E), and consistent notation throughout all three equations.",
+    "Derivation narrative is self-contained and pedagogically clear — each step is motivated by prose that goes beyond a one-word justification."
+  ],
+  "overall_weaknesses": [
+    "Caption lacks any numerical claim or quantitative finding, which weakens its standalone informativeness for a journal figure.",
+    "Approximately 20% of the page is blank at the bottom; tightening vertical spacing or adding a brief summary remark would improve layout density."
+  ]
+}

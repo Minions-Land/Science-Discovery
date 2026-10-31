@@ -1,0 +1,91 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{xspace}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+% --- Macros ---
+\newcommand{\RetroDiff}{\textsc{RetroDiff}\xspace}
+\newcommand{\Lcal}{\mathcal{L}}
+\newcommand{\Ecal}{\mathbb{E}}
+\newcommand{\pdata}{p_{\mathrm{data}}}
+\newcommand{\ptheta}{p_\theta}
+\newcommand{\ELBO}{\mathrm{ELBO}}
+\newcommand{\KL}{\mathrm{KL}}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\noindent
+The training objective of \RetroDiff derives from the variational lower bound (ELBO)
+on the log-likelihood of clean data $x$.
+Applying Jensen's inequality to $\log \ptheta(x)$ yields
+
+\begin{align}
+  \log \ptheta(x)
+    &\;\geq\;
+    \Ecal_{q(x_{1:T}\mid x)}\!\left[
+      \log\frac{\ptheta(x_{0:T})}{q(x_{1:T}\mid x)}
+    \right]
+    = -\Lcal_{\ELBO},
+  \label{eq:elbo}
+\end{align}
+
+\noindent
+where $q$ is the fixed forward noising process that adds Gaussian noise over $T$ steps,
+and $\ptheta$ is the learned reverse process.
+The bound is tight when $q(\,\cdot\mid x)=\ptheta(\,\cdot\mid x)$;
+in practice we minimise $\Lcal_{\ELBO}$ as a proxy for maximising $\log\ptheta(x)$.
+
+Markov-decomposing $\ptheta(x_{0:T})$ and $q(x_{1:T}\mid x)$ step by step,
+and collecting terms by timestep, converts \eqref{eq:elbo} into
+a reconstruction term plus a sum of per-step KL divergences:
+
+\begin{align}
+  \Lcal_{\ELBO}
+    &= \underbrace{\Ecal_q\!\bigl[-\log \ptheta(x_0\mid x_1)\bigr]}_{\text{reconstruction}}
+     + \sum_{t=2}^{T}
+       \underbrace{
+         \KL\!\bigl(
+           q(x_{t-1}\mid x_t,\,x)
+           \;\|\;
+           \ptheta(x_{t-1}\mid x_t)
+         \bigr)
+       }_{\text{step-}t\text{ denoising}}.
+  \label{eq:decomp}
+\end{align}
+
+\noindent
+Each KL term penalises the reverse model $\ptheta(x_{t-1}\mid x_t)$
+for deviating from the analytic posterior
+$q(x_{t-1}\mid x_t,x)$, which is Gaussian with closed-form mean
+when the forward process is linear-Gaussian.
+Equation~\eqref{eq:decomp} is standard for denoising diffusion probabilistic models;
+the only free parameters are the neural-network weights $\theta$.
+
+\RetroDiff's contribution is to condition each denoising step on a set of
+$k$ exemplars $R(x)$ retrieved from the training corpus given $x$.
+Averaging \eqref{eq:decomp} over the data distribution
+with the retrieval conditioning in place gives the \RetroDiff objective:
+
+\begin{align}
+  \Lcal_{\RetroDiff}(\theta)
+    &= \Ecal_{x\sim\pdata}\!\left[
+        \Lcal_{\ELBO}\!\bigl(x \mid R(x)\bigr)
+       \right].
+  \label{eq:retro}
+\end{align}
+
+\noindent
+Here $R(x)$ denotes the $k$-nearest-neighbour exemplar set retrieved for sample $x$,
+and the ELBO in \eqref{eq:retro} is computed with $\ptheta(\,\cdot\,\mid\,\cdot,\,R(x))$
+replacing the unconditional reverse process.
+Minimising \eqref{eq:retro} encourages the model to exploit retrieved structure
+while retaining the well-understood ELBO convergence guarantee of
+\eqref{eq:elbo}--\eqref{eq:decomp}. \hfill$\square$
+
+\end{document}

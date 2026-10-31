@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   2,
+    "typography":            3,
+    "palette":               2,
+    "layout_density":        2,
+    "reviewer_readiness":    1,
+    "vector_fidelity":       3,
+    "file_format":           3,
+    "caption_quality":       1
+  },
+  "evidence": {
+    "scientific_clarity":   "Pipeline flow and proportional widths are readable, but Reject node is placed at the final column (same as Train/Val/Test) rather than branching off at each rejection stage, obscuring when losses occur.",
+    "typography":            "pdf.fonttype=42 and svg.fonttype='none' both set; Arial/Helvetica leads the font stack (not DejaVu Sans default); no Type3 fonts in PDF; label sizes 8.5px/title 11px are appropriate.",
+    "palette":               "Red for Reject is directionally appropriate; blue-to-green pipeline progression is logical; but the 7-color palette is not a formally colorblind-safe set (no Okabe-Ito or similar), and Val gold (#B7950B) vs Test purple (#884EA0) may be hard to distinguish under deuteranopia.",
+    "layout_density":        "Four columns well-distributed across 9x5 canvas; labels placed outside nodes without overlap; however, four nodes stacked at the right column (Train/Val/Test/Reject) is slightly crowded and the Reject placement is spatially misleading.",
+    "reviewer_readiness":    "Caption numbers are wrong vs. the figure: caption says '1,000 raw samples' but figure shows Raw=1,120; caption says '820 pass initial cleaning' but figure shows Cleaned=1,000; caption says '60 further rejected' but 1,000-820=180 rejected at filtering stage.",
+    "vector_fidelity":       "PDF embeds TrueType fonts via CIDFontType2+FontFile2 with no Type3 glyphs; pdf.fonttype=42 confirmed in script and verified in binary; SVG uses fonttype='none' yielding editable text.",
+    "file_format":           "figure.pdf (18 KB), figure.png (92 KB), figure.svg (8.3 KB), caption.tex, and gen_figure.py all present and non-trivial; bonus SVG output.",
+    "caption_quality":       "Caption contains numerical claims but they are factually inconsistent with the figure (Raw 1,000 vs 1,120; Cleaned 820 vs 1,000; second-stage rejects 60 vs 180); 'filtered to yield 820 usable records' is tautological; the reader cannot reconcile caption numbers with what they see."
+  },
+  "overall_strengths": [
+    "Excellent vector/font hygiene: pdf.fonttype=42, svg.fonttype=none, TrueType embedded, no Type3 — figure is fully editable in Illustrator/Inkscape.",
+    "All required output files are present and non-trivial; the custom cubic-Bezier ribbon implementation produces a clean, publication-quality Sankey layout."
+  ],
+  "overall_weaknesses": [
+    "Caption numbers are substantially wrong relative to the figure (Raw 1,000 vs 1,120; Cleaned 820 vs 1,000; second-stage rejects 60 vs 180) — a Reviewer 2 rejection risk.",
+    "Reject node is placed at the terminal column alongside Train/Val/Test rather than branching off at each stage, hiding the two-stage attrition structure that is the scientific point of the diagram."
+  ]
+}

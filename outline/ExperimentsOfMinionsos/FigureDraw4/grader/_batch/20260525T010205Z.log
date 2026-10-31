@@ -1,0 +1,19 @@
+[gbatch] 20260525T010205Z -- 6 cells to grade, conc=3
+[gbatch] START minionsos-v4/4panel-hero 01:02:05Z
+[gbatch] START minionsos-v4/network-graph 01:02:05Z
+[gbatch] START minionsos-v4/ridgeline 01:02:05Z
+[grade] minionsos-v4/network-graph -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/network-graph.json  (exit 0)
+[gbatch] DONE  minionsos-v4/network-graph exit=0 01:03:17Z
+[gbatch] START minionsos-v4/sankey 01:03:17Z
+[grade] minionsos-v4/ridgeline -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/ridgeline.json  (exit 0)
+[gbatch] DONE  minionsos-v4/ridgeline exit=0 01:04:10Z
+[gbatch] START minionsos-v4/stacked-bar 01:04:10Z
+[grade] minionsos-v4/4panel-hero -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/4panel-hero.json  (exit 0)
+[gbatch] DONE  minionsos-v4/4panel-hero exit=0 01:04:32Z
+[gbatch] START minionsos-v4/volcano 01:04:32Z
+[grade] minionsos-v4/stacked-bar -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/stacked-bar.json  (exit 0)
+[gbatch] DONE  minionsos-v4/stacked-bar exit=0 01:05:02Z
+[grade] minionsos-v4/sankey -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/sankey.json  (exit 0)
+[gbatch] DONE  minionsos-v4/sankey exit=0 01:05:38Z
+[grade] minionsos-v4/volcano -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/grader/minionsos-v4/volcano.json  (exit 0)
+[gbatch] DONE  minionsos-v4/volcano exit=0 01:05:51Z

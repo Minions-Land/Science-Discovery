@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    3,
+    "vector_fidelity":       3,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Sankey diagram clearly traces 1,120 raw samples through cleaning, filtering, and final splits; node labels with n-values and proportional band widths make the flow immediately readable.",
+    "typography":            "pdf.fonttype=42 and svg.fonttype=none are set; font stack is Arial→Helvetica→DejaVu Sans→Liberation Sans; PDF embeds ArialMT/Arial-BoldMT as CIDFontType2 (TrueType), confirming no Type-3 bitmap fonts; text sizes 8–11 pt are appropriate.",
+    "palette":               "Blue family for processing stages, green family for retained splits, red for rejected flows — directional discipline is applied; however red-green combination may pose issues for red-green colorblind viewers (deuteranopia/protanopia), which prevents a perfect score.",
+    "layout_density":        "10×5 figure with SCALE=0.72 and GAP=0.012; nodes are vertically centered and flows span the full width; some minor whitespace in lower portion but overall space is well used with no overlapping labels.",
+    "reviewer_readiness":    "Caption precisely matches figure content including all numerical values; band-width encoding and color-scheme semantics are explained; no separate legend is needed as colors are explained in the caption.",
+    "vector_fidelity":       "figure.pdf is a real vector PDF 1.4 with embedded ArialMT/Arial-BoldMT TrueType fonts (CIDFontType2); rcParams set pdf.fonttype=42 confirming Type-1/TrueType encoding; text is selectable.",
+    "file_format":           "figure.pdf, figure.png (300 dpi), figure.svg (bonus), caption.tex, and gen_figure.py are all present and non-trivial.",
+    "caption_quality":       "Caption states the specific finding ('820 samples (73%) reach the filtered stage'), provides all split counts (600/120/100), rejection counts by stage (120 cleaning + 60 filtering = 180), explains band-width proportionality, and documents color semantics."
+  },
+  "overall_strengths": [
+    "Exemplary font handling: pdf.fonttype=42, svg.fonttype=none, Arial stack, verified TrueType embedding in PDF — no Type-3 bitmap fonts.",
+    "Caption is publication-ready: contains a bolded numerical finding, per-stage breakdowns, and clear explanation of visual encoding conventions."
+  ],
+  "overall_weaknesses": [
+    "Red-green color combination (green for retained splits, red for rejected flows) is problematic for red-green colorblind viewers; using an orange or magenta for rejection would improve accessibility.",
+    "Minor palette-accessibility gap aside, the layout has modest unused whitespace in the lower panel area that could be tightened by reducing figure height or increasing SCALE."
+  ]
+}

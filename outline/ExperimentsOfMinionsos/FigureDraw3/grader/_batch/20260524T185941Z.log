@@ -1,0 +1,58 @@
+[gbatch] 20260524T185941Z -- 19 cells to grade, conc=4
+[gbatch] START minionsos-v3/4panel-hero 18:59:42Z
+[gbatch] START minionsos-v3/architecture 18:59:42Z
+[gbatch] START minionsos-v3/box-violin 18:59:42Z
+[gbatch] START minionsos-v3/cns-graphical-abstract 18:59:42Z
+[grade] minionsos-v3/architecture -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/architecture.json  (exit 0)
+[gbatch] DONE  minionsos-v3/architecture exit=0 19:00:43Z
+[gbatch] START minionsos-v3/dual-axis-time 19:00:43Z
+[grade] minionsos-v3/cns-graphical-abstract -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/cns-graphical-abstract.json  (exit 0)
+[gbatch] DONE  minionsos-v3/cns-graphical-abstract exit=0 19:00:48Z
+[gbatch] START minionsos-v3/equation-block 19:00:48Z
+[grade] minionsos-v3/4panel-hero -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/4panel-hero.json  (exit 0)
+[gbatch] DONE  minionsos-v3/4panel-hero exit=0 19:00:53Z
+[gbatch] START minionsos-v3/forest-plot 19:00:53Z
+[grade] minionsos-v3/forest-plot -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/forest-plot.json  (exit 0)
+[gbatch] DONE  minionsos-v3/forest-plot exit=0 19:01:49Z
+[gbatch] START minionsos-v3/grouped-bar 19:01:49Z
+[grade] minionsos-v3/equation-block -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/equation-block.json  (exit 0)
+[gbatch] DONE  minionsos-v3/equation-block exit=0 19:01:55Z
+[gbatch] START minionsos-v3/heatmap 19:01:55Z
+[grade] minionsos-v3/box-violin -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/box-violin.json  (exit 0)
+[gbatch] DONE  minionsos-v3/box-violin exit=0 19:03:19Z
+[gbatch] START minionsos-v3/imrad-section 19:03:19Z
+[grade] minionsos-v3/heatmap -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/heatmap.json  (exit 0)
+[gbatch] DONE  minionsos-v3/heatmap exit=0 19:03:56Z
+[gbatch] START minionsos-v3/latex-table 19:03:56Z
+[grade] minionsos-v3/dual-axis-time -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/dual-axis-time.json  (exit 0)
+[gbatch] DONE  minionsos-v3/dual-axis-time exit=0 19:03:59Z
+[gbatch] START minionsos-v3/line-errband 19:03:59Z
+[grade] minionsos-v3/grouped-bar -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/grouped-bar.json  (exit 0)
+[gbatch] DONE  minionsos-v3/grouped-bar exit=0 19:04:03Z
+[gbatch] START minionsos-v3/network-graph 19:04:03Z
+[grade] minionsos-v3/imrad-section -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/imrad-section.json  (exit 0)
+[gbatch] DONE  minionsos-v3/imrad-section exit=0 19:04:44Z
+[gbatch] START minionsos-v3/ridgeline 19:04:44Z
+[grade] minionsos-v3/line-errband -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/line-errband.json  (exit 0)
+[gbatch] DONE  minionsos-v3/line-errband exit=0 19:04:54Z
+[gbatch] START minionsos-v3/roc-prc 19:04:54Z
+[grade] minionsos-v3/latex-table -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/latex-table.json  (exit 0)
+[gbatch] DONE  minionsos-v3/latex-table exit=0 19:05:03Z
+[gbatch] START minionsos-v3/sankey 19:05:03Z
+[grade] minionsos-v3/network-graph -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/network-graph.json  (exit 0)
+[gbatch] DONE  minionsos-v3/network-graph exit=0 19:05:21Z
+[gbatch] START minionsos-v3/scatter-fit 19:05:21Z
+[grade] minionsos-v3/roc-prc -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/roc-prc.json  (exit 0)
+[gbatch] DONE  minionsos-v3/roc-prc exit=0 19:06:05Z
+[gbatch] START minionsos-v3/stacked-bar 19:06:05Z
+[grade] minionsos-v3/ridgeline -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/ridgeline.json  (exit 0)
+[gbatch] DONE  minionsos-v3/ridgeline exit=0 19:06:13Z
+[gbatch] START minionsos-v3/volcano 19:06:13Z
+[grade] minionsos-v3/scatter-fit -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/scatter-fit.json  (exit 0)
+[gbatch] DONE  minionsos-v3/scatter-fit exit=0 19:06:25Z
+[grade] minionsos-v3/sankey -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/sankey.json  (exit 0)
+[gbatch] DONE  minionsos-v3/sankey exit=0 19:06:47Z
+[grade] minionsos-v3/volcano -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/volcano.json  (exit 0)
+[gbatch] DONE  minionsos-v3/volcano exit=0 19:07:25Z
+[grade] minionsos-v3/stacked-bar -> /Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw3/grader/minionsos-v3/stacked-bar.json  (exit 0)
+[gbatch] DONE  minionsos-v3/stacked-bar exit=0 19:07:29Z

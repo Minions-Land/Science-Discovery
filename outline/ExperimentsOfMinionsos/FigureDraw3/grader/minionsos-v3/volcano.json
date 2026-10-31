@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               3,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Classic volcano plot with clear up/down/NS color separation, threshold dashed lines, and top-5 gene labels; scientific claim is immediately readable.",
+    "typography":            "script does NOT set pdf.fonttype=42 or svg.fonttype=0; PDF uses Type3 (bitmap) fonts with no selectable text; matplotlib default DejaVu Sans is used throughout.",
+    "palette":               "Three-color scheme (#3182BD blue for down, #E6550D orange for up, #AAAAAA grey for NS) is colorblind-safe (blue/orange/grey deuteranopia-safe); directional colors are applied correctly.",
+    "layout_density":        "6.5x5.5 inch figure, tight_layout applied, scatter points sized appropriately (s=5 NS, s=8 sig), top-5 labels have stroke for legibility, no overlap or gaping whitespace.",
+    "reviewer_readiness":    "Caption matches figure content and counts; legend is upper-left; threshold lines are present but vertical lines share colors with data categories which could confuse; gene labels use index numbers (e.g. g123) rather than gene names, which a reviewer would flag.",
+    "vector_fidelity":       "PDF contains Type3 (bitmap-rasterized) fonts, no selectable text; script lacks pdf.fonttype=42 setting; scatter points are rasterized=True (acceptable), but text is not vector.",
+    "file_format":           "figure.pdf, figure.png, figure.svg, caption.tex, and gen_figure.py all exist and are non-trivial in size.",
+    "caption_quality":       "Caption provides specific numerical counts (up n=235, down n=230, NS n=2535), states thresholds explicitly, and mentions the top-5 labeling; complete and informative."
+  },
+  "overall_strengths": [
+    "Clean, standard volcano plot layout with correct color encoding, threshold lines, and top-5 annotations that make the scientific claim immediately clear.",
+    "Caption is fully quantitative with explicit threshold values and group counts, and all required output files are present."
+  ],
+  "overall_weaknesses": [
+    "pdf.fonttype=42 is not set, resulting in Type3 bitmap fonts in the PDF—text is not selectable or editable, which fails the vector fidelity requirement.",
+    "Top-5 genes are labelled by array index (g123) rather than meaningful gene identifiers, which Reviewer 2 would flag as uninformative."
+  ]
+}

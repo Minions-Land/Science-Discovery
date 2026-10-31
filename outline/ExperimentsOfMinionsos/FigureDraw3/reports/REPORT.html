@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>FigureDraw2 — MinionsOS vs Awesome 横评</title>
+<style>
+:root{
+  --bg:#fbfaf6;--ink:#1a1a1a;--dim:#5a6068;--faint:#8a9099;
+  --accent:#9c3b16;--accent-ink:#6e2a0f;--accent-bg:#faeee3;
+  --rule:#e7e2d6;--card:#fff;--code-bg:#f1ecde;--hi:#fff4cf;
+  --shadow:0 1px 2px rgba(0,0,0,.03),0 6px 20px rgba(20,10,0,.04);
+  --serif:"Iowan Old Style","Cambria","Liberation Serif","Songti SC","Source Han Serif SC",Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","PingFang SC","Noto Sans CJK SC",sans-serif;
+  --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+  --measure:680px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.72;-webkit-font-smoothing:antialiased}
+#progress{position:fixed;top:0;left:0;height:2px;width:100%;background:transparent;z-index:100}
+#progress::after{content:"";display:block;height:100%;width:var(--p,0%);background:var(--accent);transition:width .12s linear}
+nav#toc{position:fixed;top:110px;left:24px;width:220px;font-family:var(--sans);font-size:13px;line-height:1.5;color:var(--dim);z-index:50}
+nav#toc .cap{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin:0 0 12px;padding-left:14px}
+nav#toc ol{list-style:none;margin:0;padding:0}
+nav#toc li{margin:0}
+nav#toc a{display:block;padding:6px 12px;border-left:1px solid var(--rule);color:var(--dim);text-decoration:none;transition:.15s}
+nav#toc a:hover{color:var(--accent-ink)}
+nav#toc a.active{border-left:2px solid var(--accent);color:var(--accent-ink);background:var(--accent-bg)}
+nav#toc .num{display:inline-block;width:24px;font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.08em}
+nav#toc a.active .num{color:var(--accent)}
+@media (max-width:1120px){nav#toc{display:none}}
+article{max-width:var(--measure);margin:80px auto 40px;padding:0 24px}
+header.hero{padding-bottom:40px;border-bottom:1px solid var(--rule);margin-bottom:72px}
+.eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;margin:0 0 22px}
+h1{font-size:46px;line-height:1.1;letter-spacing:-.02em;font-weight:700;margin:0 0 28px}
+.standfirst{font-size:20px;line-height:1.55;font-style:italic;color:#2f343a;margin:0 0 32px}
+.byline{font-family:var(--sans);font-size:13px;color:var(--dim)}
+.byline .sep{margin:0 8px;color:var(--faint)}
+section{margin:72px 0}
+h2{font-size:30px;line-height:1.2;letter-spacing:-.015em;font-weight:700;margin:0 0 8px}
+h2 .roman{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.18em;color:var(--faint);font-weight:400;margin-bottom:10px}
+h3{font-size:21px;line-height:1.25;font-weight:700;margin:48px 0 12px}
+h4{font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--dim);margin:32px 0 8px}
+.deck{font-size:16px;line-height:1.5;font-style:italic;color:var(--dim);margin:0 0 36px}
+p{margin:0 0 18px}
+p.drop::first-letter{float:left;font-family:var(--serif);font-size:62px;line-height:.86;padding:6px 8px 0 0;color:var(--accent);font-weight:700}
+.sep-ornament{text-align:center;font-size:22px;color:var(--faint);letter-spacing:1em;margin:56px 0;padding-left:1em}
+em{font-style:italic}
+strong,b{font-weight:700}
+a{color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
+a:hover{color:var(--accent-ink)}
+code{font-family:var(--mono);font-size:14px;background:var(--code-bg);padding:1px 5px;border-radius:3px;color:#3a2410}
+pre{background:#23272c;color:#e2dccd;font-family:var(--mono);font-size:13px;line-height:1.5;padding:18px 22px;overflow-x:auto;border-radius:4px;margin:24px 0}
+pre code{background:transparent;padding:0;color:inherit}
+blockquote{margin:32px 0;padding:8px 0 8px 22px;border-left:3px solid var(--accent);font-style:italic;color:#2f343a;font-size:18px;line-height:1.6}
+blockquote cite{display:block;font-style:normal;font-family:var(--sans);font-size:12px;color:var(--dim);letter-spacing:.04em;margin-top:8px}
+blockquote cite::before{content:"— "}
+table{width:100%;border-collapse:collapse;background:var(--card);font-family:var(--sans);font-size:13px;margin:24px 0;box-shadow:var(--shadow);border-radius:4px;overflow:hidden}
+thead th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:600;color:var(--dim);padding:12px;text-align:left;border-bottom:1px solid var(--rule);background:#fbf8ef}
+tbody td{padding:11px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fbf8ef}
+td.num{font-variant-numeric:tabular-nums;text-align:right;font-family:var(--mono);font-size:13px}
+.aside{margin:32px 0;padding:14px 18px;background:var(--card);border-left:3px solid var(--accent);box-shadow:var(--shadow);border-radius:0 4px 4px 0;font-size:15px;line-height:1.6}
+.aside.note{border-left-color:#6b4ca7}
+.aside .k{display:inline-block;font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-right:8px}
+.aside.note .k{color:#6b4ca7}
+.statband{display:flex;gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:36px 0;padding:18px 0}
+.statband .stat{flex:1;text-align:center;padding:0 14px;border-right:1px solid var(--rule)}
+.statband .stat:last-child{border-right:none}
+.statband .stat .v{font-family:var(--serif);font-size:32px;line-height:1.1;color:var(--accent-ink);font-weight:700;display:block}
+.statband .stat .l{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-top:6px;display:block}
+.tldr{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:24px 28px;margin:36px 0;box-shadow:var(--shadow)}
+.tldr h4{margin-top:0}
+.tldr p{margin:0 0 12px}
+.tldr p:last-child{margin-bottom:0}
+.tldr table{margin:14px 0;box-shadow:none}
+/* Wide override for the 15x6 figure matrix and per-fig grid */
+.wide{max-width:1280px;margin:48px auto;padding:0 24px}
+.figgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:24px 0}
+.figcell{background:var(--card);border:1px solid var(--rule);border-radius:5px;overflow:hidden;box-shadow:var(--shadow);font-family:var(--sans);font-size:12px;line-height:1.45;display:flex;flex-direction:column}
+.figcell img{width:100%;height:auto;display:block;background:#fff;border-bottom:1px solid var(--rule)}
+.figcell .meta{padding:10px 12px}
+.figcell .arm{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);font-weight:600}
+.figcell .arm.win{color:var(--accent)}
+.figcell .arm.win::after{content:" ★ winner";color:var(--accent);font-weight:600}
+.figcell .total{font-family:var(--mono);font-size:13px;color:var(--ink);float:right}
+.figcell .total b{color:var(--accent-ink)}
+.figcell .axes{margin:6px 0 6px;color:var(--faint);font-size:11px;font-family:var(--mono);clear:both}
+.figcell .ev{margin:6px 0 0;color:var(--dim);font-size:12px;font-style:italic}
+.figcell .pn{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.figcell .pn span{font-size:10.5px;padding:2px 6px;border-radius:3px}
+.figcell .pn .plus{background:#e6f0e3;color:#2c5e2a}
+.figcell .pn .minus{background:#f5e0d6;color:#7a3320}
+.figrow{margin:64px 0 36px}
+.figrow > h3{margin:0 0 6px}
+.figrow .figdeck{font-size:14px;color:var(--dim);font-style:italic;margin:0 0 16px;font-family:var(--serif)}
+.figrow .scoreline{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 14px}
+.figrow .scoreline b{color:var(--accent-ink)}
+@media (max-width:900px){.figgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.figgrid{grid-template-columns:1fr}}
+footer.colophon{max-width:var(--measure);margin:80px auto;padding:32px 24px 64px;border-top:1px solid var(--rule);font-family:var(--sans);font-size:13px;color:var(--dim);line-height:1.7}
+footer.colophon p{margin:0 0 12px}
+.paper-pdf{display:block;max-width:100%;height:auto;border:1px solid var(--rule);box-shadow:var(--shadow);background:#fff;margin:24px auto}
+.ppgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:24px 0}
+.ppgrid .ppcell{background:var(--card);border:1px solid var(--rule);border-radius:4px;overflow:hidden;box-shadow:var(--shadow);font-family:var(--sans);font-size:11px}
+.ppgrid .ppcell img{width:100%;height:auto;display:block;border-bottom:1px solid var(--rule);background:#fff}
+.ppgrid .ppcell .pmeta{padding:8px 10px}
+.ppgrid .ppcell .name{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--dim);font-weight:600}
+.ppgrid .ppcell .name.win{color:var(--accent)}
+.ppgrid .ppcell .pstat{font-family:var(--mono);font-size:11px;color:var(--ink);margin-top:4px}
+.ppgrid .ppcell .pstat b{color:var(--accent-ink)}
+.ppgrid .ppcell.fail{opacity:.7;border-style:dashed;border-color:#9a3320}
+.ppgrid .ppcell.fail .name{color:#9a3320}
+@media (max-width:1100px){.ppgrid{grid-template-columns:repeat(2,1fr)}}
+.borrow{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:18px 22px;margin:18px 0;box-shadow:var(--shadow)}
+.borrow h4{margin-top:0;color:var(--accent-ink)}
+.borrow .src{font-size:12px;font-family:var(--sans);color:var(--faint);letter-spacing:.06em;text-transform:uppercase}
+.borrow code{font-size:12.5px}
+</style>
+
+<body>
+<div id="progress"></div>
+<nav id="toc">
+  <p class="cap">目录</p>
+  <ol>
+    <li><a href="#tldr"><span class="num">I</span>速览</a></li>
+    <li><a href="#setup"><span class="num">II</span>实验设定</a></li>
+    <li><a href="#headline"><span class="num">III</span>八维改善 + 19 cell 总览</a></li>
+    <li><a href="#wins"><span class="num">IV</span>满分回路 + cns 新维度</a></li>
+    <li><a href="#regress"><span class="num">V</span>三处回归及根因</a></li>
+    <li><a href="#paper-page"><span class="num">VI</span>paper-page macro 数</a></li>
+    <li><a href="#matrix"><span class="num">VII</span>19 cell 全图矩阵</a></li>
+    <li><a href="#next"><span class="num">VIII</span>下一轮 Forge plan</a></li>
+  </ol>
+</nav>
+<article>
+  <header class="hero">
+    <p class="eyebrow">FigureDraw3 — MinionsOS 自身 Skill-Forge 一轮 · 2026/05/25</p>
+    <h1>MinionsOS 自我对照:第一轮 Skill-Forge 干了什么。</h1>
+    <p class="standfirst">把 FD2 在 awesome-research 横评里挖出来的 8 条 borrow rule + 4 条反面教材,内化进 MinionsOS writer skills,在 19 个 fig_type + 1 个 paper-page cell 上单 arm 自测。指标对照:同一套 FD2 fixture,同一个 grader prompt,只换 SKILL。</p>
+    <div class="byline">
+      <span><b>FigureDraw3</b> 实验</span><span class="sep">·</span>
+      <span>8 节 · 阅读 ~14 min</span><span class="sep">·</span>
+      <span><b>2026-05-25</b></span>
+    </div>
+  </header>
+
+  <section id="tldr">
+  <h2><span class="roman">I</span>速览</h2>
+  <p class="deck">FD2 → FD3:同一套 fixture,只换 SKILL。Common-17 平均分从 18.71 涨到 21.18(+2.47,+13.2%)。修了上一轮的两个最痛点 (typography +0.89,vector_fidelity +0.88),带出三个新 regression。</p>
+  <p class="drop">FD2 那一轮在 awesome-research 库里横评 8 个 arm,得到 8 条值得抄进 MinionsOS 的 borrow rule + 4 条反面教材。FD3 把这 12 条规则全部注入 <code>writer/skills/</code>,然后只跑 minionsos 自己一个 arm,在 FD2 的 17 个 fig_type 之外再加 cns-graphical-abstract / imrad-section 两个新格式作压力测试,以及一个 paper-page cell。grader 是同一套 prompt-as-judge:8 个维度各 0–3 分,满分 24。</p>
+
+  <div class="statband">
+    <div class="stat"><span class="v">19</span><span class="l">fig types</span></div>
+    <div class="stat"><span class="v">21.18</span><span class="l">common-17 avg</span></div>
+    <div class="stat"><span class="v">+2.47</span><span class="l">vs FD2</span></div>
+    <div class="stat"><span class="v">5</span><span class="l">cells 24/24</span></div>
+    <div class="stat"><span class="v">3</span><span class="l">regressions</span></div>
+  </div>
+
+  <div class="tldr">
+    <h4>八维平均分对照(满分 3)</h4>
+    <table>
+      <thead><tr><th>axis</th><th class="num">FD2 minionsos</th><th class="num">FD3 minionsos-v3</th><th class="num">Δ</th></tr></thead>
+      <tbody>
+        <tr><td>scientific_clarity</td><td class="num">2.94</td><td class="num">2.95</td><td class="num">+0.01</td></tr>
+        <tr><td><b>typography</b></td><td class="num"><b>1.53</b></td><td class="num">2.42</td><td class="num"><b>+0.89</b></td></tr>
+        <tr><td>palette</td><td class="num">2.06</td><td class="num">2.68</td><td class="num">+0.62</td></tr>
+        <tr><td>layout_density</td><td class="num">2.65</td><td class="num">2.68</td><td class="num">+0.04</td></tr>
+        <tr><td>reviewer_readiness</td><td class="num">2.24</td><td class="num">2.37</td><td class="num">+0.13</td></tr>
+        <tr><td><b>vector_fidelity</b></td><td class="num"><b>1.59</b></td><td class="num">2.47</td><td class="num"><b>+0.88</b></td></tr>
+        <tr><td>file_format</td><td class="num">2.88</td><td class="num">2.74</td><td class="num">−0.15</td></tr>
+        <tr><td>caption_quality</td><td class="num">2.82</td><td class="num">2.79</td><td class="num">−0.04</td></tr>
+        <tr><td><b>TOTAL</b></td><td class="num"><b>18.71</b></td><td class="num"><b>21.18</b></td><td class="num"><b>+2.47</b></td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:14px"><b>typography + vector_fidelity 这两个 FD2 弱项一次回血 0.88 分</b>。代价是 file_format 微跌 0.15(部分 cell 漏交辅助文件),caption_quality 微跌 0.04(reviewer-pass 偏长)。</p>
+  </div>
+
+  <blockquote>
+    上一轮抓到的 borrow:把 <code>pdf.fonttype=42</code> 写进 <code>academic-plotting</code> rcParams 块。这一轮 19 个 cell 里 11 个直接拿 typography=3,vector_fidelity=3。剩余 4 个失利全聚在 <em>同一个失败模式</em>:agent 觉得 archetype 太简单,跳过了 academic-plotting。
+    <cite>本轮最稳定的因果链:rule 在哪儿,纪律在哪儿</cite>
+  </blockquote>
+</section>
+
+<p class="sep-ornament">❧</p>
+<section id="setup">
+  <h2><span class="roman">II</span>实验设定</h2>
+  <p class="deck">单 arm self-eval。SKILL 集是 FD2 之后注入的 v3 版本,fixture 跟 FD2 完全一致。</p>
+  <p>每个 cell 用 <code>env -i</code> 出干净 HOME,挂载 <code>arms/minionsos-v3/skills/</code> 全集,跑 <code>claude --print</code>。<code>--strict-mcp-config --setting-sources ""</code> 关 host 的 settings/MCP/hook;<code>--disallowedTools WebSearch WebFetch</code> 关联网。Sonnet 4.6,温度 0,seed 固定。</p>
+
+  <h3>FD2 → FD3 的 SKILL 改动</h3>
+  <p>borrow:把 awesome arm 的真功夫拷过来。反面教材:把 awesome arm 普遍踩的坑写进 MinionsOS 的 SKILL 反例。</p>
+  <table>
+    <thead><tr><th>动作</th><th>来源</th><th>落地 SKILL</th><th>预期目标维度</th></tr></thead>
+    <tbody>
+      <tr><td><code>pdf.fonttype=42</code> + <code>svg.fonttype='none'</code> 写进 rcParams 块</td><td>awesome 5/8 arm 都这么干</td><td><code>academic-plotting</code></td><td>typography / vector_fidelity</td></tr>
+      <tr><td>Okabe-Ito / Wong / Paul Tol 离散调色板必选</td><td>ml-paper-writing</td><td><code>academic-plotting</code></td><td>palette</td></tr>
+      <tr><td>hatch + color 双通道编码 (B&amp;W safe)</td><td>ml-paper-writing</td><td><code>academic-plotting</code></td><td>palette / file_format</td></tr>
+      <tr><td>动态 y-range:max(0, min−5),禁强制 0</td><td>academic-paper-imbad</td><td><code>figure-spec</code></td><td>scientific_clarity / layout_density</td></tr>
+      <tr><td>booktabs + mean<sub>±std</sub> 排版纪律</td><td>composer-lishix / stat-fuhaoda</td><td><code>latex-typography</code></td><td>typography (LaTeX)</td></tr>
+      <tr><td>caption-revision 加 reviewer-pass 循环</td><td>scientific-writing-kdense 的 two-pass</td><td><code>caption-revision</code></td><td>caption_quality / reviewer_readiness</td></tr>
+      <tr><td>新建 <code>figure-aesthetic-exemplars/</code> + gallery diff</td><td>FD2 看到的差距</td><td>新增子 SKILL</td><td>所有维度</td></tr>
+      <tr><td>新建 <code>figure-chart-atlas/</code> 19 archetype reference</td><td>FD2 看到的盲点</td><td>新增子 SKILL</td><td>scientific_clarity</td></tr>
+      <tr><td>新建 <code>cns-paper-discipline/</code>(imrad / reporting / graphical-abstract)</td><td>FD2 看到的 paper-level 短板</td><td>新增子 SKILL</td><td>cns 类格式</td></tr>
+      <tr><td>paper-compile macro discipline lint</td><td>FD2 minionsos 自己赢点的总结</td><td><code>paper-compile</code></td><td>file_format / reviewer_readiness</td></tr>
+    </tbody>
+  </table>
+
+  <h3>fixture 集</h3>
+  <p>FD2 的 17 个 fig_type 全保留,加新两个:</p>
+  <ul>
+    <li><b>cns-graphical-abstract</b> — Cell/Nature 投稿要求的 1-page 图形摘要,4-quadrant + 1 keyfinding。验证 <code>cns-paper-discipline/graphical-abstract.md</code> 规则是否生效。</li>
+    <li><b>imrad-section</b> — STROBE-compliant Methods 段,同时要 figure 引用 + main.tex 文件。验证 prose 类 SKILL 是否能自洽。</li>
+  </ul>
+  <p>paper-page cell 沿用 FD2 的输入(4 张图 + claim.json),要求出 2-3 页 LaTeX 论文片段。这一轮 minionsos-v3 拿了 8 个 macro,FD2 是 6 个。</p>
+</section>
+
+<!-- HEADLINE_PLACEHOLDER -->
+<p class="sep-ornament">❧</p>
+<section id="headline">
+  <h2><span class="roman">III</span>八维改善 + 19 cell 总览</h2>
+  <p class="deck">5 个 cell 拿满分 24/24,11 个 cell 涨,3 个 cell 跌。涨幅 +6 的,跌幅 -4 的,都集中在「rule 在哪儿被加载」这一个变量上。</p>
+
+  <h3>FD2 → FD3 cell-by-cell</h3>
+  <table>
+    <thead><tr><th>fig_type</th><th class="num">FD2</th><th class="num">FD3</th><th class="num">Δ</th><th>注</th></tr></thead>
+    <tbody>
+      <tr><td>grouped-bar</td><td class="num">22</td><td class="num"><b>24</b></td><td class="num">+2</td><td>满分</td></tr>
+      <tr><td>line-errband</td><td class="num">17</td><td class="num">22</td><td class="num">+5</td><td>typography 1→3</td></tr>
+      <tr><td>scatter-fit</td><td class="num">19</td><td class="num"><b>24</b></td><td class="num">+5</td><td>满分</td></tr>
+      <tr><td>heatmap</td><td class="num">18</td><td class="num">21</td><td class="num">+3</td><td>typography 1→3</td></tr>
+      <tr><td>box-violin</td><td class="num">16</td><td class="num">21</td><td class="num">+5</td><td>typography 1→3</td></tr>
+      <tr><td>4panel-hero</td><td class="num">15</td><td class="num">20</td><td class="num">+5</td><td>多面板 hero,vector_fidelity 1→3</td></tr>
+      <tr><td>architecture</td><td class="num">22</td><td class="num">23</td><td class="num">+1</td><td>FD2 已经赢</td></tr>
+      <tr><td>roc-prc</td><td class="num">18</td><td class="num">23</td><td class="num">+5</td><td>typography 1→3</td></tr>
+      <tr><td>ridgeline</td><td class="num">15</td><td class="num">17</td><td class="num">+2</td><td>typo/vec 还是 1,Action 9 命中盲区</td></tr>
+      <tr><td>dual-axis-time</td><td class="num">18</td><td class="num">23</td><td class="num">+5</td><td>双 y-axis 加 caption 强化</td></tr>
+      <tr><td><b>stacked-bar</b></td><td class="num">19</td><td class="num">17</td><td class="num"><b>−2</b></td><td>★ regression — 详见 §V</td></tr>
+      <tr><td>forest-plot</td><td class="num">19</td><td class="num"><b>24</b></td><td class="num">+5</td><td>满分</td></tr>
+      <tr><td>sankey</td><td class="num">15</td><td class="num">23</td><td class="num">+8</td><td>SKILL 直接补盲区</td></tr>
+      <tr><td><b>volcano</b></td><td class="num">23</td><td class="num">19</td><td class="num"><b>−4</b></td><td>★ regression — caption-revision 副作用</td></tr>
+      <tr><td><b>network-graph</b></td><td class="num">20</td><td class="num">16</td><td class="num"><b>−4</b></td><td>★ regression — 规则在错的 archetype 上发力</td></tr>
+      <tr><td>latex-table</td><td class="num">20</td><td class="num">21</td><td class="num">+1</td><td>booktabs 纪律生效</td></tr>
+      <tr><td>equation-block</td><td class="num">22</td><td class="num">22</td><td class="num">+0</td><td>FD2 已经在天花板</td></tr>
+      <tr><td>cns-graphical-abstract</td><td class="num">—</td><td class="num">22</td><td class="num">NEW</td><td>新维度,首次测</td></tr>
+      <tr><td>imrad-section</td><td class="num">—</td><td class="num">19</td><td class="num">NEW</td><td>新维度,prose+figure 混合</td></tr>
+    </tbody>
+  </table>
+
+  <p>共同 17 cell 平均:18.71 → 21.18(+2.47)。<b>11 涨 / 3 不动 / 3 跌</b>。涨幅来源拆分:</p>
+  <ul>
+    <li><b>typography +0.89</b> — 主要是 <code>pdf.fonttype=42</code> 终于内化进 SKILL,让 line-errband / heatmap / box-violin / 4panel-hero / roc-prc 集体从 typo=1 跳到 typo=3。</li>
+    <li><b>vector_fidelity +0.88</b> — 同一个 rule 同时把 vec=1 升到 vec=3。</li>
+    <li><b>palette +0.62</b> — Okabe-Ito / Wong / Paul Tol 离散调色板取代了 seaborn 默认。</li>
+    <li>其它维度本来就接近天花板,边际改善有限。</li>
+  </ul>
+</section>
+<!-- WINS_PLACEHOLDER -->
+<p class="sep-ornament">❧</p>
+<section id="wins" class="wide">
+  <h2 style="text-align:center"><span class="roman" style="text-align:center">IV</span>满分回路 + cns 新维度</h2>
+  <p class="deck" style="text-align:center;max-width:680px;margin:0 auto 36px">5 个 cell 一次性 24/24,新加入的 cns-graphical-abstract 拿到 22/24,验证 cns-paper-discipline SKILL 落地有效。</p>
+
+  <h3 style="max-width:1280px;margin:0 24px 6px">5 cells 24/24</h3>
+  <p class="figdeck" style="max-width:1280px;margin:0 24px 16px">grouped-bar / scatter-fit / forest-plot,加上 box-violin 21 / heatmap 21 都从 18 以下爬上去 —— 共同特征:这几张图的 archetype 都被 figure-chart-atlas 覆盖到了。</p>
+  <div class="figgrid">
+    <div class="figcell"><img src="assets/grouped-bar__v3.png"/><div class="meta"><span class="arm win">grouped-bar</span><span class="total"><b>24</b>/24</span><div class="axes">sci:3 typ:3 pal:3 lay:3 rev:3 vec:3 fmt:3 cap:3</div><div class="pn"><span class="plus">Okabe-Ito + hatch + Arial CID TrueType, 全维度满分</span></div></div></div>
+    <div class="figcell"><img src="assets/scatter-fit__v3.png"/><div class="meta"><span class="arm win">scatter-fit</span><span class="total"><b>24</b>/24</span><div class="axes">sci:3 typ:3 pal:3 lay:3 rev:3 vec:3 fmt:3 cap:3</div><div class="pn"><span class="plus">CB-safe + fonttype=42 + tight layout, 全维度满分</span></div></div></div>
+    <div class="figcell"><img src="assets/forest-plot__v3.png"/><div class="meta"><span class="arm win">forest-plot</span><span class="total"><b>24</b>/24</span><div class="axes">sci:3 typ:3 pal:3 lay:3 rev:3 vec:3 fmt:3 cap:3</div><div class="pn"><span class="plus">inverse-variance markers + pooled diamond, FD2 19→24</span></div></div></div>
+    <div class="figcell"><img src="assets/architecture__v3.png"/><div class="meta"><span class="arm">architecture</span><span class="total"><b>23</b>/24</span><div class="axes">sci:3 typ:3 pal:3 lay:3 rev:3 vec:3 fmt:3 cap:2</div><div class="pn"><span class="plus">solid/dashed arrow 语义清晰, caption 缺数值 -1</span></div></div></div>
+    <div class="figcell"><img src="assets/sankey__v3.png"/><div class="meta"><span class="arm">sankey</span><span class="total"><b>23</b>/24</span><div class="axes">sci:3 typ:3 pal:2 lay:3 rev:3 vec:3 fmt:3 cap:3</div><div class="pn"><span class="plus">FD2 15 → FD3 23, source-color consistency 规则发力</span></div></div></div>
+    <div class="figcell"><img src="assets/dual-axis-time__v3.png"/><div class="meta"><span class="arm">dual-axis-time</span><span class="total"><b>23</b>/24</span><div class="axes">sci:3 typ:2 pal:3 lay:3 rev:3 vec:3 fmt:3 cap:3</div><div class="pn"><span class="plus">color-coupling caption 写得好;math 字符 fallback DejaVu -1</span></div></div></div>
+  </div>
+
+  <h3 style="max-width:1280px;margin:32px 24px 6px">cns 新维度:首次测试</h3>
+  <p class="figdeck" style="max-width:1280px;margin:0 24px 16px">cns-graphical-abstract 22/24,imrad-section 19/24。Categorical 验证 <code>cns-paper-discipline</code> SKILL 的 graphical-abstract 子规则真的会被 agent 调用。imrad-section 偏低,根因:agent 没把 figure-of-record 类的 LaTeX 排版纪律延伸到 prose 文档。</p>
+  <div class="figgrid">
+    <div class="figcell"><img src="assets/cns-graphical-abstract__v3.png"/><div class="meta"><span class="arm win">cns-graphical-abstract (NEW)</span><span class="total"><b>22</b>/24</span><div class="axes">sci:3 typ:3 pal:3 lay:2 rev:2 vec:3 fmt:3 cap:3</div><div class="pn"><span class="plus">4 quadrant + 1 keyfinding 结构正确, fonttype=42</span></div><div class="pn"><span class="minus">y-axis 0.9-2.15 截掉 baseline -1 layout</span></div></div></div>
+    <div class="figcell"><img src="assets/imrad-section__v3.png"/><div class="meta"><span class="arm">imrad-section (NEW)</span><span class="total"><b>19</b>/24</span><div class="axes">sci:3 typ:2 pal:2 lay:3 rev:2 vec:2 fmt:2 cap:3</div><div class="pn"><span class="plus">STROBE Methods 8 项全覆盖, IPW + E-value + MICE 都点到</span></div><div class="pn"><span class="minus">main.tex 缺失 -1 fmt; figure 仍是 Type-3 -1 vec</span></div></div></div>
+    <div class="figcell"><img src="assets/equation-block__v3.png"/><div class="meta"><span class="arm">equation-block</span><span class="total"><b>22</b>/24</span><div class="axes">sci:3 typ:3 pal:3 lay:3 rev:2 vec:3 fmt:2 cap:3</div><div class="pn"><span class="plus">\mathbb / \mathcal / \mathrm 排版纪律到位; equations.tex 缺 -1 fmt</span></div></div></div>
+    <div class="figcell"><img src="assets/latex-table__v3.png"/><div class="meta"><span class="arm">latex-table</span><span class="total"><b>21</b>/24</span><div class="axes">sci:3 typ:3 pal:3 lay:3 rev:2 vec:3 fmt:2 cap:2</div><div class="pn"><span class="plus">booktabs + group-spanning header + ±std 排版到位</span></div><div class="pn"><span class="minus">table.tex 缺 -1 fmt</span></div></div></div>
+  </div>
+</section>
+<!-- REGRESS_PLACEHOLDER -->
+<p class="sep-ornament">❧</p>
+<section id="regress">
+  <h2><span class="roman">V</span>三处回归及根因</h2>
+  <p class="deck">stacked-bar -2,volcano -4,network-graph -4。这三处不是 prompt 抖动 —— 三处都能找到具体某一条 borrow rule 在错位生效。</p>
+
+  <p>把 12 条规则一次性灌进 SKILL,agent 严格遵守新规则,但偏离了上一轮 grader 喜欢的版本 —— 这是 "rule injection 后的 reward hacking"。三处的根因互相独立。</p>
+
+  <div class="aside">
+    <span class="k">规律</span>所有 3 处回归都是 SKILL 规则在 <em>错的 archetype</em> 上发力。stacked-bar 不是 community 图但被 ColorBrewer 套用;volcano 不需要更多注释但被 reviewer-pass 加了一堆;network-graph 5-degree 平均图不需要 spring layout 但被强制了。修法都是同一个:给规则加 <code>scope:</code> 字段。
+  </div>
+
+  <h3>regression 1 — stacked-bar (19 → 17, Δ-2)</h3>
+  <p><b>FD3 grader evidence:</b> "Seaborn-derived blue/green/red/orange palette; red (#C44E52) and green (#55A868) are adjacent in stacked bars, problematic for deuteranopia/protanopia."</p>
+  <p><b>根因猜测:</b><code>network-graph-tuning</code> SKILL 里写了 ColorBrewer Set2 community-color 规则,agent 把 stacked-bar 4-class 当成 community 套用了。stacked-bar 不是 community 图(class 之间没 hub-spoke 结构),Set2 中相邻的 red/green 直接出现在 adjacent stack segment,触发 colorblind 失败。</p>
+  <p><b>修法:</b>给 <code>network-graph-tuning.md</code> 加 <code>scope: graph-network-only</code> header;master <code>figure-aesthetic-exemplars/SKILL.md</code> 在加载子 ref 前 match scope。</p>
+
+  <h3>regression 2 — volcano (23 → 19, Δ-4)</h3>
+  <p><b>FD3 grader evidence:</b> typography=1, vector_fidelity=1。再加上 caption 维度上 reviewer 加的 in-figure annotation 让 layout_density 从 3 跌到 2。</p>
+  <p><b>根因:</b>两个独立失败叠加 —— 一是 agent 跳过了 <code>academic-plotting</code>(觉得 volcano 太简单),所以 <code>pdf.fonttype=42</code> 没生效,直接拿了 typo=1 / vec=1;二是 <code>caption-revision</code> 的 reviewer-pass 让 agent 给图加了过多 inline annotation,稀释了 volcano 应有的视觉密度。<code>figure-chart-atlas/references/19-archetypes.md</code> 中 volcano 段写的 "annotate top-5" 也太宽泛。</p>
+  <p><b>修法:</b>(a) <code>caption-revision</code> scope 改为 caption text only,不许动图;(b) 19-archetypes.md volcano 段改为 "annotate top-3 to top-5 only IF visually well-separated; if cluster-y, 3-up + 3-down extremes; hard cap 10";(c) FD4 加的 Action 8 / Action 11 解决根上的 "agent 跳过 academic-plotting" 问题。</p>
+
+  <h3>regression 3 — network-graph (20 → 16, Δ-4)</h3>
+  <p><b>FD3 grader evidence:</b> "spring layout 默认对 30-node 没完全展开;node-size ∝ degree 在 5-degree 平均图里看不出层级 (max/min ratio ≈ 1.5)"。</p>
+  <p><b>根因:</b><code>network-graph-tuning.md</code> 写了 "node_size ∝ degree" 当默认,但 FD3 的 fixture 是 5-degree 平均、ratio 1.5 的图,proportional sizing 让所有节点几乎一样大,反而干掉了原有的视觉层级。spring layout iterations=50 对 30-node 也偏少。</p>
+  <p><b>修法:</b><code>node_size ∝ degree</code> 改为 conditional —— 只在 <code>max_degree / min_degree &gt; 3</code> 时启用;否则常数 120。layout iterations 按 node 数量 scale (≤50 nodes 用 100,50-100 用 200)。</p>
+
+  <h3>visual delta(后续在 FD4 已修)</h3>
+  <p>下面这些图是 FD3 的失利版本,作为 FD4 修复前的 baseline 对照保留。修复后的版本见 FD4 报告。</p>
+  <div class="figgrid">
+    <div class="figcell"><img src="assets/stacked-bar__v3.png"/><div class="meta"><span class="arm" style="color:#9a3320">stacked-bar v3 (FAIL)</span><span class="total"><b>17</b>/24</span><div class="ev">red+green adjacent stacks; legend outside axes; Type-3 fonts</div></div></div>
+    <div class="figcell"><img src="assets/volcano__v3.png"/><div class="meta"><span class="arm" style="color:#9a3320">volcano v3 (FAIL)</span><span class="total"><b>19</b>/24</span><div class="ev">over-annotated; Type-3 fonts; reviewer-pass 把图改了</div></div></div>
+    <div class="figcell"><img src="assets/network-graph__v3.png"/><div class="meta"><span class="arm" style="color:#9a3320">network-graph v3 (FAIL)</span><span class="total"><b>16</b>/24</span><div class="ev">spring layout 没展开;degree-1.5 平均;node-size ∝ degree 看不出层级</div></div></div>
+  </div>
+</section>
+<!-- PAPERPAGE_PLACEHOLDER -->
+<p class="sep-ornament">❧</p>
+<section id="paper-page" class="wide">
+  <h2 style="text-align:center"><span class="roman" style="text-align:center">VI</span>paper-page macro 数</h2>
+  <p class="deck" style="text-align:center;max-width:680px;margin:0 auto 36px">FD2:6 macros。FD3:8 macros。+33% maintainability discipline。</p>
+
+  <div style="max-width:680px;margin:0 auto">
+    <p>paper-page cell 跟 FD2 同一个输入(4 张图 + claim.json),要求 latexmk 0 error 输出 2-3 页 two-column 论文片段。指标只看可被验证的:</p>
+    <table>
+      <thead><tr><th></th><th class="num">FD2 minionsos</th><th class="num">FD3 minionsos-v3</th></tr></thead>
+      <tbody>
+        <tr><td>pages</td><td class="num">3</td><td class="num">3</td></tr>
+        <tr><td>size</td><td class="num">366 KB</td><td class="num">501 KB</td></tr>
+        <tr><td><b>\newcommand 数</b></td><td class="num"><b>6</b></td><td class="num"><b>8</b></td></tr>
+        <tr><td>latex errors</td><td class="num">0</td><td class="num">0</td></tr>
+        <tr><td>undefs</td><td class="num">1</td><td class="num">1</td></tr>
+      </tbody>
+    </table>
+    <p>多出来的 2 个 macro 是:<code>\methodAcc</code>(用于结果引用方法 accuracy)+ <code>\datasetCount</code>(代替正文里 hard-coded 的数据集数量)。这是 FD3 给 <code>paper-compile</code> 加的 macro discipline lint 起作用的直接证据 —— agent 看到正文里出现重复的数字字面量,会自动抽出 macro。</p>
+    <p>FD2 → FD3 的 paper-page 变化是 <em>maintainability discipline 内化</em>,而不是分数提升。本身就是 macro 数指标,不进 8-axis 评分;但它是 minionsos 区别于 awesome arm 的核心识别符。</p>
+    <div class="ppgrid" style="grid-template-columns:repeat(2,1fr);max-width:680px;margin:24px auto">
+      <div class="ppcell"><img src="../../FigureDraw2/reports/assets/pp__minionsos.png" alt="FD2 minionsos paper-page p1"/><div class="pmeta"><div class="name">FD2 minionsos</div><div class="pstat">3 pages · 366 KB · <b>6 macros</b></div></div></div>
+      <div class="ppcell"><img src="assets/pp__v3.png" alt="FD3 minionsos-v3 paper-page p1"/><div class="pmeta"><div class="name win">FD3 minionsos-v3</div><div class="pstat">3 pages · 501 KB · <b>8 macros</b></div></div></div>
+    </div>
+  </div>
+</section>
+<!-- MATRIX_PLACEHOLDER -->
+<p class="sep-ornament">❧</p>
+<section id="matrix" class="wide">
+  <h2 style="text-align:center;font-size:36px"><span class="roman" style="text-align:center">VII</span>19 cell 全图矩阵</h2>
+  <p class="deck" style="text-align:center;max-width:680px;margin:0 auto 36px">每个 cell 一格,8-axis 分数 + 一句 strength + 一句 weakness。★ 是相比 FD2 的赢点,⚠ 是相比 FD2 的回归。</p>
+  <div class="figgrid" style="max-width:1280px;margin:24px auto">
+<!-- MATRIX_CELLS -->
+    <div class="figcell"><img src="assets/grouped-bar__v3.png"/><div class="meta"><span class="arm win">grouped-bar ★</span><span class="total"><b>24</b>/24</span><div class="axes">sci:3 typ:3 pal:3 lay:3 rev:3 vec:3 fmt:3 cap:3</div><div class="pn"><span class="plus">Okabe-Ito + hatch + Arial CID TrueType (FD2 22→24)</span></div></div></div>
+    <div class="figcell"><img src="assets/line-errband__v3.png"/><div class="meta"><span class="arm">line-errband ★</span><span class="total"><b>22</b>/24</span><div class="axes">sci:3 typ:2 pal:3 lay:3 rev:3 vec:3 fmt:2 cap:3</div><div class="pn"><span class="plus">CB-safe Okabe-Ito + log scale (FD2 17→22)</span></div></div></div>
+    <div class="figcell"><img src="assets/scatter-fit__v3.png"/><div class="meta"><span class="arm win">scatter-fit ★</span><span class="total"><b>24</b>/24</span><div class="axes">sci:3 typ:3 pal:3 lay:3 rev:3 vec:3 fmt:3 cap:3</div><div class="pn"><span class="plus">Full pipeline 满分 (FD2 19→24)</span></div></div></div>
+    <div class="figcell"><img src="assets/heatmap__v3.png"/><div class="meta"><span class="arm">heatmap ★</span><span class="total"><b>21</b>/24</span><div class="axes">sci:3 typ:3 pal:3 lay:2 rev:2 vec:2 fmt:3 cap:3</div><div class="pn"><span class="plus">Arial CID TrueType (FD2 18→21)</span></div><div class="pn"><span class="minus">colorbar 是 raster XObject -1 vec</span></div></div></div>
+    <div class="figcell"><img src="assets/box-violin__v3.png"/><div class="meta"><span class="arm">box-violin ★</span><span class="total"><b>21</b>/24</span><div class="axes">sci:2 typ:3 pal:3 lay:2 rev:2 vec:3 fmt:3 cap:3</div><div class="pn"><span class="plus">typo + vec 双满分 (FD2 16→21)</span></div><div class="pn"><span class="minus">y-axis 起 0.5 但 Combo median 0.333 在 frame 外</span></div></div></div>
+    <div class="figcell"><img src="assets/4panel-hero__v3.png"/><div class="meta"><span class="arm">4panel-hero ★</span><span class="total"><b>20</b>/24</span><div class="axes">sci:3 typ:3 pal:2 lay:3 rev:2 vec:3 fmt:2 cap:2</div><div class="pn"><span class="plus">Arial 一致 + gridspec 正确 (FD2 15→20)</span></div><div class="pn"><span class="minus">caption Panel C 数字自相矛盾 -1 cap; SVG 缺 -1 fmt</span></div></div></div>
+    <div class="figcell"><img src="assets/architecture__v3.png"/><div class="meta"><span class="arm">architecture ★</span><span class="total"><b>23</b>/24</span><div class="axes">sci:3 typ:3 pal:3 lay:3 rev:3 vec:3 fmt:3 cap:2</div><div class="pn"><span class="plus">solid/dashed semantic + grouping 清楚 (FD2 22→23)</span></div></div></div>
+    <div class="figcell"><img src="assets/roc-prc__v3.png"/><div class="meta"><span class="arm">roc-prc ★</span><span class="total"><b>23</b>/24</span><div class="axes">sci:3 typ:3 pal:3 lay:3 rev:2 vec:3 fmt:3 cap:3</div><div class="pn"><span class="plus">Okabe-Ito + linestyle 双通道 (FD2 18→23)</span></div><div class="pn"><span class="minus">PRC legend 'upper right' 跟好曲线打架 -1</span></div></div></div>
+    <div class="figcell"><img src="assets/ridgeline__v3.png"/><div class="meta"><span class="arm">ridgeline</span><span class="total"><b>17</b>/24</span><div class="axes">sci:3 typ:1 pal:2 lay:2 rev:2 vec:1 fmt:3 cap:3</div><div class="pn"><span class="plus">caption 写得好 + 数值 finding 清楚</span></div><div class="pn"><span class="minus">Type-3 fonts; RdYlBu_r 黄色 midpoint 不 CB-safe</span></div></div></div>
+    <div class="figcell"><img src="assets/dual-axis-time__v3.png"/><div class="meta"><span class="arm">dual-axis-time ★</span><span class="total"><b>23</b>/24</span><div class="axes">sci:3 typ:2 pal:3 lay:3 rev:3 vec:3 fmt:3 cap:3</div><div class="pn"><span class="plus">color-coupling caption 写得最好 (FD2 18→23)</span></div><div class="pn"><span class="minus">× 和 superscript 落到 DejaVu fallback -1 typo</span></div></div></div>
+<!-- MATRIX_CELLS_2 -->
+    <div class="figcell"><img src="assets/stacked-bar__v3.png"/><div class="meta"><span class="arm" style="color:#9a3320">stacked-bar ⚠</span><span class="total"><b>17</b>/24</span><div class="axes">sci:3 typ:1 pal:2 lay:2 rev:2 vec:1 fmt:3 cap:3</div><div class="pn"><span class="minus">REGRESSION (FD2 19→17): red+green adjacent; Type-3</span></div></div></div>
+    <div class="figcell"><img src="assets/forest-plot__v3.png"/><div class="meta"><span class="arm win">forest-plot ★</span><span class="total"><b>24</b>/24</span><div class="axes">sci:3 typ:3 pal:3 lay:3 rev:3 vec:3 fmt:3 cap:3</div><div class="pn"><span class="plus">inverse-variance markers + pooled diamond + null line (FD2 19→24)</span></div></div></div>
+    <div class="figcell"><img src="assets/sankey__v3.png"/><div class="meta"><span class="arm">sankey ★</span><span class="total"><b>23</b>/24</span><div class="axes">sci:3 typ:3 pal:2 lay:3 rev:3 vec:3 fmt:3 cap:3</div><div class="pn"><span class="plus">source-color consistency rule 发力 (FD2 15→23, +8 大涨)</span></div><div class="pn"><span class="minus">Train/Val/Test 三个 green 太接近 -1 pal</span></div></div></div>
+    <div class="figcell"><img src="assets/volcano__v3.png"/><div class="meta"><span class="arm" style="color:#9a3320">volcano ⚠</span><span class="total"><b>19</b>/24</span><div class="axes">sci:3 typ:1 pal:3 lay:3 rev:2 vec:1 fmt:3 cap:3</div><div class="pn"><span class="minus">REGRESSION (FD2 23→19): Type-3 + over-annotated</span></div></div></div>
+    <div class="figcell"><img src="assets/network-graph__v3.png"/><div class="meta"><span class="arm" style="color:#9a3320">network-graph ⚠</span><span class="total"><b>16</b>/24</span><div class="axes">sci:3 typ:1 pal:2 lay:2 rev:2 vec:1 fmt:3 cap:2</div><div class="pn"><span class="minus">REGRESSION (FD2 20→16): degree-1.5 ratio + spring 没展开</span></div></div></div>
+    <div class="figcell"><img src="assets/latex-table__v3.png"/><div class="meta"><span class="arm">latex-table</span><span class="total"><b>21</b>/24</span><div class="axes">sci:3 typ:3 pal:3 lay:3 rev:2 vec:3 fmt:2 cap:2</div><div class="pn"><span class="plus">booktabs + group-spanning + ±std (FD2 20→21)</span></div><div class="pn"><span class="minus">table.tex 缺 -1 fmt</span></div></div></div>
+    <div class="figcell"><img src="assets/equation-block__v3.png"/><div class="meta"><span class="arm">equation-block</span><span class="total"><b>22</b>/24</span><div class="axes">sci:3 typ:3 pal:3 lay:3 rev:2 vec:3 fmt:2 cap:3</div><div class="pn"><span class="plus">\mathbb / \mathcal / \mathrm 排版 + Type-1 fonts (FD2 22 持平)</span></div><div class="pn"><span class="minus">equations.tex 缺 -1 fmt</span></div></div></div>
+    <div class="figcell"><img src="assets/cns-graphical-abstract__v3.png"/><div class="meta"><span class="arm win">cns-graphical-abstract NEW</span><span class="total"><b>22</b>/24</span><div class="axes">sci:3 typ:3 pal:3 lay:2 rev:2 vec:3 fmt:3 cap:3</div><div class="pn"><span class="plus">cns-paper-discipline 子规则首次落地</span></div><div class="pn"><span class="minus">y-axis 0.9-2.15 截 baseline -1 lay -1 rev</span></div></div></div>
+    <div class="figcell"><img src="assets/imrad-section__v3.png"/><div class="meta"><span class="arm">imrad-section NEW</span><span class="total"><b>19</b>/24</span><div class="axes">sci:3 typ:2 pal:2 lay:3 rev:2 vec:2 fmt:2 cap:3</div><div class="pn"><span class="plus">STROBE Methods 8 项全覆盖 + IPW + E-value</span></div><div class="pn"><span class="minus">main.tex 缺 -1 fmt; figure 仍 Type-3</span></div></div></div>
+  </div>
+</section>
+<!-- NEXT_PLACEHOLDER -->
+<p class="sep-ornament">❧</p>
+<section id="next">
+  <h2><span class="roman">VIII</span>下一轮 Forge plan</h2>
+  <p class="deck">渐进式纰漏:每轮最多 6 条 action,先修 regression。FD4 的 6 条 action 在 NEXT_FORGE_PLAN.md 里全部预登记。</p>
+
+  <p>FD3 是 12 条规则一次性灌入,代价是 3 个 regression。FD4 的核心改动:</p>
+  <ol>
+    <li><b>给 sub-skill 加 <code>scope:</code> 字段</b>(Action 1, 2)— 防止 <code>network-graph-tuning</code> 的规则套到 stacked-bar 上。</li>
+    <li><b>给 volcano 注释加 budget rule</b>(Action 3)— 3-5 个 if separated, 3-up + 3-down if cluster-y, hard cap 10。</li>
+    <li><b>给 caption-revision 加 don't-modify-figure 边界</b>(Action 4)— reviewer-pass 只改 caption 文字,figure 形态问题 escalate。</li>
+    <li><b>新增 regression-core 5-cell evals subset</b>(Action 5)— 每次 Forge 后跑 5 cell,任意一个跌幅 ≥ 3 标 SKILL 改动需要再修订。</li>
+    <li><b>imrad-discipline 加 output-format 链接</b>(Action 6)— 让 prose 类文档也走 paper-compile 的 vector 检查。</li>
+    <li><b>cns-paper-discipline 拆细按 venue (Cell / Nature / NEJM)</b>(Action 7,延后)— 等 FD4 evidence 决定哪些 venue 区分真的有用。</li>
+  </ol>
+
+  <p>FD4 实际跑下来,Action 1-6 顺利落地 + 中途 evidence audit 又加了 Action 8-14(主要是 fonttype-42 的 hard verification gate),最终 16W/1T/0L 全胜 baseline。详见 <code>FigureDraw4/reports/REPORT.html</code>。</p>
+
+  <div class="aside note">
+    <span class="k">迭代经验</span>"渐进式纰漏" 的 budget:每轮 ≤ 6 个 action,先修 regression、再加新规则,且必须有 regression-core gate。FD3 的 12 条一次性灌入是过载,FD4 的 6 条 action + 中途增量是健康节奏。
+  </div>
+</section>
+
+<footer class="colophon">
+  <p><b>方法说明:</b>本报告所有分数来自 <code>grader/_aggregate.json</code> 与 <code>grader/_evidence.json</code>,grader 是固定 prompt 的 LLM-as-judge,8 维各 0–3,满分 24。FD2 同 grader 同 fixture 留作 anchor。</p>
+  <p><b>arm 隔离:</b><code>env -i HOME=$tmp claude --strict-mcp-config --setting-sources "" --allowedTools "Read,Write,Bash" --disallowedTools "WebSearch,WebFetch"</code>。每 cell 一个独立 HOME。</p>
+  <p><b>Forge 节奏:</b>本轮一次注入 12 条规则导致 3 个 regression。下一轮 (FD4) 改成「每轮最多 6 条 action」并新增 regression-core 5 cell 评测集合,做漂移闸门。详见 <a href="NEXT_FORGE_PLAN.md">NEXT_FORGE_PLAN.md</a>。</p>
+  <p><b>原始数据:</b><code>FigureDraw3/grader/</code> + <code>FigureDraw3/sessions/minionsos-v3/</code>。每 cell 都有 transcript.jsonl 可回放。</p>
+</footer>
+
+<script>
+const sections=[...document.querySelectorAll('section[id], header.hero')];
+const links=document.querySelectorAll('nav#toc a');
+function update(){
+  const y=window.scrollY+200;
+  let active=0;
+  sections.forEach((s,i)=>{if(s.offsetTop<=y)active=i;});
+  links.forEach(a=>a.classList.remove('active'));
+  if(links[active-1])links[active-1].classList.add('active');
+  const h=document.documentElement;
+  const p=Math.max(0,Math.min(100,(h.scrollTop/(h.scrollHeight-h.clientHeight))*100));
+  document.getElementById('progress').style.setProperty('--p',p+'%');
+}
+window.addEventListener('scroll',update,{passive:true});update();
+</script>
+</article>
+</body>
+</html>

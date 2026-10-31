@@ -1,0 +1,24 @@
+# regression-core — 6-cell evals subset.
+# Run after every Skill-Forge before broader sweeps. If any cell drops >= 3
+# vs the FD3 baseline (grader/_aggregate.json::v3_per_fig), the SKILL change
+# that caused it is on the hook and must be re-revised.
+#
+# Provenance: FigureDraw3 → NEXT_FORGE_PLAN.md Action 5 (5 cells) + FD4 audit
+# discovered ridgeline also lost to the FD2 best baseline (v3 17 < base 19).
+#
+# FD3 regressions / unbeaten cells (the 4 we are trying to recover):
+#   - stacked-bar    FD2 19 → FD3 17  (-2  ColorBrewer Set2 misapplied)
+#   - volcano        FD2 23 → FD3 19  (-4  reviewer-pass over-annotated figure)
+#   - network-graph  FD2 20 → FD3 16  (-4  proportional node_size on flat-degree graph)
+#   - ridgeline      FD3 17, FD2 best 19 (awesome-writing-prompts) — Type-3 fonts + RdYlBu_r yellow midpoint
+# Plus two anchors that were strong in FD3 — drift here means the regression
+# fix bled into a previously-good cell:
+#   - 4panel-hero    FD3 20  (anchor — typography / layout density)
+#   - sankey         FD3 23  (anchor — palette / source-color consistency, FigureDraw2 hard-won win)
+
+stacked-bar
+volcano
+network-graph
+ridgeline
+4panel-hero
+sankey

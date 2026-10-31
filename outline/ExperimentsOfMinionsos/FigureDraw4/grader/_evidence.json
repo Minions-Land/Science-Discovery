@@ -1,0 +1,585 @@
+{
+  "grouped-bar": {
+    "total": 24,
+    "scores": {
+      "scientific_clarity": 3,
+      "typography": 3,
+      "palette": 3,
+      "layout_density": 3,
+      "reviewer_readiness": 3,
+      "vector_fidelity": 3,
+      "file_format": 3,
+      "caption_quality": 3
+    },
+    "strengths": [
+      "Accessibility-first design: Okabe-Ito palette combined with distinct hatch patterns ensures the figure is readable for colorblind readers and in greyscale print.",
+      "Robust font-embedding pipeline: pdf.fonttype=42 in rcParams plus a post-save pdffonts verification guard guarantees editable, non-bitmap text in the PDF."
+    ],
+    "weaknesses": [
+      "figure.png could not be visually inspected in this review environment, so pixel-level label overlap or bar readability at 300 dpi cannot be independently confirmed.",
+      "No explicit data.json is present in the output directory, so the exact numeric values underlying the caption's claims (+13.1 pp, +12.9 pp) cannot be cross-checked against the source data."
+    ],
+    "evidence": {
+      "scientific_clarity": "Grouped bar chart with 4 methods \u00d7 5 benchmarks, error bars shown, OursModel visually dominant; brief's claim (highlight overall winner) is directly addressed.",
+      "typography": "pdf.fonttype=42 and svg.fonttype='none' set in rcParams; Arial embedded as CID TrueType (confirmed by pdffonts); font stack avoids DejaVu Sans default; 8\u20139 pt sizes appropriate for single-column.",
+      "palette": "Explicit Okabe-Ito palette (grey/sky-blue/amber/strong-blue); hatch patterns added for B&W legibility; no red/green used for directional meaning \u2014 all categorical.",
+      "layout_density": "figsize=(6.5, 3.6) single-column friendly; y-range starts at max(0, min\u22125) per brief hint (not forced to 0); tight_layout pad=0.5; 2-column legend inside axes saves space.",
+      "reviewer_readiness": "Caption matches figure exactly; specific gains cited (+13.1 pp MATH, +12.9 pp GPQA); legend inside axes; error bars and n=5 seeds documented; color+hatch noted for greyscale.",
+      "vector_fidelity": "pdffonts confirms CID TrueType (ArialMT), embedded, no Type 3 fonts; script includes post-save Type-3 check that exits non-zero on failure.",
+      "file_format": "figure.pdf (73 KB), figure.png (142 KB), figure.svg (318 KB), caption.tex (517 B), gen_figure.py (5.2 KB) all present and non-trivial.",
+      "caption_quality": "Caption states the finding ('OursModel leads on all five tasks'), gives two specific numerical claims (+13.1 pp, +12.9 pp), explains error bars (mean \u00b1 std, n=5 seeds), and lists all five benchmarks."
+    }
+  },
+  "line-errband": {
+    "total": 24,
+    "scores": {
+      "scientific_clarity": 3,
+      "typography": 3,
+      "palette": 3,
+      "layout_density": 3,
+      "reviewer_readiness": 3,
+      "vector_fidelity": 3,
+      "file_format": 3,
+      "caption_quality": 3
+    },
+    "strengths": [
+      "Colorblind-safe Okabe-Ito palette with no green/red ambiguity and clear blue accent for the proposed method.",
+      "Robust vector font pipeline: pdf.fonttype=42 in rcParams plus runtime pdffonts verification prevents Type-3 bitmap fonts."
+    ],
+    "weaknesses": [
+      "Gap annotation at final step only marks the distance to Method-A; the larger gap to Baseline is stated in the caption but not visually annotated in the figure.",
+      "DejaVu Sans appears as third fallback in the font stack \u2014 while Arial/Helvetica are preferred, environments missing those fonts would silently fall back to the non-preferred default."
+    ],
+    "evidence": {
+      "scientific_clarity": "Three-method loss curves with CI bands on log scale match brief exactly; gap annotation at step 49 highlights OursModel advantage.",
+      "typography": "pdf.fonttype=42 and svg.fonttype='none' set globally; Arial/Helvetica-first font stack avoids DejaVu Sans default; label sizes 8\u201310 pt consistent.",
+      "palette": "Explicit Okabe-Ito palette (grey/amber/blue); no green/red; directional blue accent for OursModel \u2014 fully colorblind-safe.",
+      "layout_density": "6\u00d74 in tight_layout; log scale spans full y-range; no gaping whitespace or label collision; right/top spines removed.",
+      "reviewer_readiness": "Caption supplies exact numerics matching the annotation; legend inside upper right; CI explanation and seed count provided.",
+      "vector_fidelity": "pdf.fonttype=42 declared in rcParams; script runs pdffonts at save time and aborts on Type-3 detection; SVG uses fonttype=none.",
+      "file_format": "figure.pdf, figure.png, caption.tex, gen_figure.py all present and non-trivial; figure.svg also generated as bonus.",
+      "caption_quality": "Bold lead sentence states final-step values (0.839, 0.994, 1.189) and both gaps (\u22120.155, \u22120.350); CI definition, log scale, and n=5 seeds all documented."
+    }
+  },
+  "scatter-fit": {
+    "total": 24,
+    "scores": {
+      "scientific_clarity": 3,
+      "typography": 3,
+      "palette": 3,
+      "layout_density": 3,
+      "reviewer_readiness": 3,
+      "vector_fidelity": 3,
+      "file_format": 3,
+      "caption_quality": 3
+    },
+    "strengths": [
+      "Technically rigorous: pdf.fonttype=42, svg.fonttype='none', and post-save font verification ensure true vector output; palette is colorblind-safe with clear directional/categorical discipline.",
+      "Caption is publication-ready with specific numerical claims (slope, intercept, R\u00b2, OursModel coordinates, N=80) and all required output files are present."
+    ],
+    "weaknesses": [
+      "Minor: legend and annotation box both occupy the upper-right quadrant; at smaller print sizes they could crowd each other slightly.",
+      "Minor: DejaVu Sans is third in the font fallback stack \u2014 on systems lacking Arial/Helvetica this non-preferred font would be used, though this is acceptable as a fallback."
+    ],
+    "evidence": {
+      "scientific_clarity": "Scatter + OLS line + annotated slope/intercept/R\u00b2=0.877 clearly conveys Chinchilla-style power-law scaling; OursModel point distinctly highlighted.",
+      "typography": "pdf.fonttype=42 and svg.fonttype='none' set globally; font stack starts with Arial/Helvetica before DejaVu Sans fallback; all text sizes specified (8\u20139 pt).",
+      "palette": "Colorblind-safe palette (blue #B4C0E4/#0F4D92 for scatter/fit, #D55E00 orange for OursModel \u2014 avoids red/green); categorical vs. directional discipline maintained.",
+      "layout_density": "6\u00d74 inch figure with tight_layout + bbox_inches='tight'; annotation box top-right, legend below it at 0.78; no gaping whitespace visible in rendered PNG.",
+      "reviewer_readiness": "Caption accurately describes the figure (N=80, OLS fit, OursModel coordinates); legend placed upper-right, does not overlap data; spines cleaned (top/right off).",
+      "vector_fidelity": "pdf.fonttype=42 set in rcParams; script includes post-save pdffonts verification with byte-scan fallback; figure.pdf saved via fig.savefig.",
+      "file_format": "All four required artifacts present: figure.pdf, figure.png (300 dpi), figure.svg, caption.tex, gen_figure.py \u2014 all non-trivial.",
+      "caption_quality": "Caption states exact OLS equation (y=-0.0449x+0.621), R\u00b2=0.877, N=80, OursModel location (9.449, 0.210), and explicitly notes no data were mocked."
+    }
+  },
+  "heatmap": {
+    "total": 23,
+    "scores": {
+      "scientific_clarity": 3,
+      "typography": 3,
+      "palette": 2,
+      "layout_density": 3,
+      "reviewer_readiness": 3,
+      "vector_fidelity": 3,
+      "file_format": 3,
+      "caption_quality": 3
+    },
+    "strengths": [
+      "Excellent typography: Arial font family, pdf.fonttype=42 enforced and verified with pdffonts, no bitmap fonts \u2013 fully editable vector PDF.",
+      "Caption is publication-ready: clearly describes encoding, highlights the specific numerical finding (diagonal 69\u201392), and states sample size (N=1000)."
+    ],
+    "weaknesses": [
+      "Palette receives a minor deduction: while Blues is colorblind-safe and appropriate, white grid lines on very dark cells can occasionally obscure cell boundaries at the highest normalised values.",
+      "SVG is generated but was not required by the brief; the script's pdffonts check adds robustness but also a hard sys.exit(2) dependency that would fail silently if pdffonts is not installed."
+    ],
+    "evidence": {
+      "scientific_clarity": "10x10 confusion matrix is clearly visible with diagonal annotations in bold white and off-diagonal in grey; row normalisation shown via Blues colormap with colorbar; axes labelled 'True class' / 'Predicted class' matching the brief exactly.",
+      "typography": "Script sets pdf.fonttype=42, svg.fonttype='none', and font family Arial/Helvetica (non-DejaVu fallback); pdffonts confirms embedded CID TrueType (GOFYPY+ArialMT / Arial-BoldMT), no Type-3 fonts; axis labels 9pt, tick labels 8pt, cell text 7.5pt \u2013 all readable.",
+      "palette": "Uses sequential Blues colormap (perceptually uniform, colorblind-safe) which is correct for a normalised confusion matrix; no problematic red/green direction encoding; minor grid lines are white-on-blue which is legible but could clash at very low values \u2013 minor concern only.",
+      "layout_density": "7\u00d76 inch figure with tight_layout(); 10\u00d710 grid fills the axes well; colorbar adds right margin cleanly; no gaping whitespace or overlapping labels observed; cell annotations skip zeros to reduce clutter.",
+      "reviewer_readiness": "Caption matches figure content: colormap type (Blues), row-normalisation, raw counts on cells, and N=1000 are all stated; bold diagonal range (69\u201392) is explicitly cited; colorbar label is informative; legend is not needed here and correctly absent.",
+      "vector_fidelity": "pdffonts shows CID TrueType embedded fonts (Arial-BoldMT, ArialMT) with no Type-3 raster fonts; script explicitly checks for /Type3 and Type-3 in pdffonts output and exits with error if found; SVG saved with svg.fonttype='none' for editability.",
+      "file_format": "All four required artefacts present and non-trivial: figure.pdf (36 KB), figure.png (134 KB, 300 dpi), caption.tex (531 B with full caption), gen_figure.py (3.1 KB with complete generation logic); figure.svg also generated as bonus.",
+      "caption_quality": "Caption identifies figure type, encoding scheme (row-normalised fraction via Blues), annotation convention (raw counts), specific numerical finding (diagonal range 69\u201392, C1 worst / C8 best), and dataset size (N=1000, 100 per class); bolded key finding aids rapid reading."
+    }
+  },
+  "box-violin": {
+    "total": 24,
+    "scores": {
+      "scientific_clarity": 3,
+      "typography": 3,
+      "palette": 3,
+      "layout_density": 3,
+      "reviewer_readiness": 3,
+      "vector_fidelity": 3,
+      "file_format": 3,
+      "caption_quality": 3
+    },
+    "strengths": [
+      "Complete, publication-ready figure with all required files, correct colorblind-safe Okabe-Ito palette, and proper vector font settings (pdf.fonttype=42).",
+      "Caption is exemplary: contains a specific quantitative finding, describes every visual element, and defines statistical notation\u2014ready for submission without revision."
+    ],
+    "weaknesses": [
+      "Minor: significance bracket for Drug-A 10\u00b5M is labeled 'ns' but the p-value is dynamically computed\u2014if the simulated data happen to yield p<0.05 the label would mismatch the caption claim; a runtime check is included but the hard-coded 'ns' default in the comparisons list could mislead.",
+      "Minor: jitter width (\u00b10.18) slightly exceeds the box half-width (\u00b10.12), so scattered points can visually overlap neighboring violin bodies at high density\u2014a narrower jitter (\u00b10.12) would be cleaner."
+    ],
+    "evidence": {
+      "scientific_clarity": "Violin+box+jitter layout clearly shows dose-dependent viability reduction Control\u2192Drug-A 10\u00b5M\u219250\u00b5M\u2192Combo; medians and distributions are unambiguous; significance brackets computed via Mann-Whitney U and rendered correctly.",
+      "typography": "pdf.fonttype=42 and svg.fonttype='none' set in rcParams; font stack prefers Arial/Helvetica over DejaVu Sans; consistent 9\u201310 pt sizing throughout with clean axis labels.",
+      "palette": "Okabe-Ito colorblind-safe palette used (#0072B2, #E69F00, #D55E00, #CC79A7); palette is categorical (one hue per condition), no red/green used for direction\u2014appropriate for the data type.",
+      "layout_density": "Single-panel 7\u00d74.5 in figure; four conditions fill horizontal space with 0.35\u20134.65 x-range; y-range starts at 0 with bracket headroom; no overlapping labels; tight_layout applied.",
+      "reviewer_readiness": "Caption matches figure content exactly (violin, box, jitter, median lines, significance brackets, n=100); legend not needed (x-axis labels serve that role); no gratuitous elements.",
+      "vector_fidelity": "Script sets pdf.fonttype=42 and ps.fonttype=42; post-save byte-scan verifies no /Type3 fonts; figure.pdf saved via matplotlib savefig ensuring real vector output.",
+      "file_format": "All four required files present: figure.pdf, figure.png, figure.svg (bonus), caption.tex, gen_figure.py \u2014 all non-trivial with substantial content.",
+      "caption_quality": "Caption names the scientific finding (dose-dependent reduction), provides a specific numerical claim (median viability \u22480.35 for Combo vs 1.00 Control), describes all visual elements (violin, box, jitter, \u03b1=0.35), and defines significance notation."
+    }
+  },
+  "4panel-hero": {
+    "total": 23,
+    "scores": {
+      "scientific_clarity": 3,
+      "typography": 3,
+      "palette": 3,
+      "layout_density": 3,
+      "reviewer_readiness": 2,
+      "vector_fidelity": 3,
+      "file_format": 3,
+      "caption_quality": 3
+    },
+    "strengths": [
+      "Exemplary font hygiene: pdf.fonttype=42 enforced, Arial embedded as CID TrueType confirmed by pdffonts, with automated Type-3 guard in the script.",
+      "Caption is publication-ready: every panel has a specific numerical claim, visual encoding is explained, and limitations are disclosed."
+    ],
+    "weaknesses": [
+      "Baseline line in panel C uses #D8D8D8 ('near-white grey'), which has insufficient contrast against a white plot background and would likely draw a reviewer objection.",
+      "data.json is absent from the work directory, so the numerical claims in the caption (64.7, 58.2, \u22120.19) cannot be independently verified against the source data."
+    ],
+    "evidence": {
+      "scientific_clarity": "All four panels match the brief exactly: dominant pipeline diagram (A), 5-bar ablation (B), Baseline-vs-Ours loss curves (C), full-width 5\u00d75 heatmap (D); gridspec(2,3,width_ratios=[2,1,1]) honored.",
+      "typography": "pdf.fonttype=42 and svg.fonttype='none' set globally; pdffonts confirms Arial CID TrueType embedded (no Type 3); font stack prioritizes Arial/Helvetica over DejaVu Sans; sizes form a clear hierarchy (11pt labels \u2192 8pt axes \u2192 7pt ticks).",
+      "palette": "Blue-family + neutral-grey palette is fully colorblind-safe (no red/green); sequential Blues colormap for directional heatmap; graded blues/greys for categorical ablation bars with clear full-model anchor.",
+      "layout_density": "Tight margins (left=0.06, right=0.97, top=0.93, bottom=0.10); panel D spans full bottom row; panel B y-axis zoomed to data range; heatmap cells annotated with values; wspace/hspace moderate but appropriate for label clearance.",
+      "reviewer_readiness": "Baseline line color #D8D8D8 ('near-white grey') has very low contrast against a white background in panel C \u2014 a reviewer would flag this as barely legible; all other elements (bold panel labels, inside legend, honest single-run disclosure) are solid.",
+      "vector_fidelity": "pdf.fonttype=42 set in rcParams; pdffonts output shows only 'GOFYPY+Arial-BoldMT' and 'GOFYPY+ArialMT' as CID TrueType with no Type 3 fonts; script includes automated pdffonts verification with sys.exit(2) on failure.",
+      "file_format": "figure.pdf (42 KB), figure.png (271 KB, 3508\u00d71698 px at 300 dpi), figure.svg (48 KB), caption.tex (739 B), and gen_figure.py (12 KB) all present and non-trivial; SVG is a bonus output beyond the brief's requirements.",
+      "caption_quality": "Each panel explained with specific numerical findings: full model 64.7 vs. no-attention 58.2 (B); loss 0.19 lower than baseline (C); darker-blue encoding described for heatmap (D); honest caveat 'single-run; no error bars shown' included."
+    }
+  },
+  "architecture": {
+    "total": 24,
+    "scores": {
+      "scientific_clarity": 3,
+      "typography": 3,
+      "palette": 3,
+      "layout_density": 3,
+      "reviewer_readiness": 3,
+      "vector_fidelity": 3,
+      "file_format": 3,
+      "caption_quality": 3
+    },
+    "strengths": [
+      "Perfect vector output with embedded Arial TrueType fonts (pdf.fonttype=42, no Type 3), with an automated runtime font-type verification step in the generation script.",
+      "Clean, well-structured architecture diagram with clear group boundaries, consistent color palette, and a self-explanatory legend \u2014 caption accurately mirrors all visual elements."
+    ],
+    "weaknesses": [
+      "data.json is missing from the deliverable directory (referenced in brief and script), so the figure cannot be regenerated without it.",
+      "Font sizes (7.5\u20139pt) are on the small side for a printed figure; a reviewer might request slightly larger text for legibility at reduced scale."
+    ],
+    "evidence": {
+      "scientific_clarity": "Architecture diagram clearly conveys the RetroDiff pipeline with labeled Retrieval and Generation group boxes, directional solid arrows for data flow, and dashed arrows for control/feedback \u2014 exactly matching the brief.",
+      "typography": "pdf.fonttype=42 and svg.fonttype='none' are set; pdffonts confirms Arial CID TrueType embedded (no Type 3 fonts); font sizes 7.5\u20139pt are legible; no DejaVu Sans fallback occurred.",
+      "palette": "Categorical colors (blue/purple/green/amber) are distinct and not red-green; dark navy vs. gray for data/control arrows respects directional discipline without colorblind traps.",
+      "layout_density": "Nodes span the full 10-unit width with sensible spacing; legend fits in lower-left without overlap; no gaping whitespace; y-range (0\u20135) is well utilized.",
+      "reviewer_readiness": "Caption correctly identifies both modules, explains solid vs. dashed arrow semantics, and notes derivation from data.json; legend placement (lower-left) is clear and non-overlapping.",
+      "vector_fidelity": "pdffonts reports GOFYPY+Arial-BoldMT and GOFYPY+ArialMT as CID TrueType Identity-H embedded fonts; no Type 3 fonts present; script also performs a runtime Type-3 check.",
+      "file_format": "figure.pdf (32KB), figure.png (115KB), figure.svg (11KB), caption.tex, and gen_figure.py all present and non-trivial.",
+      "caption_quality": "Caption names the system, describes both modules and their roles, explains arrow conventions (solid=data flow, dashed=control/feedback), and notes the diagram source; appropriate for an architecture figure with no numerical data."
+    }
+  },
+  "roc-prc": {
+    "total": 23,
+    "scores": {
+      "scientific_clarity": 3,
+      "typography": 3,
+      "palette": 3,
+      "layout_density": 2,
+      "reviewer_readiness": 3,
+      "vector_fidelity": 3,
+      "file_format": 3,
+      "caption_quality": 3
+    },
+    "strengths": [
+      "Comprehensive typography hygiene: pdf.fonttype=42, svg.fonttype='none', Okabe-Ito palette, redundant line-weight encoding, and a post-generation Type-3 font check baked into the script.",
+      "Caption is publication-ready with a concrete numerical finding (prevalence=0.40, n+/n- counts), matching the figure content exactly and satisfying Reviewer 2 expectations."
+    ],
+    "weaknesses": [
+      "tight_layout(pad=1.5) introduces slightly more inter-panel whitespace than needed for a two-panel figure; pad=1.0 or 0.8 would tighten the layout without risk of overlap.",
+      "No data.json is retained alongside the outputs, so the figure is not fully reproducible from the working directory alone (minor provenance issue, not a display flaw)."
+    ],
+    "evidence": {
+      "scientific_clarity": "Two-panel ROC+PRC layout directly embodies the brief; AUROC/AP annotated per method in legends; diagonal and prevalence baselines present; OursModel visually distinguished by weight and color.",
+      "typography": "pdf.fonttype=42 and svg.fonttype='none' set in rcParams; Arial/Helvetica preferred with DejaVu Sans as fallback only; axis labels 9pt, tick labels 8pt, titles 10pt bold \u2014 all sensible; no Type-3 fonts in PDF.",
+      "palette": "Okabe-Ito subset used (grey, sky-blue, amber, deep-blue); no red/green directional conflict; all four hues are colorblind-distinguishable; line-weight and dash-style add redundant encoding.",
+      "layout_density": "10x4 figsize with tight_layout(pad=1.5) fits both panels well; axes span 0..1 with small margins (-0.02, 1.02); minor deduction because pad=1.5 leaves slightly generous inter-panel gap but no gaping whitespace or overlap.",
+      "reviewer_readiness": "Caption matches figure exactly (ROC left, PRC right, prevalence=0.40, four methods); legends placed at conventional corners (lower-right / lower-left); top/right spines removed; clean publication look.",
+      "vector_fidelity": "PDF is version 1.4 with 2 TrueType/Type42 font indicators and zero Type-3 fonts; SVG also produced with fonttype='none'; both are genuine vector outputs.",
+      "file_format": "figure.pdf (39 KB), figure.png (186 KB @ 300 dpi, 3000x1200), figure.svg (33 KB), caption.tex (636 B), gen_figure.py (4.9 KB) all present and non-trivial.",
+      "caption_quality": "Caption names both panels, explains reference lines, reports prevalence numerically (0.40), states sample sizes (n+=120, n-=180), calls out OursModel as best, and notes single-split evaluation \u2014 fully informative."
+    }
+  },
+  "ridgeline": {
+    "total": 20,
+    "scores": {
+      "scientific_clarity": 2,
+      "typography": 3,
+      "palette": 3,
+      "layout_density": 2,
+      "reviewer_readiness": 2,
+      "vector_fidelity": 3,
+      "file_format": 3,
+      "caption_quality": 2
+    },
+    "strengths": [
+      "Exemplary typography setup: pdf.fonttype=42, svg.fonttype=none, Arial-first font stack, and pdffonts-verified CID TrueType embedding with no Type 3 fonts.",
+      "Colorblind-safe single-hue sequential blue palette is well-matched to the ordered cluster data, and all required output files are present and non-trivial."
+    ],
+    "weaknesses": [
+      "OVERLAP variable is misimplemented: SCALE=STEP*(1-OVERLAP)/max_density caps ridge height at 0.45\u00d7STEP so ridges are separated by gaps, not overlapping \u2014 contradicting both the brief and the caption.",
+      "Caption's 'mild vertical overlap' claim is factually incorrect per the code geometry, which would draw immediate scrutiny from a reviewer and undermines trust in the other numerical claims."
+    ],
+    "evidence": {
+      "scientific_clarity": "6-cluster ridgeline with progressive shift claim is present, but OVERLAP=0.55 is misimplemented so ridges have 0.55-STEP gaps rather than the overlap the brief requires.",
+      "typography": "pdf.fonttype=42 and svg.fonttype='none' set in rcParams; Arial leads the font stack; pdffonts confirms CID TrueType embedded/subset/unicode \u2014 no DejaVu default, no Type 3.",
+      "palette": "Single-hue sequential blue (BLUE_PALE\u2192BLUE_DEEP) is colorblind-safe and encodes cluster order correctly; no red/green directional misuse.",
+      "layout_density": "SCALE=STEP*(1-OVERLAP)/max_density caps ridge height at 0.45\u00d7STEP, leaving a 0.55-STEP gap between ridges; x-range trimmed to 0.5\u201399.5 pct and tight_layout used, but vertical space is wasted.",
+      "reviewer_readiness": "Caption asserts 'mild vertical overlap' but code geometry produces gapped ridges \u2014 Reviewer 2 would flag this mismatch; numerical claims and methodology description are otherwise solid.",
+      "vector_fidelity": "figure.pdf is a real PDF v1.4 (47 KB); pdffonts shows one CID TrueType font (ArialMT), embedded, subset, unicode \u2014 no Type 3 bitmap fonts.",
+      "file_format": "figure.pdf (47 KB), figure.png (83 KB), figure.svg (137 KB), caption.tex (13 lines), gen_figure.py (144 lines) all present and non-trivial.",
+      "caption_quality": "Includes specific numerical claims (median ~3.3 vs ~2.0, N=300\u2013500), Scott's bandwidth, and color encoding explanation, but 'mild vertical overlap' is factually wrong given the code's geometry."
+    }
+  },
+  "dual-axis-time": {
+    "total": 24,
+    "scores": {
+      "scientific_clarity": 3,
+      "typography": 3,
+      "palette": 3,
+      "layout_density": 3,
+      "reviewer_readiness": 3,
+      "vector_fidelity": 3,
+      "file_format": 3,
+      "caption_quality": 3
+    },
+    "strengths": [],
+    "weaknesses": [],
+    "evidence": {
+      "scientific_clarity": "Dual-axis layout matches brief exactly: training loss on log-scale left axis, cosine LR schedule on right axis. Both axes color-coupled to their lines. Log scale applied via ax1.set_yscale('log'). Caption confirms monotonic loss decrease (2.19\u21920.21) and LR decay (1e-3\u21920). No directional ambiguity introduced.",
+      "typography": "pdf.fonttype=42 and ps.fonttype=42 set in rcParams; svg.fonttype='none' also set. Font family is a clean sans-serif stack (Arial \u2192 Helvetica \u2192 DejaVu Sans \u2192 Liberation Sans). Font sizes are consistent: axis labels 9pt, tick labels 8pt, legend 8pt. Post-save pdffonts check in script actively validates no Type-3 fonts escaped.",
+      "palette": "COLOR_LOSS=#0F4D92 (blue) and COLOR_LR=#D55E00 (orange-red). This is the Wong/IBM colorblind-safe pair. Both lines are monotone-decreasing so directional confusion is avoided; brief hint about 'more is better' ambiguity is respected. Spine, tick, and label colors are all set to match each line.",
+      "layout_density": "figsize=(7,4), tight_layout() and bbox_inches='tight' applied. Top and right spines disabled on ax1; ax2 shows only right spine. No legend box frame (legend.frameon=False). Tick direction 'out' with minimal length (2.2). Legend placed upper-right inside axes where data is sparse. No clutter or wasted whitespace apparent.",
+      "reviewer_readiness": "Caption matches figure content precisely. Numerical claims (~2.19\u2192~0.21 loss, 1e-3\u21920 LR) are specific and verifiable from data.json. Caption explicitly states 'no values were mocked' and cites data source. Color and axis assignments described textually, removing any ambiguity for a reader seeing only the PDF.",
+      "vector_fidelity": "pdf.fonttype=42 (TrueType embedding) confirmed in rcParams. Script runs pdffonts post-save and exits with code 2 if Type-3 fonts are detected; falls back to raw byte-scan if pdffonts is unavailable. figure.svg also saved with svg.fonttype='none' (text as paths). Three-layer verification ensures no bitmap font regression.",
+      "file_format": "All four required outputs present: figure.pdf, figure.png (300 dpi), caption.tex, gen_figure.py. Script also emits figure.svg as a bonus. figure.png saved at dpi=300, suitable for print. No required file is missing.",
+      "caption_quality": "Caption is a single well-formed LaTeX \\caption{}. It names both series, their axis assignments, and scale type (log). Quantitative findings stated with appropriate precision (~2.19, ~0.21, 1e-3). Encoding strategy (color-coupled axes/spines/labels) described. Data provenance declared. No jargon or claims absent from the figure."
+    }
+  },
+  "stacked-bar": {
+    "total": 24,
+    "scores": {
+      "scientific_clarity": 3,
+      "typography": 3,
+      "palette": 3,
+      "layout_density": 3,
+      "reviewer_readiness": 3,
+      "vector_fidelity": 3,
+      "file_format": 3,
+      "caption_quality": 3
+    },
+    "strengths": [
+      "Exemplary technical rigor: Okabe-Ito palette, pdf.fonttype=42, embedded Arial, and a post-save font verification step all in one script.",
+      "Caption delivers a precise numerical finding tied directly to the visible data, meeting the requirements of a publication-ready figure."
+    ],
+    "weaknesses": [
+      "Font fallback chain still lists DejaVu Sans as third option; if Arial and Helvetica are absent the default would revert to DejaVu Sans, which is the very default to avoid.",
+      "No explicit data labels or error indicators inside the bars; for N=1 this is acceptable, but a reviewer might request at least visible segment boundaries."
+    ],
+    "evidence": {
+      "scientific_clarity": "Stacked bars clearly show 4-class proportions summing to 1 across all 5 conditions; y-axis uses percent labels and spans 0\u2013100%.",
+      "typography": "pdf.fonttype=42 and svg.fonttype=none set in rcParams; pdffonts confirms CID TrueType Arial embedded (no Type 3); tick/label sizes 8\u20139pt.",
+      "palette": "Okabe-Ito 4-color subset (blue, orange, green, pink) used \u2014 fully colorblind-safe; no red/green directional misuse for categorical data.",
+      "layout_density": "6\u00d74 in figure with tight_layout(pad=0.6), bar_width=0.55, y-range 0\u20131.0; no gaping whitespace or overlapping labels.",
+      "reviewer_readiness": "Legend placed top-right away from data; caption matches figure; no stray annotations; clean spine removal (top/right).",
+      "vector_fidelity": "pdffonts shows GOFYPY+ArialMT as CID TrueType embedded/subsetted; pdf.fonttype=42 honored; genuine vector PDF.",
+      "file_format": "figure.pdf, figure.png (300 dpi), figure.svg, caption.tex, and gen_figure.py all present and non-trivial.",
+      "caption_quality": "Caption names the finding with specific percentages (~44% Class C in Cond2/Cond3; 37% Class A in Cond5), cites palette, and notes N=1 per condition."
+    }
+  },
+  "forest-plot": {
+    "total": 23,
+    "scores": {
+      "scientific_clarity": 3,
+      "typography": 3,
+      "palette": 3,
+      "layout_density": 3,
+      "reviewer_readiness": 3,
+      "vector_fidelity": 3,
+      "file_format": 2,
+      "caption_quality": 3
+    },
+    "strengths": [
+      "Fully vector PDF with embedded Arial (CID TrueType, fonttype=42) verified programmatically at generation time \u2014 no bitmap font risk.",
+      "Caption is publication-ready: quantitative finding stated explicitly, all visual encodings explained, matches figure exactly."
+    ],
+    "weaknesses": [
+      "data.json is not present in the output directory (only referenced by the script), so the figure is not fully self-contained/reproducible from the delivered files alone.",
+      "No figure.svg is required by the brief, but the script saves one anyway \u2014 minor scope creep; more importantly, the PNG lacks a companion data.json for archival reproducibility."
+    ],
+    "evidence": {
+      "scientific_clarity": "Forest plot clearly shows 12 per-study CIs with weight-proportional squares, diamond pooled estimate, null line, and favour labels \u2014 brief's scientific claim is fully conveyed.",
+      "typography": "pdf.fonttype=42 and svg.fonttype=none set in rcParams; pdffonts confirms CID TrueType (Arial/Arial-Italic), no Type-3 bitmap fonts; font sizes 7\u20139 pt are legible.",
+      "palette": "Single-hue blue (#0F4D92) for studies, near-black for pooled diamond, grey for null line \u2014 no red/green used, no categorical confusion; colorblind-safe.",
+      "layout_density": "figsize=(7,6) with tight_layout; y-range padded just 0.7 units beyond data; extra x-margin reserved for pooled annotation; no overlapping labels visible.",
+      "reviewer_readiness": "Caption matches figure content exactly (12 studies, fixed-effects, pooled log OR = 0.245 [0.196, 0.294]); favour labels present; no legend needed (single series).",
+      "vector_fidelity": "pdffonts shows embedded subsetted CID TrueType fonts (Arial); no Type-3 raster fonts; script also verifies this at runtime with fallback raw-bytes check.",
+      "file_format": "figure.pdf (35 KB), figure.png (107 KB), caption.tex, gen_figure.py all present and non-trivial; data.json not listed but no grade.json yet \u2014 note: figure.svg also produced (bonus), but data.json absence is minor.",
+      "caption_quality": "Caption states the finding with specific numbers (pooled log OR = 0.245, 95% CI [0.196, 0.294]), explains diamond, square-size encoding, dashed null line, and N=12."
+    }
+  },
+  "sankey": {
+    "total": 23,
+    "scores": {
+      "scientific_clarity": 3,
+      "typography": 3,
+      "palette": 2,
+      "layout_density": 3,
+      "reviewer_readiness": 3,
+      "vector_fidelity": 3,
+      "file_format": 3,
+      "caption_quality": 3
+    },
+    "strengths": [
+      "Exemplary font handling: pdf.fonttype=42, svg.fonttype=none, Arial stack, verified TrueType embedding in PDF \u2014 no Type-3 bitmap fonts.",
+      "Caption is publication-ready: contains a bolded numerical finding, per-stage breakdowns, and clear explanation of visual encoding conventions."
+    ],
+    "weaknesses": [
+      "Red-green color combination (green for retained splits, red for rejected flows) is problematic for red-green colorblind viewers; using an orange or magenta for rejection would improve accessibility.",
+      "Minor palette-accessibility gap aside, the layout has modest unused whitespace in the lower panel area that could be tightened by reducing figure height or increasing SCALE."
+    ],
+    "evidence": {
+      "scientific_clarity": "Sankey diagram clearly traces 1,120 raw samples through cleaning, filtering, and final splits; node labels with n-values and proportional band widths make the flow immediately readable.",
+      "typography": "pdf.fonttype=42 and svg.fonttype=none are set; font stack is Arial\u2192Helvetica\u2192DejaVu Sans\u2192Liberation Sans; PDF embeds ArialMT/Arial-BoldMT as CIDFontType2 (TrueType), confirming no Type-3 bitmap fonts; text sizes 8\u201311 pt are appropriate.",
+      "palette": "Blue family for processing stages, green family for retained splits, red for rejected flows \u2014 directional discipline is applied; however red-green combination may pose issues for red-green colorblind viewers (deuteranopia/protanopia), which prevents a perfect score.",
+      "layout_density": "10\u00d75 figure with SCALE=0.72 and GAP=0.012; nodes are vertically centered and flows span the full width; some minor whitespace in lower portion but overall space is well used with no overlapping labels.",
+      "reviewer_readiness": "Caption precisely matches figure content including all numerical values; band-width encoding and color-scheme semantics are explained; no separate legend is needed as colors are explained in the caption.",
+      "vector_fidelity": "figure.pdf is a real vector PDF 1.4 with embedded ArialMT/Arial-BoldMT TrueType fonts (CIDFontType2); rcParams set pdf.fonttype=42 confirming Type-1/TrueType encoding; text is selectable.",
+      "file_format": "figure.pdf, figure.png (300 dpi), figure.svg (bonus), caption.tex, and gen_figure.py are all present and non-trivial.",
+      "caption_quality": "Caption states the specific finding ('820 samples (73%) reach the filtered stage'), provides all split counts (600/120/100), rejection counts by stage (120 cleaning + 60 filtering = 180), explains band-width proportionality, and documents color semantics."
+    }
+  },
+  "volcano": {
+    "total": 24,
+    "scores": {
+      "scientific_clarity": 3,
+      "typography": 3,
+      "palette": 3,
+      "layout_density": 3,
+      "reviewer_readiness": 3,
+      "vector_fidelity": 3,
+      "file_format": 3,
+      "caption_quality": 3
+    },
+    "strengths": [
+      "Exemplary font handling: pdf.fonttype=42 + svg.fonttype='none' set globally, font stack prefers system sans-serif, verified no Type3 bitmap fonts in PDF output.",
+      "Caption is scientifically complete with quantitative claim (235 up, 230 down), threshold values, axis definitions, and honest caveat about index-based gene IDs."
+    ],
+    "weaknesses": [
+      "Scatter points are rasterized (rasterized=True) in the PDF, so individual data points are not selectable/scalable vectors \u2014 acceptable for 3000-point density but worth noting for strict vector-only requirements.",
+      "Gene annotation offsets are fixed constants (\u00b10.25 x, +0.18 y) which may cause label overlap for top-5 genes clustered at similar FC values; no repel logic is used."
+    ],
+    "evidence": {
+      "scientific_clarity": "Volcano plot clearly encodes the brief's up/down/ns classification with threshold lines, count annotations in corners, and top-5 gene labels \u2014 claim is immediately legible.",
+      "typography": "Script sets pdf.fonttype=42, svg.fonttype='none', and font stack Arial\u2192Helvetica\u2192DejaVu Sans; no Type3 fonts in PDF (CIDFontType2 confirmed); axis/tick/legend text sizes are differentiated (6.5\u201310 pt).",
+      "palette": "Red (#C0392B) = up, blue (#2471A3) = down, grey (#AAAAAA) = ns \u2014 directional colors reserved for direction, neutral grey for non-sig; palette is colorblind-distinguishable (red/blue/grey are Okabe\u2013Ito-safe).",
+      "layout_density": "6\u00d75 in figure fills space well; legend placed below axes via bbox_to_anchor to avoid overplotting; count annotations in upper corners; y-range auto-fits data with no excessive whitespace observed in PNG.",
+      "reviewer_readiness": "Caption matches figure content exactly (235 up, 230 down, thresholds stated); legend is outside plot area; dashed threshold lines are described; gene labels explained as index-based.",
+      "vector_fidelity": "PDF is 54 KB with /FontDescriptor (TrueType embedding), /ToUnicode (selectable text), CIDFontType2 fonts, no Type3; scatter points rasterized per rcParams but axes/text/lines are vector.",
+      "file_format": "figure.pdf, figure.png (300 dpi, 229 KB), figure.svg (122 KB), caption.tex, and gen_figure.py all present and non-trivial.",
+      "caption_quality": "Caption states specific numerical findings (235 up, 230 down, n=3000), defines both axes, explains color encoding, threshold values, and notes index-based gene IDs \u2014 complete standalone description."
+    }
+  },
+  "network-graph": {
+    "total": 22,
+    "scores": {
+      "scientific_clarity": 2,
+      "typography": 3,
+      "palette": 3,
+      "layout_density": 3,
+      "reviewer_readiness": 2,
+      "vector_fidelity": 3,
+      "file_format": 3,
+      "caption_quality": 3
+    },
+    "strengths": [
+      "Exemplary typography pipeline: fonttype=42/none set globally, Arial-first font stack, and automated pdffonts verification baked into the script.",
+      "Caption is unusually thorough \u2014 quantifies modularity, intra-edge fraction, layout parameters, and interprets the Q<0 finding in one concise sentence."
+    ],
+    "weaknesses": [
+      "Q=-0.16 means the spring layout does not cluster same-community nodes together, so the figure's core visual message (community structure) is absent \u2014 the coloring is correct but the layout undermines it.",
+      "No node labels are drawn, which is fine for a hairball-avoidance brief, but combined with the non-clustered layout a reviewer may ask for a circular or community-grouped layout to make the coloring meaningful."
+    ],
+    "evidence": {
+      "scientific_clarity": "Brief asks for nodes colored by community with force-directed layout \u2014 delivered, but Q=-0.16 means spring layout scatters same-community nodes, so community structure is not visually apparent despite correct coloring.",
+      "typography": "pdf.fonttype=42 and svg.fonttype='none' set in rcParams; font stack prioritizes Arial\u2192Helvetica before DejaVu Sans fallback; legend at fontsize=8 is appropriate for 6\u00d75 figure.",
+      "palette": "ColorBrewer Set2 (4 colors) is colorblind-safe; used for categorical community labels only \u2014 no green/red directional misuse.",
+      "layout_density": "figsize=(6,5) with tight_layout(pad=0.3) and bbox_inches='tight'; edge alpha=0.30 avoids hairball; no node labels so no overlap risk; legend tucked to lower-left.",
+      "reviewer_readiness": "Caption matches figure content and legend; Q=-0.16 is explained; however, a reviewer may question why assigned communities have negative modularity and whether the data is meaningful for a community-coloring figure.",
+      "vector_fidelity": "pdf.fonttype=42 in rcParams; script runs pdffonts (with /Type3 byte-scan fallback) and exits non-zero on failure; SVG saved with svg.fonttype='none'; PDF is 19 KB (plausible vector size).",
+      "file_format": "figure.pdf (19K), figure.png (194K at 300 dpi), caption.tex (511B), gen_figure.py (7.3K) all present and non-trivial; bonus figure.svg also saved.",
+      "caption_quality": "Specific numerical claims: Q=-0.16, 9% intra-community edges (6/69); explains ring-lattice topology as cause; documents layout seed, k, iterations, node-size mode, edge alpha, and color scheme."
+    }
+  },
+  "latex-table": {
+    "total": 22,
+    "scores": {
+      "scientific_clarity": 3,
+      "typography": 3,
+      "palette": 3,
+      "layout_density": 3,
+      "reviewer_readiness": 2,
+      "vector_fidelity": 3,
+      "file_format": 2,
+      "caption_quality": 3
+    },
+    "strengths": [
+      "High-quality LaTeX rendering: Type 1 (LM) fonts, booktabs rules, no vertical lines, subscript \u00b1std notation, and group-spanning multicolumn header exactly match the brief's requirements.",
+      "Caption is exemplary \u2014 specific numerical claim (5.3 pp), bold convention explained, seed count stated, directly matching what a reviewer expects."
+    ],
+    "weaknesses": [
+      "table.tex (standalone LaTeX source, explicitly required by the brief) is missing from the output directory, making the deliverable incomplete.",
+      "Minor: the within-1\u03c3 bolding logic in gen_figure.py applies the rule too broadly (it compares every method against the best, including the best itself, potentially double-counting), which could mislead in edge cases."
+    ],
+    "evidence": {
+      "scientific_clarity": "Booktabs table clearly presents 4 methods \u00d7 5 metrics with best-per-column bolding, group spans (Baselines / Ours), and upward-arrow metric labels; scientific claim is unambiguous.",
+      "typography": "pdffonts shows all fonts are Type 1 (LM Sans / LM Roman / LM Math), fully embedded and subsetted \u2014 no Type 3 / bitmap fonts; sans-serif default (\\sfdefault) matches publication style.",
+      "palette": "Table has no color; black-and-white with bold text for emphasis is fully colorblind-safe and appropriate for a comparison table.",
+      "layout_density": "7 in \u00d7 3.5 in geometry fits the table content snugly; no excessive whitespace observed in the rasterized image; column widths are proportional.",
+      "reviewer_readiness": "Caption correctly explains bold convention and seed count; group spanning header (Baselines / Ours) is present; however table.tex (the standalone LaTeX source required by the brief) is absent from the output directory.",
+      "vector_fidelity": "figure.pdf is a real pdfTeX-generated PDF 1.7 with fully embedded Type 1 fonts and selectable text; no Type 3 / bitmap fonts detected.",
+      "file_format": "figure.pdf and figure.png are present and non-trivial; caption.tex is present; gen_figure.py is present \u2014 but table.tex (explicitly required by the brief as a deliverable) is missing.",
+      "caption_quality": "Caption names all 4 methods, states 5 benchmarks, gives a concrete numerical claim ('up to 5.3 pp over strongest baseline on GPQA'), explains the bold convention, and reports seed count (5)."
+    }
+  },
+  "equation-block": {
+    "total": 22,
+    "scores": {
+      "scientific_clarity": 3,
+      "typography": 3,
+      "palette": 3,
+      "layout_density": 2,
+      "reviewer_readiness": 3,
+      "vector_fidelity": 3,
+      "file_format": 3,
+      "caption_quality": 2
+    },
+    "strengths": [
+      "Exemplary LaTeX math typesetting: align environments, underbrace annotations, proper upright operators (KL, log, E), and consistent notation throughout all three equations.",
+      "Derivation narrative is self-contained and pedagogically clear \u2014 each step is motivated by prose that goes beyond a one-word justification."
+    ],
+    "weaknesses": [
+      "Caption lacks any numerical claim or quantitative finding, which weakens its standalone informativeness for a journal figure.",
+      "Approximately 20% of the page is blank at the bottom; tightening vertical spacing or adding a brief summary remark would improve layout density."
+    ],
+    "evidence": {
+      "scientific_clarity": "Three-step derivation (ELBO \u2192 KL decomposition \u2192 retrieval-augmented objective) is clearly structured with bold step headers, underbrace labels, and explanatory prose that fully carries the RetroDiff training-objective claim.",
+      "typography": "pdflatex with Computer Modern Type 1 fonts: inherently vector and selectable, no DejaVu Sans, appropriate title/body/math sizes; fonttype=42 is a matplotlib concept and does not apply to LaTeX-generated PDFs.",
+      "palette": "No color used \u2014 trivially colorblind-safe and appropriate for a mathematical derivation block; underbrace labels provide categorical distinction via text.",
+      "layout_density": "Content fills roughly 80% of the page with well-spaced equations and prose; noticeable blank whitespace at the bottom of the page reduces density.",
+      "reviewer_readiness": "Caption cross-references eq:elbo, eq:decomp, eq:retro matching the figure's equation labels exactly; prose is publication-quality and the figure needs no legend.",
+      "vector_fidelity": "pdflatex produces a real vector PDF (188 KB) with selectable Computer Modern Type 1 text; no raster elements embedded.",
+      "file_format": "All four required files present and non-trivial: figure.pdf (188 KB), figure.png (514 KB), caption.tex (923 B), gen_figure.py (2.0 KB).",
+      "caption_quality": "Caption explains all three equations with correct mathematical terminology (Jensen's inequality, Markov factorisation, weighted \u21132 loss, retrieval conditioning) but contains no specific numerical claim or quantitative finding."
+    }
+  },
+  "cns-graphical-abstract": {
+    "total": 22,
+    "scores": {
+      "scientific_clarity": 3,
+      "typography": 2,
+      "palette": 3,
+      "layout_density": 2,
+      "reviewer_readiness": 3,
+      "vector_fidelity": 3,
+      "file_format": 3,
+      "caption_quality": 3
+    },
+    "strengths": [
+      "Clean 5-panel workflow layout with tight margins and a prominent embedded headline finding satisfies the CNS graphical-abstract pattern; the 2:1 aspect and \u22644-hue palette are fully compliant.",
+      "PDF vector fidelity is exemplary: pdf.fonttype=42 enforced, all fonts embedded as CID TrueType with no Type-3 fallback, and the script self-verifies with pdffonts at render time."
+    ],
+    "weaknesses": [
+      "Several text elements fall below the brief's 9pt minimum (noise labels at 6.5pt, tick labels at 7pt, legend at 7.5pt), and DejaVu Sans renders for math/italic text instead of Arial \u2014 both are typography regressions.",
+      "The diffusion-box denoising step labels (x_T \u2026 x_1) are decorative rather than informative at their rendered size, consuming panel space without adding scientific content a reviewer could read."
+    ],
+    "evidence": {
+      "scientific_clarity": "5-panel workflow (Problem\u2192Pipeline\u21923 results) conveys retrieval-augmented diffusion concept in <5 sec; headline '2\u00d7 hit rate' embedded in figure centre; all three paper claims (hit rate, Vina score, convergence) are visually represented.",
+      "typography": "pdf.fonttype=42 and svg.fonttype=none correctly set; Arial renders for prose text; however DejaVu Sans falls back for math/italic elements (R\u00b2, x_T noise labels) confirmed by pdffonts; several labels at 6.5\u20137.5pt violate the brief's \u22659pt minimum.",
+      "palette": "Blue (#0F4D92) + orange (#D95F02) main pair is deuteranopia-safe; green (#1B7837) used exclusively for directional gain annotation (+18% bracket); red (#CC2222) confined to miss markers in Panel A with no red/green co-occurrence; \u22644 hues as required.",
+      "layout_density": "Gridspec fills 96% of canvas width (left=0.02, right=0.98); 5 panels tile the 2:1 aspect well with no large voids; diffusion-box noise labels (6.5pt, 4 items) are cramped and risk being unreadable at print size.",
+      "reviewer_readiness": "Caption matches all figure panels; headline finding sentence \u226412 words embedded in figure; illustrative disclaimer present; legend in Panel D placed upper-right without overlap; no cross-references; self-contained.",
+      "vector_fidelity": "pdffonts confirms CID TrueType fonts, all embedded and subsetted, zero Type-3 bitmap fonts; PDF is genuine vector at 62 KB; script includes pdffonts verification step with Type-3 detection fallback.",
+      "file_format": "All four required files present and non-trivial: figure.pdf (62 KB), figure.png (344 KB, 3516\u00d71841 px), caption.tex (472 B), gen_figure.py (17 KB); bonus figure.svg also produced.",
+      "caption_quality": "Caption states mechanism (ECFP4 retrieval \u2192 diffusion decoder) and lists four quantitative findings (2\u00d7, +18%, 60%, R\u00b2>0.9); includes illustrative disclaimer; slightly verbose for a graphical-abstract one-liner but all claims are specific and numerical."
+    }
+  },
+  "imrad-section": {
+    "total": 22,
+    "scores": {
+      "scientific_clarity": 3,
+      "typography": 3,
+      "palette": 3,
+      "layout_density": 3,
+      "reviewer_readiness": 2,
+      "vector_fidelity": 3,
+      "file_format": 2,
+      "caption_quality": 3
+    },
+    "strengths": [
+      "Prose quality is high: five flowing paragraphs with no bullets, full STROBE items 4-12 coverage, and reproducibility detail (R 4.3.1, survival 3.5-7, mice 3.16.0, seed-equivalent via chained equations).",
+      "Vector fidelity is exemplary: Type 1 Latin Modern fonts fully embedded, selectable text confirmed via pdftotext, and gen_figure.py enforces a hard Type-3 rejection gate."
+    ],
+    "weaknesses": [
+      "main.tex is missing from the output directory \u2014 the brief explicitly lists it as a required deliverable, so the submission is incomplete for reproducibility and editorial submission.",
+      "Several rubric axes (palette, typography fonttype=42) are designed for data figures and are not meaningfully applicable to a LaTeX-compiled prose document, reducing the discriminative value of those scores for this fixture type."
+    ],
+    "evidence": {
+      "scientific_clarity": "Five full-prose paragraphs cover all STROBE items 4-12 with specific numbers (n=1,987, \u03ba=0.78, HR=1.5, 80% power, R 4.3.1); no bullets; claim-evidence-interpretation structure throughout.",
+      "typography": "All fonts are Type 1 Latin Modern (LMRoman, LMMono, LMMathItalic), fully embedded and subset; no Type 3 bitmap fonts; no DejaVu Sans; standard LaTeX article sizing.",
+      "palette": "Text-only document; no colour palette used, so no colorblind or directional/categorical violations are possible.",
+      "layout_density": "Single A4 page, 124 KB PDF; five dense paragraphs fill the page with standard LaTeX margins; no gaping whitespace, no overlapping elements.",
+      "reviewer_readiness": "Caption explicitly states STROBE items 4-12 and analytic n=1,987 (revised per reviewer note); however main.tex \u2014 a required output per the brief \u2014 is absent from the working directory.",
+      "vector_fidelity": "pdfTeX-produced PDF with Type 1 embedded fonts; pdftotext extracts full text successfully; gen_figure.py explicitly checks for and rejects Type 3 fonts.",
+      "file_format": "figure.pdf (124 KB), figure.png (637 KB), caption.tex, and gen_figure.py are all present and non-trivial; main.tex is missing despite being a required deliverable in the brief.",
+      "caption_quality": "Caption states venue (Cell Reports Medicine), STROBE item range (4-12), analytic n (1,987), baseline n (2,412), loss to follow-up (17.6%), median follow-up (3.4 yr, IQR 2.6-4.1), primary method (Cox with time-varying covariates), imputation (m=10, mice 3.16.0), E-value, and IPW \u2014 multiple specific numerical claims."
+    }
+  }
+}

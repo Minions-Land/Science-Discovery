@@ -1,0 +1,16 @@
+\caption{%
+  \textbf{Training objective of \textsc{RetroDiff}.}
+  Equation~\eqref{eq:elbo} is the variational lower bound (ELBO) on $\log p_\theta(x)$,
+  obtained by Jensen's inequality applied to the log-likelihood of a clean sample $x$
+  under the learned reverse process $p_\theta$.
+  Equation~\eqref{eq:decomp} decomposes $\mathcal{L}_{\mathrm{ELBO}}$ into a
+  reconstruction term and a sum of per-step KL divergences
+  $\mathrm{KL}(q(x_{t-1}|x_t,x)\,\|\,p_\theta(x_{t-1}|x_t))$
+  over $t=2,\ldots,T$; each KL term is tractable because the forward posterior
+  $q(x_{t-1}|x_t,x)$ is Gaussian for linear-Gaussian noise schedules.
+  Equation~\eqref{eq:retro} is the \textsc{RetroDiff} contribution:
+  the ELBO is conditioned on a retrieved exemplar set $R(x)$,
+  and the objective is averaged over the data distribution $p_{\mathrm{data}}$.
+  All equations use the canonical DDPM notation;
+  $\theta$ denotes the reverse-model parameters.%
+}

@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        2,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Stacked bars clearly show 4-class proportions across 5 conditions; y-axis uses percent labels 0–100%; brief's claim is fully conveyed.",
+    "typography":            "pdf.fonttype defaults to 3 (Type 3 bitmap), not 42; pdffonts confirms 'BMQQDV+DejaVuSans Type 3' — text is not editable/selectable; DejaVu Sans default font used.",
+    "palette":               "Seaborn-derived blue/green/red/orange palette; red (#C44E52) and green (#55A868) are adjacent in stacked bars, problematic for deuteranopia/protanopia; not fully colorblind-safe.",
+    "layout_density":        "Legend placed outside plot area (bbox_to_anchor=(1.01,1)) which wastes right-side space; plot area itself is well-used with no overlapping labels; y-range 0–1 is correct.",
+    "reviewer_readiness":    "Caption matches figure content and mentions specific conditions (Cond2–Cond3, Cond5, Cond4); legend is outside the axes which is acceptable but slightly awkward; no gridlines may hinder reading stacked values.",
+    "vector_fidelity":       "PDF is 12KB and uses Type 3 fonts (bitmap glyphs), not Type 1/TrueType with fonttype=42; text is not selectable in the PDF; script does not set pdf.fonttype=42.",
+    "file_format":           "figure.pdf, figure.png, figure.svg, caption.tex, and gen_figure.py all exist and are non-trivial (PDF 12KB, PNG 23KB, SVG 30KB).",
+    "caption_quality":       "Caption names all four classes with colors, states each bar sums to 100%, identifies specific conditions where Class C dominates and where distribution is most even, and cites data source."
+  },
+  "overall_strengths": [
+    "All required output files are present and non-trivial; figure.svg also included as a bonus.",
+    "Caption is specific and informative, naming dominant classes per condition and citing the data source."
+  ],
+  "overall_weaknesses": [
+    "pdf.fonttype is not set to 42, resulting in Type 3 bitmap fonts in the PDF — text is not selectable or editable by journal production.",
+    "Red/green color pair (#C44E52 and #55A868) in adjacent stacked segments is not safe for red-green colorblind readers; a colorblind-safe palette (e.g., Wong or Okabe-Ito) should be used."
+  ]
+}

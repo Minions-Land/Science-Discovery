@@ -1,0 +1,26 @@
+{
+  "run_id": "20260525T010719Z",
+  "arm": "minionsos-v4",
+  "fig_type": "sankey",
+  "model": "claude-sonnet-4-6",
+  "effort": "max",
+  "started_utc": "2026-05-25T01:07:19Z",
+  "fixture_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/fixtures/sankey",
+  "out_dir": "/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw4/sessions/minionsos-v4/sankey/20260525T010719Z",
+  "finished_utc": "2026-05-25T01:10:15.263861+00:00",
+  "exit_code": 0,
+  "produced": [
+    "brief.md",
+    "caption.tex",
+    "data.json",
+    "figure.pdf",
+    "figure.png",
+    "figure.svg",
+    "gen_figure.py"
+  ],
+  "has_figure_pdf": true,
+  "has_figure_png": true,
+  "has_figure_svg": true,
+  "has_caption": true,
+  "has_script": true
+}

@@ -1,0 +1,26 @@
+{
+  "study_type": "observational prospective cohort",
+  "reporting_guideline": "STROBE",
+  "venue": "Cell Reports Medicine",
+  "topic": "non-invasive prediction of liver fibrosis progression in MASLD patients",
+  "sample": {
+    "n_total": 2412,
+    "n_baseline": 2412,
+    "n_followup": 1987,
+    "setting": "3-center cohort, mainland China, recruited 2018-2022, mean follow-up 3.4y",
+    "primary_outcome": "liver-fibrosis progression by ≥1 stage on 2nd biopsy"
+  },
+  "statistical_methods": {
+    "primary_analysis": "Cox proportional hazards with time-varying covariates",
+    "adjusted_for": ["age", "sex", "BMI", "diabetes", "alcohol intake", "baseline fibrosis stage"],
+    "missing_data": "multiple imputation, m=10 iterations",
+    "sensitivity": "E-value for unmeasured confounding; complete-case analysis",
+    "software": "R 4.3.1, survival 3.5-7, mice 3.16.0",
+    "alpha": "two-tailed p < 0.05; Bonferroni for the 3 secondary endpoints"
+  },
+  "bias_considerations": [
+    "healthy-volunteer bias on follow-up biopsy refusal — sensitivity by inverse-probability weighting",
+    "misclassification of fibrosis stage between centers — central pathology re-read for 20% sample",
+    "residual confounding from diet — addressed by E-value sensitivity analysis"
+  ]
+}
