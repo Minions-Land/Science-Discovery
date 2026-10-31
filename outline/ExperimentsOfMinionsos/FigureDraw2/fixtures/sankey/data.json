@@ -1,0 +1,48 @@
+{
+  "nodes": [
+    "Raw",
+    "Cleaned",
+    "Filtered",
+    "Train",
+    "Val",
+    "Test",
+    "Reject"
+  ],
+  "links": [
+    {
+      "source": "Raw",
+      "target": "Cleaned",
+      "value": 1000
+    },
+    {
+      "source": "Raw",
+      "target": "Reject",
+      "value": 120
+    },
+    {
+      "source": "Cleaned",
+      "target": "Filtered",
+      "value": 820
+    },
+    {
+      "source": "Cleaned",
+      "target": "Reject",
+      "value": 60
+    },
+    {
+      "source": "Filtered",
+      "target": "Train",
+      "value": 600
+    },
+    {
+      "source": "Filtered",
+      "target": "Val",
+      "value": 120
+    },
+    {
+      "source": "Filtered",
+      "target": "Test",
+      "value": 100
+    }
+  ]
+}

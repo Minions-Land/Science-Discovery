@@ -1,0 +1,33 @@
+{
+  "scores": {
+    "scientific_clarity": 3,
+    "typography": 2,
+    "palette": 2,
+    "layout_density": 3,
+    "reviewer_readiness": 3,
+    "vector_fidelity": 1,
+    "file_format": 3,
+    "caption_quality": 3
+  },
+  "evidence": {
+    "scientific_clarity": "Spring layout with seed=42 visibly clusters intra-community nodes. Intra-edges (solid grey) and inter-edges (dashed dark) are drawn separately, making community structure and cross-community bridges immediately legible. Node labels are present.",
+    "typography": "Node labels use font_size=6.5 with bold white text on coloured nodes — readable at output resolution. Title (12 pt bold) and legend (8.5/9 pt) are appropriately sized. However, no pdf.fonttype=42 or rcParams font-family setting is present, so font sizing is adequate but embedding is not explicitly controlled.",
+    "palette": "Uses NPG-style hex colours (#E64B35, #4DBBD5, #00A087, #F39B7F). Hue contrast is reasonable for normal vision, but #E64B35 (red) and #F39B7F (salmon/orange) are problematic for deuteranopia/protanopia — not a verified CVD-safe palette. Three of four colours are distinguishable under most colour-vision deficiencies.",
+    "layout_density": "k=1.8/sqrt(N) and iterations=100 spread nodes well. node_size=260 is modest. Edge alpha 0.35 (intra) and 0.55 (inter) prevent clutter. No visible node overlap or hairball effect in the output PNG.",
+    "reviewer_readiness": "Figure includes a descriptive title, a legend labelling all four communities, distinct edge styles for intra vs inter links, and a clean white/light-grey background. Axis is hidden. Meets journal submission readability standards.",
+    "vector_fidelity": "PDF is saved (fig.savefig('figure.pdf')) and SVG is also saved, which is positive. However, neither pdf.fonttype=42 nor svg.fonttype='none' is set in rcParams. Matplotlib defaults to Type 3 (PostScript) fonts in PDF output, which are not true embedded TrueType/OpenType vectors and can cause issues in some PDF workflows and preprint systems.",
+    "file_format": "All four required outputs are present on disk: figure.pdf, figure.png, caption.tex, gen_figure.py. Additionally figure.svg was generated as a bonus. DPI is set to 150 for raster outputs.",
+    "caption_quality": "Caption specifies node count (30), community count (4), assignment method (cyclic, communities 0-3), layout algorithm (spring/NetworkX), random seed (42), and edge-type semantics (solid grey = intra, dashed dark = inter). Contains enough methodological detail to reproduce the figure independently."
+  },
+  "overall_strengths": [
+    "Community structure is clearly communicated through both colour and edge-style encoding — two independent visual channels reinforce the same information.",
+    "Layout parameters (k, iterations, alpha, node_size) are well-tuned to avoid the hairball effect common in network figures.",
+    "Caption is thorough and reproducible: seed, algorithm, community assignment rule, and edge semantics are all stated explicitly.",
+    "All required output files are present; SVG is an unrequested bonus."
+  ],
+  "overall_weaknesses": [
+    "Missing pdf.fonttype=42 (and svg.fonttype='none') in rcParams means the PDF and SVG use Type 3 fonts rather than embedded TrueType/OpenType, reducing vector fidelity for preprint and journal submission pipelines.",
+    "The palette is not verified CVD-safe: the red (#E64B35) and salmon (#F39B7F) pair is indistinguishable for common red-green colour vision deficiencies. Replacing one with a blue-family or explicitly using a CVD-validated palette (e.g. Wong 2011) would improve accessibility.",
+    "Node label font size (6.5 pt) may fall below legibility thresholds after PDF downscaling to single-column journal widths (~3.3 in); bumping to 7-8 pt and confirming readability at target print size is advisable."
+  ]
+}

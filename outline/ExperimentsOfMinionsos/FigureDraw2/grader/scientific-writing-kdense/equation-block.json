@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               3,
+    "layout_density":        2,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       3,
+    "file_format":           2,
+    "caption_quality":       2
+  },
+  "evidence": {
+    "scientific_clarity":   "All three numbered equations (ELBO, decomposition, retrieval-augmented) are present with explanatory prose and cross-references via \\eqref; derivation chain is clear and complete.",
+    "typography":            "Latin Modern fonts (LMRoman, LMMathItalic, LMMathSymbols) embedded as Type 1 subsets; no DejaVu Sans; proper italic variables and upright operators throughout.",
+    "palette":               "Monochrome text/equation figure with no color; no directional/categorical color misuse possible; clean black-on-white rendering.",
+    "layout_density":        "Full letter page (612x792 pts, 1275x1650 px PNG at 150dpi) with content filling only the top ~60%; pdfcrop did not reduce to content bbox, leaving noticeable blank lower portion.",
+    "reviewer_readiness":    "Caption correctly describes all three equations; cross-references and prose match figure content; however, required equations.tex source file is absent from deliverables.",
+    "vector_fidelity":       "PDF produced by pdfTeX-1.40.29 with all 14 font subsets embedded as Type 1; text is fully selectable; genuine vector document.",
+    "file_format":           "figure.pdf, figure.png, caption.tex, and gen_figure.py are all present and non-trivial; equations.tex (explicitly required by brief) is missing.",
+    "caption_quality":       "Caption identifies each equation's role (ELBO, decomposition, retrieval conditioning) with mathematical notation, but contains no quantitative claim or specific numerical finding about model performance."
+  },
+  "overall_strengths": [
+    "Rigorous, complete LaTeX derivation with proper align environments, numbered equations, \\label/\\eqref cross-references, and explanatory interstitial prose matching the brief exactly.",
+    "Excellent typographic quality: Latin Modern math fonts, all subsets embedded, genuine pdfTeX vector PDF with selectable text — no matplotlib font pitfalls."
+  ],
+  "overall_weaknesses": [
+    "equations.tex source file is missing from the working directory despite being explicitly required by the brief, making the derivation non-reproducible from source.",
+    "PDF/PNG retain full letter-page blank space below content (pdfcrop either was unavailable or ineffective), reducing layout density; a cropped output would better serve journal submission."
+  ]
+}

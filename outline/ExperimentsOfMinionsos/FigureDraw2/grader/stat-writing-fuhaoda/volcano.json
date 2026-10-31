@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       2
+  },
+  "evidence": {
+    "scientific_clarity":   "Volcano plot clearly shows up/down/non-sig gene classes with threshold dashed lines; top-5 genes labelled; brief's scientific claim fully delivered.",
+    "typography":            "No pdf.fonttype=42 or svg.fonttype=0 set in script; pdffonts confirms Type 3 (bitmap) fonts (DejaVu Sans family), not editable Type 42/TrueType; default DejaVu Sans used throughout.",
+    "palette":               "Grey/blue/red palette is colorblind-safe for most forms of CVD; directional color discipline is correct (red=up, blue=down); however red/green convention not violated since green is absent.",
+    "layout_density":        "7x5.5 inch figure, tight layout applied, scatter fills the panel well, threshold lines visible, legend in upper-right without overlap; no gaping whitespace.",
+    "reviewer_readiness":    "Caption lacks concrete n-values for up/down genes (placeholders 'n right/left of threshold'); legend and threshold annotations are present; overall figure is clean but caption incompleteness would draw reviewer comment.",
+    "vector_fidelity":       "PDF contains Type 3 bitmap fonts (EVICAO+DejaVuSans-Bold, etc.) — text is not selectable/editable; script does not set matplotlib.rcParams['pdf.fonttype']=42.",
+    "file_format":           "All four required files exist and are non-trivial: figure.pdf (81 KB), figure.png (102 KB), caption.tex (411 B), gen_figure.py (2 KB); bonus figure.svg also present.",
+    "caption_quality":       "Caption describes axes, thresholds with numeric values, and color coding, but leaves 'n' counts as literal 'n' rather than filling in actual numbers; no specific gene names or p-value claims given."
+  },
+  "overall_strengths": [
+    "Complete, well-structured volcano plot that faithfully implements all brief requirements (thresholds, three-class coloring, top-5 annotation).",
+    "Clean layout with tight_layout, spines removed, alpha-blended scatter, and a readable legend — figure is immediately interpretable."
+  ],
+  "overall_weaknesses": [
+    "Font type not set to 42/TrueType: PDF uses Type 3 bitmap fonts, making text non-selectable and the figure unsuitable for production-quality journal submission.",
+    "Caption leaves actual gene-count placeholders unfilled ('n right/left of threshold') and provides no concrete numerical finding, weakening reviewer-readiness."
+  ]
+}

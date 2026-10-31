@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               3,
+    "layout_density":        2,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "10x10 confusion matrix with diagonal highlighted and off-diagonal colored by Blues cmap directly matches the brief; axes labeled, colorbar present, title clear.",
+    "typography":            "No pdf.fonttype=42 or svg.fonttype=0 set anywhere in script; PDF embeds DejaVu Sans as Type 3 (non-selectable glyphs), the default matplotlib font.",
+    "palette":               "Blues is a single-hue sequential colormap, perceptually uniform and colorblind-safe; no red/green directional misuse; diagonal fixed blue (#2c7bb6) is consistent.",
+    "layout_density":        "figsize=(8,7) with tight_layout is reasonable for 10x10; cell annotation at 8pt may be tight but workable; no obvious overlap or gaping whitespace from code.",
+    "reviewer_readiness":    "Caption matches figure content and color encoding accurately; specific numerical finding included; however Type 3 fonts and rasterized cells would draw reviewer comments.",
+    "vector_fidelity":       "PDF uses Type 3 fonts (pdffonts confirms DejaVuSans and DejaVuSans-Bold as Type 3); heatmap cells are rasterized XObject images embedded in PDF, not vector paths.",
+    "file_format":           "figure.pdf (27K), figure.png (64K), caption.tex (472B), gen_figure.py (1.9K) all present and non-trivial; figure.svg also produced as bonus.",
+    "caption_quality":       "Caption explains row=true/col=predicted encoding, describes color scheme, and provides specific numerical claims: C8 highest accuracy (92 correct), C1 most confused."
+  },
+  "overall_strengths": [
+    "Caption is publication-quality: explains the encoding, identifies the best and worst classes by name, and anchors the finding with a concrete count (92).",
+    "Blues colormap is colorblind-safe and perceptually appropriate for sequential off-diagonal counts; all required output files are present and non-trivial."
+  ],
+  "overall_weaknesses": [
+    "Missing pdf.fonttype=42 (and svg.fonttype=0): PDF embeds Type 3 bitmap-traced glyphs instead of TrueType outlines, making text non-selectable and non-editable in Illustrator/Inkscape.",
+    "Heatmap cells are rasterized as XObject images inside the PDF rather than vector rectangles, undermining the value of the PDF format for high-resolution print."
+  ]
+}

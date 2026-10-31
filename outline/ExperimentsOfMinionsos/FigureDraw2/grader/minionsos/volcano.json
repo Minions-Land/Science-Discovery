@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               3,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       3,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Volcano plot correctly encodes log2FC on x, -log10(p) on y, classifies 235 up / 230 down / 2535 ns with threshold lines and top-5 annotations — fully matches brief.",
+    "typography":            "pdf.fonttype=42 and svg.fonttype='none' both set; font stack leads with Arial/Helvetica before DejaVu Sans fallback; 9pt base with sensible 8/7.5/7pt hierarchy.",
+    "palette":               "Red (#C0392B) up / blue (#2471A3) down / grey (#AAAAAA) NS — directional discipline correct, red-blue distinguishable under deuteranopia/protanopia, no green/red confusion.",
+    "layout_density":        "6×5 in figure, tight_layout with rect=[0,0.05,1,1] reserves space for below-axis legend; s=5/7 scatter avoids overplotting 3000 points; no gaping whitespace.",
+    "reviewer_readiness":    "Caption counts match script output and thresholds are explicit; legend placed below in 3-column row is clean; gene labels are synthetic indices (G{i}) rather than real symbols — minor but visible.",
+    "vector_fidelity":       "figure.pdf is 154 KB (non-trivial); pdf.fonttype=42 ensures Type-42 embedded fonts; scatter rasterized=True is correct practice for dense point clouds in PDF.",
+    "file_format":           "figure.pdf (154 KB), figure.png (221 KB), caption.tex (553 B), gen_figure.py (4.4 KB) all present and non-trivial; bonus figure.svg also produced.",
+    "caption_quality":       "Caption states axes, threshold values (|log2FC|=1, p=0.01), exact counts for all three classes, and notes top-5 labelling — specific numerical claim present."
+  },
+  "overall_strengths": [
+    "Fully publication-ready typography stack: pdf.fonttype=42, svg.fonttype=none, Arial-first font family, and a clean size hierarchy throughout.",
+    "Caption is precise and self-contained, with exact gene counts and threshold values that match the script output."
+  ],
+  "overall_weaknesses": [
+    "Gene annotations use array indices (G0, G1, …) rather than meaningful identifiers; a reviewer would immediately ask for real gene symbols.",
+    "Red-blue palette, while functional, is not maximally colorblind-safe for tritanopia; adding a shape or size cue for up/down would make the figure fully accessible."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   2,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        2,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           2,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Sankey correctly shows 1120→820 filtered→600/120/100 splits with proportional flow widths; claim is legible but column headers are small/italic and the Reject node sits ambiguously among output splits.",
+    "typography":            "No pdf.fonttype=42 or svg.fonttype=0 set; PDF uses Type3 (bitmapped) DejaVuSans-Bold/Oblique — default matplotlib font, not publication-quality, and text is not selectable.",
+    "palette":               "Seaborn-default blue/green/red used; red (#C44E52) assigned to neutral 'Filtered' stage implies directionality/warning where none is intended; grey for rejected flows is appropriate; palette is not fully colorblind-safe (red-green conflict).",
+    "layout_density":        "10×5.5 in canvas is well-used; four columns evenly spaced; node labels with counts fit inside rectangles; no obvious overlapping text or excessive whitespace.",
+    "reviewer_readiness":    "Caption matches figure numbers exactly; legend is implicit (colors explained in caption); Reject node placement among output splits could confuse readers; column header 'Raw Corpus' vs node label 'Raw' is a minor inconsistency.",
+    "vector_fidelity":       "PDF is 33KB and contains vector paths for ribbons/rectangles, but fonts are Type3 (outlines baked as paths, not embedded TrueType); text is not selectable or editable in Illustrator/Inkscape.",
+    "file_format":           "figure.pdf (33KB), figure.png (63KB), figure.svg (108KB), caption.tex, and gen_figure.py all present and non-trivial; data.json not present in directory but figure was successfully generated.",
+    "caption_quality":       "Caption states specific numbers (1120 raw, 180 rejected, 820 filtered, 600/120/100 splits), explains flow-width encoding, and notes grey for rejected — fully informative for a standalone figure."
+  },
+  "overall_strengths": [
+    "Caption is precise and self-contained, citing all key counts and encoding conventions.",
+    "Manual Bezier-ribbon Sankey is visually clean with proportional flows and labeled nodes; all required output files are present."
+  ],
+  "overall_weaknesses": [
+    "PDF fonts are Type3 (not fonttype=42), so text is non-selectable and the figure is not truly editable vector; DejaVu Sans default font is unsuitable for publication.",
+    "Red used for a neutral pipeline stage ('Filtered') violates directional-color discipline and creates a red-green accessibility issue alongside the green 'Cleaned' node."
+  ]
+}

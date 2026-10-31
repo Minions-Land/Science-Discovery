@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Sankey clearly shows the 1120→1000→820→(600/120/100/120-reject) flow with proportional band widths; nodes are labelled with counts; claim is immediately readable.",
+    "typography":            "Script omits pdf.fonttype=42 and svg.fonttype='none'; SVG text is converted to glyph-path outlines using DejaVu Sans (default matplotlib font), so text is not editable and the default font is present.",
+    "palette":               "Colors are broadly distinct and directionally neutral; however #4DAC26 (Cleaned/green) and #1B9E77 (Test/teal) are both green-family hues that may be confused by red-green colorblind viewers.",
+    "layout_density":        "11×6 figure fills space well; four columns are well-spaced, node bars are sized proportionally, labels sit cleanly beside bars with no overlap visible in the PNG.",
+    "reviewer_readiness":    "No legend (color meanings only deducible from node labels); caption is accurate and complete; Reviewer 2 would likely ask for explicit color legend or color-key annotation.",
+    "vector_fidelity":       "PDF is valid vector (58 streams, path-based graphics) but text is Type3 outlines rather than embedded TrueType (fonttype=42 not set); text is not selectable in the PDF.",
+    "file_format":           "figure.pdf (12 KB), figure.png (50 KB), figure.svg (24 KB), caption.tex (390 B), and gen_figure.py (3.5 KB) all exist and are non-trivial.",
+    "caption_quality":       "Caption names the figure type, walks through all five transitions with exact sample counts (1120, 1000, 120, 60, 820, 600, 120, 100), explains that width is proportional and colours track source nodes."
+  },
+  "overall_strengths": [
+    "Sankey diagram faithfully encodes all pipeline stages with correct proportional flow widths and numerical labels, making the scientific story immediately clear.",
+    "Caption is thorough: it names all nodes, quotes concrete numbers at every stage, and explains the visual encoding conventions."
+  ],
+  "overall_weaknesses": [
+    "Neither pdf.fonttype=42 nor svg.fonttype='none' is set, so text is baked into glyph outlines (Type3 in PDF, path-use in SVG) using the default DejaVu Sans font — text is neither editable nor searchable.",
+    "Green (#4DAC26 Cleaned) and teal (#1B9E77 Test) are both in the green perceptual family and may be indistinguishable for red-green colorblind readers; a dedicated colorblind-safe palette (e.g. Okabe-Ito) is not used, and no legend is provided to help disambiguate."
+  ]
+}

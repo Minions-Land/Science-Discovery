@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               1,
+    "layout_density":        3,
+    "reviewer_readiness":    1,
+    "vector_fidelity":       0,
+    "file_format":           3,
+    "caption_quality":       1
+  },
+  "evidence": {
+    "scientific_clarity":   "Stacked bars sum to 1 across 5 conditions with 4 classes, y-axis 0-100% with percent labels — fully matches brief.",
+    "typography":            "Default DejaVu Sans used (no fonttype=42 set); font sizes 9-11pt are reasonable but the default font is not publication-quality.",
+    "palette":               "Green (#55A868) and red (#C44E52) assigned to categorical classes B and C — violates directional color discipline; palette is otherwise CB-safe.",
+    "layout_density":        "6x4 figure with tight_layout, 0.6 bar width, clean spines removed; space is well-used with no gaping whitespace or overlapping labels.",
+    "reviewer_readiness":    "Caption explicitly names green and red for categorical classes, which a reviewer will flag; legend is upper-right and may overlap bars depending on data.",
+    "vector_fidelity":       "PDF embeds DejaVuSans as Type 3 (bitmap glyphs, not selectable text); script never sets matplotlib.rcParams['pdf.fonttype']=42.",
+    "file_format":           "figure.pdf (12K), figure.png (26K), figure.svg (30K), caption.tex, and gen_figure.py all present and non-trivial.",
+    "caption_quality":       "Caption describes the chart structure and color mapping but contains no numerical finding, trend statement, or specific claim about the data."
+  },
+  "overall_strengths": [
+    "Clean layout with removed top/right spines, tight_layout, and appropriate axis formatting (percent labels, labeled axes).",
+    "All required output files are present and non-trivial; SVG bonus output included."
+  ],
+  "overall_weaknesses": [
+    "PDF uses Type 3 (bitmap) fonts — no pdf.fonttype=42 — making text non-selectable and unsuitable for journal submission.",
+    "Green and red assigned to categorical classes violates directional color discipline, and the caption lacks any quantitative finding."
+  ]
+}

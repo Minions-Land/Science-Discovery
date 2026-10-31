@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   2,
+    "typography":            0,
+    "palette":               1,
+    "layout_density":        2,
+    "reviewer_readiness":    1,
+    "vector_fidelity":       0,
+    "file_format":           2,
+    "caption_quality":       2
+  },
+  "evidence": {
+    "scientific_clarity":   "Sankey flow from Raw→Cleaned→Filtered→Train/Val/Test is legible with node counts labelled; brief's pipeline claim is conveyed, but no legend explaining colour keys is present in the figure itself.",
+    "typography":            "No pdf.fonttype=42 or svg.fonttype setting in script; PDF embeds Type3 (bitmap) fonts (pdffonts confirms); SVG contains zero <text>/<tspan> elements — all text converted to paths; DejaVu Sans Bold (matplotlib default) used throughout.",
+    "palette":               "Grey for rejected flows is appropriate; however Cleaned=green (#6ACC65) and Filtered=red (#D65F5F) form a red-green pair on categorical (non-directional) nodes, which is problematic for deuteranopia/protanopia viewers.",
+    "layout_density":        "11×6 inch canvas with manual column layout uses space reasonably; node rectangles and bezier bands fill the panel; no obvious gaping whitespace or overlapping labels at 1635×884 px resolution.",
+    "reviewer_readiness":    "Caption states '60 records discarded' from 1000 leaving 820, but 1000−60=940≠820 (180 unaccounted); this numerical inconsistency would draw an immediate reviewer query; no in-figure legend for colour keys.",
+    "vector_fidelity":       "PDF uses Type3 fonts (confirmed by pdffonts: EVICAO+DejaVuSans-Bold, Type3); text is not selectable; SVG has no text elements (paths only); script sets neither pdf.fonttype=42 nor svg.fonttype='none'.",
+    "file_format":           "figure.pdf (12 KB), figure.png (44 KB), figure.svg (24 KB), caption.tex, and gen_figure.py all present and non-trivial; data.json absent from directory but script references it (runtime dependency, not an output file).",
+    "caption_quality":       "Caption names each pipeline stage and quotes specific counts (1120, 1000, 820, 600, 120, 100); explains grey vs coloured flows; but contains an arithmetic error (1000−60≠820) that undermines the numerical claim."
+  },
+  "overall_strengths": [
+    "Clean manual Sankey implementation with bezier bands and per-stage colour coding clearly communicates the dataset preparation pipeline flow.",
+    "Caption attempts quantitative specificity by citing sample counts at every stage, and all required output files are present."
+  ],
+  "overall_weaknesses": [
+    "No pdf.fonttype=42 / svg.fonttype='none' set: PDF text is Type3 bitmap and SVG text is path-converted — figure is not editable in Illustrator/Inkscape.",
+    "Caption contains an arithmetic inconsistency (1000 − 60 = 940, not 820) and the red-green colour pair for categorical nodes fails colorblind-safety requirements."
+  ]
+}

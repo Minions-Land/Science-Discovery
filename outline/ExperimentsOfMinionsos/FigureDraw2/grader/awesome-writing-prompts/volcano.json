@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               3,
+    "layout_density":        3,
+    "reviewer_readiness":    3,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Volcano plot clearly shows up/down/ns classification with threshold lines and top-5 annotations; directly fulfills brief claim.",
+    "typography":            "No pdf.fonttype=42 or svg.fonttype='none' set; matplotlib default (likely DejaVu Sans Type-3) used — text will not be selectable/editable in PDF/SVG.",
+    "palette":               "Blue (#4C72B0) down, red (#DD4949) up, grey (#b0b0b0) ns — directional discipline maintained; blue/red pair is distinguishable for most colorblind types.",
+    "layout_density":        "7x5.5 inches with tight_layout; scatter points fill the panel, legend upper-left, annotations offset with arrows — no gaping whitespace or overlaps.",
+    "reviewer_readiness":    "Caption matches figure: exact counts, threshold values, axis labels, annotation rationale; legend is clearly placed; a reviewer would find no obvious discrepancies.",
+    "vector_fidelity":       "pdf.fonttype=42 is not set in the script, so fonts are embedded as non-selectable Type-3 bitmaps in the PDF; svg.fonttype='none' also absent.",
+    "file_format":           "figure.pdf, figure.png, figure.svg, caption.tex, and gen_figure.py all present and non-trivial.",
+    "caption_quality":       "Caption states n=3000, gives numerical counts (up=235, down=230, ns=2535), explains axes, thresholds (|log2FC|>=1, p<=0.01), and annotation methodology."
+  },
+  "overall_strengths": [
+    "Strong scientific content: clear 3-class volcano with threshold lines and top-5 annotation fulfills the brief completely.",
+    "Excellent caption with specific numerical findings (counts, threshold values) and honest annotation caveat about index labels."
+  ],
+  "overall_weaknesses": [
+    "Missing pdf.fonttype=42 and svg.fonttype='none', so text is not selectable/editable in the vector outputs — a critical omission for publication.",
+    "No explicit font family set; matplotlib default (DejaVu Sans) is used rather than a publication-quality sans-serif (e.g. Arial, Helvetica, or a system sans)."
+  ]
+}

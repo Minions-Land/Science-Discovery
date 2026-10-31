@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            2,
+    "palette":               2,
+    "layout_density":        2,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Sankey clearly shows 1120→1000→820 split into Train/Val/Test/Reject with proportional flow widths; all counts labeled on nodes.",
+    "typography":            "Arial used throughout (not DejaVu Sans), 12px node labels and 15px title are readable; however PDF is Kaleido/Skia-rasterized so fonttype=42 is irrelevant and text is not selectable.",
+    "palette":               "Distinct hues per stage; colorblind risk: red (#F44336) for Test and green (#4CAF50) for Cleaned use the red/green pair that is problematic for deuteranopia, and red is used directionally for a terminal node rather than a directional signal.",
+    "layout_density":        "860×500 canvas is well-used; node labels sit outside bars without overlap; Reject node is small but legible; no excessive whitespace.",
+    "reviewer_readiness":    "Caption matches figure counts exactly; no legend needed (nodes are self-labeled); title duplicates caption topic but is not harmful; Reject count (180) in SVG/figure differs from caption's implied 120+60=180 — consistent.",
+    "vector_fidelity":       "figure.pdf is produced by Kaleido (Skia/PDF m148) and contains only /Subtype /Image objects — text is rasterized, not selectable vector; no font entries in PDF.",
+    "file_format":           "figure.pdf (104 KB), figure.png (156 KB), figure.svg (9.3 KB), caption.tex, and gen_figure.py all present and non-trivial.",
+    "caption_quality":       "Caption states specific numbers (1120 raw, 1000 pass cleaning, 120 rejected, 60 removed by quality filter, 820 filtered, 600/120/100 split) and explains flow-width encoding and color scheme."
+  },
+  "overall_strengths": [
+    "All required output files are present and non-trivial; the SVG is true vector with selectable text and correct Arial font.",
+    "Caption is precise and data-rich, matching every node count in the figure, with a clear narrative of the pipeline stages."
+  ],
+  "overall_weaknesses": [
+    "figure.pdf is a rasterized image-in-PDF (Kaleido/Skia), not a true vector PDF — text is not selectable and fonttype=42 is not applied.",
+    "Red (#F44336) and green (#4CAF50) are used as stage colors, creating a red-green pair that fails deuteranopia colorblind safety checks."
+  ]
+}

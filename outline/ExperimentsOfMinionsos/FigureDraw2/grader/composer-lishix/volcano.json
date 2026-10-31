@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Volcano plot clearly conveys up/down/non-sig classification with threshold lines and top-5 annotations; brief's core claim is fully satisfied.",
+    "typography":            "No pdf.fonttype=42 or svg.fonttype=0 set; PDF embeds DejaVu Sans as Type 3 bitmapped glyphs (not editable TrueType/Type 42); default DejaVu Sans used throughout.",
+    "palette":               "Red/blue for up/down is directional and colorblind-distinguishable (deuteranopia-safe); grey for non-sig is appropriate; palette is mostly CB-safe but red/green not used, good practice.",
+    "layout_density":        "Panel fills the 6x5 figure well, no gaping whitespace; legend placed inside axes without overlap; y-axis range sensibly covers data; no label collisions visible.",
+    "reviewer_readiness":    "Caption matches figure content and includes gene counts; legend inside plot could be questioned by reviewers; gene labels are index-based (acknowledged in caption); overall presentation is clean.",
+    "vector_fidelity":       "figure.pdf uses Type 3 (bitmapped) fonts, not Type 42 (TrueType/editable); text is NOT selectable/editable; script lacks matplotlib.rcParams['pdf.fonttype']=42.",
+    "file_format":           "figure.pdf, figure.png, figure.svg, caption.tex, and gen_figure.py all exist and are non-trivial (pdf=86 KB, png=92 KB, svg=132 KB).",
+    "caption_quality":       "Caption explicitly states n=235 up, n=230 down, n=2535 non-sig, describes axes, thresholds, and labeling rationale; specific numerical finding present."
+  },
+  "overall_strengths": [
+    "Clear scientific communication: volcano plot faithfully implements the brief with correct thresholds, 3-color classification, and top-5 annotations.",
+    "Strong caption with specific numerical claims (n=235 up, n=230 down, n=2535 non-sig) and complete description of axes and thresholds."
+  ],
+  "overall_weaknesses": [
+    "Typography/vector fidelity failure: missing pdf.fonttype=42 and svg.fonttype=0 means fonts are bitmapped Type 3 in PDF (not editable) and DejaVu Sans default is used instead of a publication-quality font.",
+    "PDF text is not selectable or editable by downstream editors, which is a standard requirement for journal submission."
+  ]
+}

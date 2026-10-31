@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   2,
+    "typography":            1,
+    "palette":               1,
+    "layout_density":        2,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Sankey with labeled nodes and sample counts correctly depicts the brief's pipeline (Raw→Cleaned→Filtered→Train/Val/Test/Reject); flow direction and proportional bands are clear.",
+    "typography":            "No pdf.fonttype=42 anywhere in gen_figure.py; pdffonts confirms Type 3 DejaVuSans-Bold and DejaVuSans-Oblique — the matplotlib default, not editable TrueType.",
+    "palette":               "Green (#55A868) for 'Cleaned' and red (#C44E52) for 'Filtered' are adjacent stages — red/green pairing fails deuteranopia; no explicit colorblind-safe palette used.",
+    "layout_density":        "10×6 in figure with 4 columns, nodes centered vertically, column headers at top, node labels offset to sides; margins are tight but reasonable; no obvious overlap.",
+    "reviewer_readiness":    "Caption matches figure structure and includes specific counts; column headers label each stage; Reviewer 2 would likely flag the red/green colorblind issue and Type 3 fonts.",
+    "vector_fidelity":       "figure.pdf is 25 KB real vector PDF, but pdffonts shows Type 3 fonts (not selectable/searchable); script has zero occurrences of fonttype=42.",
+    "file_format":           "All four required files present and non-trivial: figure.pdf (25 KB), figure.png (56 KB), caption.tex (404 B), gen_figure.py (4.6 KB); bonus figure.svg also produced.",
+    "caption_quality":       "Caption names all pipeline stages with exact counts (1,000→820→600+120+100), explains band-width encoding, and matches the figure's visual structure precisely."
+  },
+  "overall_strengths": [
+    "All required output files are present and non-trivial, with a bonus SVG; the Sankey layout is clean with proportional bezier bands and per-node count labels.",
+    "Caption is quantitatively specific (seven distinct sample counts cited) and explains the visual encoding, making it self-contained for a reader."
+  ],
+  "overall_weaknesses": [
+    "Missing pdf.fonttype=42 (and svg.fonttype) means all text in the PDF is rendered as Type 3 bitmap glyphs — not selectable, searchable, or editable by journal production.",
+    "Red (#C44E52) and green (#55A868) are used for adjacent pipeline stages, failing the colorblind-safe requirement; a sequential or perceptually uniform palette (e.g. viridis-derived or Okabe-Ito) should replace them."
+  ]
+}
