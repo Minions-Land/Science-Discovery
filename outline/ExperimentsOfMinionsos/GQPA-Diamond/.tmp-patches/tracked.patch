@@ -1,0 +1,336 @@
+diff --git a/minions/config/__init__.py b/minions/config/__init__.py
+index 3edac0f..218de81 100644
+--- a/minions/config/__init__.py
++++ b/minions/config/__init__.py
+@@ -1023,6 +1023,40 @@ class GruConfig(BaseModel):
+             "maintenance — Sonnet is sufficient and much cheaper than Opus."
+         ),
+     )
++    expert_model: str | None = Field(
++        default=None,
++        description=(
++            "Optional model override for the Expert role. When None, Expert "
++            "uses the claude CLI default (typically Opus). Set to a model "
++            "alias (e.g. 'haiku', 'sonnet') to pin Expert for cost/benchmark "
++            "experiments. Honoured by minions.lifecycle.role_launcher._role_model."
++        ),
++    )
++    coder_model: str | None = Field(
++        default=None,
++        description=(
++            "Optional model override for the Coder role. Same semantics as "
++            "expert_model. Used by benchmark cells to pin every Role to one "
++            "model family (e.g. all-Haiku, all-Sonnet)."
++        ),
++    )
++    expert_model: str | None = Field(
++        default=None,
++        description=(
++            "Optional model override for the Expert role. When None, Expert "
++            "uses the claude CLI default (typically Opus). Set to a model "
++            "alias (e.g. 'haiku', 'sonnet') to pin Expert for cost/benchmark "
++            "experiments. Honoured by minions.lifecycle.role_launcher._role_model."
++        ),
++    )
++    coder_model: str | None = Field(
++        default=None,
++        description=(
++            "Optional model override for the Coder role. Same semantics as "
++            "expert_model. Used by benchmark cells to pin every Role to one "
++            "model family (e.g. all-Haiku, all-Sonnet)."
++        ),
++    )
+     agent_host: Literal["claude", "codex"] = Field(
+         default="claude",
+         description="Default agent host for Gru and role wakeups: claude or codex.",
+diff --git a/minions/lifecycle/role_launcher.py b/minions/lifecycle/role_launcher.py
+index eca0cc6..c61289d 100644
+--- a/minions/lifecycle/role_launcher.py
++++ b/minions/lifecycle/role_launcher.py
+@@ -479,9 +479,27 @@ def _role_env(
+ 
+ 
+ def _role_model(cfg: GruConfig, role_name: str) -> str | None:
+-    """Return the model override for a role, or None for the default."""
++    """Return the model override for a role, or None for the default.
++
++    Resolution order (first non-empty wins):
++    1. ``MINIONS_<ROLE>_MODEL`` env var (per-role hard override; used by
++       benchmark harnesses to pin a single cell without mutating gru.yaml).
++    2. ``cfg.<role>_model`` from gru.yaml.
++    3. None → launcher omits ``--model`` and Claude CLI picks its default.
++    """
++    import os as _os
++
++    env_key = f"MINIONS_{role_name.upper()}_MODEL"
++    env_value = _os.environ.get(env_key, "").strip()
++    if env_value:
++        return env_value
++
+     if role_name == "noter":
+         return cfg.noter_model
++    if role_name == "expert" or role_name.startswith("expert-"):
++        return cfg.expert_model
++    if role_name == "coder":
++        return cfg.coder_model
+     return None
+ 
+ 
+diff --git a/minions/tools/evaluator.py b/minions/tools/evaluator.py
+index 5d4cbae..4d40527 100644
+--- a/minions/tools/evaluator.py
++++ b/minions/tools/evaluator.py
+@@ -20,6 +20,7 @@ from __future__ import annotations
+ 
+ import json
+ import logging
++import re
+ from pathlib import Path
+ from typing import Literal
+ 
+@@ -215,6 +216,8 @@ def mos_evaluate(args: EvaluateArgs) -> dict[str, object]:
+         result = _evaluate_scientific_peer_review(port, meta, args.reference_override)
+     elif strategy == "answer_grader":
+         result = _evaluate_answer_grader(port, meta, args.reference_override)
++    elif strategy == "answer_grader_batch":
++        result = _evaluate_answer_grader_batch(port, meta, args.reference_override)
+     elif strategy == "test_runner":
+         result = _evaluate_test_runner(port, meta, args.reference_override)
+     else:
+@@ -369,6 +372,236 @@ def _evaluate_answer_grader(
+     }
+ 
+ 
++_FINAL_ANSWER_RE = re.compile(
++    r"FINAL\s+ANSWER\s+([A-Za-z0-9_-]+)\s*[:\-]\s*([A-D])\b",
++    re.IGNORECASE,
++)
++
++
++def _parse_batch_answers(text: str) -> dict[str, str]:
++    """Parse 'FINAL ANSWER <qid>: <letter>' lines from *text*.
++
++    Later lines for the same qid override earlier lines (treat the file as a
++    log; the last claim wins). Letters are upper-cased.
++    """
++    out: dict[str, str] = {}
++    for match in _FINAL_ANSWER_RE.finditer(text):
++        qid = match.group(1)
++        letter = match.group(2).upper()
++        out[qid] = letter
++    return out
++
++
++def _evaluate_answer_grader_batch(
++    port: int, meta: dict, reference_override: str | None
++) -> dict[str, object]:
++    """Compare batched answers.md to reference {qid: letter} dict.
++
++    Reads ``branches/shared/submissions/answers.md``, extracts every
++    ``FINAL ANSWER <qid>: <letter>`` line, compares against
++    ``input/expected.json`` (a flat ``{qid: letter}`` mapping), and reports
++    per-question correctness plus aggregate accuracy.
++    """
++    profile_eval = meta.get("profile_evaluation", {})
++    reference_path_rel = reference_override or profile_eval.get(
++        "reference_path", "input/expected.json"
++    )
++
++    pdir = project_dir(port)
++    reference_path = pdir / reference_path_rel
++    submission_path = project_shared_subdir(port, "submissions") / "answers.md"
++
++    if not reference_path.exists():
++        raise ProjectError(f"Reference answers not found: {reference_path}")
++    if not submission_path.exists():
++        raise ProjectError(f"Submission answers not found: {submission_path}")
++
++    expected_raw = json.loads(reference_path.read_text(encoding="utf-8"))
++    if not isinstance(expected_raw, dict):
++        raise ProjectError(
++            f"answer_grader_batch: expected.json must be a {{qid: letter}} object, "
++            f"got {type(expected_raw).__name__}"
++        )
++    expected: dict[str, str] = {str(k): str(v).strip().upper() for k, v in expected_raw.items()}
++
++    submitted = _parse_batch_answers(submission_path.read_text(encoding="utf-8"))
++
++    per_question: dict[str, dict[str, object]] = {}
++    correct = 0
++    answered = 0
++    for qid, expected_letter in expected.items():
++        submitted_letter = submitted.get(qid)
++        if submitted_letter is None:
++            per_question[qid] = {
++                "expected": expected_letter,
++                "submitted": None,
++                "status": "missing",
++            }
++            continue
++        answered += 1
++        is_correct = submitted_letter == expected_letter
++        if is_correct:
++            correct += 1
++        per_question[qid] = {
++            "expected": expected_letter,
++            "submitted": submitted_letter,
++            "status": "correct" if is_correct else "incorrect",
++        }
++
++    extra = sorted(set(submitted) - set(expected))
++    total = len(expected)
++    accuracy = (correct / total) if total > 0 else 0.0
++    # Verdict 'correct' is reserved for the all-correct case so the on_done
++    # passing-gate logic in mos_evaluate doesn't auto-shutdown a partially
++    # correct batch.
++    if total > 0 and correct == total:
++        verdict = "correct"
++    elif answered < total:
++        verdict = "incomplete"
++    else:
++        verdict = "partial"
++
++    logger.info(
++        "answer_grader_batch: port=%d total=%d answered=%d correct=%d accuracy=%.3f",
++        port,
++        total,
++        answered,
++        correct,
++        accuracy,
++    )
++
++    return {
++        "port": port,
++        "strategy": "answer_grader_batch",
++        "score": accuracy,
++        "verdict": verdict,
++        "details": {
++            "total": total,
++            "answered": answered,
++            "correct": correct,
++            "incorrect": answered - correct,
++            "missing": total - answered,
++            "extra_qids": extra,
++            "per_question": per_question,
++        },
++    }
++
++
++_FINAL_ANSWER_RE = re.compile(
++    r"FINAL\s+ANSWER\s+([A-Za-z0-9_-]+)\s*[:\-]\s*([A-D])\b",
++    re.IGNORECASE,
++)
++
++
++def _parse_batch_answers(text: str) -> dict[str, str]:
++    """Parse 'FINAL ANSWER <qid>: <letter>' lines from *text*.
++
++    Later lines for the same qid override earlier lines (treat the file as a
++    log; the last claim wins). Letters are upper-cased.
++    """
++    out: dict[str, str] = {}
++    for match in _FINAL_ANSWER_RE.finditer(text):
++        qid = match.group(1)
++        letter = match.group(2).upper()
++        out[qid] = letter
++    return out
++
++
++def _evaluate_answer_grader_batch(
++    port: int, meta: dict, reference_override: str | None
++) -> dict[str, object]:
++    """Compare batched answers.md to reference {qid: letter} dict.
++
++    Reads ``branches/shared/submissions/answers.md``, extracts every
++    ``FINAL ANSWER <qid>: <letter>`` line, compares against
++    ``input/expected.json`` (a flat ``{qid: letter}`` mapping), and reports
++    per-question correctness plus aggregate accuracy.
++    """
++    profile_eval = meta.get("profile_evaluation", {})
++    reference_path_rel = reference_override or profile_eval.get(
++        "reference_path", "input/expected.json"
++    )
++
++    pdir = project_dir(port)
++    reference_path = pdir / reference_path_rel
++    submission_path = project_shared_subdir(port, "submissions") / "answers.md"
++
++    if not reference_path.exists():
++        raise ProjectError(f"Reference answers not found: {reference_path}")
++    if not submission_path.exists():
++        raise ProjectError(f"Submission answers not found: {submission_path}")
++
++    expected_raw = json.loads(reference_path.read_text(encoding="utf-8"))
++    if not isinstance(expected_raw, dict):
++        raise ProjectError(
++            f"answer_grader_batch: expected.json must be a {{qid: letter}} object, "
++            f"got {type(expected_raw).__name__}"
++        )
++    expected: dict[str, str] = {str(k): str(v).strip().upper() for k, v in expected_raw.items()}
++
++    submitted = _parse_batch_answers(submission_path.read_text(encoding="utf-8"))
++
++    per_question: dict[str, dict[str, object]] = {}
++    correct = 0
++    answered = 0
++    for qid, expected_letter in expected.items():
++        submitted_letter = submitted.get(qid)
++        if submitted_letter is None:
++            per_question[qid] = {
++                "expected": expected_letter,
++                "submitted": None,
++                "status": "missing",
++            }
++            continue
++        answered += 1
++        is_correct = submitted_letter == expected_letter
++        if is_correct:
++            correct += 1
++        per_question[qid] = {
++            "expected": expected_letter,
++            "submitted": submitted_letter,
++            "status": "correct" if is_correct else "incorrect",
++        }
++
++    extra = sorted(set(submitted) - set(expected))
++    total = len(expected)
++    accuracy = (correct / total) if total > 0 else 0.0
++    # Verdict 'correct' is reserved for the all-correct case so the on_done
++    # passing-gate logic in mos_evaluate doesn't auto-shutdown a partially
++    # correct batch.
++    if total > 0 and correct == total:
++        verdict = "correct"
++    elif answered < total:
++        verdict = "incomplete"
++    else:
++        verdict = "partial"
++
++    logger.info(
++        "answer_grader_batch: port=%d total=%d answered=%d correct=%d accuracy=%.3f",
++        port,
++        total,
++        answered,
++        correct,
++        accuracy,
++    )
++
++    return {
++        "port": port,
++        "strategy": "answer_grader_batch",
++        "score": accuracy,
++        "verdict": verdict,
++        "details": {
++            "total": total,
++            "answered": answered,
++            "correct": correct,
++            "incorrect": answered - correct,
++            "missing": total - answered,
++            "extra_qids": extra,
++            "per_question": per_question,
++        },
++    }
++
++
+ def _evaluate_test_runner(
+     port: int, meta: dict, reference_override: str | None
+ ) -> dict[str, object]:

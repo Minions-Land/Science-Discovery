@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8"/>
+<title>MinionsOS — 矢量排版与 Multi-Panel 独家优势</title>
+<style>
+:root{--bg:#fbfaf6;--ink:#1a1a1a;--dim:#5a6068;--accent:#9c3b16;--accent-ink:#6e2a0f;--rule:#e7e2d6;--card:#fff;--code-bg:#f1ecde;--shadow:0 1px 2px rgba(0,0,0,.03),0 6px 20px rgba(20,10,0,.04);--serif:"Iowan Old Style",Cambria,Georgia,serif;--sans:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,sans-serif;--mono:"SF Mono",Menlo,Consolas,monospace;--measure:680px}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.72}
+#progress{position:fixed;top:0;left:0;height:2px;width:100%;background:transparent;z-index:100}
+#progress::after{content:"";display:block;height:100%;width:var(--p,0%);background:var(--accent);transition:width .12s}
+nav#toc{position:fixed;top:110px;left:24px;width:220px;font-family:var(--sans);font-size:13px;line-height:1.5;color:var(--dim);z-index:50}
+nav#toc .cap{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a9099;margin:0 0 12px;padding-left:14px}
+nav#toc ol{list-style:none;margin:0;padding:0}
+nav#toc a{display:block;padding:6px 12px;border-left:1px solid var(--rule);color:var(--dim);text-decoration:none}
+nav#toc a:hover{color:var(--accent-ink)}
+nav#toc a.active{border-left:2px solid var(--accent);color:var(--accent-ink);background:#faeee3}
+@media (max-width:1120px){nav#toc{display:none}}
+article{max-width:var(--measure);margin:80px auto 40px;padding:0 24px}
+header.hero{padding-bottom:40px;border-bottom:1px solid var(--rule);margin-bottom:72px}
+.eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;margin:0 0 22px}
+h1{font-size:46px;line-height:1.1;letter-spacing:-.02em;font-weight:700;margin:0 0 28px}
+.standfirst{font-size:20px;line-height:1.55;font-style:italic;color:#2f343a;margin:0 0 32px}
+.byline{font-family:var(--sans);font-size:13px;color:var(--dim)}
+.byline .sep{margin:0 8px;color:#8a9099}
+section{margin:72px 0}
+h2{font-size:30px;line-height:1.2;letter-spacing:-.015em;font-weight:700;margin:0 0 8px}
+h2 .roman{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.18em;color:#8a9099;font-weight:400;margin-bottom:10px}
+h3{font-size:21px;line-height:1.25;font-weight:700;margin:48px 0 12px}
+.deck{font-size:16px;line-height:1.5;font-style:italic;color:var(--dim);margin:0 0 36px}
+p{margin:0 0 18px}
+p.drop::first-letter{float:left;font-family:var(--serif);font-size:62px;line-height:.86;padding:6px 8px 0 0;color:var(--accent);font-weight:700}
+.sep-ornament{text-align:center;font-size:22px;color:#8a9099;letter-spacing:1em;margin:56px 0;padding-left:1em}
+em{font-style:italic}strong,b{font-weight:700}
+a{color:var(--accent);text-decoration:underline}
+code{font-family:var(--mono);font-size:14px;background:var(--code-bg);padding:1px 5px;border-radius:3px;color:#3a2410}
+blockquote{margin:32px 0;padding:8px 0 8px 22px;border-left:3px solid var(--accent);font-style:italic;color:#2f343a;font-size:18px;line-height:1.6}
+blockquote cite{display:block;font-style:normal;font-family:var(--sans);font-size:12px;color:var(--dim);letter-spacing:.04em;margin-top:8px}
+blockquote cite::before{content:"— "}
+table{width:100%;border-collapse:collapse;background:var(--card);font-family:var(--sans);font-size:13px;margin:24px 0;box-shadow:var(--shadow);border-radius:4px;overflow:hidden}
+thead th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:600;color:var(--dim);padding:12px;text-align:left;border-bottom:1px solid var(--rule);background:#fbf8ef}
+tbody td{padding:11px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fbf8ef}
+td.num{font-variant-numeric:tabular-nums;text-align:right;font-family:var(--mono);font-size:13px}
+.aside{margin:32px 0;padding:14px 18px;background:var(--card);border-left:3px solid var(--accent);box-shadow:var(--shadow);border-radius:0 4px 4px 0;font-size:15px;line-height:1.6}
+.aside.warn{border-left-color:#9a6a00}
+.aside .k{display:inline-block;font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-right:8px}
+.aside.warn .k{color:#9a6a00}
+.statband{display:flex;gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:36px 0;padding:18px 0}
+.statband .stat{flex:1;text-align:center;padding:0 14px;border-right:1px solid var(--rule)}
+.statband .stat:last-child{border-right:none}
+.statband .stat .v{font-family:var(--serif);font-size:32px;line-height:1.1;color:var(--accent-ink);font-weight:700;display:block}
+.statband .stat .l{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-top:6px;display:block}
+.wide{max-width:1280px;margin:48px auto;padding:0 24px}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:24px 0}
+.compare.triple{grid-template-columns:1fr 1fr 1fr}
+.ccard{background:var(--card);border:1px solid var(--rule);border-radius:5px;overflow:hidden;box-shadow:var(--shadow);font-family:var(--sans);font-size:12px}
+.ccard img{width:100%;height:auto;display:block;background:#f0ece4;border-bottom:1px solid var(--rule)}
+.ccard .meta{padding:10px 14px 12px}
+.ccard .label{font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--dim)}
+.ccard .label.win{color:var(--accent)}
+.ccard .label.win::after{content:" ★ WIN";font-weight:600}
+.ccard .label.bad{color:#9a3320}
+.ccard .label.bad::after{content:" ✗ FAILS";color:#9a3320;font-weight:600}
+.ccard .score{font-family:var(--mono);font-size:15px;margin-top:4px;color:var(--ink)}
+.ccard .score b{color:var(--accent-ink)}
+.ccard .note{color:var(--dim);margin-top:6px;font-size:12px;line-height:1.5}
+.ccard .verdict{margin-top:8px;font-style:italic;font-family:var(--serif);font-size:13px;color:#2f343a;border-top:1px solid var(--rule);padding-top:8px}
+footer.colophon{max-width:var(--measure);margin:80px auto;padding:32px 24px 64px;border-top:1px solid var(--rule);font-family:var(--sans);font-size:13px;color:var(--dim);line-height:1.7}
+@media (max-width:900px){.compare{grid-template-columns:1fr}.compare.triple{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav id="toc">
+  <p class="cap">目录</p>
+  <ol>
+    <li><a href="#tldr">I 速览</a></li>
+    <li><a href="#vector">II 矢量化排版</a></li>
+    <li><a href="#multipanel">III Multi-panel</a></li>
+    <li><a href="#panel-map">IV Panel-count 力学</a></li>
+    <li><a href="#textfig">V 图文协同</a></li>
+    <li><a href="#ceiling">VI 边界</a></li>
+  </ol>
+</nav>
+<article>
+  <header class="hero">
+    <p class="eyebrow">MinionsOS 独家优势 · 矢量排版 × Multi-Panel × 图文协同</p>
+    <h1>Plain Sonnet 做不到的三件事</h1>
+    <p class="standfirst">MinionsOS 配备了 `pdf-vector-layout`、`figure-layout-defaults`、`academic-plotting` 等七个写作/排版 SKILL,在三个最难的场景里赢过不携带任何 SKILL 的 Sonnet baseline:矢量级 PDF 微调、7-panel 复合图、6-SKILL 全文图文协同。</p>
+    <div class="byline">
+      <span>MinionsOS SkillTest · FigureDraw 证据汇编</span><span class="sep">&middot;</span>
+      <span>2026-05-25</span>
+    </div>
+  </header>
+
+  <section id="tldr">
+  <h2><span class="roman">I</span>速览</h2>
+  <p class="deck">三个挑战级场景,MinionsOS 全赢。Plain Sonnet(无 SKILL)在这三个场景里要么产出 raster 截图、要么 layout 错位、要么 text-layer 三重化。</p>
+  <p class="drop">MinionsOS 的写作/排版 SKILL 库在三个最难场景里展示了 plain Sonnet/Claude 做不到的能力:(1) <b>矢量级 PDF 微调</b> — 多 PDF 拼版时保持 text-layer 正确性,不三重化 token;(2) <b>Multi-panel 复合图正确性</b> — 7-panel pharma pipeline 用户打分 80–90 vs baseline 60,净赢 +10/22;(3) <b>图文协同排版</b> — 6 个 SKILL 同时加载,4 个 section 各自触发对应规则,无冲突,macro 数 6–8 vs baseline 1–3。</p>
+
+  <div class="statband">
+    <div class="stat"><span class="v">+10</span><span class="l">7-panel 净赢</span></div>
+    <div class="stat"><span class="v">0</span><span class="l">text 三重化</span></div>
+    <div class="stat"><span class="v">6</span><span class="l">SKILL 同时加载</span></div>
+    <div class="stat"><span class="v">22/22</span><span class="l">7-panel 满分</span></div>
+    <div class="stat"><span class="v">8</span><span class="l">macro 数(FD3)</span></div>
+  </div>
+
+  <blockquote>
+    "这个 Figure Layout Default 的 Candidate 无论是从颜色还是排版上,都完全胜过了 Baseline. Baseline 的排版虽然也不错,但我认为只能给到 60 分(属于能用的程度);而右边的 Candidate 我认为已经可以给到 80 到 90 分了,几乎完美."
+    <cite>SkillTest R5.C 7-panel 用户视觉判定(逐字引用)</cite>
+  </blockquote>
+</section>
+
+<p class="sep-ornament">❧</p>
+<section id="vector">
+  <h2><span class="roman">II</span>矢量化排版 — PDF point 级微调</h2>
+  <p class="deck">Plain Sonnet 默认走 cropbox-stamp 拼版,text-layer 三重化。MinionsOS `pdf-vector-layout` SKILL 走 content-stream edit,零三重化。</p>
+
+  <h3>失败模式:cropbox-stamp 的 text-layer 三重化</h3>
+  <p>当用户要求 "把 PDF 的下半部分移到页面下方" 或 "多 PDF 矢量拼接" 时,plain Sonnet 的直觉路径是:</p>
+  <ol style="margin:0 0 18px;padding-left:28px">
+    <li>Clone source page,narrow cropbox/mediabox 到目标区域</li>
+    <li>用 <code>pypdf.PageObject.merge_transformed_page</code> stamp 三次(above region, shifted region, below region)</li>
+  </ol>
+  <p>这个路径产生的 PDF <em>render 正确</em>,但 text-layer 是坏的。PDF cropbox 只 clip <b>renderer 的 viewport</b>,不 clip content stream。所以 <code>pdftotext</code> / copy-paste / 搜索 / 屏幕阅读器看到 <b>三份完整 page</b>,即使像素看起来对。</p>
+
+  <div class="aside warn">
+    <span class="k">实测数据</span>5-panel synthetic test:cropbox-stamp pipeline 产出 5.3 KB(同内容嵌 ~3×);content-stream edit 产出 1.6 KB。任何 token 在 output 里出现次数 > source 即为 smoking gun。<code>verify_vector.py --source &lt;orig&gt;</code> 捕获此失败模式。
+  </div>
+
+  <h3>MinionsOS 的修法:content-stream edit</h3>
+  <p><code>pdf-vector-layout</code> SKILL 的 <code>scripts/move_pdf_region.py</code> + <code>merge_pdf_pages.py</code> 走 pikepdf content-stream 解析路径:</p>
+  <ol style="margin:0 0 18px;padding-left:28px">
+    <li>Parse content stream → segment by atomic unit(q/Q frames, BT/ET text blocks, m/re...paint path blocks, standalone Do)</li>
+    <li>Classify each unit by page-coords y-bbox</li>
+    <li>Wrap in-region units with <code>q 1 0 0 1 0 SHIFT_Y cm ... Q</code></li>
+    <li>Unparse → 新 PDF,text-layer 正确,file size 正常</li>
+  </ol>
+  <p>State-only ops(Tf font setters, gs graphics-state)永远保留。结果:render 正确 <b>且</b> text-layer 正确。</p>
+
+  <h3>像素级位移精度 — 上去几个像素、下来几个像素</h3>
+  <p>SKILL 的 <code>scripts/move_pdf_region.py</code> 在 content stream 里注入一个平移矩阵 <code>q 1 0 0 1 0 -80 cm ... Q</code>。这里 <code>1 0 0 1 0 -80</code> 是 PDF 的 6 元 affine matrix(<code>a b c d tx ty</code>),<code>ty=-80</code> 就是 "把这块内容下移 80 pt(≈ 28 mm)"。换成 +30 就是上移 30 pt(≈ 10.5 mm)。源对象本身没动 —— panel 字母 "g" 在原文里依然是十六进制 <code>&lt;67&gt;</code>,矩形坐标依然是 <code>60 220 130 150</code> —— 只是渲染坐标系被平移了。这是 "搬运" 而不是 "复制" 的字节证据。</p>
+
+  <p>用模板互相关在 150 DPI 渲染上量,目标位移 -80 / +30 / -100 pt 三组测试,实测误差全部 ≤ 0.32 pt(≈ 0.11 mm) —— 属于渲染舍入级别,不是算法误差。</p>
+
+  <table>
+    <thead><tr><th>测试</th><th class="num">目标位移</th><th class="num">实测位移</th><th class="num">误差</th><th class="num">≈ mm</th></tr></thead>
+    <tbody>
+      <tr><td>Test 1 — reportlab 5-panel,底行 g/h/i 下移</td><td class="num">−80.00 pt</td><td class="num">−80.16 pt</td><td class="num">0.16 pt</td><td class="num">0.06 mm</td></tr>
+      <tr><td>Test 2 — matplotlib q/Q-wrapped,区域 [5,410] 上移</td><td class="num">+30.00 pt</td><td class="num">+29.76 pt</td><td class="num">0.24 pt</td><td class="num">0.08 mm</td></tr>
+      <tr><td>Test 3 — extract+merge to dest_y=100</td><td class="num">−100.00 pt</td><td class="num">−100.32 pt</td><td class="num">0.32 pt</td><td class="num">0.11 mm</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside">
+    <span class="k">这是什么级别的精度</span>0.32 pt ≈ 0.11 mm ≈ <b>2 像素</b>(150 DPI 渲染下)。Plain Sonnet 走 cropbox-stamp 路径根本量不出 "几个像素" 的位移,因为它的产物 text-layer 是三重化的,模板互相关在 raster 上找到的不是真实位置而是叠加伪影。MinionsOS 的 SKILL 不仅做对了,还能 verify 自己做对了。
+  </div>
+
+  <h3>实际使用场景 — 用户原话(从真实 session distilled)</h3>
+  <table>
+    <thead><tr><th>用户说</th><th>SKILL 操作</th><th>结果</th></tr></thead>
+    <tbody>
+      <tr><td>"把 PDF 移到页面下方"</td><td><code>scripts/move_pdf_region.py</code> 在 content stream 注入 <code>cm</code> 矩阵</td><td>text-layer 正确,文件大小不变</td></tr>
+      <tr><td>"再紧凑一点"</td><td>6–10 pt 减少垂直间距,再问用户确认</td><td>title-figure gap 收紧,无 layout shift</td></tr>
+      <tr><td>"g 被裁断了"</td><td>destination clip box 高度 +4–6 pt,fragment 同步上移</td><td>descender 完整,无重叠</td></tr>
+      <tr><td>"svg 和 png 我都要"</td><td>PDF 是 source of truth,<code>pdftocairo -svg</code> + <code>-png</code> 派生</td><td>三件套都是 vector,可被 Illustrator/Inkscape 编辑</td></tr>
+      <tr><td>"e/f/g/h/i 被显示成两套"</td><td>vector white-fill rectangle mask source-PDF 的 label 区域</td><td>只剩 composite 的 f/g/h/i/j 一套</td></tr>
+      <tr><td>"模仿 nature 排版"</td><td>panel letter Helvetica 8 pt bold + axis 7 pt + legend 6–7 pt + line 0.5–1.0 pt</td><td>typography 维度从 1.53/3 → 2.95/3</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Nature/Science/Cell house-style typography</h3>
+  <p>SKILL 同时包含 Nature 子刊排版 checklist(panel letters lowercase bold sans 8–9 pt,axis labels 7 pt,legend 6–7 pt,line widths 0.5–1.0 pt,Helvetica/Arial font family,<code>pdf.fonttype=42</code> 强制)。这些规则在 FigureDraw 系列实验里反复验证,typography 维度从 FD2 的 1.53/3 涨到 FD4 的 2.95/3。</p>
+
+  <table>
+    <thead><tr><th>维度</th><th>失败模式(baseline)</th><th>MinionsOS 修法</th></tr></thead>
+    <tbody>
+      <tr><td>Text-layer duplication</td><td>cropbox-stamp 三重化 token</td><td>content-stream edit,零三重化</td></tr>
+      <tr><td>Panel letter 冲突</td><td>source PDF 的 e/f/g/h/i + composite 的 f/g/h/i/j 同时可见</td><td>vector white-fill rectangle mask,只保留一套</td></tr>
+      <tr><td>"g 被裁断了"</td><td>clip box 紧贴数据,descender 被切</td><td>4–6 pt safety margin above highest data point</td></tr>
+      <tr><td>Font embedding</td><td>Type 3 bitmap fonts</td><td><code>pdf.fonttype=42</code> + pdffonts verification gate</td></tr>
+    </tbody>
+  </table>
+
+  <p>完整 regression report 见 <a href="vector-regression-report.html">vector-regression-report.html</a> — 包含 <code>pdftotext</code> 提取对照、<code>verify_vector --source</code> 检测、字节级 <code>cm</code> 矩阵注入、150 DPI 模板互相关位移精度测量(全部 ≤ 0.32 pt)。</p>
+</section>
+
+<p class="sep-ornament">❧</p>
+<section id="multipanel" class="wide">
+  <h2 style="text-align:center"><span class="roman" style="text-align:center">III</span>Multi-panel 复合图正确性</h2>
+  <p class="deck" style="text-align:center;max-width:680px;margin:0 auto 36px">7-panel pharma pipeline:Baseline 12/22(用户打 60 分)vs Candidate 22/22(用户打 80–90 分)。SkillTest 历史最干净的单项胜利。</p>
+
+  <h3 style="max-width:1280px;margin:0 24px 6px">R5.C 7-panel — "几乎完美" vs "能用的程度"</h3>
+  <div class="compare" style="max-width:1100px;margin:0 auto">
+    <div class="ccard">
+      <img src="assets/7panel__baseline.png"/>
+      <div class="meta">
+        <div class="label bad">BASELINE (plain Sonnet)</div>
+        <div class="score"><b>12</b>/22</div>
+        <div class="note">grid 3×4,G 被挤进 bottom-row single cell,与 D/E/F 平级,破坏 priority ranking。0 `&lt;text&gt;` nodes(text rasterised)。</div>
+        <div class="verdict">用户打分:60 / 100,"属于能用的程度"</div>
+      </div>
+    </div>
+    <div class="ccard">
+      <img src="assets/7panel__candidate.png"/>
+      <div class="meta">
+        <div class="label win">CANDIDATE (MinionsOS figure-layout-defaults)</div>
+        <div class="score"><b>22</b>/22</div>
+        <div class="note">grid 4×4,A=gs[0:2,0:2] hero,B/C top-right,D-G arranged in 2 bottom rows。114 `&lt;text&gt;` nodes + Arial。</div>
+        <div class="verdict">用户打分:80–90 / 100,"几乎完美"</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="max-width:1280px;margin:32px 24px 6px">5-panel / 6-panel / 9-panel 对照</h3>
+  <p style="max-width:1280px;margin:0 24px 16px">R4.B 5-panel:用户 "Baseline 排版无敌好看,nature-figure 排版超级垃圾"。R5.C 6-panel:skill inert(Codex 自然找到对答案)。R6.A 9-panel:同样 inert,但暴露两个新规则(subgridspec packing + y-axis 适配数据密度)。</p>
+
+  <div class="compare triple" style="max-width:1280px;margin:0 auto">
+    <div class="ccard">
+      <img src="assets/5panel__baseline.png"/>
+      <div class="meta">
+        <div class="label">5-panel BASELINE</div>
+        <div class="score"><b>16</b>/22</div>
+        <div class="note">3×3 grid,A=gs[0:2,0:2] hero,B/C right,D bottom-left,E bottom-spanning。用户:"无敌好看且非常准确"。</div>
+      </div>
+    </div>
+    <div class="ccard">
+      <img src="assets/6panel__baseline.png"/>
+      <div class="meta">
+        <div class="label">6-panel BASELINE</div>
+        <div class="note">3×4 grid。Skill inert(Codex 自然找对)。</div>
+      </div>
+    </div>
+    <div class="ccard">
+      <img src="assets/9panel__baseline.png"/>
+      <div class="meta">
+        <div class="label">9-panel BASELINE</div>
+        <div class="score"><b>17</b>/22</div>
+        <div class="note">4×4 grid。Skill inert for layout,但暴露 2 新规则。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="aside" style="max-width:1280px;margin:32px auto">
+    <span class="k">核心规律</span>Skill 的价值 scales with <b>COMPLEXITY OF DECISION</b>,not panel count linearly。4/5/7 panels 是 skill load-bearing 的复杂度区间;6/9 panels Codex 自然找对。7-panel 是 hierarchy + grid 同时求解的 sweet spot,产生 +10 净赢。
+  </div>
+</section>
+
+<p class="sep-ornament">❧</p>
+<section id="panel-map">
+  <h2><span class="roman">IV</span>Panel-count 力学 — 何时 skill load-bearing</h2>
+  <p class="deck">Cross-validation across 8 rounds × 14 cases。Skill 在 4/5/7 panels 时 load-bearing;在 6/9 panels 时 inert。</p>
+
+  <table>
+    <thead><tr><th>Panel count</th><th>Tested skills</th><th>Bucket</th><th>User verdict / score</th></tr></thead>
+    <tbody>
+      <tr><td>1 (single)</td><td>nature-figure, scientific-figure-making</td><td>Calibrates / Overreaches partial</td><td>rcParams + palette portable,mm-figsize HURTS</td></tr>
+      <tr><td><b>4</b></td><td>nature-figure, scientific-figure-making</td><td><b>Overreaches(both)</b></td><td>Asymmetric grid 输给 matplotlib default</td></tr>
+      <tr><td><b>5</b></td><td>nature-figure, scientific-figure-making</td><td><b>Overreaches(both)</b></td><td>"排版超级垃圾" vs baseline "无敌好看"</td></tr>
+      <tr><td>6</td><td>figure-layout-defaults</td><td>Matches baseline</td><td>Skill inert(Codex 自然找对)</td></tr>
+      <tr><td><b>7</b></td><td><b>figure-layout-defaults</b></td><td><b>Calibrates +10</b></td><td><b>"几乎完美" vs baseline "60 分"</b></td></tr>
+      <tr><td>9</td><td>figure-layout-defaults</td><td>Matches baseline</td><td>Skill inert for layout;暴露 2 新规则</td></tr>
+    </tbody>
+  </table>
+
+  <h3>R6.A 9-panel 暴露的两个新规则</h3>
+  <p>虽然 9-panel layout skill inert,但用户视觉判定暴露了两个 <b>所有 skill 都没覆盖</b> 的失败模式:</p>
+  <ol style="margin:0 0 18px;padding-left:28px">
+    <li><b>Right-quadrant 2×2 produces wasted whitespace.</b> 当 B/C/D/E 占 <code>gs[0,2]</code>, <code>gs[0,3]</code>, <code>gs[1,2]</code>, <code>gs[1,3]</code> 时,matplotlib 用 parent grid 的 wspace/hspace,导致 2×2 sub-region 内部留白过多。用户:"右上角这一块地方,图表是散开的,中间有很多留白." 修法:用 <code>subgridspec(2, 2, wspace=0.4, hspace=0.4)</code> pack 该 sub-region。</li>
+    <li><b>Y-axis range should match data density.</b> Bar chart 数值 65 和 -3,y-axis 0-100 default 留 35% 空白。用户:"柱子画得那么长,完全没有意义." 修法:当 data spans &lt;70% of nominal axis range,re-scale to <code>data_min - 0.1*(data_max-data_min)</code> to <code>data_max + 0.1*(data_max-data_min)</code>。</li>
+  </ol>
+  <p>这两条规则已加入 <code>figure-layout-defaults.md</code> Step 5 + Step 6。</p>
+</section>
+
+<p class="sep-ornament">❧</p>
+<section id="textfig">
+  <h2><span class="roman">V</span>图文协同排版 — 6-SKILL 同时加载</h2>
+  <p class="deck">R5.A end-to-end multi-skill:4 个 section(abstract / discussion / data-avail / rebuttal),6 个 SKILL 同时加载,无冲突,anchor rule 一致触发。</p>
+
+  <h3>Per-section 对照</h3>
+  <table>
+    <thead><tr><th>Section</th><th>Baseline</th><th>Candidate(MinionsOS)</th><th>Δ assessment</th></tr></thead>
+    <tbody>
+      <tr><td>(a) Abstract</td><td>OK("These findings support...")</td><td>"Here, we introduce" + "in mice / preclinical evaluation" bounded</td><td>candidate clearly better — venue formula + bounded implication</td></tr>
+      <tr><td>(b) Discussion</td><td>OK("does not establish causality")</td><td>Names 3 specific missing experiments</td><td>candidate clearly better — specificity rule biting</td></tr>
+      <tr><td>(c) Data Avail</td><td>"Available on reasonable request" — bare</td><td><code>[repository] [DOI/accession]</code> placeholders + named institutional DAC + DataCite metadata</td><td>candidate dramatically better</td></tr>
+      <tr><td>(d) Rebuttal</td><td>Prose mood("we agree...")+ no IDs</td><td><code>R1.1 / R1.2</code> IDs + "Revision locations: Methods [page/line X]" placeholders</td><td>candidate clearly better</td></tr>
+    </tbody>
+  </table>
+
+  <h3>FigureDraw paper-page macro 数对照</h3>
+  <p>FD2 paper-page cell:给 4 张图 + claim.json,要求出 2-3 页 LaTeX 论文片段。</p>
+  <table>
+    <thead><tr><th>arm</th><th class="num">pages</th><th class="num">size KB</th><th class="num"><code>
+ewcommand</code> 数</th><th class="num">latex errors</th></tr></thead>
+    <tbody>
+      <tr><td><b>minionsos (FD2)</b></td><td class="num">3</td><td class="num">366</td><td class="num"><b>6</b></td><td class="num">0</td></tr>
+      <tr><td><b>minionsos-v3 (FD3)</b></td><td class="num">3</td><td class="num">501</td><td class="num"><b>8</b></td><td class="num">0</td></tr>
+      <tr><td>ml-paper-writing</td><td class="num">3</td><td class="num">279</td><td class="num">3</td><td class="num">0</td></tr>
+      <tr><td>awesome-writing-prompts</td><td class="num">4</td><td class="num">290</td><td class="num">3</td><td class="num">0</td></tr>
+      <tr><td>scientific-writing-kdense</td><td class="num">3</td><td class="num">334</td><td class="num">2</td><td class="num">0</td></tr>
+      <tr><td>stat-writing-fuhaoda</td><td class="num">5</td><td class="num">247</td><td class="num">1</td><td class="num">0</td></tr>
+      <tr><td>composer-lishix</td><td class="num">3</td><td class="num">232</td><td class="num">1</td><td class="num">0</td></tr>
+    </tbody>
+  </table>
+  <p>MinionsOS 用 6–8 个 macro(method name + 4 个关键数字 + baseline 集合 + 新增 accuracy / dataset count),其它 arm ≤ 3 个。Macro discipline 内化进 <code>paper-compile</code> SKILL,agent 看到正文重复字面量会自动抽 macro。</p>
+
+  <div class="aside">
+    <span class="k">Token 经济学</span>R5.A multi-skill:baseline input ~600 tokens(fixture brief alone);candidate input ~28K tokens(sum of all 6 skill files + brief)。对 MinionsOS Writer,所有 6 个 SKILL 在 wake-up 时一次性 discovered(~28K context cost paid once per session);per-section work 跟 baseline 一样。
+  </div>
+</section>
+
+<p class="sep-ornament">❧</p>
+<section id="ceiling">
+  <h2><span class="roman">VI</span>边界与诚实 — Rule-based 的天花板</h2>
+  <p class="deck">R6.A 用户判定暴露了 rule-based palette 的天花板:"用了 Skill 的配色可能稍微规范一点,但是和美感、好看完全搭不上边."</p>
+
+  <h3>Rule-based 能做到什么</h3>
+  <p>所有 figure skills(nature-figure, scientific-figure-making, figure-layout-defaults)operate at the level of <b>RULES</b>:pick from this palette, use these fonts, this spacing。Rules produce <b>CORRECT</b> figures:</p>
+  <ul style="margin:0 0 18px;padding-left:28px">
+    <li>No rasterised text(pdf.fonttype=42 enforced)</li>
+    <li>No clashing hues(Okabe-Ito / Wong / Paul Tol)</li>
+    <li>No empty quadrants(layout-defaults grid rules)</li>
+    <li>No over-stretching(hero + contiguous remainder)</li>
+  </ul>
+
+  <h3>Rule-based 做不到什么</h3>
+  <p>Rules do <b>NOT</b> produce <b>BEAUTIFUL</b> figures。Beauty / aesthetic appeal requires:</p>
+  <ul style="margin:0 0 18px;padding-left:28px">
+    <li>Genuine visual design judgment(rules can constrain but not generate)</li>
+    <li>Iterative refinement based on overall composition(skills give rules per-panel,not per-figure)</li>
+    <li>A reference library of GOOD figures to learn from(visual exemplars,not rule lists)</li>
+    <li>Possibly a human designer or a specialized vision-capable model that can judge "does this look like a Nature cover?"</li>
+  </ul>
+
+  <div class="aside warn">
+    <span class="k">R6.A 用户原话</span>"用了 Skill 的配色可能稍微规范一点,但是和美感、好看完全搭不上边. 整体图表缺乏新意,设计非常朴素. 文字字号依然偏小,肉眼看得很费劲." — 这是 rule-based skill 的结构性天花板,不是单个 rule 的问题。
+  </div>
+
+  <h3>下一步方向</h3>
+  <p>Current skill library covers the "make it submittable" axis well。It does NOT cover the "make it beautiful" axis at all。That requires a different kind of skill — one with worked examples, palette <em>galleries</em>(not rules), typography case studies, and possibly a reference-figure visual diff workflow。</p>
+  <p>R6 synthesis 建议:author a separate <code>figure-aesthetic-exemplars.md</code> that shifts from rules to worked-examples-as-reference。Mark this as "skill design open question" — it may be that LLM-driven design simply cannot match aesthetic-quality figures without a vision-capable design loop。</p>
+</section>
+
+<footer class="colophon">
+  <p><b>证据来源:</b>本报告所有数据来自 SkillTest rounds R4.B / R5.A / R5.C / R6.A + FigureDraw2/FigureDraw3 paper-page cell + Layout regression-report。所有 baseline 均为 plain Sonnet 4.6(无 SKILL,env -i 隔离,--disallowedTools WebSearch WebFetch)。</p>
+  <p><b>原始数据:</b><code>/Users/mjm/Skill/SkillTest/rounds/</code> + <code>/Users/mjm/MinionsOS/outline/ExperimentsOfMinionsos/FigureDraw{2,3}/</code> + <code>/Users/mjm/Skill/Layout/regression-report.html</code>。每个 case 都有 PNG/PDF/SVG 三件套 + verdict.md 含逐字用户视觉判定。</p>
+  <p><b>SKILL 文件:</b><code>/Users/mjm/Skill/Layout/pdf-vector-layout/</code> + <code>/Users/mjm/MinionsOS/minions/roles/writer/skills/</code>(figure-layout-defaults / academic-plotting / figure-aesthetic-exemplars / latex-typography / paper-compile / pdf-vector-layout)。</p>
+  <p><b>Methodology:</b>所有 multi-panel rounds 用 Codex(SkillTest 专用 runner)生成 plotting script,用户做 visual review 打分。FigureDraw 系列用 LLM-as-judge grader(8 维各 0–3,满分 24)。</p>
+</footer>
+
+</article>
+<script>
+const s=document.querySelectorAll('section[id]'),links=document.querySelectorAll('nav#toc a'),prog=document.getElementById('progress');
+function upd(){const y=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;prog.style.setProperty('--p',(y/h*100).toFixed(1)+'%');let c='';s.forEach(sec=>{if(sec.getBoundingClientRect().top<=80)c=sec.id});links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+c))}
+window.addEventListener('scroll',upd,{passive:true});upd();
+</script>
+</body>
+</html>

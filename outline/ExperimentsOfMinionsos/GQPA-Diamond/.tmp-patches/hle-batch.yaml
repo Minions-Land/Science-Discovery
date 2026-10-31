@@ -1,0 +1,55 @@
+# hle-batch.yaml
+# Lightweight Mission Profile for benchmark-style multi-question batches
+# (one project answers an entire group of questions in one Gru-led session).
+#
+# Differences from hle-answer:
+# - Deliverable is a multi-line answers.md ("FINAL ANSWER <qid>: <letter>"
+#   per line), not a single answer.json.
+# - Evaluation strategy is answer_grader_batch: parse answers.md, compare
+#   each line to the corresponding entry in input/expected.json (a
+#   {qid: letter} dict), report per-question correctness + accuracy.
+# - on_done = dormant (don't auto-shutdown; the cell runner closes the
+#   project after grading so transcript / logs stay accessible).
+
+name: hle-batch
+lightweight: true
+
+roles_active:
+  - gru
+  - expert
+  - coder
+
+role_prompt_overlay:
+  expert: hle-batch/expert-overlay.md
+
+deliverable_schema:
+  required:
+    - branches/shared/submissions/answers.md
+  optional:
+    - branches/shared/submissions/reasoning.md
+    - branches/shared/exp/
+  publish_whitelist:
+    gru:
+      - "*"
+    coder:
+      - exp
+      - handoffs
+      - submissions
+    expert:
+      - handoffs
+      - submissions
+
+evaluation:
+  strategy: answer_grader_batch
+  reference_path: input/expected.json
+  # Comparison mode is fixed to exact_match per-question for batch grading.
+  comparison_mode: exact_match
+  # Adjudication is skipped in batch mode: the grader is a deterministic
+  # parse + dict-compare; running a 3-adjudicator panel per cell would
+  # multiply token cost ~4x for no signal.
+  adjudication:
+    depth: none
+
+phase_schema: minimal
+
+on_done: dormant
