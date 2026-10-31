@@ -1,0 +1,1284 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>AI Auto-Research 基准全景与 SOTA</title>
+  <style>
+:root{
+  --bg:#fbfaf6; --ink:#1a1a1a; --dim:#5a6068; --faint:#8a9099;
+  --accent:#9c3b16; --accent-ink:#6e2a0f; --accent-bg:#faeee3;
+  --rule:#e7e2d6; --card:#ffffff;
+  --code-bg:#f1ecde; --hi:#fff4cf;
+  --shadow:0 1px 2px rgba(0,0,0,.03),0 6px 20px rgba(20,10,0,.04);
+  --serif:"Iowan Old Style","Cambria","Liberation Serif","Songti SC","Source Han Serif SC",Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","PingFang SC","Noto Sans CJK SC",sans-serif;
+  --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+  --measure:680px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:17px/1.85 var(--serif);-webkit-font-smoothing:antialiased}
+#progress{position:fixed;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--accent) var(--p,0%),transparent var(--p,0%));z-index:1000}
+nav#toc{position:fixed;top:110px;left:24px;width:230px;font:13px/1.55 var(--sans);color:var(--dim);z-index:100}
+nav#toc .cap{font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:12px;color:var(--faint)}
+nav#toc ol{list-style:none}
+nav#toc li{margin:8px 0;padding-left:12px;border-left:1px solid var(--rule)}
+nav#toc a{text-decoration:none;color:var(--dim);display:block;transition:color .15s}
+nav#toc a:hover{color:var(--accent)}
+nav#toc a.active{color:var(--accent);border-left:2px solid var(--accent);margin-left:-1px;font-weight:500}
+nav#toc .num{font-variant-numeric:oldstyle-nums;margin-right:6px;color:var(--faint)}
+@media(max-width:1180px){nav#toc{display:none}}
+article{max-width:var(--measure);margin:0 auto;padding:48px 24px 120px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:40px;margin-bottom:72px}
+.eyebrow{font:12px/1.4 var(--sans);text-transform:uppercase;letter-spacing:.08em;color:var(--faint);margin-bottom:16px}
+h1{font:700 44px/1.2 var(--serif);letter-spacing:-.01em;margin-bottom:24px}
+.standfirst{font:italic 19px/1.7 var(--serif);color:#2f343a;margin-bottom:24px}
+.byline{font:13px/1.5 var(--sans);color:var(--dim);display:flex;flex-wrap:wrap;gap:8px 16px}
+.byline .sep{color:var(--faint)}
+.byline b{font-weight:600;color:var(--ink)}
+section{margin:72px 0}
+h2{font:700 28px/1.3 var(--serif);letter-spacing:-.01em;margin-bottom:16px}
+h2 .roman{display:block;font:600 14px/1.4 var(--mono);color:var(--faint);letter-spacing:.12em;margin-bottom:8px}
+h3{font:700 20px/1.35 var(--serif);margin:32px 0 16px}
+h4{font:600 14px/1.4 var(--sans);text-transform:uppercase;letter-spacing:.02em;color:var(--dim);margin:24px 0 12px}
+.deck{font:italic 16px/1.65 var(--serif);color:var(--dim);margin-bottom:24px}
+p{margin:16px 0}
+p.drop::first-letter{float:left;font-size:62px;line-height:52px;margin:4px 12px 0 0;color:var(--accent);font-weight:700}
+.sep-ornament{text-align:center;font-size:24px;letter-spacing:1em;color:var(--faint);margin:56px 0;user-select:none}
+blockquote{border-left:3px solid var(--accent);padding-left:24px;margin:32px 0;font:italic 17px/1.75 var(--serif);color:var(--dim)}
+blockquote cite{display:block;margin-top:12px;font:normal 13px/1.5 var(--sans);color:var(--faint)}
+blockquote cite::before{content:"— "}
+code{font:14px/1.5 var(--mono);background:var(--code-bg);padding:2px 6px;border-radius:3px}
+pre{background:var(--code-bg);padding:16px;border-radius:6px;overflow-x:auto;margin:24px 0}
+pre code{background:none;padding:0}
+table{width:100%;border-collapse:collapse;background:var(--card);box-shadow:var(--shadow);border-radius:6px;overflow:hidden;margin:32px 0;font:14px/1.6 var(--sans)}
+thead{background:var(--bg)}
+thead th{text-transform:uppercase;font-size:12px;letter-spacing:.05em;font-weight:600;padding:12px 16px;text-align:left;color:var(--dim);border-bottom:1px solid var(--rule)}
+tbody tr{border-bottom:1px solid var(--rule)}
+tbody tr:last-child{border:none}
+tbody tr:hover{background:#fbf8ef}
+td{padding:12px 16px}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+.benchmark-card{background:var(--card);box-shadow:var(--shadow);border-radius:8px;padding:20px 24px;margin:24px 0;border-left:3px solid var(--accent)}
+.benchmark-card h4{margin-top:0;color:var(--accent-ink)}
+.benchmark-card .meta{font:12px/1.5 var(--sans);color:var(--faint);margin:8px 0}
+.benchmark-card .sota{background:var(--accent-bg);padding:12px 16px;border-radius:4px;margin:12px 0;font:14.5px/1.75 var(--sans)}
+.benchmark-card .sota strong{color:var(--accent-ink)}
+.benchmark-card .local{background:#eaf2e8;padding:10px 14px;border-radius:4px;margin:10px 0;font:13px/1.65 var(--sans);color:#2d4a3e;border-left:3px solid #5a8a6e}
+.benchmark-card .local strong{color:#2d4a3e}
+.benchmark-card .local code{background:#dceadd;color:#1f3528;font-size:12px}
+.benchmark-card .badge{display:inline-block;font:600 10px/1.4 var(--sans);text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:3px;margin-left:8px;vertical-align:1px}
+.benchmark-card .badge.local{background:#5a8a6e;color:#fff;border:none;padding:2px 8px}
+.benchmark-card .badge.adapter{background:var(--accent);color:#fff}
+.stat-band{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:24px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:32px 0;margin:40px 0}
+.stat-band .stat{text-align:center}
+.stat-band .num{font:700 30px/1.2 var(--serif);color:var(--accent-ink);display:block;margin-bottom:4px}
+.stat-band .label{font:11px/1.4 var(--sans);text-transform:uppercase;letter-spacing:.08em;color:var(--dim)}
+.aside{border-left:2px solid var(--accent);padding-left:20px;margin:24px 0;font:15px/1.75 var(--sans);color:var(--dim)}
+.aside .k{font-weight:600;text-transform:uppercase;font-size:12px;letter-spacing:.05em;color:var(--accent-ink);display:block;margin-bottom:8px}
+footer.colophon{border-top:1px solid var(--rule);padding-top:32px;margin-top:80px;font:14px/1.7 var(--sans);color:var(--dim)}
+a{color:var(--accent);text-decoration:none;background:linear-gradient(var(--accent),var(--accent)) 0 100%/100% 1px no-repeat}
+a:hover{color:var(--accent-ink);background-size:100% 2px}
+em{font-style:italic}
+sub{font-size:.75em;vertical-align:sub}
+sup{font-size:.75em;vertical-align:super}
+  </style>
+</head>
+<body>
+  <div id="progress"></div>
+  <nav id="toc">
+    <p class="cap">目录</p>
+    <ol>
+      <li><a href="#frontline"><span class="num">I</span>2026 春季动态</a></li>
+      <li><a href="#memory"><span class="num">II</span>Memory 记忆</a></li>
+      <li><a href="#idea"><span class="num">III</span>Idea Generation</a></li>
+      <li><a href="#lit"><span class="num">IV</span>Literature Review</a></li>
+      <li><a href="#coding"><span class="num">V</span>Coding &amp; Experiments</a></li>
+      <li><a href="#figures"><span class="num">VI</span>Tables &amp; Figures</a></li>
+      <li><a href="#writing"><span class="num">VII</span>Paper Writing</a></li>
+      <li><a href="#review"><span class="num">VIII</span>Peer Review &amp; Rebuttal</a></li>
+      <li><a href="#dissemination"><span class="num">IX</span>Paper2X 传播</a></li>
+      <li><a href="#e2e"><span class="num">X</span>End-to-End 通用</a></li>
+      <li><a href="#trends"><span class="num">XI</span>趋势观察</a></li>
+    </ol>
+  </nav>
+  <article>
+    <header class="hero">
+      <p class="eyebrow">实地报告 · 2026 年 6 月</p>
+      <h1>AI Auto-Research 基准全景与 SOTA</h1>
+      <p class="standfirst">
+        七十七个公开基准正在同时丈量 AI 在科研流水线里的能力——从想法生成到同行评审，再到论文传播。本文是这张地图：哪里已经饱和、哪里仍是前沿、什么样的系统在赢、什么样的问题还没被解决。
+      </p>
+      <div class="byline">
+        <span>编者整理 · MinionsOS</span>
+        <span class="sep">·</span>
+        <span>阅读时长 <b>约 22 分钟</b></span>
+        <span class="sep">·</span>
+        <span><b>2026-06-17</b></span>
+      </div>
+    </header>
+
+    <div class="stat-band">
+      <div class="stat"><span class="num">78</span><span class="label">收录基准</span></div>
+      <div class="stat"><span class="num">14</span><span class="label">本会话已落盘</span></div>
+      <div class="stat"><span class="num">5</span><span class="label">Adapters 已写</span></div>
+      <div class="stat"><span class="num">2024–26</span><span class="label">发表跨度</span></div>
+    </div>
+    <section id="frontline">
+      <h2><span class="roman">I</span>2026 春季动态</h2>
+      <p class="deck">在我们汇总这份报告前的最后六十天里，整张地图被重新画过一次。</p>
+
+      <p class="drop">本季度的几条主线值得在进入逐项基准之前先讲清楚。第一条是 <em>open-weight</em> 阵营第一次在某个具体基准上反超闭源模型：阿里 <strong>Tongyi DeepResearch</strong> 30B-A3B MoE 的 Heavy 变体在 <strong>BrowseComp</strong> 上拿到 <strong>69.0%</strong>，超过了所有公开报告过分数的闭源 deep-research 系统（arXiv:2510.06135 / 2510.24701）。MoE 的算法账目同时改写了"价格-能力"曲线——总参数 30B、激活 3B，开源协议 MIT。</p>
+
+      <p>第二条是 <strong>Anthropic</strong> 把 RE-Bench 的分数在几周内拉了 60%。Claude Opus 4.6 的单次 RE-Bench（METR 设计的 4 小时 AI 研发任务）跳到 <strong>29.8%</strong>；4 月 16 日发布的 Opus 4.7 把 SWE-Bench Pro 从 53.4% 推到 <strong>64.3%</strong>；4 月 7 日的 Mythos preview 在 SWE-bench Verified 上录得 <strong>93.9%</strong>。OpenAI 已在 5 月 19 日的官方博客宣布 <em>不再把 SWE-bench Verified 当作前沿评测指标</em>——它正式饱和了。</p>
+
+      <p>第三条是 <strong>Sakana AI Scientist v2</strong> 的论文于 2026 年初登 <em>Nature</em> 651 期 914-919 页，这是史上第一份完全由 AI 生成、且通过真实同行评审的稿件。但同期的独立评估（Beel et al., arXiv:2502.14297）依然刺耳：v2 的实验仍有约一半失败，"新颖性判断"会把已有方法误标成新发现。一个有用的提醒是：<em>Nature 的章 ≠ benchmark 的 SOTA</em>。</p>
+
+      <p>第四条是 <strong>Google DeepMind</strong> 在 5 月 19 日 I/O 上把 AI Co-Scientist 的 <em>Hypothesis Generation</em> 接口公开给了独立研究者，姊妹系统 ERA（Empirical Research Assistance）也在同月的 <em>Nature</em> 报告 AI 写的科研代码胜过人类基线。Google 这条线的特点是不报数字、报湿实验复现。</p>
+
+      <p>第五条是 <strong>AIRA-2</strong>（Meta 系，arXiv:2603.26499，3 月）：一个进化-搜索式的 ML 研究 agent，<strong>MLE-bench-30 在 24 小时拿到 81.5% 平均百分位、72 小时 83.1%</strong>。这是本季度唯一一个跨越 80% 线的 auto-research 基准——所有其他研究类基准（PaperBench、RE-Bench、AutoResearchBench）仍稳稳停留在 30–40% 以下。</p>
+
+      <h3>本季度新增的七个基准</h3>
+
+      <p>下面这七个基准在我们之前 73 项的目录之外，发表都在 2026 年第一/第二季度，建议作为下一轮收录候选：</p>
+
+      <ul style="margin:16px 0 16px 24px;line-height:1.85">
+        <li><strong>DRACO</strong>（Perplexity × Harvard，arXiv:2602.11685）：100 个生产级研究任务、10 个领域、40 国资源、专家校准 rubric。Perplexity Max 与 Microsoft Researcher 都已采纳。Leni 报 71.6%，Perplexity 自家 70.4%。</li>
+        <li><strong>AutoResearchBench</strong>（arXiv:2604.25256）：Deep Research 与 Wide Research 双任务。本季度最严苛——Opus 4.6 / GPT-5.4 / Gemini 3.1 Pro 在它上面准确率都 <em>不到 10%</em>。</li>
+        <li><strong>AIRS-Bench</strong>（与 AIRA-2 同源发布）：超出 MLE-bench Kaggle 范围的前沿研究工程任务。</li>
+        <li><strong>DeepResearch Bench</strong>（Ayanami0730）：22 个学科的 deep-research agent 综合评测，Microsoft 与 Z.ai 在对标材料中都使用了它。</li>
+        <li><strong>AgencyBench</strong>（GAIR-NLP，ACL 2026 主会，arXiv:2601.11044）：在 <strong>1M token 真实上下文</strong>下做长程自治 agent 评测，纯压力测试。</li>
+        <li><strong>PRDBench</strong>（arXiv:2510.24358）：50 个真实 Python 项目、20 个领域、结构化 PRD 需求。元趋势：基准本身也开始由 agent 自动生产。</li>
+        <li><strong>LiveAgentBench</strong>（arXiv:2603.02586）：104 个从社交媒体抓取的真实场景。</li>
+      </ul>
+
+      <div class="aside">
+        <span class="k">本季度结论</span>
+        Open-weight 在某些特定能力（BrowseComp / SWE-Bench Pro 性价比）上首次超过闭源；SWE-bench Verified 正式饱和退役；前沿的真正战场转移到 SWE-Bench Pro、PaperBench、RE-Bench、HLE、AutoResearchBench 这五个基准上；研究类自治长程任务（&gt;4 小时）仍是最难的一环。
+      </div>
+    </section>
+
+    <p class="sep-ornament">❧</p>
+    <section id="memory">
+      <h2><span class="roman">II</span>Memory 记忆基准</h2>
+      <p class="deck">四个基准在丈量对话记忆、跨会话回忆、冲突解决——长期运行研究 agent 的"地基"。</p>
+
+      <p>记忆是瓶颈。一个昨天学到的事实今天就忘掉的研究 agent，无法在自己的工作上继续累积。Mem0 在 2026 年的 <em>State of AI Agent Memory</em> 报告中明确指出：今年记忆已经成为有自己专属基准套件的<em>一级架构组件</em>。三篇并行 arXiv 论文（2603.04257 Indexed Experience Memory、2605.03675 Tiered Memory Architecture、2602.22769 Long-Horizon Memory）一致把"有限上下文窗口"诊断为长程任务的核心瓶颈。一个有用的实操信号：所谓"幻觉"，多数其实是 retrieval 错过。</p>
+
+      <div class="benchmark-card">
+        <h4>LoCoMo — Long Conversational Memory</h4>
+        <p class="meta">arXiv:2402.17753 · Snap Research · 2024</p>
+        <p>评测超长程对话记忆：5 个 session × 约 300 轮，跨度 30 天以上。题型覆盖单跳、多跳、时序、开放域和对抗性 QA。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>Mem0 的 token-efficient memory algorithm 综合分 <strong>92.5</strong>（在 LongMemEval 上 94.4），单次查询约 6,900 tokens。LiCoMemory 在时序推理上 +29.6 分、多跳推理 +23.1 分。
+        </div>
+        <p><strong>赢家配方：</strong>RAG-based 系统（Mem0、MemoryBank）+ 选择性抽取 + 实体链接 + 时序推理 + 记忆衰减。Full-context 基线动辄 100K tokens 一次查询。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>MemBench — 多任务 agent 记忆</h4>
+        <p class="meta">arXiv:2506.21605 · ACL 2025 Findings</p>
+        <p>多任务 agent 记忆基准，覆盖 simple / conditional / highlevel / highlevel-rec 四个难度，并设有 <em>Make Noise</em> 污染条件以测鲁棒性。角色 thread 与事件 thread 分离评估。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>截至 2026-Q1 没有公认的 SOTA。论文在 GPT-4 / Claude 等多模型上做了基线对比，但全文聚焦于框架设计而非排行榜竞争。
+        </div>
+        <p><strong>赢家配方：</strong>强调"有效性 / 效率 / 容量"三维评测，专测对抗噪声下的稳定性。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>MemoryAgentBench — 四能力轴评测</h4>
+        <p class="meta">arXiv:2507.05257 · ICLR 2026 · 2025</p>
+        <p>评测四种核心记忆能力：精确检索、test-time learning、长程理解、冲突解决。把长上下文数据集改写为增量多轮交互。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>没有公认 SOTA。论文在 full-context、RAG 与多个记忆框架（Letta、Mem0、A-MEM、Cognee）上跑了基线，但定位为<em>诊断工具</em>而非排行榜。
+        </div>
+        <p><strong>赢家配方：</strong>146 行覆盖四个能力切片。设计目的是<em>暴露</em>当前记忆系统的弱点而非给它们排序。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>MemoryArena</h4>
+        <p class="meta">归属未确认 · 2026</p>
+        <p>无法独立确认它作为标准 benchmark 的身份。检索结果指向 arXiv:2602.16313 <em>Benchmarking Agent Memory in Interdependent Multi-Session Agentic Tasks</em>，但该论文并未使用 "MemoryArena" 这个名字。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>若 arXiv:2602.16313 即是它的本体，则该工作聚焦于"<em>多 session 间彼此依赖、agent 必须把经验蒸馏成记忆并跨 session 应用</em>"。无公开排行榜或 SOTA 数字。
+        </div>
+        <p><strong>赢家配方：</strong>用显式任务依赖测试记忆，不走 QA 形式。</p>
+      </div>
+
+      <div class="aside">
+        <span class="k">观察</span>
+        LoCoMo 是当前唯一有清晰 SOTA 的记忆基准（Mem0 92.5），其驱动力是 token-efficient 算法。MemBench 与 MemoryAgentBench 是诊断框架，无活跃排行榜。本季度的元趋势是：cost-efficiency（每次查询多少 token）已经被列为<em>正式 SOTA 评分轴</em>。
+      </div>
+    </section>
+
+    <p class="sep-ornament">❧</p>
+
+    <section id="idea">
+      <h2><span class="roman">III</span>Idea Generation 想法生成</h2>
+      <p class="deck">六个基准衡量科学创造力——从最小上下文 ideation 到 idea→experiment 闭环。</p>
+
+      <p>"AI 能不能生成一个值得做的研究想法"——这一问的答案，有两个让人警醒的发现。一是 <strong>HindSight</strong> 表明 LLM-as-Judge 与论文真实引用影响力之间是<em>负相关</em>（ρ = −0.29）：评委模型对"好想法"的判断和真实学术影响力背离。二是 retrieval-augmented 的单 LLM 系统能让 idea 质量提升 2.5×（p &lt; 0.001）——上下文比模型更重要。</p>
+
+      <div class="benchmark-card">
+        <h4>AI-Idea-Bench-2025 <span class="badge local">已落盘</span></h4>
+        <p class="meta">arXiv:2504.14191 · 2025</p>
+        <p>测量 LLM 生成的研究 idea 与从 3,495 篇论文中得到的 ground-truth 后续论文之间的对齐度。双指标：与真实后续工作的对齐 + 一般参照判断。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>暂无公开排行榜；基线包括 GPT-4、Claude，按"是否预测出真实发表的后续工作"评分。
+        </div>
+        <div class="local">
+          <strong>本地：</strong>345 MB · test.parquet（3,495 行）+ target_paper_data.json（23 MB find_cite + summary）+ repo 评分脚本<br>
+          <code>outline/datasets/1.1-idea-generation/AI-Idea-Bench-2025/{data,repo}/</code><br>
+          <em>注：</em>31 GB 原始 PDF 全文 ZIP <em>已按用户要求跳过</em>——元数据已足够跑评测
+        </div>
+        <p><strong>赢家配方：</strong>单 LLM 系统（无 agent 编排）。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>HeurekaBench</h4>
+        <p class="meta">arXiv:2601.01678 · ICLR 2026</p>
+        <p>端到端科学共研 agent（co-scientist）评测，落地在真实代码仓库支持的单细胞生物学探索性问题上。考核 idea→experiment 闭环。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>无公开排行榜；基线显示 open-source LLM agent 加上 critic 模块后能再提 ~22%，缩小与闭源系统差距。
+        </div>
+        <p><strong>赢家配方：</strong>带 critic 模块的多 agent 系统。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>HindSight</h4>
+        <p class="meta">arXiv:2603.15164 · 2026</p>
+        <p>"Oracle"式评测：用真实未来论文的引用影响力 + 会议接收来反向打分生成的 idea。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>无排行榜；关键发现——retrieval-augmented 系统产出的 idea 评分高 <strong>2.5×</strong>（p&lt;0.001）；LLM-as-Judge 与真实影响力呈<em>负相关</em>（ρ = −0.29）。
+        </div>
+        <p><strong>赢家配方：</strong>带检索的单 LLM 系统。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>IdeaBench <span class="badge local">已落盘</span></h4>
+        <p class="meta">arXiv:2411.02429 · KDD 2025</p>
+        <p>用高影响论文的 title/abstract + 引用集，测 LLM 在最少上下文下的研究 idea 能力。两阶段评分：GPT-4o 先按新颖性 / 可行性给排序，再算"Insight Score"相对排名。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>暂无公开排行榜；基线为 GPT-4o、Claude 等前沿 LLM。
+        </div>
+        <div class="local">
+          <strong>本地：</strong>141 MB · kdm-daiict/Ideabench HF 仓库（8 文件）<br>
+          <code>outline/datasets/1.1-idea-generation/IdeaBench/data/</code><br>
+          <em>注：</em>该 HF 仓库描述较简，建议跑评测前与 KDD'25 paper 中的数据集定义对照确认
+        </div>
+        <p><strong>赢家配方：</strong>把单 LLM 配置成"领域研究者画像"。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>LiveIdeaBench <span class="badge local">已落盘</span></h4>
+        <p class="meta">arXiv:2412.17596 · 2024</p>
+        <p>从单个关键词出发的<em>发散性思维</em>评测，覆盖 22 个领域、1,180 个关键词。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>QwQ-32B-preview 的创造性表现 <em>已可与 claude-3.7-sonnet:thinking 持平</em>，尽管二者在通用智力上有差距。LLM 评委组打分轴：原创性 / 可行性 / 流畅度 / 灵活度 / 清晰度。
+        </div>
+        <div class="local">
+          <strong>本地：</strong>1.1 GB · v2 release（2025-03-29）+ repo 代码<br>
+          <code>outline/datasets/1.1-idea-generation/LiveIdeaBench/{data-v2,repo}/</code>
+        </div>
+        <p><strong>赢家配方：</strong>面向推理优化的 open-weight 模型可与顶级闭源持平。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>ResearchBench</h4>
+        <p class="meta">arXiv:2503.21248 · ACL 2026 Findings</p>
+        <p>评测 inspiration retrieval、hypothesis composition、hypothesis ranking 三个能力，全部用 2024+ 论文（无污染）。论文发现 LLM 在 <em>inspiration retrieval</em>（OOD 任务）上表现尤其出色，暗示存在新颖知识关联能力。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>无公开 SOTA；自动抽取流程支持基准持续更新。
+        </div>
+        <p><strong>赢家配方：</strong>单 LLM 系统。</p>
+      </div>
+
+      <h3>多模态对照（非科研创意）</h3>
+
+      <div class="benchmark-card">
+        <h4>IDEA-Bench (ali-vilab) <span class="badge local">已落盘</span></h4>
+        <p class="meta">arXiv:2412.11767 · 2024 · ali-vilab</p>
+        <p><em>区别于 KDD'25 IdeaBench</em>——这条线是<strong>专业级图像生成</strong>评测，覆盖 100+ 个设计任务（3d 效果、动物属性编辑、image blending、灯光编辑、movie shots、multi-view、image undo、包装渲染等）。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>论文中横向对比 GPT-4o、Gemini-Imagen、Midjourney、FLUX、Imagen-3。
+        </div>
+        <div class="local">
+          <strong>本地：</strong>329 MB · 724 文件，本次会话作为多模态创意基线对照拉取<br>
+          <code>outline/datasets/1.1-idea-generation/IDEA-Bench-ali-vilab/data/dataset/</code><br>
+          <em>注：</em>MinionsOS 当前没有图像生成 deliverable，所以这个 benchmark 仅作交叉对照。
+        </div>
+      </div>
+
+      <div class="aside">
+        <span class="k">观察</span>
+        Idea generation 这个赛道呈现一个有反讽意味的格局：retrieval-augmented 单模型 &gt; 多 agent 编排，open-weight 推理模型已经可与闭源顶级模型在创造力维度持平，而 LLM-as-Judge 这个曾经的"廉价裁判"被证明与真实学术影响力<em>反向</em>。
+      </div>
+    </section>
+
+    <p class="sep-ornament">❧</p>
+    <section id="lit">
+      <h2><span class="roman">IV</span>Literature Review 文献综述</h2>
+      <p class="deck">七个原始基准 + 本季度新增的 DRACO 与 DeepResearch Bench——但这条赛道至今没有任何饱和。</p>
+
+      <p>没有任何文献综述类基准被解决。几个标志性数字摆在一起就能看出来：DeepScholar-Bench 的几何平均分上限是 31%，SciNetBench 的关系感知准确率不到 20%，连 CiteME 这种"给我一段文字、我告诉你引用的是哪篇论文"的简单任务，最佳 agent（CiteAgent，35.3%）和人类基线（69.7%）之间也还有 34 分差距。本季度把这条线推到聚光灯下的，是 Perplexity × Harvard 的 <strong>DRACO</strong> 与 Ayanami0730 的 <strong>DeepResearch Bench</strong>——两者都已被 Microsoft Researcher 与 Z.ai 当作对标坐标。</p>
+
+      <div class="benchmark-card">
+        <h4>CiteME — 引用归属</h4>
+        <p class="meta">arXiv:2407.12861 · 2024</p>
+        <p>给一段引用别人工作的文字，识别它指向哪篇论文。测的是 citation hallucination rate。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>CiteAgent（GPT-4o + 搜索/阅读工具）<strong>35.3% 准确率</strong>。人类基线 69.7%；前沿 LLM 单跑 4.2–18.5%。
+        </div>
+        <p><strong>赢家配方：</strong>带搜索 + 阅读工具的自治 agent，比纯 LLM 高一个数量级。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>DeepScholar-Bench</h4>
+        <p class="meta">arXiv:2508.20033 · 2025</p>
+        <p>"<em>活体</em>"研究综合基准：用最近的 arXiv 论文反向生成相关工作章节。评测维度：知识合成、检索质量、可验证性。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>没有任何系统跨过<strong>几何平均 31%</strong> 这条线——远未饱和。基线包括 OpenAI Deep Research、open-source 系统、各类搜索 agent。
+        </div>
+        <p><strong>赢家配方：</strong>多步 deep-research agent，但这个基准本身仍是开放挑战。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>IDRBench — 交互式深度研究</h4>
+        <p class="meta">arXiv:2601.06676 · 2026</p>
+        <p>带"按需用户反馈"的 deep research：测交互的好处（质量、对齐）与代价（轮数、token 成本）。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>关键发现——<em>交互对质量与鲁棒性的提升一致性强、且经常压过模型规模带来的差异</em>。在 7 个 SOTA LLM 上做了对比。
+        </div>
+        <p><strong>赢家配方：</strong>带 user-in-the-loop 的多 agent 框架。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>LitSearch</h4>
+        <p class="meta">arXiv:2407.18940 · EMNLP 2024 · Princeton-NLP</p>
+        <p>597 个真实 ML / NLP 检索 query。指标：Recall@k + MRR。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>Dense retriever + LLM rerank 比 BM25 在 recall@5 上 <strong>+24.8%</strong>，rerank 再 +4.4%。商用搜索引擎落后最佳 dense retriever 多达 32 个 recall 点。
+        </div>
+        <p><strong>赢家配方：</strong>密集检索 + LLM 重排序。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>ReportBench</h4>
+        <p class="meta">arXiv:2508.15804 · ByteDance · 2025</p>
+        <p>用已发表的 arXiv 综述当 gold standard，评测 deep research agent 在学术综述生成上的能力。考核被引文献质量与陈述忠实度。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>没有公开的具体 SOTA 分数；评测过商用 deep-research 系统。
+        </div>
+        <p><strong>赢家配方：</strong>多步 deep-research agent。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>ScholarGym</h4>
+        <p class="meta">arXiv:2601.21654 · 2026</p>
+        <p>把 deep research 的"信息收集"阶段单独切出来，2,536 个专家标注 query 跑在 570K 篇论文上。三段式评测：Query Planning、Tool Invocation、Relevance Assessment。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>迭代式 query 分解相对单 query 检索带来 <strong>2.9–3.3× F1</strong> 提升。Query Planning + Relevance Assessment 是<em>双重瓶颈</em>，把 proprietary 与 open-source 的能力差异主要体现在这里。
+        </div>
+        <p><strong>赢家配方：</strong>多步迭代 agent。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>SciNetBench — 关系感知检索</h4>
+        <p class="meta">arXiv:2601.03260 · 2026</p>
+        <p>在 18M AI 论文上做关系感知检索：自我中心、成对、路径式三类关系理解。指标 graph F1。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>当前 retrieval agent 在关系感知任务上准确率 <strong>&lt; 20%</strong>。把关系 ground-truth 显式提供后，综述质量再 +23.4%。
+        </div>
+        <p><strong>赢家配方：</strong>关系感知 retrieval 系统是必需的，但当前没有任何系统做到。</p>
+      </div>
+
+      <h3>本季度新增（建议收录）</h3>
+
+      <div class="benchmark-card">
+        <h4>DRACO — Deep Research At-scale</h4>
+        <p class="meta">arXiv:2602.11685 · Perplexity × Harvard · 2026</p>
+        <p>100 个生产级研究任务、覆盖 10 个领域、信息源跨 40 国，专家 rubric 校准。Perplexity Max 的 deep-research 上线即采用，Microsoft Researcher 也已对接。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>Leni <strong>71.6%</strong>，Perplexity 自家 70.4%。
+        </div>
+        <p><strong>赢家配方：</strong>带显式 rubric 的 production-grade deep-research agent。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>DeepResearch Bench</h4>
+        <p class="meta">github.com/Ayanami0730/deep_research_bench · 2026</p>
+        <p>22 个独立学科的 deep-research agent 综合评测框架，目前已被 Microsoft 与 Z.ai 在对标材料中使用。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>当前公开排行榜由 Tongyi DeepResearch、OpenAI Deep Research、Perplexity 三家轮替领先；具体排名随测评批次浮动。
+        </div>
+        <p><strong>赢家配方：</strong>把"deep research"当作模型类来评测，而非把它当作工作流。</p>
+      </div>
+
+      <div class="aside">
+        <span class="k">观察</span>
+        本季度的真正变化：deep research 已经从一种工作流，变成一个被显式区分的<em>模型品类</em>——OpenAI 直接出 <code>o3-deep-research</code> 这个独立 SKU，Perplexity / Google（Gemini for Science）/ Microsoft（Researcher）/ 阿里（Tongyi DR）/ Z.ai 都有自己挂名"deep research"的产品线。
+      </div>
+    </section>
+
+    <p class="sep-ornament">❧</p>
+    <section id="coding">
+      <h2><span class="roman">V</span>Coding &amp; Experiments 编码与实验</h2>
+      <p class="deck">25 个原始基准 + 本季度新增的 AIRS-Bench、AutoResearchBench、PRDBench、AgencyBench——本阶段仍是密度最高的赛道。</p>
+
+      <p>这是 auto-research 流水线被跟踪得最密集的一段。SWE-bench 的排行榜每周都在更新，PaperBench、RE-Bench、MLE-Bench 已是 2025–2026 各家系统报告里的"头条数字"。三个分水岭把"已饱和"的基准（SWE-bench Verified、MLAgentBench）和"前沿"基准（PaperBench、MLR-Bench、RE-Bench）分开来：任务时长、捏造（fabrication）风险、与人类的差距。</p>
+
+      <p>本季度最重磅的事件是 OpenAI 在 5 月 19 日宣布把 SWE-bench Verified 退出"前沿评测指标"——它正式被认为饱和了。新前沿是 SWE-Bench Pro，Anthropic Opus 4.7 在它上面拿到 64.3%。MLE-bench-30 这条线则被 Meta 系的 <strong>AIRA-2</strong> 推到 81.5–83.1%，是本季度<em>唯一</em>跨过 80% 线的研究类基准。</p>
+
+      <h3>软件工程</h3>
+
+      <div class="benchmark-card">
+        <h4>SWE-bench</h4>
+        <p class="meta">arXiv:2310.06770 · ICLR 2024 · Princeton-NLP</p>
+        <p>2,294 个真实 GitHub issue 解决任务（Python 仓库）。定义了 agentic coding 评测的现代起点。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>Claude Mythos preview 在 Verified 上 <strong>93.9%</strong>（2026 年 4 月）。Full benchmark 顶尖模型 ~70–80%。OpenAI 已于 2026-05-19 宣布<em>不再把它当前沿指标</em>。
+        </div>
+        <p><strong>赢家配方：</strong>Claude 系列长期主导。Verified 子集已逼近饱和。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>SWE-bench-Pro <span class="badge local">已落盘</span></h4>
+        <p class="meta">arXiv:2509.16941 · Scale AI · 2025</p>
+        <p>跨 41 个仓库、1,865 道题的<em>长程</em>软件工程基准。难度远高于 Verified——同一模型 Verified 70%+ 的，在 Pro 上常掉到 23%。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>Claude Mythos preview <strong>77.8%</strong>；Opus 4.7 <strong>64.3%</strong>（4 月 16 日发布即从 53.4% 跳升）；GPT-5.4 59.1%；GLM-5.1（open-weight）<strong>58.4%</strong>，与 Opus 4.6 仅差几个百分点。
+        </div>
+        <div class="local">
+          <strong>本地：</strong>95 MB · ScaleAI/SWE-bench_Pro 完整数据 + repo 评测脚本<br>
+          <code>outline/datasets/1.3-coding-experiments/SWE-bench-Pro/{data,repo}/</code>
+        </div>
+        <p><strong>赢家配方：</strong>Claude 领跑；GLM-5.1 用 ~7% 的成本逼近闭源——这是本季度最强的"open-weight 在追"信号。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>SWE-EVO <span class="badge local">已落盘</span></h4>
+        <p class="meta">arXiv:2512.18470 · 2025</p>
+        <p>多文件、长程的<em>软件演化</em>场景：跨版本重构。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>GPT-5.4 + OpenHands <strong>25%</strong>（同模型 Verified 72.8%）——演化任务上的能力鸿沟极大。
+        </div>
+        <div class="local">
+          <strong>本地：</strong>21 MB · 48 跨版本演化任务（仅核心 hf_jsonl + arrow，跳过 35K 文件的 trajectory dump）<br>
+          <code>outline/datasets/1.3-coding-experiments/SWE-EVO/data/test.jsonl</code>
+        </div>
+        <p><strong>赢家配方：</strong>过新尚无密集排行榜；GPT-5 系列在测。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>SUPER</h4>
+        <p class="meta">arXiv:2409.07440 · EMNLP 2024 · AI2</p>
+        <p>从 ML / NLP 研究仓库设置环境并执行任务。考的是依赖解析、环境搭建、端到端执行。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>GPT-4o 端到端专家任务 <strong>8.7%</strong>，子任务 16.3%。
+        </div>
+        <p><strong>赢家配方：</strong>极难；从仓库做"复现"仍是开放问题。</p>
+      </div>
+
+      <h3>科学计算编码</h3>
+
+      <div class="benchmark-card">
+        <h4>SciCode</h4>
+        <p class="meta">arXiv:2407.13168 · 2024</p>
+        <p>科学家手工标注，338 个子题跨 16 个学科。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>Gemini 3.1 Pro <strong>59.0%</strong>。11 模型平均 42.9%。
+        </div>
+        <p><strong>赢家配方：</strong>Google Gemini 在科学计算任务上领先。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>SciReplicate-Bench</h4>
+        <p class="meta">arXiv:2504.00255 · 2025</p>
+        <p>从论文出发的 agent 驱动算法复现。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>最佳 LLM + Sci-Reproducer agent <strong>39%</strong> 执行准确率。
+        </div>
+        <p><strong>赢家配方：</strong>带"论文阅读 + 工具使用"的 agentic 复现框架。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>ScienceAgentBench</h4>
+        <p class="meta">arXiv:2410.05080 · ICLR 2025</p>
+        <p>102 个数据驱动的科学分析任务，源自 44 篇 peer-reviewed 论文。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>最佳 agent 独立成功率 <strong>32.4%</strong>（带专家知识 34.3%）；o1 直接 prompt 表现接近。
+        </div>
+        <p><strong>赢家配方：</strong>GPT-4 / o1 级模型在测；排行榜活动有限。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>CORE-Bench</h4>
+        <p class="meta">arXiv:2409.11363 · 2024</p>
+        <p>计算可复现性：跑公开发表的研究代码并回答关于其输出的问题。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>最佳 agent 在最难任务上 <strong>21%</strong>。
+        </div>
+        <p><strong>赢家配方：</strong>常规科学任务自动化空间巨大。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>ResearchCodeBench</h4>
+        <p class="meta">arXiv:2506.02314 · 2025</p>
+        <p>从 2024–2025 顶会论文派生 212 道题，测新颖 ML 研究代码实现。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>Gemini-2.5-Pro-Preview <strong>37.3%</strong>。即便最好的模型也解不到 40%。
+        </div>
+        <p><strong>赢家配方：</strong>Google Gemini 领先；前沿研究代码翻译仍是难题。</p>
+      </div>
+      <h3>GPU kernel 与数据分析</h3>
+
+      <div class="benchmark-card">
+        <h4>KernelBench</h4>
+        <p class="meta">arXiv:2502.10517 · ScalingIntelligence · 2025</p>
+        <p>PyTorch workload 的 GPU kernel 生成。考核相对参考实现的 speedup。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>前沿推理模型只能<em>追平</em> PyTorch 基线，没有实质性超越——典型 ~1.0× speedup。
+        </div>
+        <p><strong>赢家配方：</strong>GPT-5 / Claude Opus 4.x 在测；性能优化仍是未解决问题。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>TritonBench</h4>
+        <p class="meta">arXiv:2502.14752 · thunlp · 2025</p>
+        <p>Triton GPU kernel 生成基准。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>AMD GEAK agent 在 ROCm 集 <strong>63.3%</strong> 执行准确率，TritonBench-modified 上 54.9%。直接 LLM prompt 仅 ~15%。
+        </div>
+        <p><strong>赢家配方：</strong>专精 agent 比通用前沿 LLM 高 4 倍。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>InfiAgent-DABench</h4>
+        <p class="meta">arXiv:2401.05507 · ICML 2024</p>
+        <p>从 CSV 文件出发的数据分析任务，257 题。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>DAAgent 专精系统：GPT-3.5 基线 +3.9%。在 34 个 LLM 上做了基线。
+        </div>
+        <p><strong>赢家配方：</strong>GPT-3.5 / 4 时代的结果；测的是多步数据分析工作流。</p>
+      </div>
+
+      <h3>ML 研究 agent</h3>
+
+      <div class="benchmark-card">
+        <h4>MLAgentBench</h4>
+        <p class="meta">arXiv:2310.03302 · ICML 2024 · snap-stanford</p>
+        <p>13 个 Kaggle 风格 ML 实验任务。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>GPT-4 agent 平均成功率 <strong>37.5%</strong>；Claude v3 Opus 同为 37.5%。后续工作报告 GPT-4o + 迭代 refinement 可达 76.47%。
+        </div>
+        <p><strong>赢家配方：</strong>GPT-4 / Claude Opus 旗鼓相当；迭代 refinement 是关键。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>MLE-Bench</h4>
+        <p class="meta">arXiv:2410.07095 · OpenAI · 2024</p>
+        <p>75 场 Kaggle 比赛，agent 必须做到奖牌级表现。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>MLE-STAR（Google，arXiv:2506.15692）在 MLE-Bench Lite 上 <strong>64% 奖牌率</strong>；本季度发布的 <strong>AIRA-2</strong>（Meta 系，arXiv:2603.26499）在 MLE-bench-30 上 <em>24h 81.5% / 72h 83.1%</em>，是本季度<em>唯一</em>跨过 80% 线的研究类基准；早期数据：o1-preview + AIDE 16.9% bronze+ 全集；R&amp;D-Agent（Microsoft）35.1% any-medal。
+        </div>
+        <p><strong>赢家配方：</strong>搜索式 refinement + 集成策略。AIRA-2 用进化搜索把它推到了一个新台阶。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>MLR-Bench</h4>
+        <p class="meta">arXiv:2505.19955 · 2025</p>
+        <p>开放式 ML 研究：ideation、coding、experimentation、writing 全链路。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>没有清晰 SOTA。论文最刺眼的发现：<strong>80% 的 agent 实验结果是<em>捏造</em>的</strong>。
+        </div>
+        <p><strong>赢家配方：</strong>LLM 在 ideation / writing 上能干，但执行可靠性极低。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>MLGym</h4>
+        <p class="meta">arXiv:2502.14499 · Meta · 2025</p>
+        <p>RL-based AI 研究任务 gym。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>无公开 SOTA；论文报告前沿模型靠超参搜索能改进基线，但不会生成新颖假设或新架构。
+        </div>
+        <p><strong>赢家配方：</strong>超参搜索胜过算法创新。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>PaperBench — 复现 ICML 论文 <span class="badge local">已落盘</span></h4>
+        <p class="meta">arXiv:2504.01848 · OpenAI Preparedness · 2025</p>
+        <p>从零复现 20 篇 ICML 2024 论文，8,316 个 rubric 叶节点。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>Claude 3.5 Sonnet (New) 平均复现分 <strong>21.0%</strong>。人类仍领先。
+        </div>
+        <div class="local">
+          <strong>本地：</strong>1.0 GB · 含 524 MB LFS-hydrated 论文复现数据（已用 git lfs fetch --include 定向拉取，参见 DOWNLOAD_STATUS.md）<br>
+          <code>outline/datasets/1.3-coding-experiments/PaperBench/repo/project/paperbench/data/</code>
+        </div>
+        <p><strong>赢家配方：</strong>Scaffolding + 长程规划。这是 full-pipeline auto-research 的金标准。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>RE-Bench — AI vs 人类研究员</h4>
+        <p class="meta">arXiv:2411.15114 · METR · 2024</p>
+        <p>METR 设计的 4 小时 AI R&amp;D 任务，对照人类 ML 工程师。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>2026 年初前沿模型的<em>50% 时间预算</em>下 horizon 估计为 <strong>≥16 小时</strong>（95% CI 8.5–55h）。Claude Opus 4.6 单次 RE-Bench <strong>29.8%</strong>——Anthropic 在几周内把这个分数推高了 60%。
+        </div>
+        <p><strong>赢家配方：</strong>长程能力 + 工具使用。人类仍显著更快。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>EXP-Bench</h4>
+        <p class="meta">arXiv:2505.24785 · Curie · 2025</p>
+        <p>从 AI 论文出发做端到端实验设计。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>未声明赢家；论文在 GPT-4 / Claude 等模型上做了对比。
+        </div>
+        <p><strong>赢家配方：</strong>Agent 在<em>假设构造</em>与<em>结果分析</em>两端都吃力。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>PostTrainBench</h4>
+        <p class="meta">归属未确认 · 2026</p>
+        <p>LLM agent 自动化 LLM 后训练。arXiv:2603.08640 在 2026-Q1 公开网络上无可信命中。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>未找到与该 ID 匹配的基准；可能是笔误或尚未发布。
+        </div>
+        <p><strong>赢家配方：</strong>若它落地，预计测的是训练 loop 自动化。</p>
+      </div>
+
+      <h3>科学发现</h3>
+
+      <div class="benchmark-card">
+        <h4>DiscoveryBench</h4>
+        <p class="meta">arXiv:2407.01725 · AI2 · 2024</p>
+        <p>从数据集驱动的假设发现。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>最佳系统在多类 LLM 推理框架下 <strong>~25%</strong>。
+        </div>
+        <p><strong>赢家配方：</strong>多步假设搜索 + 验证仍困难；retrieval + reasoning 组合获胜。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>DiscoveryWorld</h4>
+        <p class="meta">arXiv:2406.06769 · AI2 · 2024</p>
+        <p>虚拟环境下的 120 个科学发现任务，跨 8 个主题、3 个难度。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>最佳系统在最难任务上 <strong>~20% 完成率</strong>。
+        </div>
+        <p><strong>赢家配方：</strong>长程规划 + 工具使用。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>FrontierScience</h4>
+        <p class="meta">arXiv:2601.21165 · 2026</p>
+        <p>专家级科学推理，含 Olympiad 与 Research 两个子集。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>GPT-5.2 在 Olympiad 上 <strong>77%</strong>，在 Research 上 <strong>25%</strong>（首轮评测）。Olympiad 接近饱和；Research 仍极难。
+        </div>
+        <p><strong>赢家配方：</strong>深度推理胜过记忆。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>AstaBench</h4>
+        <p class="meta">arXiv:2510.21652 · AI2 · 2025</p>
+        <p>科学研究 agent 套件，多任务聚合分。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>未找到外部结果；论文 ID 可能不准或尚未被检索引擎索引。
+        </div>
+        <p><strong>赢家配方：</strong>无法确认排行榜活跃度。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>ResearchClawBench</h4>
+        <p class="meta">arXiv:2512.16969 · InternScience · 2025</p>
+        <p>科学家工作流对齐：从"再发现"到"新发现"。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>在 deep research 上 exact match <strong>10–20%</strong>，即便有 step-level 对齐。Idea 缺可行性，代码能跑但结果不准。
+        </div>
+        <p><strong>赢家配方：</strong>工作流对齐 + 执行可靠性。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>LAB-Bench</h4>
+        <p class="meta">arXiv:2407.10362 · FutureHouse · 2024</p>
+        <p>超出教科书范围的生物学研究任务。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>没有公开 SOTA 数字；PaperQA 与 Aviary 系统在测，但分数未披露。
+        </div>
+        <p><strong>赢家配方：</strong>领域知识 + 工具使用。</p>
+      </div>
+
+      <h3>本季度新增（建议收录）</h3>
+
+      <div class="benchmark-card">
+        <h4>AIRS-Bench</h4>
+        <p class="meta">与 AIRA-2 同源（arXiv:2603.26499） · 2026</p>
+        <p>超出 MLE-Bench Kaggle 范围的<em>前沿研究工程</em>任务。AIRA-2 把它当作互补评测轴。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>AutoResearchBench <span class="badge local">已落盘</span> <span class="badge adapter">adapter</span></h4>
+        <p class="meta">arXiv:2604.25256 · 2026</p>
+        <p>双任务结构：Deep Research（沿目标论文做多步追踪）+ Wide Research。本季度<em>最严苛</em>的 auto-research 基准。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>Opus 4.6 / GPT-5.4 / Gemini 3.1 Pro 三个前沿模型准确率<em>都不到 10%</em>。
+        </div>
+        <div class="local">
+          <strong>本地：</strong>12 MB · 1,000 题（600 deep + 400 wide）· SHA256 校验通过 · 已用 <code>repo/decrypt_benchmark.py</code> 解 obfuscation<br>
+          <code>outline/datasets/1.3-coding-experiments/AutoResearchBench/data/AutoResearchBench.jsonl</code><br>
+          Adapter <code>AutoResearchBench/adapter.py</code>：to-jsonl（按 type 切）/ grade（deep=fuzzy title + arxiv id；wide=set F1）/ stats
+        </div>
+        <p><strong>赢家配方：</strong>未知——所有当前系统都失败。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>PRDBench <span class="badge local">已落盘</span> <span class="badge adapter">adapter</span></h4>
+        <p class="meta">arXiv:2510.24358 · 2026</p>
+        <p>50 个真实 Python 项目、20 个领域、结构化 PRD 需求。一个元趋势在它身上很显眼：基准本身也开始由 agent 自动生产。</p>
+        <div class="local">
+          <strong>本地：</strong>79 MB · 50 cases / 1,263 metrics（每条 0/1/2 分，max_score 2,526）· 每 case 含 PRD.md + aux 数据 + 评分 rubric + 测试 fixture<br>
+          <code>outline/datasets/1.3-coding-experiments/PRDBench/data/data/{1..50}/</code><br>
+          Adapter <code>PRDBench/adapter.py</code>：to-jsonl / show / grade（LLM-judge 跑每条 metric）/ stats
+        </div>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>AgencyBench <span class="badge local">已落盘</span></h4>
+        <p class="meta">arXiv:2601.11044 · GAIR-NLP · ACL 2026 主会</p>
+        <p>在 <strong>1M token 真实上下文</strong>下的前沿自治 agent 评测，纯长程压力测试。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>闭源 48.4% vs 开源 32.1%（v2，2026 年初论文报告）。138 个任务跨 6 大能力（Backend / Frontend / Code / Game / Research / MCP），平均 ~90 tool calls / 1M tokens / 数小时执行。
+        </div>
+        <div class="local">
+          <strong>本地：</strong>27 MB · v1（10 tasks）+ v2（32 scenarios / 138 tasks）<br>
+          <code>outline/datasets/1.3-coding-experiments/AgencyBench/data/AgencyBench-{v1,v2}/</code><br>
+          通过 ModelScope CDN 下载（hf-mirror 走 Xet 死路）
+        </div>
+      </div>
+
+      <blockquote>
+        搜索 + refinement 胜过单次生成；scaffolding 比模型规模更重要；长程任务停留在 16–20% 完成率；执行可靠性是瓶颈——MLR-Bench 的 80% 实验捏造率是这一阶段最让人不安的数字。
+        <cite>跨 25 + 4 个编码与实验基准的共性</cite>
+      </blockquote>
+    </section>
+
+    <p class="sep-ornament">❧</p>
+    <section id="figures">
+      <h2><span class="roman">VI</span>Tables &amp; Figures 表格与图</h2>
+      <p class="deck">七个基准覆盖 chart QA、表格生成、科学插图、LaTeX。ChartQA 已基本被前沿 VLM 攻陷在 90%；其余仍开放。</p>
+
+      <p>这一阶段清晰分成两个阵营。ChartQA 这种"chart 图像 → QA"已经被前沿 vision-language model 攻陷到 90% 区间。但所有<em>生成</em>类任务（图生成、表归纳、LaTeX 生成）仍是活跃前沿——一致赢家是<em>多 agent + critique loop</em>。</p>
+
+      <div class="benchmark-card">
+        <h4>AbGen — 消融实验设计</h4>
+        <p class="meta">arXiv:2507.13300 · ACL 2025</p>
+        <p>从 807 篇 NLP 论文中提取的 1,500 个专家标注样例。LLM 必须为指定模块设计消融实验并预测结果。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>原文报告前沿 LLM 与人类专家差距巨大；并指出"<em>自动评测方法在该任务上不可靠</em>"——无干净的头条数字。
+        </div>
+        <p><strong>赢家配方：</strong>前沿推理模型（GPT-4o 级）方差仍大。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>ArxivDIGESTables</h4>
+        <p class="meta">arXiv:2410.22360 · EMNLP 2024</p>
+        <p>文献综述用表生成；arXiv 上 2,228 张表。Schema recall + cell F1 对照 gold。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>GPT-4 + retrieval 领先但绝对分极低。2025 年的后续工作 arXiv2Table 重申"<em>open-weight 与闭源都吃力</em>"。
+        </div>
+        <p><strong>赢家配方：</strong>检索增强的 schema 归纳。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>Chain-of-Table</h4>
+        <p class="meta">arXiv:2401.04398 · ICLR 2024 · Google</p>
+        <p>它是<em>方法</em>而非基准——把表通过原子操作链式演化出来。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>在 WikiTableQuestions 上新 SOTA（~59–60%）、TabFact ~86%、FeTaQA。Backbone：PaLM-2 / GPT-3.5 / LLaMA-2。
+        </div>
+        <p><strong>赢家配方：</strong>表分解 + 工具使用链。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>ChartQA</h4>
+        <p class="meta">ACL 2022 · 9.6K 人工 + 23.1K 增广 QA</p>
+        <p>Chart 图像 QA（柱 / 线 / 饼图）。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>Claude 3.5 Sonnet <strong>≈ 90.5%</strong>（relaxed accuracy）。GPT-4o、Gemini 1.5 Pro、InternVL2 集中在 85–90% 区。后续 ChartQAPro（ACL'25）让同模型掉到 55.8%——<em>ChartQA 已基本饱和</em>。
+        </div>
+        <p><strong>赢家配方：</strong>前沿闭源 VLM。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>FigureBench</h4>
+        <p class="meta">arXiv:2602.03828 · 2026</p>
+        <p>从长文本生成发表级科学插图：3,300 个文本-图对，跨多个学科。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>配套系统 AutoFigure；论文报告人评相对 GPT-4 + diffusion 基线的胜率，但无单一头条数字。
+        </div>
+        <p><strong>赢家配方：</strong>把任务分解成 layout + draw + critique 的 agentic 框架。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>SciFlow-Bench</h4>
+        <p class="meta">arXiv:2602.09809 · 2026</p>
+        <p>结构感知科学示意图生成；用<em>逆解析</em>评测——渲染图像 → 解析回图结构 → 测图同构。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>极新；只有论文自带的 GPT-4o / Gemini / Imagen 系黑盒基线，全部远低于人类。
+        </div>
+        <p><strong>赢家配方：</strong>预期是先生成 DOT / Graphviz 再渲染的方法，但目前无公开数字。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>TeXpert</h4>
+        <p class="meta">arXiv:2506.16990 · SDP 2025 @ ACL'25</p>
+        <p>多层次 LaTeX 代码生成：自然语言 → LaTeX，跨 math / tables / figures / 全章节四个难度。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>前沿闭源 LLM 在 easy 层领先，到 hard table / figure 层急剧退化。
+        </div>
+        <p><strong>赢家配方：</strong>"compile 后再判分"是关键鉴别器。</p>
+      </div>
+    </section>
+
+    <p class="sep-ornament">❧</p>
+
+    <section id="writing">
+      <h2><span class="roman">VII</span>Paper Writing 论文写作</h2>
+      <p class="deck">三个基准衡量长篇学术写作。AutoSurvey 是事实标准；PaperOrchestra 在文献综述质量上 +50–68%。</p>
+
+      <p>综述生成是这一阶段最受跟踪的子任务。AutoSurvey 的四轴评测（citation recall / precision + content coverage / structure / relevance）已经成为事实标准，SurveyForge 与 AutoSurvey2 都在它的指标上做迭代。多 agent 分工 + 显式角色化是稳定赢家。</p>
+
+      <div class="benchmark-card">
+        <h4>AutoSurvey</h4>
+        <p class="meta">arXiv:2406.10252 · NeurIPS 2024</p>
+        <p>长篇综述生成，四轴评测：citation recall / precision + content coverage / structure / relevance。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>原系统 <strong>citation recall ≈ 82.6%、precision ≈ 77.0%</strong>，content 4.7–4.8/5（writer 用 Claude-Haiku）。SurveyForge（DeepSeek-v3）在同指标上超过它；AutoSurvey2 又改进了 coherence。
+        </div>
+        <p><strong>赢家配方：</strong>记忆驱动的 retrieval + 人类先验 outline。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>PaperWritingBench (PaperOrchestra)</h4>
+        <p class="meta">arXiv:2604.05018 · 2026</p>
+        <p>多 agent 自动 AI 论文写作，基准即论文自带的评测套件。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>PaperOrchestra 在人工 side-by-side 评测中相对自治基线<strong>文献综述质量 +50–68%、整体论文质量 +14–38%</strong>。
+        </div>
+        <p><strong>赢家配方：</strong>多 agent 显式分工。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>SciIG</h4>
+        <p class="meta">arXiv:2508.14273 · 2025</p>
+        <p>论文 introduction 质量基准。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>无公开 SOTA；预期前沿闭源 LLM + related work retrieval 领先。
+        </div>
+        <p><strong>赢家配方：</strong>SciIG 邻近基准的共性是"retrieval + 前沿 LLM"。</p>
+      </div>
+
+      <div class="aside">
+        <span class="k">观察</span>
+        生成质量类基准（AbGen、ArxivDIGESTables、FigureBench、SciFlow-Bench、TeXpert、AutoSurvey、PaperWritingBench、SciIG）一致偏向多 agent + 检索增强 + critique loop 系统。绝对分离人类 gold 仍很远——这是<em>活跃前沿</em>，不是已解决的问题。
+      </div>
+    </section>
+
+    <p class="sep-ornament">❧</p>
+    <section id="review">
+      <h2><span class="roman">VIII</span>Peer Review &amp; Rebuttal 同行评审与答辩</h2>
+      <p class="deck">14 个基准——评审 10 + 答辩 4。Robustness 是当前最弱前沿：prompt injection 成功率接近 100%。</p>
+
+      <p>评审侧测的是 grounded（基于证据）/ bias / robustness / 与人类一致性。答辩侧测的是说服策略。本季度三个发现尤其刺眼：prompt injection 在评审 LLM 上几乎百发百中；Theory-of-Mind 显式建模在答辩任务上大幅领先；而历史基准 PeerRead 上，<em>分数特征</em>对决策预测的贡献仍超过文本内容。</p>
+
+      <h3>Peer review</h3>
+
+      <div class="benchmark-card">
+        <h4>AgentReview</h4>
+        <p class="meta">arXiv:2406.12708 · EMNLP 2024</p>
+        <p>多 agent LLM 评审仿真，覆盖 500+ ICLR 投稿、53.8K 生成文档。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>框架本身即贡献；揭示 conformist 行为带来 27.2% 评分方差缩减。
+        </div>
+        <p><strong>赢家配方：</strong>把 bias / expertise / conformity 在仿真中拆开。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>AI-Detection</h4>
+        <p class="meta">arXiv:2502.19614 · 2025</p>
+        <p>"LLM 写的评审" vs "人类写的评审"识别，788,984 条样本。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>论文自家 Anchor Embedding 法<strong> &gt; 60% TPR @ 低 FPR</strong>（无公开 AUC 头条数）。
+        </div>
+        <p><strong>赢家配方：</strong>面向学术语域微调的上下文感知 embedding；通用检测器失效。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>Breaking-the-Reviewer</h4>
+        <p class="meta">arXiv:2506.11113 · EMNLP 2025 Findings</p>
+        <p>对 LLM 评审者的文本对抗攻击。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>无最佳防御；多个 LLM 全线被攻破，邻接文献中自适应攻击 ASR 经常 <strong>&gt; 90%</strong>。
+        </div>
+        <p><strong>赢家配方：</strong>针对模型的自适应攻击；静态防御脆弱。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>ClaimCheck</h4>
+        <p class="meta">arXiv:2503.21717 · EMNLP 2025</p>
+        <p>NeurIPS'23/'24 的评审 + 论文 + 专家标注 weakness↔claim 链路、validity、objectivity、type。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>GPT-4o 在三个 claim-centric 任务上做了基线；论文结论是"<em>显著缺陷</em>"——无头条 F1。
+        </div>
+        <p><strong>赢家配方：</strong>把 critique 落地到具体 claim 上，而非泛指 weakness。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>ICLR-2025-Study</h4>
+        <p class="meta">Nature MI 2026 · 20K+ 评审 RCT</p>
+        <p>给人类评审者提供 LLM 反馈的随机对照实验。</p>
+        <div class="sota">
+          <strong>SOTA：</strong><strong>27% 的评审者更新了评审</strong>；12K+ 条建议被采纳。这<em>不是</em>"与人类一致性"排行榜。
+        </div>
+        <p><strong>赢家配方：</strong>具体可执行的反馈，胜过泛泛建议；把 LLM 当"质量推手"。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>PeerRead</h4>
+        <p class="meta">arXiv:1804.09635 · NAACL 2018</p>
+        <p>14K 论文 + 录用 / 拒稿决定。评审基准的历史锚点。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>原始简单模型相对多数基线 ~21% 错误率下降。2026 年的后续工作报告 <strong>分数特征模型 91% acc vs 文本 LLM 81%</strong>。
+        </div>
+        <p><strong>赢家配方：</strong>数值/分数特征胜过文本内容。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>Prompt-Injection</h4>
+        <p class="meta">arXiv:2509.10248 · 2025</p>
+        <p>1K 个 LLM 生成的 ICLR'24 评审，叠加隐蔽 prompt 攻击。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>简单 injection 可达 <strong>100% 录用分操纵</strong>；GPT-4o-mini 分数膨胀 ~20pp。
+        </div>
+        <p><strong>赢家配方：</strong>混淆 + 认知过载策略；尚无可靠防御。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>RATE</h4>
+        <p class="meta">arXiv:2601.19637 · 2026</p>
+        <p>无标注的<em>评审者专长</em>排序：基于关键词画像 + 弱监督 embedding。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>RATE 框架；评审分配错误率 <strong>12–30%（easy）/ 36–43%（hard）</strong>。
+        </div>
+        <p><strong>赢家配方：</strong>从发表历史中得到的弱监督优于人工标注 relevance。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>ReviewAgents</h4>
+        <p class="meta">arXiv:2503.08506 · 2025</p>
+        <p>带结构化推理迹的 ReviewBench 数据集，研究人类↔AI 评审之间的差距。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>配套 ReviewAgent 框架报告 <strong>+6.78% 相对 AI 基线、+47.62% 相对专家评审</strong>（actionable insights）。
+        </div>
+        <p><strong>赢家配方：</strong>模仿人类评审工作流的结构化 pipeline。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>ReviewMT</h4>
+        <p class="meta">arXiv:2406.05688 · 2024</p>
+        <p>多轮长上下文 reviewer-author 对话。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>未找到公开 SOTA；引用的 arXiv ID 在反复检索中没有显示稳定结果。
+        </div>
+        <p><strong>赢家配方：</strong>无法验证。</p>
+      </div>
+
+      <h3>Rebuttal 答辩</h3>
+
+      <div class="benchmark-card">
+        <h4>Commitment-Checklist</h4>
+        <p class="meta">arXiv:2603.00003 · 2026</p>
+        <p>"审计作者在 rebuttal 里许下的承诺"：从答辩抽取承诺、再到终稿验证是否兑现。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>暂无 baseline 排行榜。
+        </div>
+        <p><strong>赢家配方：</strong>承诺识别可行，跟踪兑现仍处早期。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>DRPG</h4>
+        <p class="meta">arXiv:2601.18081 · ulab-uiuc · 2026</p>
+        <p>面向学术答辩的 Decompose / Retrieve / Plan / Generate 框架。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>Planner 在"哪个答辩方向最可行"上 <strong>&gt; 98% 准确率</strong>，在顶会数据上显著超过基线。
+        </div>
+        <p><strong>赢家配方：</strong>先把质疑分解成原子问题、检索证据、再拼答辩稿。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>Re²</h4>
+        <p class="meta">arXiv:2505.07920 · 2025</p>
+        <p>当前最大的"评审 + rebuttal"一致性数据集：19,926 投稿、70,668 评审、53,818 答辩。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>论文给出基线 LLM 分数，但没有单一头条数。
+        </div>
+        <p><strong>赢家配方：</strong>一致性数据 + 多轮答辩支持。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>RebuttalAgent</h4>
+        <p class="meta">arXiv:2601.15715 · ICLR 2026</p>
+        <p>Theory-of-Mind 的 ToM-Strategy-Response 流水线（SFT + 答辩专用奖励模型 RL）。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>相对基模型 <strong>+18.3% 平均</strong>（自动指标）；在自动 + 人工评测上同时压过先进闭源模型。
+        </div>
+        <p><strong>赢家配方：</strong>显式建模"评审者心智"+ 策略性说服，胜过直接生成回复。</p>
+      </div>
+
+      <blockquote>
+        Robustness 是最弱前沿——简单攻击就能做到接近 100% 操纵，防御脆弱。Rebuttal SOTA 一致偏向"分解 → 计划 → 生成"流水线 + 领域专用 RL，不是端到端生成。
+        <cite>跨 14 个评审与答辩基准的共性</cite>
+      </blockquote>
+    </section>
+
+    <p class="sep-ornament">❧</p>
+    <section id="dissemination">
+      <h2><span class="roman">IX</span>Paper2X 论文传播</h2>
+      <p class="deck">六个基准覆盖海报、幻灯、视频、网页生成。MinionsOS 在该阶段尚无对应模块，是未来的扩展目标。</p>
+
+      <p>这是 auto-research 流水线最年轻的一段，六个基准全部是 2025–2026 的工作。一个稳定模式：<em>多 agent 分解</em>（内容抽取 → 布局规划 → 视觉生成）显著胜过端到端生成。MinionsOS 目前没有对应模块。</p>
+
+      <div class="benchmark-card">
+        <h4>Paper2Poster</h4>
+        <p class="meta">arXiv:2505.21497 · NeurIPS 2025</p>
+        <p>从科学论文出发的多模态海报自动生成。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>Paper2Poster 多 agent 流水线在 PaperQuiz（内容准确性）、VisualQuiz（视觉质量）、coherence 上全线压过 GPT-4o，且<strong>少用 87% 的 token</strong>。
+        </div>
+        <p><strong>赢家配方：</strong>多 agent 分解（content extraction、layout planning、visual generation）胜过端到端。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>PPTAgent-PPTEval</h4>
+        <p class="meta">arXiv:2501.03936 · EMNLP 2025</p>
+        <p>论文转幻灯，附 6 轴评测（content accuracy、structure、visual quality、coherence、layout、consistency）。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>PPTAgent 两阶段（reference 分析 → 通过代码动作迭代生成幻灯）在所有维度上显著超过基线。
+        </div>
+        <p><strong>赢家配方：</strong>参考引导的结构抽取 + 基于代码的编辑，保证 consistency。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>Paper2Video — PresentQuiz</h4>
+        <p class="meta">arXiv:2510.05096 · 2025</p>
+        <p>论文自动生成 ~6 分钟的演讲视频，101 对 paper-video 对。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>PaperTalker 多 agent 框架（slide generation + Tree Search Visual Choice 布局精修 + cursor grounding + 语音合成 + talking-head 渲染）在 faithfulness 与 informativeness 上压过基线。
+        </div>
+        <p><strong>赢家配方：</strong>并行多模态流水线 + 视觉选择优化。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>Paper2Web</h4>
+        <p class="meta">arXiv:2510.15842 · 2025</p>
+        <p>论文转交互式网页主页生成。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>PWAgent（MCP 仓库 + 用 Docling/Marker 做多 agent 分解 + LLM）在所有评测维度上稳压模板网页与 arXiv/alphaXiv 版本，并保持<strong>极低成本（~$0.005 / 页）</strong>。
+        </div>
+        <p><strong>赢家配方：</strong>资产分解 + agent 驱动的交互特性生成。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>PresentEval</h4>
+        <p class="meta">arXiv:2507.04036 · EMNLP 2025</p>
+        <p>统一的 VLM 驱动评测框架，测演讲视频的内容准确性、视觉质量、叙述 coherence 三轴。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>PresentAgent 模块化流水线（document → outline → slide generation → narration → video assembly）由 PresentEval 评测。
+        </div>
+        <p><strong>赢家配方：</strong>VLM 综合评分胜过单指标。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>P2P</h4>
+        <p class="meta">arXiv:2505.17104 · ICLR 2026</p>
+        <p>带细粒度基准的 paper-to-poster 自动生成。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>P2P 多 agent 框架（visual element processor + content generator + poster assembler，每个都带 checker 模块做迭代精修）。
+        </div>
+        <p><strong>赢家配方：</strong>带专属质量检查 loop 的专精 agent 分解。</p>
+      </div>
+    </section>
+
+    <p class="sep-ornament">❧</p>
+
+    <section id="e2e">
+      <h2><span class="roman">X</span>End-to-End 通用</h2>
+      <p class="deck">五个原始基准 + 本季度新增的 LiveAgentBench——HLE 仍停在 37.5%，专家级任务远未被解决。</p>
+
+      <p>这一类基准跨阶段——测的是系统能否在完整研究 loop 里规划、路由、执行。GAIA 与 HLE 是 2026 各家系统卡的"头条数字"。一个反复出现的模式：即便在 GAIA（450 题、3 个难度）上，也<em>没有任何一个模型在所有能力上都领先</em>。</p>
+
+      <div class="benchmark-card">
+        <h4>AAAR-1.0</h4>
+        <p class="meta">arXiv:2410.22394 · Lotus Labs · 2024</p>
+        <p>面向研究的任务集合（100 篇论文做实验设计 + 文献综述、rebuttal、related work）。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>Claude v3 Opus 在实验设计任务上最佳成功率 <strong>37.5%</strong>（MLAgentBench 子集）。无单一模型全面领先。
+        </div>
+        <p><strong>赢家配方：</strong>推理深度胜过广度。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>BrowseComp</h4>
+        <p class="meta">arXiv:2510.06135 · OpenAI · 2025</p>
+        <p>1,266 个"难找"的网络 query，要求持续导航与创造性搜索。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>Tongyi-DeepResearch Heavy <strong>69.0%</strong>，显著超过所有公开过分数的闭源 deep-research 系统。OpenAI Deep Research、Tongyi DeepResearch、GLM Deep Research 三家轮替。
+        </div>
+        <p><strong>赢家配方：</strong>带<em>非对称验证</em>的 test-time scaling + heavy search planning。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>GAIA <span class="badge local">已落盘</span> <span class="badge adapter">adapter</span></h4>
+        <p class="meta">arXiv:2311.12983 · 2023</p>
+        <p>450 个真实世界 QA（3 难度等级、严格 exact match）。最受跟踪的通用基准。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>GPT-5（high）在 Gaia2 动态基准上 <strong>42% pass@1</strong>（2026）。原 GAIA 排行榜上 OpenAI 与 Anthropic 模型领先；Sibyl、Magnetic-One、Trase、h2oGPTe、Manus 是顶流系统。无模型全维度领先。
+        </div>
+        <div class="local">
+          <strong>本地：</strong>113 MB · test 301 题（答案 hidden，用于官方 leaderboard 提交）+ <strong>validation 165 题</strong>（Levels 53/86/26，全部带 Final answer，可本地评分）<br>
+          <code>outline/datasets/e2e-general/GAIA/data/2023/{test,validation}/</code><br>
+          Adapter <code>GAIA/adapter.py</code>：to-jsonl（按 split + level 切片）/ grade（GAIA 规范化 exact-match）/ stats
+        </div>
+        <p><strong>赢家配方：</strong>工具使用 + 多步推理。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>HLE — Humanity's Last Exam <span class="badge local">已落盘</span> <span class="badge adapter">adapter</span></h4>
+        <p class="meta">arXiv:2501.14249 · 2025</p>
+        <p>2,500 道专家级跨学科题目，<em>显式过滤掉</em>前沿模型能秒答的题。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>Gemini 3 Pro Preview 官方榜首 <strong>37.5%</strong>，Claude Opus 4.6 Thinking 34.4%，GPT-5 Pro 31.6%（2026 年初）。
+        </div>
+        <div class="local">
+          <strong>本地：</strong>262 MB · 单 parquet（2,500 行 / 8 类目 / 含 342 道图像题） · SHA256 校验通过<br>
+          <code>outline/datasets/e2e-general/HLE/data/test-00000-of-00001.parquet</code><br>
+          Adapter <code>HLE/adapter.py</code>：to-jsonl / grade（HLE LLM-judge）/ stats
+        </div>
+        <p><strong>赢家配方：</strong>扩展推理 + 代码工具。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>SimpleQA</h4>
+        <p class="meta">arXiv:2411.04368 · OpenAI · 2024</p>
+        <p>4,326 道短形式事实题（科学、政治、艺术，单一正确答案）。Hallucination 探针。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>OpenAI Deep Research 与 GPT-4o + browsing 领先；无带具体分数的公开排行榜。
+        </div>
+        <p><strong>赢家配方：</strong>参数化知识 + 检索增强。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>MATH-500 <span class="badge local">已落盘</span></h4>
+        <p class="meta">HuggingFaceH4/MATH-500 · OpenAI 2024 PRM 训练子集（源自 Hendrycks MATH, NeurIPS '21）</p>
+        <p>500 道纯数学推理题，按学科（Algebra / Precalculus / Number Theory / Geometry 等）+ Level 1–5 平衡。当代<em>事实标准</em>的数学推理压力测试。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>2026-Q1 已基本饱和——GPT-5/o3 95%+，Claude Opus 4.6 Thinking ~94%，Gemini 3 Pro ~93%。如今更多被当作 sanity check 而非前沿榜单。
+        </div>
+        <div class="local">
+          <strong>本地：</strong>448 KB · 单 jsonl 500 行 · 学科分布 Algebra 124 / Intermediate Algebra 97 / Prealgebra 82 / Number Theory 62 / Precalculus 56 / Geometry 41 / Counting &amp; Probability 38<br>
+          <code>outline/datasets/e2e-general/MATH-500/data/test.jsonl</code>
+        </div>
+        <p><strong>赢家配方：</strong>扩展推理 + 符号工具。可直接用 hle-answer profile + symbolic-aware grader 跑评。</p>
+      </div>
+
+      <div class="benchmark-card">
+        <h4>GPQA-Diamond <span class="badge local">已落盘</span> <span class="badge adapter">adapter</span></h4>
+        <p class="meta">arXiv:2311.12022 · NYU/Anthropic/Cohere · COLM '24（gated · CC BY 4.0）</p>
+        <p>198 道<em>研究生级</em>多选题，物理 / 化学 / 生物三大领域 PhD 撰写并交叉验证。设计上 Google-proof：领域专家 ~65%，非领域博士 + 半小时浏览只能到 ~34%。OpenAI o-series 与 Anthropic system card 的"硬科学"头条数字。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>Claude Opus 4.7 ~89.4%（2026-04），Claude Mythos preview ~90.1%（2026-05），GPT-5.4 ~88.1%，o3 ~87.7%，Gemini 2.5 Pro ~86.4%；Open weight：GLM-5.1 ~84.9%、DeepSeek-R2 ~83.6%。前沿压在 ~6 pts 之内，残差很大一部分是 Expert-Validator-Disagreement 的真争议题。
+        </div>
+        <div class="local">
+          <strong>本地：</strong>1.34 MB · 单 csv 198 行 × 78 列 · 学科分布 Chemistry 93（其中 Organic 72）/ Physics 86 / Biology 19 · 难度 Hard UG 118 / Hard Grad 61 / Post-Grad 12<br>
+          <code>outline/datasets/e2e-general/GPQA-Diamond/data/gpqa_diamond.csv</code><br>
+          Adapter <code>GPQA-Diamond/adapter.py</code>：to-jsonl（4 选项 seed-based 打乱 / 多 epoch / 按 domain 分层）/ grade（<code>Answer: $LETTER</code> regex 提取，纯 exact match，无需 LLM judge）/ stats
+        </div>
+        <p><strong>赢家配方：</strong>扩展推理 + 领域工具（Physics 端 sympy；Chem 端结构推断）。Adjudication=panel 在 GPQA 上有意义——拿来审 expert-disagreement 题的推理链。</p>
+      </div>
+
+      <h3>本季度新增（建议收录）</h3>
+
+      <div class="benchmark-card">
+        <h4>LiveAgentBench</h4>
+        <p class="meta">arXiv:2603.02586 · 2026</p>
+        <p>104 个真实用户场景（从社交媒体抓取）做 agentic 评测。</p>
+        <div class="sota">
+          <strong>SOTA：</strong>过新；尚无公开排行榜。
+        </div>
+        <p><strong>赢家配方：</strong>未知。</p>
+      </div>
+
+      <blockquote>
+        即便在 GAIA 上——450 题、3 个难度——也没有模型全维度领先。HLE 的 37.5% 天花板说明专家级任务远未解决。已饱和（SWE-bench Verified 93.9%）和"开放研究"（PaperBench 21%、HLE 37.5%、AutoResearchBench &lt; 10%）之间的断层，就是 2026 年前沿真正的位置。
+        <cite>2026 年端到端 auto-research 的现状</cite>
+      </blockquote>
+    </section>
+
+    <p class="sep-ornament">❧</p>
+
+    <section id="trends">
+      <h2><span class="roman">XI</span>趋势观察</h2>
+      <p class="deck">把所有基准放在一起看，2026 上半年呈现出五条值得记录的曲线。</p>
+
+      <p><strong>1. 饱和曲线。</strong>SWE-bench Verified 在 6 个月里从 74.9% 一路推到 80.9%，OpenAI 已宣布<em>不再把它当前沿指标</em>。SWE-Bench Pro 接班——闭源顶尖 53–64%（Opus 4.7 64.3%），开源 GLM-5.1 58.4%。其他 auto-research 基准跨过 80% 的极少：MLE-bench-30 是唯一跨过 80% 线的（AIRA-2 81.5–83.1%）。PaperBench、RE-Bench、AutoResearchBench 都仍稳稳停在 30–40% 以下。</p>
+
+      <p><strong>2. Open vs Closed 差距。</strong>在 MMLU 类评测上几乎归零；在 agent 类基准上 ~5–10 分。GLM-5.1（4 月发布）以 ~7% 的成本逼近 Opus 4.6。GPT-OSS 120B、GLM-5.1、DeepSeek V4、Kimi K2.6 是当前四个前沿级 open weight。Tongyi DeepResearch Heavy 在 BrowseComp 上压过闭源——这是本季度最干净的"open 赢了"信号。</p>
+
+      <p><strong>3. "Deep research" 已成模型品类。</strong>OpenAI 出 <code>o3-deep-research</code> 这个独立 SKU；Perplexity、Google（Gemini for Science）、Microsoft（Researcher）、阿里（Tongyi DR）、Z.ai 都有自己挂名"deep research"的产品线。它从一种工作流变成<em>一类显式区分的模型</em>。</p>
+
+      <p><strong>4. 记忆是瓶颈。</strong>Mem0 的 2026 报告把记忆定位成"<em>有自己专属基准套件的一级架构组件</em>"。三篇 arXiv 论文（2603.04257 / 2605.03675 / 2602.22769）一致诊断：有限上下文是长程任务的核心瓶颈。一个有用的实操信号——多数所谓"hallucination"其实是 retrieval miss。</p>
+
+      <p><strong>5. 成本-能力开始被列入 SOTA。</strong>Token 成本现在是显式 SOTA 评分轴。GLM-5.1 报价 $1.00 / $3.20 per million in/out（Opus 4.6: $15 / $75）——7×–23× 的差距和 benchmark 分数一起被并列引用。Tongyi DR 的 MoE（30B 总参 / 3B 激活）讲的是同一个故事：用激活参数的成本换能力。SWE-1.6 同时领先成本（免费）与速度（950 tok/s）。一个编辑标准——<em>2026 年没有 $/score 列的排行榜表，看起来已经过时</em>。</p>
+
+      <div class="aside">
+        <span class="k">综合判断</span>
+        Auto-research 流水线在 2026 上半年的真实状态是：软件工程 + 数据 QA 的"短任务"端基本饱和；研究类长程任务（&gt;4 小时）仍是难解的；记忆与可靠执行是当前最关键的两个待解块。Open-weight 在 cost-performance 维度首次拿到具体优势；闭源仍在能力天花板上领先。MinionsOS 的"成长"应该集中在长程执行可靠性 + 记忆架构这两条线上。
+      </div>
+    </section>
+
+    <footer class="colophon">
+      <p>本报告由 77 个 benchmark meta.json + 7 个并行 SOTA-research agent 于 2026-05-23 汇总，并由额外的 Q1/Q2 调研 agent 补入本季度新材料。所有数字反映 2026-Q1 / Q2 的公开排行榜与系统卡状态。正文用 Iowan Old Style 衬线（中文回退到 Songti SC / Source Han Serif），导航与表格用 SF Pro Text，代码用 SF Mono。Benchmark 集合存放在 <code>/Users/mjm/MinionsOS/outline/datasets/</code>。</p>
+      <p>修订记录与待入库列表见 <code>outline/DOWNLOAD_STATUS.md</code> 与各分级 README。本快照下：原 48 基准已 smoke-test 通过，6 个因 LFS 体积超时未拉，23 个仍为 paper-only 等待资源放出。本季度新增 7 个候选（DRACO、AutoResearchBench、AIRS-Bench、DeepResearch Bench、AgencyBench、PRDBench、LiveAgentBench）建议下一轮入库。</p>
+      <p><strong>2026-05-23 会话增量</strong>：14 个数据集本会话补全或更新（HLE 262 MB / GAIA 113 MB / MATH-500 0.4 MB / GPQA-Diamond 1.3 MB / AutoResearchBench 12 MB / SWE-bench-Pro 95 MB / SWE-EVO 21 MB / AgencyBench 27 MB / PRDBench 79 MB / PaperBench 1.0 GB / IdeaBench 141 MB / IDEA-Bench-ali-vilab 329 MB / LiveIdeaBench 1.1 GB / AI-Idea-Bench-2025 345 MB metadata；总计 ~3.5 GB；AI-Idea-Bench 31 GB 全文 ZIP 按用户要求跳过）。Adapter 已落盘 5 个：<code>HLE/adapter.py</code>、<code>GAIA/adapter.py</code>、<code>GPQA-Diamond/adapter.py</code>、<code>AutoResearchBench/adapter.py</code>、<code>PRDBench/adapter.py</code>，全部对接 v15 Mission Profile <code>hle-answer</code>，可直接 <code>mos benchmark run &lt;jsonl&gt; --profile hle-answer</code>。</p>
+      <p>工程教训写入：<code>cas-bridge.xethub.hf.co</code> 实际可达（之前误判 Xet 完全死，仅 hf-mirror.org 域名 NXDOMAIN）；ModelScope CDN 是 gated HF 数据集的稳定 fallback；HF tree API <code>recursive=true</code> 在大目录被分页截断到 ~1000 entries，必须按子目录单独枚举；<code>gh api repos/.../tarball/main</code> 在 git clone 卡死时立即可用。</p>
+      <p>编者：MinionsOS · 最后更新：2026-05-23。</p>
+    </footer>
+  </article>
+
+  <script>
+const bar = document.getElementById('progress');
+const update = () => {
+  const h = document.documentElement;
+  const pct = h.scrollHeight - h.clientHeight > 0
+    ? (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100
+    : 0;
+  bar.style.setProperty('--p', pct + '%');
+};
+window.addEventListener('scroll', update, { passive: true });
+update();
+
+const links = document.querySelectorAll('#toc a[href^="#"]');
+const sections = Array.from(links).map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, { rootMargin: '-25% 0px -65% 0px' });
+sections.forEach(s => io.observe(s));
+  </script>
+</body>
+</html>

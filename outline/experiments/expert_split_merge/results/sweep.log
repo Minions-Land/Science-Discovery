@@ -1,0 +1,3 @@
+[start] static-1_mixed_s0
+[done]  static-1_mixed_s0 acc=16/16 in=42640 out=1086 latency_calls=70.9s wall=123.4s final=['mathematician'] dec=0
+[start] static-1_mixed_s1

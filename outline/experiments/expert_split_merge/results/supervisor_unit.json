@@ -1,0 +1,35 @@
+{
+  "split_should_fire": {
+    "decision": "SPLIT",
+    "reason": "Clear domain heterogeneity: 3 algebra tasks and 3 geometry tasks in recent window. Non-trivial error rate with domain-specific confusion patterns: algebra agent missed sign/root multiplicity (a1), confused Vieta's formulas (a2); geometry agent confused diameter/radius (g2). Each domain shows distinct failure modes warranting specialized prompts.",
+    "roles": [
+      {
+        "name": "algebra_specialist",
+        "charter": "Solve polynomial equations, systems, inequalities, and algebraic identities. Handle roots, factorization, and Vieta's formulas.",
+        "pitfalls": "Forgetting to report all roots (positive and negative); confusing sum vs product of roots; sign errors in factorization; incomplete solution sets for inequalities."
+      },
+      {
+        "name": "geometry_specialist",
+        "charter": "Solve problems involving shapes, areas, volumes, distances, angles, and spatial relationships. Apply Pythagorean theorem and coordinate geometry.",
+        "pitfalls": "Confusing radius with diameter; mixing up area vs perimeter; incorrect unit conversions; misapplying distance formulas; forgetting to square/unsquare appropriately."
+      }
+    ]
+  },
+  "split_should_NOT_fire": {
+    "decision": "KEEP",
+    "reason": "Recent window shows domain heterogeneity (algebra and geometry alternating), but error rate is 0% (4/4 correct). No confusion or non-trivial errors observed. Generalist performance is strong across both domains."
+  },
+  "merge_should_fire": {
+    "decision": "MERGE",
+    "reason": "geometer received only 1 task in the last window, below the 2-task threshold. Combined with low total task volume (9 tasks), merged behavior is plausibly better.",
+    "into_role": {
+      "name": "mathematician",
+      "charter": "Handle mathematical problems across all domains including algebra, geometry, calculus, number theory, and applied mathematics. Solve equations, prove theorems, analyze geometric properties, and provide rigorous mathematical reasoning.",
+      "pitfalls": "Avoid conflating algebraic and geometric intuitions; verify solutions work in their specific domain. Do not skip dimensional analysis or coordinate system considerations in geometry problems."
+    }
+  },
+  "merge_should_NOT_fire": {
+    "decision": "KEEP",
+    "reason": "Both specialists have received 5 tasks each with 100% accuracy. Task volume is sufficient and domain separation (algebra vs geometry) remains meaningful. No merger criteria met."
+  }
+}

@@ -49,3 +49,13 @@ release/
 *.bak
 *.orig
 research-report.v*.html
+
+# outline/: downloaded third-party benchmark data and raw agent session
+# transcripts stay local (re-fetch with outline/datasets/download_benchmarks.sh)
+outline/datasets/*/
+outline/datasets/*.zip
+outline/memory/datasets/
+outline/ExperimentsOfMinionsos/*/sessions/
+# GAIA / GPQA questions and ground truth: the benchmarks ask not to publish them
+outline/ExperimentsOfMinionsos/GAIA/data/
+outline/ExperimentsOfMinionsos/GQPA-Diamond/data/

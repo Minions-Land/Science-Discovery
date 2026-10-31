@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MinionsOS — 模块评测证据</title>
+<style>
+:root {
+  --bg: #faf8f5;
+  --text: #2d2a26;
+  --accent: #c0392b;
+  --accent2: #2980b9;
+  --border: #e0dcd6;
+  --code-bg: #f4f1ec;
+  --card-bg: #ffffff;
+  --shadow: 0 2px 8px rgba(0,0,0,0.06);
+  --green: #27ae60;
+  --orange: #e67e22;
+  --red: #c0392b;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.85;
+  padding: 2rem 1rem;
+}
+.container { max-width: 900px; margin: 0 auto; }
+h1 { font-size: 2rem; margin-bottom: 0.5rem; border-bottom: 3px solid var(--accent); padding-bottom: 0.5rem; }
+h2 { font-size: 1.5rem; margin-top: 2.5rem; margin-bottom: 1rem; color: var(--accent); border-left: 4px solid var(--accent); padding-left: 0.75rem; }
+h3 { font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 0.75rem; color: var(--accent2); }
+p { margin-bottom: 1rem; }
+.subtitle { color: #666; font-size: 1rem; margin-bottom: 2rem; }
+.nav { position: sticky; top: 0; background: var(--bg); border-bottom: 1px solid var(--border); padding: 0.75rem 0; margin-bottom: 2rem; z-index: 100; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.nav a { color: var(--accent2); text-decoration: none; font-size: 0.9rem; font-family: sans-serif; }
+.nav a:hover { text-decoration: underline; }
+.nav a.active { color: var(--accent); font-weight: bold; }
+.card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+th, td { border: 1px solid var(--border); padding: 0.5rem 0.75rem; text-align: left; }
+th { background: var(--code-bg); font-weight: 600; }
+tr:nth-child(even) { background: #fdfcfa; }
+code { background: var(--code-bg); padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.85em; font-family: "JetBrains Mono", "Fira Code", monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; overflow-x: auto; margin: 1rem 0; font-size: 0.85rem; line-height: 1.5; }
+.tag { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 3px; font-size: 0.75rem; font-weight: 600; font-family: sans-serif; }
+.tag-green { background: #d4efdf; color: #1e8449; }
+.tag-orange { background: #fdebd0; color: #b9770e; }
+.tag-red { background: #fadbd8; color: #922b21; }
+.tag-blue { background: #d6eaf8; color: #1a5276; }
+.evidence-box { border-left: 4px solid var(--accent2); background: #f8f9fa; padding: 1rem 1.25rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+.verdict { font-weight: 600; font-family: sans-serif; font-size: 0.9rem; }
+.verdict-yes { color: var(--green); }
+.verdict-no { color: var(--red); }
+.verdict-partial { color: var(--orange); }
+.flow-diagram { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; font-family: "JetBrains Mono", monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; white-space: pre; }
+.section-divider { text-align: center; margin: 3rem 0; color: var(--border); font-size: 1.5rem; letter-spacing: 1rem; }
+ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+li { margin-bottom: 0.4rem; }
+.placeholder { border: 2px dashed var(--border); border-radius: 8px; padding: 2rem; text-align: center; color: #999; font-style: italic; margin: 1.5rem 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>MinionsOS — 模块评测证据</h1>
+<p class="subtitle">自主科学发现 · 论文 Claims 证据收集 · 2026-05</p>
+
+<nav class="nav">
+  <a href="#methodology" class="active">评测方法论</a>
+  <a href="#skills">Skills 技能</a>
+  <a href="#memory">记忆机制 (TBD)</a>
+  <a href="#review">双重审查 (TBD)</a>
+  <a href="#writing">写作机制 (TBD)</a>
+  <a href="#auto-research"><strong>自主科研 Benchmarks</strong></a>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2 id="methodology">评测方法论：MetaHarness 行为 A/B 框架</h2>
+
+<p>MetaHarness 是一个行为级 A/B 评测框架，测试的是一个 skill <em>是否真的改变了 agent 的行为</em>，而不是文档写得好不好。它使用两阶段流水线：召回测试（skill 能不能被找到？）+ 行为对比（加载后有没有帮助？）。</p>
+
+<h3>设计哲学</h3>
+<div class="card">
+<p><strong>核心问题：</strong>把这段 skill 文本注入 agent 的上下文后，它的决策质量是否可测量地优于没有 skill 的同一个 agent？</p>
+<p><strong>为什么不直接读 skill？</strong>一个 skill 可以写得很漂亮但行为效果为零。反过来，一个粗糙但决策边界正确的 skill 可以防止灾难性错误。MetaHarness 测量的是<em>效果</em>，不是<em>形式</em>。</p>
+<p><strong>目标模型：</strong>Haiku（小、快、便宜）。这是刻意的选择——Sonnet/Opus 本身已经能做到 skill 所规定的大部分事情，差异消失在噪声中。Skill 的设计目标是提升低成本执行器的下限。</p>
+</div>
+
+<h3>两阶段流水线</h3>
+<div class="flow-diagram">阶段 0：SSL 召回测试                      阶段 1：行为 A/B 对比
+┌───────────────────────────────┐          ┌───────────────────────────────┐
+│ 输入：所有 skill 的 summary    │          │ 对每个 probe：                 │
+│ + 场景描述                     │          │                               │
+│                               │          │  Haiku A（注入 skill 文本）    │
+│ 问："为这个场景选 top-3 skill" │          │  Haiku B（无 skill，基线）     │
+│                               │          │                               │
+│ 指标：Recall@3, MRR           │   通过    │  两者收到完全相同的场景        │
+│                               │ ──────▶  │  唯一区别：有无 skill 文本     │
+│ 如果 Recall@3 = 0：           │          │                               │
+│   停止。先修 summary。         │          │  Codex GPT-5.5 盲评           │
+│                               │          │  （随机 RED/BLUE 标签）        │
+└───────────────────────────────┘          └───────────────────────────────┘</div>
+
+<h3>阶段 0：SSL 召回测试</h3>
+<div class="card">
+<p><strong>测什么：</strong>给定一个场景，agent 的 skill 选择步骤能否把目标 skill 放进 top-K？</p>
+<p><strong>为什么重要：</strong>一个<em>找不到</em>的 skill 就<em>帮不上忙</em>。如果 summary 太泛、用了内部术语、或者和兄弟 skill 重叠，agent 会选错——Stage 1 的结果就变成假阳性。</p>
+
+<table>
+<tr><th>指标</th><th>阈值</th><th>动作</th></tr>
+<tr><td>Recall@3 = 1, MRR ≥ 0.5</td><td>健康</td><td>进入 Stage 1</td></tr>
+<tr><td>Recall@3 = 1, MRR &lt; 0.5</td><td>边缘</td><td>标记干扰项；谨慎进入 Stage 1</td></tr>
+<tr><td>Recall@3 = 0</td><td>失败</td><td><strong>停止。</strong>先重写 summary 再做 Stage 1</td></tr>
+</table>
+
+<p><strong>成本：</strong>~60 次 Haiku 调用 × ~3K tokens = ~180K tokens。约 5 分钟。便宜的保险——避免在不可达的 skill 上浪费 Stage 1 预算。</p>
+</div>
+
+<h3>阶段 1：行为 A/B 对比</h3>
+<div class="card">
+<p><strong>协议：</strong></p>
+<ol>
+<li><strong>设计 probe</strong>——≤300 字的场景提示，有明确正确答案。每个 probe 包含：具体角色、具体场景（文件路径、数字、状态值）、具体问题（"你的下一步行动是什么？"）。</li>
+<li><strong>生成 Haiku 对</strong>——每个 probe 两个 agent，除了一个注入了 skill 文本外完全相同。后台运行，≤200 字回复。</li>
+<li><strong>Codex 盲评</strong>——GPT-5.5 以 <code>reasoning_effort: low</code> 用随机 RED/BLUE 标签评判。无法识别哪个回复有 skill。输出严格 JSON：<code>{winner, reasoning, skill_effect_estimate, confidence}</code>。</li>
+<li><strong>分桶</strong>——每个 skill 被归入四种结果之一。</li>
+</ol>
+
+<table>
+<tr><th>分桶</th><th>含义</th><th>示例</th></tr>
+<tr><td><span class="tag tag-green">防止真实错误</span></td><td>没有 skill 时，基线做出错误决策</td><td>编造不存在的 API 名、过度执行、调用禁止的工具</td></tr>
+<tr><td><span class="tag tag-blue">校准回复</span></td><td>两者都答对；有 skill 的版本论证更充分</td><td>引用权威来源、使用结构化格式</td></tr>
+<tr><td><span class="tag tag-orange">与基线持平</span></td><td>无可测量差异</td><td>probe 太简单，或 skill 与训练冗余</td></tr>
+<tr><td><span class="tag tag-red">过度干预</span></td><td>有 skill 的版本比基线更差</td><td>自动触发用户未请求的工作</td></tr>
+</table>
+</div>
+
+<h3>Probe 设计原则</h3>
+<div class="card">
+<p><strong>标准 probe</strong> 测试 skill 应该触发的常见场景。</p>
+<p><strong>困难 probe</strong> 测试边界情况——skill 的价值在于<em>克制</em>（不行动），而朴素 agent 会行动。例如：</p>
+<ul>
+<li>"测试在第 2 次迭代后通过了，但你改了 47 行，最小修复只需 5 行。"</li>
+<li>"用户说的是'直接实现'，不是'实现并清理'。"</li>
+<li>"审稿人 1 = 强接受；审稿人 2 = 拒绝。继续还是停止？"</li>
+</ul>
+<p><strong>反模式：</strong>"你醒来发现有事件"（太模糊）、"帮用户处理论文"（没有可判定的问题）、正确答案是"问一个澄清问题"的 probe（A 和 B 都会问）。</p>
+</div>
+
+<h3>全库运行统计</h3>
+<div class="card">
+<table>
+<tr><th>指标</th><th>数值</th></tr>
+<tr><td>测试 skill 数</td><td>49</td></tr>
+<tr><td>总 probe 数</td><td>61（部分 skill 有标准 + 困难两个 probe）</td></tr>
+<tr><td>Haiku 调用次数</td><td>122（每 probe 2 次）</td></tr>
+<tr><td>Codex 评判次数</td><td>61</td></tr>
+<tr><td>Token 成本</td><td>~14M Haiku + ~3M Codex</td></tr>
+<tr><td>墙钟时间</td><td>~3 小时</td></tr>
+<tr><td>Codex 正确识别率</td><td>~60%</td></tr>
+</table>
+</div>
+
+<div class="section-divider">• • •</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2 id="skills">模块 1：Skills 技能（Think-Then-Act）</h2>
+
+<h3>Think-Then-Act 是什么</h3>
+<div class="card">
+<p>一个结构化规划技能，提供五个可组合的"思维姿态"，让自主 agent 在行动前先推理。Agent 自己决定用哪些姿态、用几个、什么顺序。思考完毕后，所有执行都派发给子 agent——永远不自己动手。</p>
+
+<table>
+<tr><th>姿态</th><th>何时使用</th><th>何时跳过</th></tr>
+<tr><td><strong>未陈述前提</strong></td><td>任务有未说明的约束</td><td>规格具体且可验证</td></tr>
+<tr><td><strong>第一性原理</strong></td><td>"大家都这么做"是最强论据时</td><td>惯例本身就是承重的</td></tr>
+<tr><td><strong>辩证综合</strong></td><td>两种方案冲突</td><td>没有真正的对立面</td></tr>
+<tr><td><strong>目标设定</strong></td><td>派发前需要验收标准</td><td>二元检查就够了</td></tr>
+<tr><td><strong>计划持久化</strong></td><td>多步工作跨越上下文重置</td><td>单步任务</td></tr>
+</table>
+
+<p><strong>核心设计原则：</strong>上下文分离——思考上下文保持干净用于协调；执行上下文是一次性的。这防止了上下文膨胀在多任务会话中降低规划质量。</p>
+</div>
+
+<h3>证据 1：MetaHarness 行为 A/B（全库运行）</h3>
+<div class="evidence-box">
+<p><strong>设置：</strong>49 个 skill × 1-2 个 probe，Haiku 执行器，Codex 盲评</p>
+<p><strong>TTA 子姿态测试结果：</strong></p>
+<table>
+<tr><th>子姿态</th><th>分桶</th><th>细节</th></tr>
+<tr><td><code>first-principles</code></td><td><span class="tag tag-blue">校准回复</span></td><td>保持校准；不会滑入偏执模式</td></tr>
+<tr><td><code>dialectical-synthesis</code></td><td><span class="tag tag-blue">校准回复</span></td><td>正题/反题/合题结构，带条件性解决</td></tr>
+<tr><td><code>coding-methodology</code></td><td><span class="tag tag-green">防止真实错误</span></td><td>没有它时，基线会过度执行</td></tr>
+</table>
+
+<p><strong>总体发现：</strong>32/49 个 skill（65%）有可测量的正面行为效果。18 个"防止真实错误"的案例是承重核心。</p>
+
+<p><strong>Haiku 的三种失败模式（skill 可以纠正的）：</strong></p>
+<ol>
+<li><strong>不确定时编造工具名</strong>——skill 充当词汇锚点</li>
+<li><strong>上下文不足时默认"问用户"</strong>——skill 提供脚手架让 agent 自主行动</li>
+<li><strong>开放式任务上过度执行</strong>——带澄清门控的 skill 防止静默猜测范围</li>
+</ol>
+<p>Think-then-act 直接解决失败模式 #2 和 #3。</p>
+</div>
+
+<h3>证据 2：竞品对比评测（2026-05-17）</h3>
+<div class="evidence-box">
+<p><strong>设置：</strong>3 个 probe × 4 个变体（TTA v3、brainstorming、writing-plans、ultrathink）</p>
+
+<table>
+<tr><th>Probe</th><th>类型</th><th>TTA v3 结果</th><th>胜者</th></tr>
+<tr><td>P1</td><td>具体规格</td><td><span class="verdict verdict-no">败</span>——在简单任务上搞仪式</td><td>brainstorming</td></tr>
+<tr><td>P2</td><td>模糊架构</td><td><span class="verdict verdict-no">败</span>——给离线角色发消息而不是查代码库</td><td>writing-plans</td></tr>
+<tr><td>P3</td><td>多角色启动</td><td><span class="verdict verdict-no">败</span>——在交接时软化了阈值</td><td>writing-plans</td></tr>
+</table>
+
+<p><strong>ultrathink 三局全败</strong>——没有结构的纯算力不管用。</p>
+
+<p><strong>修复措施（v3 → v6）：</strong></p>
+<table>
+<tr><th>修复</th><th>内容</th><th>解决</th></tr>
+<tr><td>(a) 跳过触发器</td><td>"规格具体时直接跳过"</td><td>P1</td></tr>
+<tr><td>(b) 证据优先</td><td>先在代码库上跑 codex/Task，再发 EACN 消息</td><td>P2</td></tr>
+<tr><td>(c) 逐字传递目标</td><td>"TBD"、"合理的"都算计划失败</td><td>P3</td></tr>
+<tr><td>(d) 具体示例</td><td>纯文字规则在 v5 无效；加了具体失败模式示例后生效</td><td>P2</td></tr>
+</table>
+
+<p><strong>修复后结果：</strong>P2 重测 → Haiku 正确地用 codex 查了具体文件（<code>role.py</code>、<code>whitelist.py</code>、<code>eacn3.db</code>），而不是给离线 Writer 发消息。</p>
+</div>
+
+<h3>证据 3：自评功能移除（负面结果）</h3>
+<div class="evidence-box">
+<p><strong>设置：</strong>5 个 probe 的 Haiku A/B（4 难 + 1 简单），测试"推荐自我评估"功能</p>
+<p><strong>结果：</strong><span class="verdict verdict-no">2/5 胜，且有混淆因素。功能已移除。</span></p>
+<p><strong>失败模式：</strong></p>
+<ul>
+<li>Haiku 写的是<em>防御性复述</em>而非诚实反思（3/5 被 Codex 标记为"无新洞察"）</li>
+<li>在简单任务上，反思提示推动 agent 过度执行（P5：自动提交超出范围）</li>
+<li>Sonnet/Opus 天然会自我评估——显式提示对大模型冗余，对小模型有害</li>
+</ul>
+<p><strong>意义：</strong>证明 skill 设计过程有移除机制，不只是堆积。功能基于证据被测试和拒绝。</p>
+</div>
+
+<h3>证据 4：姿态 4 漂移修复（2026-05-19）</h3>
+<div class="evidence-box">
+<p><strong>观察：</strong>在一个投票机制设计问题上，姿态 4（目标设定）坍缩成了"工程性结论"，而不是产出规范的 5 要素 Goal 块。</p>
+<p><strong>漂移模式：</strong>综合以"所以我们应该建 X"结尾 → agent 把目标设定当成"展开推荐" → 产出 yes/no 判断，没有传感器、阈值或停止规则。</p>
+<p><strong>修复：</strong>显式失败模式提示："如果你的输出读起来像执行摘要，你跳过了姿态 4。"</p>
+<p><strong>意义：</strong>Skill 需要反漂移机制。自然语言流（综合→结论）会绕过结构化输出要求，除非显式守卫。</p>
+</div>
+
+<h3>Claims 评估</h3>
+<div class="card">
+<h3 style="margin-top:0">✅ 我们能说的</h3>
+<table>
+<tr><th>Claim</th><th>证据</th><th>强度</th></tr>
+<tr><td>结构化规划 skill 可测量地改善 Haiku 级 agent 的决策</td><td>MetaHarness A/B：65% 正面效果</td><td><span class="tag tag-green">强</span></td></tr>
+<tr><td>"先 scope 再 act"防止过度执行错误</td><td>coding-methodology 进入"防止真实错误"桶</td><td><span class="tag tag-green">强</span></td></tr>
+<tr><td>Skill 可通过 A/B 测试经验性改进</td><td>v3→v6 演化，P2 重测确认</td><td><span class="tag tag-blue">中等</span></td></tr>
+<tr><td>具体示例优于纯文字规则（对 Haiku）</td><td>v5 纯文字失败；v6 具体示例成功</td><td><span class="tag tag-blue">中等</span></td></tr>
+<tr><td>结构优于纯推理算力</td><td>ultrathink 三局全败</td><td><span class="tag tag-blue">中等</span></td></tr>
+<tr><td>设计过程包含基于证据的功能移除</td><td>自评 A/B：2/5，功能移除</td><td><span class="tag tag-green">强</span></td></tr>
+</table>
+
+<h3>❌ 我们不能说的</h3>
+<table>
+<tr><th>Claim</th><th>缺口</th></tr>
+<tr><td>TTA 改善了端到端科学发现</td><td>没有系统级实验</td></tr>
+<tr><td>TTA 在 Sonnet/Opus 级模型上有效</td><td>MetaHarness 明确说差异消失</td></tr>
+<tr><td>完整 5 姿态流水线优于单姿态</td><td>没有流水线 vs 单姿态的 A/B</td></tr>
+<tr><td>计划持久化改善多会话任务完成率</td><td>没有受控的重置恢复实验</td></tr>
+<tr><td>可推广到 MinionsOS 架构之外</td><td>所有测试都在 EACN + Claude Code + Haiku 上</td></tr>
+</table>
+</div>
+
+<h3>论文关键洞察</h3>
+<div class="card" style="border-left: 4px solid var(--accent);">
+<p><em>"纯文字规则无法覆盖 Haiku 的默认行为。当行为纠正需要覆盖模型的强先验（'问澄清问题'）时，仅靠文字规则不够——必须包含一个具体的失败模式示例。成本：+9 行。这是一个关于小模型 prompt-based skill 设计的可推广发现。"</em></p>
+</div>
+
+<div class="section-divider">• • •</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2 id="memory">模块 2：三层记忆机制 (TBD)</h2>
+<div class="placeholder">
+Scratchpad (L1) + Library (L2) + Atlas (L3)<br>
+证据收集中
+</div>
+
+<h2 id="review">模块 3：双重审查降幻觉 (TBD)</h2>
+<div class="placeholder">
+Ethics 审计 + Reviewer 审稿<br>
+证据收集中
+</div>
+
+<h2 id="writing">模块 4：写作机制 (TBD)</h2>
+<div class="placeholder">
+Writer 工作流 + 审稿驱动修订<br>
+证据收集中
+</div>
+
+<div class="section-divider">• • •</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 自主科研 Benchmarks 全景 — 来源：AI for Auto-Research Roadmap & User Guide (Kong et al., 2026, arXiv:2605.18661) -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2 id="auto-research">自主科研 Benchmarks 全景 · MinionsOS 对照</h2>
+
+<p>这一节把<em>"AI for Auto-Research: Roadmap &amp; User Guide"</em>（Kong et al., 2026, <a href="https://arxiv.org/abs/2605.18661">arXiv:2605.18661</a>）调研到的所有 benchmark 系统化整理。该综述把学术研究生命周期分为 <strong>4 个阶段 8 个 stage</strong>，并为每个 stage 配套了独立的 benchmark 系列。下面表格把<strong>每一个 benchmark</strong> 都映射到 MinionsOS 的模块、评测流程和当前覆盖状态——目标是任何一个 benchmark 都能被启动一次完整的 A/B 评比。</p>
+
+<div class="card" style="border-left:4px solid var(--accent2);">
+<p><strong>调研来源：</strong></p>
+<ul>
+<li>论文：<a href="https://arxiv.org/abs/2605.18661">arXiv:2605.18661</a> · <a href="https://worldbench.github.io/awesome-ai-auto-research">项目主页</a> · <a href="https://github.com/worldbench/awesome-ai-auto-research">GitHub repo</a></li>
+<li>抓取方式：通过 <code>gh api repos/worldbench/awesome-ai-auto-research/readme</code> 拉取了完整 README，提取 Stage 1–9 + Tools &amp; GitHub Repos 段中所有出现的 benchmark / dataset / leaderboard 表格条目。</li>
+<li>HTML 同步副本：作者本地的对外阅读版本同步加入相同 atlas 段。</li>
+</ul>
+</div>
+
+<h3>研究生命周期 4 × 8 框架</h3>
+<div class="card">
+<table>
+<tr><th>阶段</th><th>Stage</th><th>功能定位</th><th>MinionsOS 主责模块</th></tr>
+<tr><td rowspan="4"><strong>1. Creation 创造</strong></td><td>1.1 Idea Generation</td><td>新研究想法的产生</td><td>Expert + Gru + EACN 协作</td></tr>
+<tr><td>1.2 Literature Review</td><td>检索与综合既有文献</td><td>Writer 的 paper-search MCP + Book/Shelf 索引</td></tr>
+<tr><td>1.3 Coding &amp; Experiments</td><td>编码、实验执行与编排</td><td>Coder + experiment_scheduler + Codex 子代理</td></tr>
+<tr><td>1.4 Tables &amp; Figures</td><td>科研图表与公式生成</td><td>Writer + visual_check / visual_render 工具</td></tr>
+<tr><td><strong>2. Writing 写作</strong></td><td>2.1 Paper Writing</td><td>稿件撰写与打磨</td><td>Writer (按需启动) + Coder/Expert 提供素材</td></tr>
+<tr><td rowspan="2"><strong>3. Validation 校验</strong></td><td>3.1 Peer Review</td><td>同行评审生成与匹配</td><td><code>mos_review_run</code> (AC/Editor + 多 reviewer 子代理)</td></tr>
+<tr><td>3.2 Rebuttal &amp; Revision</td><td>作者答辩与修订</td><td>Writer + Reviewer 反馈循环</td></tr>
+<tr><td><strong>4. Dissemination 传播</strong></td><td>4.1 Paper2X</td><td>转换为 poster/slides/video/web</td><td>暂未覆盖 (TBD)</td></tr>
+</table>
+</div>
+
+<h3>评测流程通用模板（每个 benchmark 都按这个跑）</h3>
+<div class="flow-diagram">┌─────────── 1. Adapter 接入 ────────────┐
+│ ① 拉数据集（gh / HuggingFace / curl）   │
+│ ② 实现 input → MinionsOS 调用映射       │
+│ ③ 实现 MinionsOS 输出 → benchmark 格式  │
+└──────────────────┬─────────────────────┘
+                   ▼
+┌─────────── 2. 双轨运行 ────────────────┐
+│ A 轨：MinionsOS 完整流水线（带 Roles）   │
+│ B 轨：Single-agent 基线（Claude Code 裸跑）│
+│ C 轨（可选）：声称对手系统（Sakana/AI Sci.）│
+└──────────────────┬─────────────────────┘
+                   ▼
+┌─────────── 3. 评分与归因 ──────────────┐
+│ ① benchmark 自带指标                    │
+│ ② Token / 时间 / 金钱开销               │
+│ ③ Codex 盲评（结构化失败模式分桶）       │
+│ ④ 错误类别归因到 Role / 工具 / 协作环节  │
+└────────────────────────────────────────┘</div>
+
+<h3>状态图例</h3>
+<p>
+<span class="tag tag-green">✓ 可直接评测</span> &nbsp;
+<span class="tag tag-blue">~ 需轻量 adapter</span> &nbsp;
+<span class="tag tag-orange">! 需中等改造</span> &nbsp;
+<span class="tag tag-red">✗ 当前不覆盖</span>
+</p>
+
+<div class="section-divider">• • •</div>
+
+<!-- ═════════ STAGE 1.1 IDEA GENERATION ═════════ -->
+<h3 id="bench-idea">Stage 1.1 — Idea Generation 想法生成</h3>
+<div class="card">
+<table>
+<tr><th>Benchmark</th><th>测什么</th><th>规模 / 来源</th><th>MinionsOS 评测流程</th><th>状态</th></tr>
+
+<tr>
+<td><strong>IdeaBench</strong> (KDD '25)<br><a href="https://doi.org/10.1145/3711896.3737419">paper</a></td>
+<td>LLM 在最小上下文下的科研创造性</td>
+<td>跨学科 idea prompts</td>
+<td>Adapter → Gru 派 Expert 生成 ideas → 与 ground-truth idea pool 做 novelty/feasibility 双盲评</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>LiveIdeaBench</strong> (arXiv '24)<br><a href="https://arxiv.org/abs/2412.17596">2412.17596</a></td>
+<td>极少上下文下 idea 的科研创造力</td>
+<td>动态 prompt 集</td>
+<td>同 IdeaBench；额外测 Expert 在<em>无 Library 上下文</em>时的纯模型先验</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>AI Idea Bench 2025</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2504.14191">2504.14191</a></td>
+<td>AI 研究 idea 生成的标准化打分</td>
+<td><a href="https://github.com/yansheng-qiu/AI_Idea_Bench_2025">repo</a></td>
+<td>Gru + Multi-Expert 协同 vs. 单 Expert 基线，比较 4 维（novelty/feasibility/excitement/effectiveness）</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>HeurekaBench</strong> (ICLR '26)<br><a href="https://arxiv.org/abs/2601.01678">2601.01678</a></td>
+<td>AI co-scientist 端到端 idea→实验闭环</td>
+<td><a href="https://github.com/mlbio-epfl/HeurekaBench">repo</a></td>
+<td>完整 MinionsOS 流水线（Idea→Coder→Ethics→Expert）vs. AI Scientist v2 基线；以 acceptance-style rubric 打分</td>
+<td><span class="tag tag-orange">!</span></td>
+</tr>
+
+<tr>
+<td><strong>ResearchBench</strong> (ACL '26)<br><a href="https://arxiv.org/abs/2503.21248">2503.21248</a></td>
+<td>科研发现的 inspiration-based 任务分解</td>
+<td>分解粒度多层</td>
+<td>用 Reel/Draft 中的中间节点对照 benchmark 给出的"应有思维步骤"，验证流程粒度</td>
+<td><span class="tag tag-orange">!</span></td>
+</tr>
+
+<tr>
+<td><strong>HindSight</strong> (arXiv '26)<br><a href="https://arxiv.org/abs/2603.15164">2603.15164</a></td>
+<td>用<em>未来引用影响</em>评 idea</td>
+<td>留出未来时段引用</td>
+<td>用过去快照的 Library 跑 idea-gen，再用 2026 实际引用做事后 oracle</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ═════════ STAGE 1.2 LITERATURE REVIEW ═════════ -->
+<h3 id="bench-litrev">Stage 1.2 — Literature Review &amp; Search 文献检索</h3>
+<div class="card">
+<table>
+<tr><th>Benchmark</th><th>测什么</th><th>规模 / 来源</th><th>MinionsOS 评测流程</th><th>状态</th></tr>
+
+<tr>
+<td><strong>LitSearch</strong> (arXiv '24)<br><a href="https://arxiv.org/abs/2407.18940">2407.18940</a></td>
+<td>科学文献检索精度</td>
+<td><a href="https://github.com/princeton-nlp/LitSearch">repo</a></td>
+<td>Writer 的 paper-search MCP（federated arXiv/PubMed/Semantic Scholar）vs. 单 source baseline；Recall@k + MRR</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+<tr>
+<td><strong>CiteME</strong> (arXiv '24)<br><a href="https://arxiv.org/abs/2407.12861">2407.12861</a></td>
+<td>语言模型能否准确引用科学论断</td>
+<td>引用对齐数据</td>
+<td>Writer + Ethics 双轨：Writer 生成段落含引用 → Ethics 用 ClaimCheck 风格审；统计引用幻觉率</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+<tr>
+<td><strong>DeepScholar-Bench</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2508.20033">2508.20033</a></td>
+<td>研究综合的活体 benchmark + 自动评分</td>
+<td><a href="https://github.com/guestrin-lab/deepscholar-bench">repo</a></td>
+<td>Writer (deep-research mode) 端到端跑综述任务；用其内置 evaluator 双轨打分</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>ReportBench</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2508.15804">2508.15804</a></td>
+<td>Deep research 代理的学术综述能力</td>
+<td><a href="https://github.com/ByteDance-BandAI/ReportBench">repo</a></td>
+<td>Writer + Multi-Expert 协作综述 vs. GPT-Researcher 基线；用 4 维 rubric (recall/precision/coverage/coherence)</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>IDRBench</strong> (arXiv '26)<br><a href="https://arxiv.org/abs/2601.06676">2601.06676</a></td>
+<td>交互式深度研究 benchmark</td>
+<td>含人机互动轮次</td>
+<td>Gru 模拟 human-in-loop；测 Writer 在多轮澄清后是否收敛到正确综述</td>
+<td><span class="tag tag-orange">!</span></td>
+</tr>
+
+<tr>
+<td><strong>ScholarGym</strong> (arXiv '26)<br><a href="https://arxiv.org/abs/2601.21654">2601.21654</a></td>
+<td>Deep research 信息收集阶段能力</td>
+<td>检索专项</td>
+<td>剥离生成步骤，纯测 Writer 的 paper-search 召回质量；和 Tongyi DeepResearch 对比</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>SciNetBench</strong> (arXiv '26)<br><a href="https://arxiv.org/abs/2601.03260">2601.03260</a></td>
+<td>关系感知的文献检索</td>
+<td>论文关系图谱</td>
+<td>用 graphify 在 Library 中构建论文关系图，与 SciNetBench 给定关系做 F1</td>
+<td><span class="tag tag-orange">!</span></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ═════════ STAGE 1.3 CODING & EXPERIMENTATION ═════════ -->
+<h3 id="bench-code">Stage 1.3 — Coding &amp; Experimentation 编码与实验（最关键）</h3>
+<div class="card">
+<p><strong>这是 MinionsOS 的核心战场——Coder + experiment_scheduler + Codex 子代理 + Ethics 审计 都集中在这里。</strong></p>
+<table>
+<tr><th>Benchmark</th><th>测什么</th><th>规模 / 来源</th><th>MinionsOS 评测流程</th><th>状态</th></tr>
+
+<tr>
+<td><strong>SWE-bench</strong> (ICLR '24)<br><a href="https://arxiv.org/abs/2310.06770">2310.06770</a></td>
+<td>真实 GitHub issue 解决</td>
+<td><a href="https://github.com/princeton-nlp/SWE-bench">repo</a></td>
+<td>Coder 派 Codex 子代理（<code>sandbox=danger-full-access</code>）；统计 resolved-rate vs. SWE-agent 基线</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+<tr>
+<td><strong>SWE-bench Pro</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2509.16941">2509.16941</a></td>
+<td>长时程软件工程任务</td>
+<td>多文件、跨提交</td>
+<td>同上 + 测 mos_reset_context 后能否从 Draft 恢复任务；测 Reel 的可恢复性（L4 vision 的 dry-run）</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>SWE-EVO</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2512.18470">2512.18470</a></td>
+<td>软件演化场景下的代理</td>
+<td>跨版本演化任务</td>
+<td>测 Coder + Reel L0 + Book L2 在多代码版本上的连续工作；mos_role_evolve_evaluate 是否能识别需要分裂的代码 sub-domain</td>
+<td><span class="tag tag-orange">!</span></td>
+</tr>
+
+<tr>
+<td><strong>SciCode</strong> (arXiv '24)<br><a href="https://arxiv.org/abs/2407.13168">2407.13168</a></td>
+<td>科学家精选的科研代码任务</td>
+<td><a href="https://github.com/scicode-bench/SciCode">repo</a></td>
+<td>Coder 处理多步科学计算任务；Ethics 审计是否实现了正确的算法（不只是能跑）</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+<tr>
+<td><strong>PaperBench</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2504.01848">2504.01848</a></td>
+<td>从 ICML 2024 论文复现整篇</td>
+<td>20 papers, 8316 rubric leaves<br><a href="https://github.com/openai/preparedness">repo</a></td>
+<td><strong>金标。</strong>完整 MinionsOS 项目（Gru→Coder→Ethics→Writer→Reviewer）跑端到端 replication；按 8316 节点 rubric 打分</td>
+<td><span class="tag tag-orange">!</span></td>
+</tr>
+
+<tr>
+<td><strong>ResearchCodeBench</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2506.02314">2506.02314</a></td>
+<td>实现新型 ML 研究代码</td>
+<td>新型论文未公开实现</td>
+<td>Coder 直接从 paper PDF (paper-search) 推 → 实现 → 单测对比；Ethics 检查算法忠实度</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>SciReplicate-Bench</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2504.00255">2504.00255</a></td>
+<td>Agent 驱动的论文算法复现</td>
+<td><a href="https://github.com/xyzCS/SciReplicate-Bench">repo</a></td>
+<td>同上；额外用 Reel 记录每步推理，与论文中的 algorithm description 做忠实度匹配</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>MLE-Bench</strong> (arXiv '24)<br><a href="https://arxiv.org/abs/2410.07095">2410.07095</a></td>
+<td>75 个 Kaggle 比赛</td>
+<td>medal-rate 对人类百分位</td>
+<td>Coder + experiment_scheduler 异步跑；统计 medal rate vs. AIDE / OpenHands</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>MLAgentBench</strong> (ICML '24)<br><a href="https://arxiv.org/abs/2310.03302">2310.03302</a></td>
+<td>13 个 Kaggle-style 改进任务</td>
+<td><a href="https://github.com/snap-stanford/MLAgentBench">repo</a></td>
+<td>Coder 为每任务派多个 Codex 实例并行试错；用 experiment_scheduler 做 GPU packing</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+<tr>
+<td><strong>MLGym</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2502.14499">2502.14499</a></td>
+<td>AI 研究代理的新框架 + benchmark</td>
+<td>开放任务集</td>
+<td>把 MLGym 的 task gym 接入 mos_exp_run；记录探索-execution-verification 三层是否都触发</td>
+<td><span class="tag tag-orange">!</span></td>
+</tr>
+
+<tr>
+<td><strong>MLR-Bench</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2505.19955">2505.19955</a></td>
+<td>开放式 ML 研究</td>
+<td>open-ended tasks</td>
+<td>Gru + 全 Role 协作；测 Role evolution（split/merge/dismiss）是否在长任务中正确触发</td>
+<td><span class="tag tag-orange">!</span></td>
+</tr>
+
+<tr>
+<td><strong>EXP-Bench</strong> (ICLR '26)<br><a href="https://openreview.net/forum?id=KjgyAm383Z">paper</a></td>
+<td>AI 能否做 AI research 实验</td>
+<td><a href="https://github.com/Just-Curieous/Curie/tree/main/benchmark/exp_bench">repo</a></td>
+<td>Coder 接收实验设计 → experiment_scheduler 执行 → Ethics 审报告；端到端 success rate</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>PostTrainBench</strong> (arXiv '26)<br><a href="https://arxiv.org/abs/2603.08640">2603.08640</a></td>
+<td>LLM 代理能否自动化 LLM post-training</td>
+<td><a href="https://github.com/aisa-group/PostTrainBench">repo</a></td>
+<td>Coder + GPU pool 跑 post-training pipeline；测 Reel L0 是否捕获完整训练 trace</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>DiscoveryBench</strong> (arXiv '24)<br><a href="https://arxiv.org/abs/2407.01725">2407.01725</a></td>
+<td>数据驱动的科学发现</td>
+<td><a href="https://github.com/allenai/discoverybench">repo</a></td>
+<td>完整 MinionsOS 项目跑数据集 → hypothesis；Ethics 验证发现可证伪性</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>DiscoveryWorld</strong> (arXiv '24)<br><a href="https://arxiv.org/abs/2406.06769">2406.06769</a></td>
+<td>自动科研代理的虚拟环境</td>
+<td><a href="https://github.com/allenai/discoveryworld">repo</a></td>
+<td>把 DiscoveryWorld 当成 Gru 的外部世界；测 Project bridge 在多项目间共享发现</td>
+<td><span class="tag tag-orange">!</span></td>
+</tr>
+
+<tr>
+<td><strong>ScienceAgentBench</strong> (ICLR '25)<br><a href="https://arxiv.org/abs/2410.05080">2410.05080</a></td>
+<td>102 个数据驱动科学分析任务</td>
+<td>数据科学多 stage</td>
+<td>Coder + visual_check 全程；Ethics 审计可视化是否误导</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+<tr>
+<td><strong>LAB-Bench</strong> (arXiv '24)<br><a href="https://arxiv.org/abs/2407.10362">2407.10362</a></td>
+<td>语言模型在生物研究中的能力</td>
+<td><a href="https://github.com/Future-House/LAB-Bench">repo</a></td>
+<td>Expert 起一个 biology domain pack；测领域专长注入是否提升 LAB-Bench 分数</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>KernelBench</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2502.10517">2502.10517</a></td>
+<td>LLM 能否写高效 GPU kernel</td>
+<td><a href="https://github.com/ScalingIntelligence/KernelBench">repo</a></td>
+<td>Coder 派 Codex 写 kernel → experiment_scheduler 跑 benchmark → 收集 speedup vs. 基线</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+<tr>
+<td><strong>TritonBench</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2502.14752">2502.14752</a></td>
+<td>Triton operator 生成</td>
+<td><a href="https://github.com/thunlp/TritonBench">repo</a></td>
+<td>同 KernelBench；专测 Coder 在受限编程语言下的能力</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+<tr>
+<td><strong>AstaBench</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2510.21652">2510.21652</a></td>
+<td>科研代理 suite</td>
+<td><a href="https://github.com/allenai/asta-bench">repo</a></td>
+<td>把 Asta 任务接到 MinionsOS；多 stage 综合分</td>
+<td><span class="tag tag-orange">!</span></td>
+</tr>
+
+<tr>
+<td><strong>ResearchClawBench</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2512.16969">2512.16969</a></td>
+<td>科研一般智能（aligned to scientist workflow）</td>
+<td><a href="https://github.com/InternScience/ResearchClawBench">repo</a></td>
+<td>完整 MinionsOS workflow 对 ResearchClaw 自有 workflow 做对比 ablation</td>
+<td><span class="tag tag-orange">!</span></td>
+</tr>
+
+<tr>
+<td><strong>FrontierScience</strong> (arXiv '26)<br><a href="https://arxiv.org/abs/2601.21165">2601.21165</a></td>
+<td>专家级科学任务</td>
+<td>领域专家任务集</td>
+<td>多 Expert role 协作；测 Expert split/merge 在专家级任务上的效用</td>
+<td><span class="tag tag-orange">!</span></td>
+</tr>
+
+<tr>
+<td><strong>InfiAgent-DABench</strong> (arXiv '24)<br><a href="https://arxiv.org/abs/2401.05507">2401.05507</a></td>
+<td>数据分析任务上的代理</td>
+<td>表格数据分析</td>
+<td>Coder + visual_check 跑表格数据分析；测 Draft 中是否记录了正确的 reasoning chain</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+<tr>
+<td><strong>RE-Bench</strong> (METR '24)<br><a href="https://arxiv.org/abs/2411.15114">2411.15114</a></td>
+<td>7 个 AI R&amp;D 任务，对照人类 4h 研究员</td>
+<td>METR 制作</td>
+<td>给 Gru 4h 时间 → 完整 MinionsOS 跑；分数对照人类 baseline</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>SUPER</strong> (EMNLP '24)<br><a href="https://doi.org/10.18653/v1/2024.emnlp-main.702">paper</a></td>
+<td>复现研究 repo</td>
+<td>AI2 制作</td>
+<td>Coder 接到 GitHub repo URL → 端到端复现；用 SUPER 自带评分</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+<tr>
+<td><strong>CORE-Bench</strong> (arXiv '24)<br><a href="https://arxiv.org/abs/2409.11363">2409.11363</a></td>
+<td>90 个计算可复现性任务</td>
+<td>跨语言科研代码</td>
+<td>同 SUPER；测多语言（R/Python/Julia）下的 Codex 通用性</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ═════════ STAGE 1.4 TABLES & FIGURES ═════════ -->
+<h3 id="bench-figs">Stage 1.4 — Tables &amp; Figures 图表</h3>
+<div class="card">
+<table>
+<tr><th>Benchmark</th><th>测什么</th><th>规模 / 来源</th><th>MinionsOS 评测流程</th><th>状态</th></tr>
+
+<tr>
+<td><strong>ArxivDIGESTables</strong> (EMNLP '24)<br><a href="https://arxiv.org/abs/2410.22360">2410.22360</a></td>
+<td>把文献综合成表格</td>
+<td>arXiv 多论文整合</td>
+<td>Writer 把多篇 paper-search 结果综合成对比表；与 ground-truth 表对比单元格</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>Chain-of-Table</strong> (ICLR '24)<br><a href="https://arxiv.org/abs/2401.04398">2401.04398</a></td>
+<td>用表格演化做推理</td>
+<td>表格推理任务</td>
+<td>Coder + Draft 中的表格 node 演化，对照 Chain-of-Table 思路</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>AbGen</strong> (ACL '25)<br><a href="https://arxiv.org/abs/2507.13300">2507.13300</a></td>
+<td>消融研究的设计与评估</td>
+<td>科研消融任务</td>
+<td>Coder + experiment_scheduler 自动设计消融组合；Ethics 审消融逻辑覆盖</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>FigureBench / AutoFigure</strong> (ICLR '26)<br><a href="https://arxiv.org/abs/2602.03828">2602.03828</a></td>
+<td>科研图生成 + refinement</td>
+<td><a href="https://github.com/ResearAI/AutoFigure">repo</a></td>
+<td>Writer + visual_render → visual_inspect 闭环；对照 AutoFigure baseline</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>SciFlow-Bench</strong> (arXiv '26)<br><a href="https://arxiv.org/abs/2602.09809">2602.09809</a></td>
+<td>结构感知的科学图生成（逆解析）</td>
+<td>结构图任务</td>
+<td>visual_check 闭环；测能否回放出原图的 logical structure</td>
+<td><span class="tag tag-orange">!</span></td>
+</tr>
+
+<tr>
+<td><strong>TeXpert</strong> (SDP '25)<br><a href="https://aclanthology.org/2025.sdp-1.2/">paper</a></td>
+<td>多级 LaTeX 代码生成</td>
+<td>从片段到全文档</td>
+<td>Writer 从 outline → LaTeX；Codex 编译验证；分级别打分</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+<tr>
+<td><strong>ChartQA</strong> (ACL '22, 仍为标准)<br><a href="https://aclanthology.org/2022.findings-acl.177/">paper</a></td>
+<td>图表理解</td>
+<td>9.6k 真实图表 QA</td>
+<td>visual_inspect 在 figure 上跑 QA；与 ChartGPT-style baseline 对比</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ═════════ STAGE 2 PAPER WRITING ═════════ -->
+<h3 id="bench-write">Stage 2 — Paper Writing 论文写作</h3>
+<div class="card">
+<table>
+<tr><th>Benchmark</th><th>测什么</th><th>规模 / 来源</th><th>MinionsOS 评测流程</th><th>状态</th></tr>
+
+<tr>
+<td><strong>SciIG</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2508.14273">2508.14273</a></td>
+<td>用 LLM 写论文 introduction</td>
+<td>Intro 写作专项</td>
+<td>Writer 仅写 introduction 段；Reviewer (Pass A) 评质量</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+<tr>
+<td><strong>PaperWritingBench</strong> (arXiv '26)<br><a href="https://arxiv.org/abs/2604.05018">2604.05018</a></td>
+<td>多代理论文写作</td>
+<td>PaperOrchestra 框架</td>
+<td>Writer + Coder（取实验数据）+ Expert（claim 校验）三方协作；与 PaperOrchestra 对比</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>AutoSurvey 4D rubric</strong> (NeurIPS '24)<br><a href="https://arxiv.org/abs/2406.10252">2406.10252</a></td>
+<td>长文学术生成的事实标准</td>
+<td><a href="https://github.com/AutoSurveys/AutoSurvey">repo</a></td>
+<td>Writer 写综述 → AutoSurvey 评 (citation recall/precision/coverage/coherence)</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ═════════ STAGE 3.1 PEER REVIEW ═════════ -->
+<h3 id="bench-review">Stage 3.1 — Peer Review 同行评审</h3>
+<div class="card">
+<p><strong>这是 MinionsOS 双重审查的主战场——<code>mos_review_run</code> + Ethics。</strong></p>
+<table>
+<tr><th>Benchmark</th><th>测什么</th><th>规模 / 来源</th><th>MinionsOS 评测流程</th><th>状态</th></tr>
+
+<tr>
+<td><strong>PeerRead</strong> (NAACL '18)<br><a href="https://aclanthology.org/N18-1149/">paper</a></td>
+<td>历史锚——同行评审基线数据</td>
+<td>多会议评审数据</td>
+<td><code>mos_review_run</code> Pass A + B + C 全跑；与 ground-truth 决策对比</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+<tr>
+<td><strong>ReviewMT</strong> (arXiv '24)<br><a href="https://arxiv.org/abs/2406.05688">2406.05688</a></td>
+<td>多轮长上下文 reviewer-author 对话</td>
+<td>多轮 review 模拟</td>
+<td>测 Reviewer 在多轮拉锯下的一致性与 ClaimCheck 通过率</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>AgentReview</strong> (EMNLP '24)<br><a href="https://aclanthology.org/2024.emnlp-main.70/">paper</a></td>
+<td>带 deliberate bias 的多代理 review 动力学</td>
+<td>含偏见 reviewer</td>
+<td>把 AgentReview 的 biased reviewer 当 challenger；测 mos_review_run 是否复现已知病态</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>ClaimCheck</strong> (EMNLP '25)<br><a href="https://aclanthology.org/2025.findings-emnlp.1185/">paper</a></td>
+<td>LLM critique 的依据接地度</td>
+<td>批评 grounding</td>
+<td>每条 critique 强制 <code>[evidence: …]</code> 标注；统计 grounded ratio</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+<tr>
+<td><strong>ReviewAgents</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2503.08506">2503.08506</a></td>
+<td>桥接 human/AI 评审差距</td>
+<td>对照人类评审</td>
+<td>mos_review_run 输出 vs. 人类评审在风格特征上的距离</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>ICLR 2025 Study</strong> (NMI '26)<br><a href="https://www.nature.com/articles/s42256-026-01188-x">paper</a></td>
+<td>真实 ICLR 上的 AI review 研究</td>
+<td>会议规模数据</td>
+<td>把 OpenReview 公开数据接进来；统计 mos_review_run 与人类一致性</td>
+<td><span class="tag tag-orange">!</span></td>
+</tr>
+
+<tr>
+<td><strong>AI Detection</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2502.19614">2502.19614</a></td>
+<td>检测论文是否被 LLM 评审</td>
+<td>评审风格指纹</td>
+<td>用 mos_review_run 输出过 Detection；目标：通过率（避免被识别为 AI）≥ 阈值</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>Breaking the Reviewer</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2506.11113">2506.11113</a></td>
+<td>评审在文本对抗攻击下的鲁棒性</td>
+<td>对抗 prompt 集</td>
+<td>把对抗 prompt 注入论文 → mos_review_run 是否被劫持；Ethics 是否检出 prompt injection</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>Prompt Injection Attacks</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2509.10248">2509.10248</a></td>
+<td>对评审的 prompt 注入攻击</td>
+<td>注入攻击集</td>
+<td>同上；专项 red-team Reviewer 子代理</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>RATE</strong> (arXiv '26)<br><a href="https://arxiv.org/abs/2601.19637">2601.19637</a></td>
+<td>评审专长 ranking（无标注训练）</td>
+<td>reviewer 专长建模</td>
+<td>对照 Expert role 的 domain pack 与 RATE 给出的 expertise 排序</td>
+<td><span class="tag tag-orange">!</span></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ═════════ STAGE 3.2 REBUTTAL ═════════ -->
+<h3 id="bench-rebuttal">Stage 3.2 — Rebuttal &amp; Revision 答辩与修订</h3>
+<div class="card">
+<table>
+<tr><th>Benchmark</th><th>测什么</th><th>规模 / 来源</th><th>MinionsOS 评测流程</th><th>状态</th></tr>
+
+<tr>
+<td><strong>Re²</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2505.07920">2505.07920</a></td>
+<td>Rebuttal 有效性评估</td>
+<td>评 rebuttal 后分变化</td>
+<td>Writer 收 Reviewer 反馈 → 写 rebuttal → mos_review_run Pass C 测 score lift</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>RebuttalAgent</strong> (ICLR '26)<br><a href="https://arxiv.org/abs/2601.15715">2601.15715</a></td>
+<td>带 ToM 的策略性 rebuttal</td>
+<td><a href="https://github.com/Zhitao-He/RebuttalAgent">repo</a></td>
+<td>Writer 在 rebuttal 时显式建模 reviewer 立场；测 acceptance lift</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>DRPG</strong> (arXiv '26)<br><a href="https://arxiv.org/abs/2601.18081">2601.18081</a></td>
+<td>学术 rebuttal 的代理框架</td>
+<td><a href="https://github.com/ulab-uiuc/DRPG-RebuttalAgent">repo</a></td>
+<td>对比 DRPG 与 MinionsOS 的 Writer-Reviewer-Writer 三步循环</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>Commitment Checklist</strong> (arXiv '26)<br><a href="https://arxiv.org/abs/2603.00003">2603.00003</a></td>
+<td>审计作者承诺是否兑现</td>
+<td>承诺-修订对照</td>
+<td>从 rebuttal 提承诺 → 比照 revision diff；写入 governance/role_evolution.jsonl 的同款 evidence-driven 模式</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ═════════ STAGE 4 DISSEMINATION ═════════ -->
+<h3 id="bench-disseminate">Stage 4 — Dissemination 传播 (Paper2X)</h3>
+<div class="card">
+<p><strong>当前未覆盖。</strong>MinionsOS 没有 Paper2Slides / Paper2Poster / Paper2Video role；列表保留以备未来扩展时直接评。</p>
+<table>
+<tr><th>Benchmark</th><th>测什么</th><th>来源</th><th>状态</th></tr>
+<tr><td><strong>P2P</strong> (ICLR '26)</td><td>论文→海报 + 细粒度评估</td><td><a href="https://openreview.net/forum?id=JojyT9niJL">paper</a></td><td><span class="tag tag-red">✗</span></td></tr>
+<tr><td><strong>Paper2Poster</strong> (NeurIPS '25)</td><td>多模态海报</td><td><a href="https://github.com/Paper2Poster/Paper2Poster">repo</a></td><td><span class="tag tag-red">✗</span></td></tr>
+<tr><td><strong>PPTAgent / PPTEval</strong> (EMNLP '25)</td><td>论文→slides + 评估</td><td><a href="https://github.com/icip-cas/PPTAgent">repo</a></td><td><span class="tag tag-red">✗</span></td></tr>
+<tr><td><strong>Paper2Video</strong> (arXiv '25)</td><td>论文→视频</td><td><a href="https://github.com/showlab/Paper2Video">repo</a></td><td><span class="tag tag-red">✗</span></td></tr>
+<tr><td><strong>Paper2Web</strong> (arXiv '25)</td><td>论文→交互页面</td><td><a href="https://github.com/YuhangChen1/Paper2All">repo</a></td><td><span class="tag tag-red">✗</span></td></tr>
+<tr><td><strong>PresentQuiz / PresentEval</strong></td><td>视频/演讲质量评估</td><td><a href="https://aclanthology.org/2025.emnlp-demos.58/">paper</a></td><td><span class="tag tag-red">✗</span></td></tr>
+</table>
+</div>
+
+<!-- ═════════ END-TO-END / GENERAL ASSISTANCE ═════════ -->
+<h3 id="bench-e2e">跨阶段 — General Browsing &amp; End-to-End 通用与端到端</h3>
+<div class="card">
+<table>
+<tr><th>Benchmark</th><th>测什么</th><th>规模 / 来源</th><th>MinionsOS 评测流程</th><th>状态</th></tr>
+
+<tr>
+<td><strong>GAIA</strong> (arXiv '23)<br><a href="https://arxiv.org/abs/2311.12983">2311.12983</a></td>
+<td>研究助手的真实世界 QA（450 题三档）</td>
+<td>人 92% / GPT-4 +工具 ~15%</td>
+<td>Gru 路由到合适 Role；纯 web tool + paper-search 联合</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+<tr>
+<td><strong>BrowseComp</strong> (arXiv '25)<br><a href="https://arxiv.org/abs/2504.12516">2504.12516</a></td>
+<td>1266 个难找信息查询</td>
+<td>OpenAI 制作</td>
+<td>Writer 的 federated search vs. 单 web 工具</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>SimpleQA</strong> (arXiv '24)<br><a href="https://arxiv.org/abs/2411.04368">2411.04368</a></td>
+<td>4326 短答题，专门暴露幻觉</td>
+<td>OpenAI 制作</td>
+<td>Ethics 双重审；以幻觉率为目标</td>
+<td><span class="tag tag-green">✓</span></td>
+</tr>
+
+<tr>
+<td><strong>Humanity's Last Exam (HLE)</strong> (arXiv '25)<br><a href="https://github.com/centerforaisafety/hle">repo</a></td>
+<td>3000+ 专家级跨学科题</td>
+<td>CAIS + Scale</td>
+<td>多 Expert 协作；测 Role evolution 的 split 是否能匹配题目子领域</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+<tr>
+<td><strong>AAAR-1.0</strong> (arXiv '24)<br><a href="https://arxiv.org/abs/2410.22394">2410.22394</a></td>
+<td>AI 在科研任务上的能力评测</td>
+<td>多任务 suite</td>
+<td>跨 Role 综合分；与 Sakana AI Scientist 等 e2e 系统对比</td>
+<td><span class="tag tag-blue">~</span></td>
+</tr>
+
+</table>
+</div>
+
+<div class="section-divider">• • •</div>
+
+<!-- ═════════ COVERAGE MATRIX ═════════ -->
+<h3 id="bench-coverage">MinionsOS 覆盖矩阵 · 一目了然</h3>
+<div class="card">
+<table>
+<tr><th>Stage</th><th>✓ 直评</th><th>~ 轻 adapter</th><th>! 中改造</th><th>✗ 不覆盖</th><th>合计</th></tr>
+<tr><td>1.1 Idea Generation</td><td>0</td><td>4</td><td>2</td><td>0</td><td>6</td></tr>
+<tr><td>1.2 Literature Review</td><td>2</td><td>3</td><td>2</td><td>0</td><td>7</td></tr>
+<tr><td>1.3 Coding &amp; Experiments</td><td>7</td><td>9</td><td>9</td><td>0</td><td>25</td></tr>
+<tr><td>1.4 Tables &amp; Figures</td><td>2</td><td>4</td><td>1</td><td>0</td><td>7</td></tr>
+<tr><td>2 Paper Writing</td><td>2</td><td>1</td><td>0</td><td>0</td><td>3</td></tr>
+<tr><td>3.1 Peer Review</td><td>2</td><td>6</td><td>2</td><td>0</td><td>10</td></tr>
+<tr><td>3.2 Rebuttal</td><td>0</td><td>4</td><td>0</td><td>0</td><td>4</td></tr>
+<tr><td>4 Dissemination</td><td>0</td><td>0</td><td>0</td><td>6</td><td>6</td></tr>
+<tr><td>跨阶段 e2e</td><td>2</td><td>3</td><td>0</td><td>0</td><td>5</td></tr>
+<tr style="font-weight:600;background:var(--code-bg);"><td>合计</td><td>17</td><td>34</td><td>16</td><td>6</td><td><strong>73</strong></td></tr>
+</table>
+<p style="margin-top:1rem;"><strong>结论：</strong>73 个 benchmark 中 <strong>67 个（92%）</strong>可以接入 MinionsOS 评测，仅传播阶段 6 个完全不覆盖。Stage 1.3 Coding &amp; Experiments 是火力最密集的战场（25 项，全可评）。</p>
+</div>
+
+<h3 id="bench-priorities">建议的优先级（先做哪些）</h3>
+<div class="card">
+<ol>
+<li><strong>金标 — PaperBench</strong>（8316 rubric leaves，端到端复现 ICML 2024 paper）：能跑通就是 MinionsOS "全栈实力"的最强 evidence。</li>
+<li><strong>核心战场 — SWE-bench / SWE-bench Pro / MLE-Bench / MLAgentBench</strong>：Coder + experiment_scheduler + Codex 是已有最成熟的链路，先跑这一组建立 e2e 数字。</li>
+<li><strong>差异化 — ClaimCheck + AI Detection + Breaking the Reviewer</strong>：测 Ethics + mos_review_run 双重审查的差异化优势（v.s. 单代理 review）。</li>
+<li><strong>记忆/长程 — RE-Bench + SWE-bench Pro</strong>：测 Reel L0 + Draft L1 + Book L2 的长程协作价值，这是与所有竞品最大的架构差。</li>
+<li><strong>角色演化 — MLR-Bench + FrontierScience + HLE</strong>：测 mos_role_evolve_evaluate 的 split/merge/dismiss 在多领域开放任务上的效用。</li>
+</ol>
+</div>
+
+<h3 id="bench-meta">使用须知（不是所有 benchmark 都该等价对待）</h3>
+<div class="card">
+<ul>
+<li><strong>2026 年生成的 benchmark 编号有错位风险</strong>：原 README 多个条目用 <code>arXiv:2601.xxxxx</code> 等占位 ID，正式开跑前需用 GitHub repo / DOI 实际确认；<em>从 README 中复制的 arXiv 链接需逐一核验</em>。</li>
+<li><strong>Saturation 警告</strong>：GAIA / SimpleQA / SWE-bench 等 2024 之前的 benchmark 在 2026 年可能已被前沿模型 saturate；它们应作为 sanity check，<strong>而不是</strong> headline result。</li>
+<li><strong>License + 评分 API</strong>：很多 benchmark 需 OpenAI judge / GPT-4 judge；列入预算。可用本地 Codex GPT-5.5 替代以节约。</li>
+<li><strong>对照对手</strong>：每跑一个 benchmark 都至少再跑一次 baseline（同模型裸 Claude Code 或 single-agent loop），否则数字无解读价值。</li>
+</ul>
+</div>
+
+<div class="section-divider">• • •</div>
+
+<p style="text-align:center; color:#999; font-size:0.85rem; margin-top:3rem;">
+MinionsOS 评测证据 · 最后更新：2026-05-22 · 内部讨论用<br>
+新增：自主科研 Benchmarks 全景（来源 arXiv:2605.18661）
+</p>
+
+</div>
+</body>
+</html>
+

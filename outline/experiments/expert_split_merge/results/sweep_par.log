@@ -1,0 +1,21 @@
+jobs=30
+[skip] static-1_mixed_s0 0.0s None
+[ok] static-1_mixed_s1 182.3s {'n': 16, 'acc': 1.0, 'in_tok': 41307, 'out_tok': 1058, 'latency_calls': 76.66246962547302, 'decisions': 0, 'final_roster': ['mathematician']}
+[ok] static-1_drift_s0 200.3s {'n': 13, 'acc': 1.0, 'in_tok': 36947, 'out_tok': 770, 'latency_calls': 148.34327745437622, 'decisions': 0, 'final_roster': ['mathematician']}
+[ok] static-1_drift_s1 350.0s {'n': 13, 'acc': 1.0, 'in_tok': 29588, 'out_tok': 750, 'latency_calls': 64.42260789871216, 'decisions': 0, 'final_roster': ['mathematician']}
+[ok] static-N_mixed_s0 390.1s {'n': 16, 'acc': 1.0, 'in_tok': 32041, 'out_tok': 1045, 'latency_calls': 92.49819850921631, 'decisions': 0, 'final_roster': ['algebraist', 'geometer']}
+[ok] dynamic_mixed_s0 54.4s {'n': 16, 'acc': 1.0, 'in_tok': 31679, 'out_tok': 1182, 'latency_calls': 54.426180362701416, 'decisions': 0, 'final_roster': ['mathematician']}
+[ok] static-N_drift_s0 290.2s {'n': 13, 'acc': 1.0, 'in_tok': 27348, 'out_tok': 986, 'latency_calls': 134.5181369781494, 'decisions': 0, 'final_roster': ['algebraist', 'geometer']}
+[ok] static-N_mixed_s1 329.7s {'n': 16, 'acc': 1.0, 'in_tok': 35844, 'out_tok': 1100, 'latency_calls': 69.26818180084229, 'decisions': 0, 'final_roster': ['algebraist', 'geometer']}
+[ok] dynamic_drift_s0 84.8s {'n': 13, 'acc': 1.0, 'in_tok': 33917, 'out_tok': 849, 'latency_calls': 84.80554866790771, 'decisions': 0, 'final_roster': ['mathematician']}
+[ok] dynamic_mixed_s1 132.8s {'n': 16, 'acc': 1.0, 'in_tok': 40285, 'out_tok': 1071, 'latency_calls': 132.82728385925293, 'decisions': 0, 'final_roster': ['mathematician']}
+[ok] static-N_drift_s1 231.6s {'n': 13, 'acc': 1.0, 'in_tok': 32451, 'out_tok': 807, 'latency_calls': 105.50797867774963, 'decisions': 0, 'final_roster': ['algebraist', 'geometer']}
+[ok] dynamic_drift_s1 145.7s {'n': 13, 'acc': 1.0, 'in_tok': 20856, 'out_tok': 906, 'latency_calls': 145.6898648738861, 'decisions': 0, 'final_roster': ['mathematician']}
+[ok] static-1_hard_s2 94.1s {'n': 16, 'acc': 1.0, 'in_tok': 31163, 'out_tok': 1683, 'latency_calls': 94.10966897010803, 'decisions': 0, 'final_roster': ['mathematician']}
+[ok] static-1_hard_s1 112.4s {'n': 16, 'acc': 1.0, 'in_tok': 50303, 'out_tok': 1480, 'latency_calls': 112.38845205307007, 'decisions': 0, 'final_roster': ['mathematician']}
+[ok] static-1_hard_s0 123.6s {'n': 16, 'acc': 1.0, 'in_tok': 36217, 'out_tok': 1597, 'latency_calls': 123.55519890785217, 'decisions': 0, 'final_roster': ['mathematician']}
+[ok] static-1_noisy_s0 84.5s {'n': 16, 'acc': 1.0, 'in_tok': 26856, 'out_tok': 1637, 'latency_calls': 84.46780705451965, 'decisions': 0, 'final_roster': ['mathematician']}
+[ok] static-1_noisy_s1 74.5s {'n': 16, 'acc': 1.0, 'in_tok': 48420, 'out_tok': 1617, 'latency_calls': 74.51205277442932, 'decisions': 0, 'final_roster': ['mathematician']}
+[ok] static-1_noisy_s2 107.9s {'n': 16, 'acc': 1.0, 'in_tok': 42540, 'out_tok': 1502, 'latency_calls': 107.91647124290466, 'decisions': 0, 'final_roster': ['mathematician']}
+[ok] static-N_hard_s2 353.0s {'n': 16, 'acc': 1.0, 'in_tok': 28267, 'out_tok': 1487, 'latency_calls': 63.85871171951294, 'decisions': 0, 'final_roster': ['algebraist', 'geometer']}
+[ok] static-N_noisy_s0 311.4s {'n': 16, 'acc': 1.0, 'in_tok': 40463, 'out_tok': 1446, 'latency_calls': 139.22428345680237, 'decisions': 0, 'final_roster': ['algebraist', 'geometer']}
