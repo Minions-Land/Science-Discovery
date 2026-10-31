@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Volcano plot clearly shows three categories (up/down/NS) with dashed threshold lines and top-5 gene annotations; directly matches brief.",
+    "typography":            "Script sets no fonttype=42/svg.fonttype; PDF embeds DejaVu Sans as Type 3 (bitmap) fonts, not editable Type 42; default matplotlib font used.",
+    "palette":               "Grey/blue/red palette is mostly colorblind-safe (no pure green/red ambiguity); red=up, blue=down, grey=NS follows directional convention correctly.",
+    "layout_density":        "6x5-inch figure with tight_layout; scatter points fill plot area well; no gaping whitespace; top/right spines removed for clean look.",
+    "reviewer_readiness":    "Caption matches figure well; legend is inside plot (could overlap data); no axis tick density issue; gene labels use G{index} instead of real gene names (minor issue).",
+    "vector_fidelity":       "PDF uses Type 3 (bitmap) fonts — pdffonts confirms DejaVuSans Type 3; fonttype=42 not set in script, so text is not selectable/editable in PDF.",
+    "file_format":           "figure.pdf, figure.png, figure.svg, caption.tex, and gen_figure.py all present and non-trivial (PDF 67K, PNG 84K, SVG 91K).",
+    "caption_quality":       "Caption states thresholds numerically (log2FC>=1, -log10p>=2), identifies all three categories, mentions dashed threshold lines and top-5 labeling — specific and complete."
+  },
+  "overall_strengths": [
+    "Clear, well-structured volcano plot that directly satisfies the brief with correct three-category coloring, threshold lines, and top-5 gene annotations.",
+    "Caption is detailed and quantitative, naming exact thresholds and describing all visual elements."
+  ],
+  "overall_weaknesses": [
+    "No pdf.fonttype=42 setting: fonts are embedded as Type 3 (bitmap) in the PDF, making text non-selectable and non-editable — a key requirement for publication-ready vector figures.",
+    "Default DejaVu Sans font used throughout; no explicit fonttype configuration, which also means the SVG likely has non-editable text paths."
+  ]
+}

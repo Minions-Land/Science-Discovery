@@ -1,0 +1,12 @@
+\caption{%
+  \textbf{Overview of the proposed method and empirical results.}
+  \textbf{(A)}~Conceptual diagram of the 3-stage pipeline: an encoder maps input $x$ to
+  token embeddings, a reasoning stage applies attention and memory, and a skill-head decoder
+  produces output $\hat{y}$.
+  \textbf{(B)}~Ablation study: removing any single component (attention, memory, residual
+  connections, or the skill head) degrades performance, with the full model achieving 64.7.
+  \textbf{(C)}~Training loss curves over 30k steps; our method converges faster and to a
+  lower final loss than the baseline.
+  \textbf{(D)}~Sensitivity sweep over hyperparameter grid $\{S_0\text{--}S_4\}\times\{P_0\text{--}P_4\}$;
+  scores range from 0.04 to 0.99, highlighting regions of high and low performance.%
+}

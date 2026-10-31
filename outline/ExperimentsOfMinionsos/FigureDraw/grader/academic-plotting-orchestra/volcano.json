@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    1,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       1
+  },
+  "evidence": {
+    "scientific_clarity":   "Volcano plot clearly shows up/down/NS groups with correct threshold lines and top-5 gene labels, fully addressing the brief.",
+    "typography":            "Script omits pdf.fonttype=42; pdffonts confirms Type 3 (bitmapped) DejaVuSans fonts — text is not selectable/editable in the PDF. DejaVu Sans is the matplotlib default.",
+    "palette":               "Blue (down) / red (up) / grey (NS) is directionally disciplined and avoids green/red confusion; blue-red may still be problematic for protanopia/deuteranopia.",
+    "layout_density":        "tight_layout used, no gaping whitespace, top/right spines removed, y-range sensible; top-5 labels use offset points and stroke to avoid overlap.",
+    "reviewer_readiness":    "Caption contains unfilled placeholder '$n=$ up' — the upregulated count was never substituted, which Reviewer 2 would immediately flag.",
+    "vector_fidelity":       "pdffonts reports Type 3 (non-embedded, bitmapped) fonts; text is not selectable. Script does not set rcParams['pdf.fonttype']=42.",
+    "file_format":           "figure.pdf (206 KB), figure.png (110 KB), figure.svg, caption.tex, and gen_figure.py all exist and are non-trivial.",
+    "caption_quality":       "Caption has a literal LaTeX placeholder '$n=$ up' (unfilled count); the intended numerical claim is absent, making the caption scientifically incomplete."
+  },
+  "overall_strengths": [
+    "Figure clearly communicates differential expression with correct coloring, threshold lines, and gene annotations — strong scientific execution.",
+    "All required output files (PDF, PNG, SVG, caption, script) are present and non-trivial in size."
+  ],
+  "overall_weaknesses": [
+    "PDF uses bitmapped Type 3 fonts (no pdf.fonttype=42 set), making text non-selectable and non-editable — a critical submission-readiness failure.",
+    "Caption contains an unfilled placeholder ('$n=$ up') that omits the upregulated-gene count, rendering the stated numerical claim incomplete."
+  ]
+}

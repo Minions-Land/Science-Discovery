@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               3,
+    "layout_density":        3,
+    "reviewer_readiness":    3,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Three methods with mean lines and 95% CI bands on log-scale y-axis, gap annotated with double-headed arrow and delta value — fully matches brief.",
+    "typography":            "No pdf.fonttype=42 or svg.fonttype set; pdffonts confirms Type 3 (bitmap) DejaVu Sans — the matplotlib default, not a professional font choice.",
+    "palette":               "Uses Wong colorblind-safe palette (#555555 gray, #0072B2 blue, #D55E00 orange); no green/red reserved for directional meaning.",
+    "layout_density":        "Compact 4.5x3.2 in figure, tight_layout(), xlim clipped to data range, log scale fills vertical space, top/right spines removed.",
+    "reviewer_readiness":    "Caption matches figure content; legend frameless at upper right; gap annotated with delta; n=5 seeds stated; no obvious Reviewer 2 targets.",
+    "vector_fidelity":       "pdffonts shows BMQQDV+DejaVuSans as Type 3 (not Type 42) — text is bitmapped, not selectable; pdf.fonttype=42 was never set in the script.",
+    "file_format":           "All required files present and non-trivial: figure.pdf (17K), figure.png (131K), figure.svg (36K), caption.tex (360B), gen_figure.py (2.0K).",
+    "caption_quality":       "Bold title, explains lines and shaded bands, cites n=5 seeds, states directional finding, and gives specific numerical claim (delta=0.15)."
+  },
+  "overall_strengths": [
+    "Colorblind-safe Wong palette applied correctly with no green/red directional confusion.",
+    "Caption is publication-ready: bold title, methodology detail (n=5 seeds), and a concrete numerical finding (delta=0.15)."
+  ],
+  "overall_weaknesses": [
+    "Missing pdf.fonttype=42 (and svg.fonttype='none') means all text in the PDF/SVG is bitmapped Type 3 — not selectable, not editable by journal production.",
+    "Default DejaVu Sans font used throughout; a Nature/Science-style figure should specify a professional serif or sans-serif (e.g. Helvetica, Arial, or a custom rcParams font family)."
+  ]
+}

@@ -1,0 +1,13 @@
+\caption{\textbf{Overview and evaluation of the proposed 3-stage pipeline.}
+\textbf{(A)}~Conceptual diagram of the method: raw input is processed sequentially by an
+Encoder (Stage~1, feature extraction), a Reasoner (Stage~2, attention and memory), and a
+Decoder (Stage~3, skill head).
+\textbf{(B)}~Ablation study showing accuracy (\%) of the full model versus variants with
+individual components removed ($-$attn, $-$mem, $-$residual, $-$skill); the full model
+attains the highest accuracy (64.7\%).
+\textbf{(C)}~Training loss curves over 30k steps for Baseline and Ours; the proposed method
+converges faster and reaches a lower final loss.
+\textbf{(D)}~Sensitivity sweep: a 5$\times$5 heatmap of model score across perturbation
+parameters P0--P4 and sensitivity parameters S0--S4; higher values (darker red) indicate
+robustness to the corresponding configuration.
+All data from \texttt{data.json}; no values were mocked.}

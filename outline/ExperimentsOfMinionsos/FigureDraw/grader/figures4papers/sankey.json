@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Sankey diagram clearly shows pipeline flow: 1000 raw → 880 cleaned → 820 filtered → 600/120/100 splits + rejections; band widths proportional; readable labels and counts.",
+    "typography":            "Script uses DejaVu Sans (Type 3 fonts confirmed by pdffonts); no pdf.fonttype=42 or svg.fonttype=0 set; fonts not editable/selectable in PDF, violating the rubric requirement.",
+    "palette":               "Color scheme uses Seaborn default-like hues that are not fully colorblind-safe (green/red not used directionally but some colors remain problematic for dichromats); reject nodes correctly use neutral gray.",
+    "layout_density":        "Panel uses space well with 9×5.5 figsize; nodes stacked neatly in columns; value annotations placed above nodes without overlap; minimal wasted whitespace.",
+    "reviewer_readiness":    "No legend is provided (colors explained only by node labels inside rectangles); caption matches figure content accurately; column stage labels are present as italic text.",
+    "vector_fidelity":       "PDF fonts are Type 3 (bitmap-embedded), not Type 1/TrueType with fonttype=42; text is not selectable/editable in the PDF; SVG also generated but fonttype not explicitly set.",
+    "file_format":           "All four required files exist and are non-trivial: figure.pdf (21 KB), figure.png (85 KB), caption.tex (435 B), gen_figure.py (6.3 KB); figure.svg also present as bonus.",
+    "caption_quality":       "Caption precisely names the figure type, lists all stages with exact counts (1000 raw, 120 rejected at ingestion, 60 at cleaning, 820 filtered, 600/120/100 splits), explains band widths, and cites data source."
+  },
+  "overall_strengths": [
+    "Clear and accurate Sankey layout with proportional band widths, correct flow accounting, and readable numeric annotations matching the caption's stated values.",
+    "High-quality caption with specific numerical claims covering every stage of the pipeline, data source attribution, and explanation of visual encoding."
+  ],
+  "overall_weaknesses": [
+    "Font type is Type 3 (bitmap) rather than Type 42 (TrueType); pdf.fonttype=42 was never set, so text in the PDF is not selectable or editable by journal production.",
+    "Color palette uses DejaVu Sans defaults and is not explicitly colorblind-safe (no Okabe-Ito or similar palette chosen); no standalone legend—node colors identified only by in-node labels."
+  ]
+}

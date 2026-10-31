@@ -1,0 +1,5 @@
+\caption{\textbf{Method overview and empirical evaluation.}
+\textbf{(A)}~Conceptual diagram of the proposed 3-stage pipeline: an input encoding stage feeds an attention-and-memory stage, whose output is decoded by a skill-decoding stage; a residual skip connection bypasses all three stages.
+\textbf{(B)}~Ablation study: removing attention (\texttt{-attn}), memory (\texttt{-mem}), residual connections (\texttt{-residual}), or skill decoding (\texttt{-skill}) each degrades accuracy relative to the full model (64.7\%).
+\textbf{(C)}~Training loss curves over 30k steps; our method converges faster and to a lower final loss than the baseline.
+\textbf{(D)}~Sensitivity sweep over hyperparameter grid $S \times P$ ($5\times5$); scores range from 0.04 to 0.99, with high sensitivity concentrated along the $S_4$ column.}

@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            3,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       3,
+    "file_format":           3,
+    "caption_quality":       2
+  },
+  "evidence": {
+    "scientific_clarity":   "Stacked bars across 5 conditions with 4 classes each summing to 1 (100%) directly fulfills the brief; y-axis uses PercentFormatter 0–100%.",
+    "typography":            "pdf.fonttype=42 and svg.fonttype='none' both set; font family list leads with Arial (not DejaVu Sans default); base 8pt, ticks 7pt, legend 6.5pt are all legible at 3.5\" width.",
+    "palette":               "No red/green directional colors used; however #0F4D92 (dark blue) and #42949E (teal) are both blue-family hues that may be indistinguishable under deuteranopia — not a certified colorblind-safe palette.",
+    "layout_density":        "Compact 3.5×2.8\" figure with tight_layout; legend placed outside-right avoids overlap; y-range 0–1 is exact for proportions; no gaping whitespace.",
+    "reviewer_readiness":    "Caption describes structure and colors but contains no specific numerical finding (e.g., 'Condition X has the highest Class A proportion at 45%'); a Reviewer 2 would request a concrete takeaway.",
+    "vector_fidelity":       "PDF contains /Subtype /CIDFontType2 with embedded ArialMT (GOFYPY+ArialMT), confirming real vector output with selectable/editable text; pdf.fonttype=42 explicitly set in script.",
+    "file_format":           "figure.pdf (18 KB), figure.png (35 KB), figure.svg (13 KB), caption.tex (397 B), gen_figure.py (2.1 KB) all present and non-trivial; data.json is an input not an output.",
+    "caption_quality":       "Caption correctly names classes, conditions, color mapping, and confirms bars sum to 1; lacks any quantitative finding or scientific claim that would make it stand alone."
+  },
+  "overall_strengths": [
+    "Proper vector/editable-text settings (pdf.fonttype=42, svg.fonttype='none') with ArialMT embedded in PDF — press-ready output.",
+    "Clean, compact layout (3.5×2.8\") with correct y-range, percent axis labels, and outside-right legend that avoids bar overlap."
+  ],
+  "overall_weaknesses": [
+    "Color palette pairs dark blue (#0F4D92) and teal (#42949E) which are not reliably distinguishable under common forms of color vision deficiency — should use a validated colorblind-safe set (e.g., Okabe-Ito or ColorBrewer qualitative).",
+    "Caption is purely descriptive with no numerical finding; a journal reviewer would require at least one concrete quantitative observation drawn from the data."
+  ]
+}

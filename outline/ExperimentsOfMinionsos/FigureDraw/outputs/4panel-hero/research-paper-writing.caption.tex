@@ -1,0 +1,13 @@
+\caption{\textbf{Four-panel hero figure.}
+\textbf{(A)}~Conceptual overview of the proposed 3-stage pipeline: an Input Encoder feeds
+an Attention + Memory stage (with a residual skip connection to the Skill Decoder),
+which produces the final prediction.
+\textbf{(B)}~Ablation study: horizontal bars show accuracy (\%) for the full model
+(\emph{full}, 64.7\%) versus five component-removal variants; each ablation degrades
+performance, confirming the contribution of every module.
+\textbf{(C)}~Training-loss convergence over 30 k steps for \emph{Ours} vs.\ \emph{Baseline};
+the shaded region highlights the gap closed by the proposed method.
+\textbf{(D)}~Sensitivity sweep: a $5{\times}5$ heatmap of task score across five
+hyperparameter-scale levels (S0--S4) and five penalty factors (P0--P4); high scores
+(green) cluster near S3--S4, confirming robustness in that regime.
+All data sourced from \texttt{data.json}; Panel~A diagram is illustrative.}

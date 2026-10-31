@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            1,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       1,
+    "file_format":           3,
+    "caption_quality":       2
+  },
+  "evidence": {
+    "scientific_clarity":   "Violin+box+jitter for all 4 conditions in correct order with Mann-Whitney brackets vs Control; brief fully satisfied.",
+    "typography":            "No pdf.fonttype=42 or svg.fonttype=0 set anywhere in script; default DejaVu Sans used; font sizes 9-10pt are acceptable but font family is not explicitly chosen.",
+    "palette":               "Vega-derived blue/teal/orange/red; no green present so no green/red directional confusion, but red on Combo implies negative direction for a categorical variable, and blue-teal pair may be hard to distinguish under tritanopia.",
+    "layout_density":        "Single 6.5x4.5in panel with tight_layout, no legend needed, stacked significance brackets above data, y-axis starts at 0, no wasted whitespace.",
+    "reviewer_readiness":    "Caption accurately describes all visual elements and statistical method; no specific numerical finding (e.g., '% reduction') is stated, which Reviewer 2 would likely request.",
+    "vector_fidelity":       "figure.pdf is saved but script never sets matplotlib.rcParams['pdf.fonttype']=42, so text will be Type 3 bitmap fonts rather than selectable/editable vector text.",
+    "file_format":           "figure.pdf, figure.png, figure.svg, caption.tex, and gen_figure.py all present and non-trivial; exceeds brief requirements.",
+    "caption_quality":       "Caption explains plot geometry, n=100, IQR, whiskers, alpha, and statistical test with significance thresholds, but omits a concrete numerical claim about the key finding."
+  },
+  "overall_strengths": [
+    "Complete, well-structured violin+box+jitter plot that fully satisfies the brief's visual requirements with correct condition ordering and significance brackets.",
+    "All required output files are present and the caption accurately describes every visual element including statistical methodology."
+  ],
+  "overall_weaknesses": [
+    "Missing pdf.fonttype=42 (and svg.fonttype=0) means PDF/SVG text is bitmapped Type 3, not selectable vector — a standard requirement for journal submission.",
+    "Caption lacks a specific numerical finding (e.g., median viability or percent change for Combo vs Control), which is expected for a results figure caption."
+  ]
+}

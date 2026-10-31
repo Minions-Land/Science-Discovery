@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   2,
+    "typography":            2,
+    "palette":               2,
+    "layout_density":        2,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       2,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Sankey correctly shows 1000->820->600/120/100 flow with proportional band widths; no numeric labels on flows/nodes so counts must be inferred from caption alone.",
+    "typography":            "Arial used throughout (confirmed in SVG and PDF CMap); font size 13px body / 16px title is reasonable; no DejaVu Sans; but PDF uses kaleido raster-compositing for alpha bands (28 Image XObjects) so fonttype=42 concept doesn't apply — text IS selectable (CIDFontType2/Type0 embedded).",
+    "palette":               "Seven distinct hues; green (Cleaned) vs red (Filtered) encodes pass/reject which is directional-appropriate, but red-green pair fails deuteranopia; no legend — relies solely on node text labels.",
+    "layout_density":        "820x480 canvas is well-used; three pipeline stages spread across width; node labels readable without overlap; Val and Test nodes are narrow and close together at right edge but not overlapping.",
+    "reviewer_readiness":    "Caption matches figure content and cites specific counts; no legend for node colors; no numeric annotations on flow bands (reviewer will likely ask for counts on links); 'implicitly absorbed by rounding' note in caption is awkward.",
+    "vector_fidelity":       "PDF contains embedded ArialMT (CIDFontType2/Type0) with selectable text confirmed via CMap decoding; Sankey link bands use alpha-composited Image XObjects (kaleido limitation) but text and node rectangles are true vectors.",
+    "file_format":           "figure.pdf (70KB), figure.png (129KB @2x), figure.svg (8.2KB), caption.tex, and gen_figure.py all present and non-trivial.",
+    "caption_quality":       "Caption states specific counts (1000 raw, 120 rejected at ingestion, 60 during cleaning, 820 cleaned, 600 train / 120 val / 100 test) and explains flow-width encoding; covers the key numerical finding."
+  },
+  "overall_strengths": [
+    "All required output files present; PDF has selectable embedded Arial text (not rasterized labels); caption provides concrete numerical claims matching the figure.",
+    "Clean Plotly Sankey layout with consistent source-color coding for flows, proportional band widths, and a readable title."
+  ],
+  "overall_weaknesses": [
+    "No numeric annotations on flow bands — readers cannot read off counts without consulting the caption, and a reviewer will likely request them.",
+    "Red-green color pair (Cleaned=green, Filtered=red) fails deuteranopia colorblind safety; alpha-composited link bands are rasterized Image XObjects in the PDF rather than true vector paths."
+  ]
+}

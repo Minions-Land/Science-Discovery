@@ -1,0 +1,30 @@
+{
+  "scores": {
+    "scientific_clarity":   3,
+    "typography":            0,
+    "palette":               2,
+    "layout_density":        3,
+    "reviewer_readiness":    2,
+    "vector_fidelity":       0,
+    "file_format":           3,
+    "caption_quality":       3
+  },
+  "evidence": {
+    "scientific_clarity":   "Volcano plot clearly shows 3 groups (up/down/non-sig) with dashed threshold lines; top-5 genes annotated; axes labeled with proper math notation.",
+    "typography":            "PDF uses Type 3 fonts (DejaVu Sans variants), not Type 42/TrueType; script lacks 'pdf.fonttype=42' and 'svg.fonttype=none'; text is not selectable/editable.",
+    "palette":               "Red/blue for up/down is directionally disciplined; grey for non-sig is appropriate; palette is roughly colorblind-safe (red-blue contrast OK for deuteranopes, but red/grey may be marginal).",
+    "layout_density":        "tight_layout used; figure is 7x5.5 inches; scatter points sized appropriately; no obvious whitespace waste or label overlap issues.",
+    "reviewer_readiness":    "Legend placed upper-right which may overlap with upregulated genes at high -log10(p); gene labels use index (Gene123) rather than gene symbols, which a reviewer would flag.",
+    "vector_fidelity":       "PDF fonts are Type 3 (bitmapped outlines), not Type 42 (embedded TrueType); text is not selectable; script does not set rcParams['pdf.fonttype']=42.",
+    "file_format":           "All required files present and non-trivial: figure.pdf, figure.png, figure.svg, caption.tex, gen_figure.py.",
+    "caption_quality":       "Caption states n=235 up, n=230 down, n=2535 non-sig; defines thresholds (|log2FC|=1, -log10p=2); explains axes and dashed lines; specific numerical claims present."
+  },
+  "overall_strengths": [
+    "Clear, well-labeled volcano plot that accurately conveys the scientific message with precise gene counts and threshold annotations in both figure and caption.",
+    "All required output files are present (pdf, png, svg, caption.tex, gen_figure.py) and the caption provides strong quantitative claims matching the figure."
+  ],
+  "overall_weaknesses": [
+    "Typography is broken: script omits 'matplotlib.rcParams[\"pdf.fonttype\"]=42', resulting in Type 3 (non-selectable, non-editable) DejaVu Sans fonts in the PDF instead of embedded TrueType.",
+    "Gene annotations use numeric indices (Gene1, Gene234…) rather than meaningful gene symbols, and the legend placement in the upper-right may be obscured by upregulated-gene data points."
+  ]
+}
